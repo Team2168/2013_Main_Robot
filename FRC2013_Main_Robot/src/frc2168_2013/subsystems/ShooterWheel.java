@@ -76,7 +76,7 @@ public class ShooterWheel extends Subsystem {
     public void driveShooterWheels(double aftWheelSpeed, double fwdWheelSpeed) {    	
     	driveFwdWheel(fwdWheelSpeed);
     	driveAftWheel(aftWheelSpeed);
-    	System.out.println(shooterWheelEncoderAft.getRate() + "\t" + shooterWheelEncoderFwd.getRate());
+    	//System.out.println(shooterWheelEncoderAft.getRate() + "\t" + shooterWheelEncoderFwd.getRate());
     }
     
     /**

@@ -1,6 +1,7 @@
 
 package frc2168_2013.commands.subSystems.ShooterAngle;
 
+import frc2168_2013.CommandBaseRobot;
 import frc2168_2013.commands.CommandBase;
 
 /**
@@ -28,6 +29,7 @@ public class ShooterAngleExtend extends CommandBase {
      */
     
 	protected void execute() {
+		CommandBaseRobot.setNumberOfDiscs(4);
     	shooterAngle.extend();
     	//extends the shooter solenoid 
     }

@@ -151,6 +151,7 @@ public class CommandBaseRobot extends IterativeRobot {
     	if(DriverStation.getInstance().getMatchTime() >= 115){
     		setEndGame(true);
     	}
+    	setArduinoStatus();
     }
     
     /**
@@ -244,6 +245,8 @@ public class CommandBaseRobot extends IterativeRobot {
     	lightsRelay3.setReverse(againstBar);
     	lightsRelay4.setForward(endGame);
     	lightsRelay4.setReverse(autoMode);
+    	
+    	System.out.println(numberOfDiscs);
     }
 
 	/**
@@ -258,6 +261,7 @@ public class CommandBaseRobot extends IterativeRobot {
 	 */
 	public static void setDiscFired(boolean value) {
 		discFired = value;
+		System.out.println(discFired);
 	}
 
 	/**
@@ -277,14 +281,14 @@ public class CommandBaseRobot extends IterativeRobot {
 	/**
 	 * @param autoMode the autoMode to set
 	 */
-	public void setAutoMode(boolean value) {
+	public static void setAutoMode(boolean value) {
 		autoMode = value;
 	}
 
 	/**
 	 * @param numberOfDiscs the numberOfDiscs to set
 	 */
-	public void setNumberOfDiscs(int discs) {
+	public static void setNumberOfDiscs(int discs) {
 		numberOfDiscs = discs;
 	}
 }

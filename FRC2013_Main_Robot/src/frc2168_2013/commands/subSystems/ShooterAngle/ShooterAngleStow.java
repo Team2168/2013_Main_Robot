@@ -1,6 +1,7 @@
 
 package frc2168_2013.commands.subSystems.ShooterAngle;
 
+import frc2168_2013.CommandBaseRobot;
 import frc2168_2013.commands.CommandBase;
 
 /**
@@ -22,7 +23,8 @@ public class ShooterAngleStow extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     
 	protected void execute() {
-    	shooterAngle.stow();
+		CommandBaseRobot.setNumberOfDiscs(1);
+		shooterAngle.stow();
     	//sets the shooter angle to stow position
     }
 

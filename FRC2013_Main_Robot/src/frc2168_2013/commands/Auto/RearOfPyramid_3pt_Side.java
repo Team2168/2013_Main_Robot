@@ -59,14 +59,10 @@ public class RearOfPyramid_3pt_Side extends CommandGroup {
 		//wait longer for the last disk to drop into place before shooting
 		addSequential(new ShootSingleDisc());
 		
-		addSequential(new Sleep(), secondDiscTime);
-		addSequential(new ShootSingleDisc());
-		addSequential(new Sleep(), thirdDiscTime);
-		//wait longer for the last disk to drop into place before shooting
-		addSequential(new ShootSingleDisc());
+
 	
 		//drive backward                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           addSequential(new Sleep(),1 );
-		//addSequential(new DriveDrivetrainStraight(-((8*12)-8)));
+		addSequential(new DriveDrivetrainStraight(-((6*12)-8)));
 
 	}
 }

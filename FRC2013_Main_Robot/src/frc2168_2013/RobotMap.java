@@ -131,7 +131,7 @@ public class RobotMap {
 	//arm Radius
 	public static final int armWheelRadius = 3;//Colson wheel radius in inches
 
-	//Drivetrain Encoder Parameters /////////////////////////////////
+	//Arm Encoder Parameters /////////////////////////////////
 	private static final int armPulsePerRotation = 256; //encoder ticks per rotation (LEAVE PRIVATE)
 	private static final double armGearRatio = 1.024; //ratio between wheel over encoder (LEAVE PRIVATE)
 	public static final int armEncoderPulsePerRot = (int) (armPulsePerRotation*armGearRatio); //pulse per rotation * gear ratio

@@ -1,6 +1,7 @@
 
 package frc2168_2013.commands.subSystems.Hopper;
 
+import frc2168_2013.CommandBaseRobot;
 import frc2168_2013.commands.CommandBase;
 
 /**
@@ -28,6 +29,7 @@ public class HopperReload extends CommandBase {
      */
     
 	protected void execute() {
+		CommandBaseRobot.setDiscFired(false);
     	hopper.reloadDisc();
     	//actuate the piston back to grab another frisbee
     }
