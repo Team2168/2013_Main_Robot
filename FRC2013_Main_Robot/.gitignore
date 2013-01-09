@@ -1,4 +1,5 @@
 *.class
+*.DS_Store
 
 # Package Files #
 *.jar
@@ -17,9 +18,12 @@
 /image.suite
 /image.sym
 /build
+/resources
+build.xml
+build.properties
 
 
 #I definetly want these files checked in#
-!/resources
-!build.xml
-!build.properties
+#!/resources
+#!build.xml
+#!build.properties
