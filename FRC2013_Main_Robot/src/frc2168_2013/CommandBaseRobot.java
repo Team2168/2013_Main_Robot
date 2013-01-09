@@ -48,7 +48,7 @@ public class CommandBaseRobot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
-        System.out.println("HelloWorld");
+        
     }
 
     public void teleopInit() {
