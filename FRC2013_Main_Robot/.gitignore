@@ -7,8 +7,8 @@
 *.ear
 
 # IDE specific #
-#.classpath
-#.settings
+.classpath
+.settings
 
 
 #FRC Specific
@@ -23,6 +23,7 @@ build.xml
 build.properties
 
 
+#commented out so no students can post changes
 #I definetly want these files checked in#
 #!/resources
 #!build.xml
