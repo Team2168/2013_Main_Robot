@@ -3,7 +3,7 @@ FRC2013_Main_Robot
 
 This repository is for development of the 2013 Robot for Competition.
 
-###Environment etup
+###Environment Setup
 After cloning the repo and importing the project in eclipse, create an environment variable to fix your build path.  
 1. Right click on the project folder, Build Path > Configure Build Path  
 2. Click the Add Variable button  
