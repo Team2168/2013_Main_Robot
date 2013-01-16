@@ -45,11 +45,11 @@ public class Drivetrain extends Subsystem {
     	} else {
     	
     		rmotor0.set(rightspeed);
-    		rmotor1.set(rightspeed);
-    		rmotor2.set(rightspeed);
+    	//	rmotor1.set(rightspeed);
+    	//	rmotor2.set(rightspeed);
     		lmotor0.set(leftspeed);
-    		lmotor1.set(leftspeed);
-    		lmotor2.set(leftspeed);
+    	//	lmotor1.set(leftspeed);
+    	//	lmotor2.set(leftspeed);
     	
     	}
     	
