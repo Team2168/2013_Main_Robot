@@ -8,8 +8,14 @@ public class Drivetrain extends Subsystem {
 	
 	double leftspeed = 0;
 	double rightspeed = 0;
-	Talon rmotor = new Talon(RobotMap.rightMotor);
-	Talon lmotor = new Talon(RobotMap.leftMotor);
+	Talon rmotor0 = new Talon(RobotMap.rightMotor0);
+	Talon rmotor1 = new Talon(RobotMap.rightMotor1);
+	Talon rmotor2 = new Talon(RobotMap.rightMotor2);
+	Talon lmotor0 = new Talon(RobotMap.leftMotor0);
+	Talon lmotor1 = new Talon(RobotMap.leftMotor1);
+	Talon lmotor2 = new Talon(RobotMap.leftMotor2);
+	
+	
 	
     public Drivetrain(){
     	
@@ -28,20 +34,36 @@ public class Drivetrain extends Subsystem {
     	this.rightspeed = rightspeed;
     	this.leftspeed = leftspeed;
     	
-    	rmotor.set(rightspeed);
-    	lmotor.set(leftspeed);
+    	if(RobotMap.rInvert){
+    		
+    		rightspeed = -rightspeed;
+    		
+    	} else if(RobotMap.lInvert){
+    		
+    		leftspeed = -leftspeed;
+    		
+    	} else {
+    	
+    		rmotor0.set(rightspeed);
+    		rmotor1.set(rightspeed);
+    		rmotor2.set(rightspeed);
+    		lmotor0.set(leftspeed);
+    		lmotor1.set(leftspeed);
+    		lmotor2.set(leftspeed);
+    	
+    	}
     	
     }
     
     public double getrSpeed(){
     	
-    	return rmotor.getSpeed();
+    	return 0.0;		//unit is ft/s to make intuitive
     	
     }
     
     public double getlSpeed(){
     	
-    	return lmotor.getSpeed();
+    	return 0.0;		//unit is ft/s to make intuitive
     	
     }
 
