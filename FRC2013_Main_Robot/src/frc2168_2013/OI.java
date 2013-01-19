@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
  */
 public class OI {
     
-	public Joystick rDrive = new Joystick(2);
-	public Joystick lDrive = new Joystick(5);
+	public Joystick baseDriver = new Joystick(RobotMap.baseDriveJoystick);
+	public Joystick operatorDrive = new Joystick(RobotMap.operatorDriveJoystick);
 	
 	//// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.

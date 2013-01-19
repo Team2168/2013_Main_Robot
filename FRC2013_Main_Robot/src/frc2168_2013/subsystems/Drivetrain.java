@@ -8,12 +8,12 @@ public class Drivetrain extends Subsystem {
 	
 	double leftspeed = 0;
 	double rightspeed = 0;
-	Talon rmotor0 = new Talon(RobotMap.rightMotor0);
-	Talon rmotor1 = new Talon(RobotMap.rightMotor1);
-	Talon rmotor2 = new Talon(RobotMap.rightMotor2);
-	Talon lmotor0 = new Talon(RobotMap.leftMotor0);
-	Talon lmotor1 = new Talon(RobotMap.leftMotor1);
-	Talon lmotor2 = new Talon(RobotMap.leftMotor2);
+	Talon rmotor = new Talon(RobotMap.rightMotor);
+	//Talon rmotor1 = new Talon(RobotMap.rightMotor1);
+	//Talon rmotor2 = new Talon(RobotMap.rightMotor2);
+	Talon lmotor = new Talon(RobotMap.leftMotor);
+	//Talon lmotor1 = new Talon(RobotMap.leftMotor1);
+	//Talon lmotor2 = new Talon(RobotMap.leftMotor2);
 	
 	
 	
@@ -44,10 +44,10 @@ public class Drivetrain extends Subsystem {
     		
     	} else {
     	
-    		rmotor0.set(rightspeed);
+    		rmotor.set(rightspeed);
     	//	rmotor1.set(rightspeed);
     	//	rmotor2.set(rightspeed);
-    		lmotor0.set(leftspeed);
+    		lmotor.set(leftspeed);
     	//	lmotor1.set(leftspeed);
     	//	lmotor2.set(leftspeed);
     	

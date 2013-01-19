@@ -1,8 +1,16 @@
 package frc2168_2013.commands;
 
+import frc2168_2013.RobotMap;
+
 
 
 public class DriveWithJoystick extends CommandBase {
+	
+	public DriveWithJoystick(){
+		
+		requires(driveTrain);
+		
+	}
 
 	@Override
 	protected void end() {
@@ -12,7 +20,8 @@ public class DriveWithJoystick extends CommandBase {
 
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
+		
+		driveTrain.setSpeed(oi.baseDriver.getRawAxis(RobotMap.rightJoyAxis), oi.baseDriver.getRawAxis(RobotMap.leftJoyAxis));
 
 	}
 
@@ -30,8 +39,9 @@ public class DriveWithJoystick extends CommandBase {
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
+		
 		return false;
+		
 	}
 
 }
