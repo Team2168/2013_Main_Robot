@@ -27,7 +27,7 @@ public class CommandBaseRobot extends IterativeRobot {
     Command autonomousCommand;
 
     /**
-     * This function is run when the robot is first started up and should be
+     * This method is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
@@ -38,38 +38,58 @@ public class CommandBaseRobot extends IterativeRobot {
         CommandBase.init();
     }
 
+    /**
+     * This method is called once, when the robot first enters auto mode.
+     */
     public void autonomousInit() {
         // schedule the autonomous command (example)
         autonomousCommand.start();
     }
 
     /**
-     * This function is called periodically during autonomous
+     * This method is called periodically during autonomous
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
         
     }
 
+    /**
+     * This method is called once, when the robot first enters teleop mode.
+     */
     public void teleopInit() {
-	// This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to 
-        // continue until interrupted by another command, remove
-        // this line or comment it out.
+    	// This makes sure that the autonomous stops running when teleop starts
+    	// running. If you want the autonomous to continue until interrupted by
+    	// another command, remove this line or comment it out.
         autonomousCommand.cancel();
     }
 
     /**
-     * This function is called periodically during operator control
+     * This method is called periodically during operator control
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
     }
     
     /**
-     * This function is called periodically during test mode
+     * This method is called periodically during test mode
      */
     public void testPeriodic() {
         LiveWindow.run();
+    }
+    
+    /**
+     * This method is called once, the first time the robot gets disabled. 
+     */
+    public void disabledInit() {
+    	//TODO: Stop all motors
+    	//TODO: automatically deploy lifter if it isn't already? last minute hang
+    }
+    
+    /**
+     * This method gets called repeatedly while the robot is disabled.
+     */
+    public void disabledPeriodic() {
+    	
     }
 }
