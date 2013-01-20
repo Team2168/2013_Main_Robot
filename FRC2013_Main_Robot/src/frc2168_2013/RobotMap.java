@@ -7,18 +7,17 @@ package frc2168_2013;
  * floating around.
  */
 public class RobotMap {
-    // For example to map the left and right motors, you could define the
-    // following variables to use with your drivetrain subsystem.
-    // public static final int leftMotor = 1;
-    // public static final int rightMotor = 2;
 	
+	/****************************************************************
+	 *                       CRIO MAP                               *
+	 ****************************************************************/
+	
+	//PWM Channels////////////////////////////////////////////////////
 	public static final int leftMotor = 1;
-	//public static final int leftMotor1 = 2;
-	//public static final int leftMotor2 = 3;
 	public static final int rightMotor = 2;
-	//public static final int rightMotor1 = 5;
-	//public static final int rightMotor2 = 6;
 	
+	
+	//TODO: organize the rest of these. Some should live in OI, not RobotMap
 	public static final boolean rInvert = false;
 	public static final boolean lInvert = true;
 	
@@ -28,10 +27,4 @@ public class RobotMap {
 	
 	public static final int baseDriveJoystick = 1;
 	public static final int operatorDriveJoystick = 2;
-	
-	// If you are using multiple modules, make sure to define both the port
-    // number and the module. For example you with a rangefinder:
-    // public static final int rangefinderPort = 1;
-    // public static final int rangefinderModule = 1;
-	
 }
