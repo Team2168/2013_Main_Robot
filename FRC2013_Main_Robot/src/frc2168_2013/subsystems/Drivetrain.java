@@ -14,7 +14,7 @@ public class Drivetrain extends Subsystem {
 	Talon rightMotor;
 	Talon leftMotor;
 	//Jaguar rightMotor;
-	//Jaguar leftMotor;	
+	//Jaguar leftMotor;
 
 	/**
 	 * The default constructor for the Drivetrain subsystem.
