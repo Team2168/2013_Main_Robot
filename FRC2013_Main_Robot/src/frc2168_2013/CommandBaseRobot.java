@@ -9,11 +9,13 @@ package frc2168_2013;
 
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import frc2168_2013.commands.CommandBase;
 import frc2168_2013.commands.ExampleCommand;
+import frc2168_2013.utils.SerialCommunicator;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -36,6 +38,8 @@ public class CommandBaseRobot extends IterativeRobot {
 
         // Initialize all subsystems
         CommandBase.init();
+
+    	System.out.println("ROBOT FINISHED LOADING!");
     }
 
     /**
@@ -62,13 +66,17 @@ public class CommandBaseRobot extends IterativeRobot {
     	// running. If you want the autonomous to continue until interrupted by
     	// another command, remove this line or comment it out.
         autonomousCommand.cancel();
+        
+        //Initialize the serial port
+        //SerialCommunicator.init(9600, 8, SerialPort.Parity.kNone, SerialPort.StopBits.kOne);
+        //SerialCommunicator.putData("abcdefghijklmnopqrstuvwxyz");
     }
 
     /**
      * This method is called periodically during operator control
      */
     public void teleopPeriodic() {
-        Scheduler.getInstance().run();
+    	Scheduler.getInstance().run();
     }
     
     /**
@@ -84,6 +92,8 @@ public class CommandBaseRobot extends IterativeRobot {
     public void disabledInit() {
     	//TODO: Stop all motors
     	//TODO: automatically deploy lifter if it isn't already? last minute hang
+    	
+    	SerialCommunicator.free();
     }
     
     /**
