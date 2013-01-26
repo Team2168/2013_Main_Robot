@@ -19,6 +19,7 @@ public abstract class CommandBase extends Command {
     public static Drivetrain driveTrain = new Drivetrain();
     public static Intake intake = new Intake();
     public static Shooter shooter = new Shooter();
+    public static Hopper hopper = new Hopper();
 
     public static void init() {
         // This MUST be here. If the OI creates Commands (which it very likely
