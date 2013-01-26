@@ -20,8 +20,8 @@ public class Drivetrain extends Subsystem {
 	 * The default constructor for the Drivetrain subsystem.
 	 */
     public Drivetrain(){
-    	rightMotor = new Talon(RobotMap.rightMotor);
-    	leftMotor = new Talon(RobotMap.leftMotor);
+    	rightMotor = new Talon(RobotMap.rightDriveMotor);
+    	leftMotor = new Talon(RobotMap.leftDriveMotor);
     	//rightMotor = new Jaguar(RobotMap.rightMotor);
     	//leftMotor = new Jaguar(RobotMap.leftMotor);
     	
