@@ -1,0 +1,31 @@
+To run the UI:
+
+- Install Node.js
+- Install socket.io (npm install socket.io)
+- Install express (npm install express@2.5.1 - see note)
+- Run the server:
+  - node TCPClient 1180 8090
+- Navigate to localhost:8090
+
+
+
+Note: As of 12/11/12 Express 3 and socket.io don't play nice together.
+Tested working with the following package revisions:
+��������� express@2.5.1
+��� ��������� connect@1.8.7
+��� ��� ��������� formidable@1.0.11
+��� ��������� mime@1.2.7
+��� ��������� mkdirp@0.0.7
+��� ��������� qs@0.5.3
+��������� socket.io@0.9.11
+  ��������� policyfile@0.0.4
+  ��������� redis@0.7.3
+  ��������� socket.io-client@0.9.11
+    ��������� active-x-obfuscator@0.0.1
+    ��� ��������� zeparser@0.0.5
+    ��������� uglify-js@1.2.5
+    ��������� ws@0.4.23
+    ��� ��������� commander@0.6.1
+    ��� ��������� options@0.0.3
+    ��� ��������� tinycolor@0.0.1
+    ��������� xmlhttprequest@1.4.2
