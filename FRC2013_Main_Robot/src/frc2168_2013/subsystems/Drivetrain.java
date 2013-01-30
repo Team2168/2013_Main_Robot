@@ -19,7 +19,6 @@ public class Drivetrain extends Subsystem {
 	Talon rightDriveMotor;
 	Talon leftDriveMotor;
 
-	
 	//declared sensors
 	AverageEncoder rightEncoder;
 	AverageEncoder leftEncoder;
