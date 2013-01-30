@@ -15,23 +15,23 @@ public class Drivetrain extends Subsystem {
 	double leftSpeed = 0;
 	double rightSpeed = 0;
 	
-	//declared drivetrain motor controllers
+	//declare drivetrain motor controllers
 	Talon rightDriveMotor;
 	Talon leftDriveMotor;
 
-	//declared sensors
+	//declare sensors
 	AverageEncoder rightEncoder;
 	AverageEncoder leftEncoder;
 	
-	//declared position controllers
+	//declare position controllers
 	PIDPosition rightPosController;
 	PIDPosition leftPosController;
 	
-	//declared speed controllers
+	//declare speed controllers
 	PIDSpeed rightSpeedController;
 	PIDSpeed leftSpeedController;
 	
-	//declared TCP severs...ONLY FOR DEBUGGING PURPOSES, SHOULD BE REMOVED FOR COMPITITION
+	//declare TCP severs...ONLY FOR DEBUGGING PURPOSES, SHOULD BE REMOVED FOR COMPITITION
 	TCPsocketSender TCPrightPosController;
 	TCPsocketSender TCPrightSpeedController;
 	TCPsocketSender TCPleftPosController;
@@ -44,7 +44,7 @@ public class Drivetrain extends Subsystem {
     	
     	//intializing motor controller using PWM. Refer to RobotMap
     	rightDriveMotor = new Talon (RobotMap.rightDriveMotor);
-  	leftDriveMotor = new Talon (RobotMap.leftDriveMotor);
+    	leftDriveMotor = new Talon (RobotMap.leftDriveMotor);
     	
     	//initialized right and left drive train encoders
     	rightEncoder = new AverageEncoder(RobotMap.rightDriveEncoderChannelA, RobotMap.rightDriveEncoderChannelB, RobotMap.rightDriveTrainEncoderReverse, CounterBase.EncodingType.k1X, RobotMap.driveAvgEncoderVal);
@@ -65,9 +65,9 @@ public class Drivetrain extends Subsystem {
     	leftSpeedController = new PIDSpeed("LeftSpeedController", RobotMap.driveTrainLeftSpeedP, RobotMap.driveTrainLeftSpeedI, RobotMap.driveTrainLeftSpeedD, leftEncoder, RobotMap.driveTrainPIDPeriod);
     	leftPosController = new PIDPosition("LeftPositionController", RobotMap.driveTrainLeftPositionP, RobotMap.driveTrainLeftPositionI, RobotMap.driveTrainLeftPositionD, leftEncoder, RobotMap.driveTrainPIDPeriod);
     	
-    	//add min and max outputs and set array size
+    	//TODO: add min and max output defaults and set array size
     	
-    	//start encoder threads
+    	//start controller threads
     	rightSpeedController.startThread();
     	rightPosController.startThread();
     	leftSpeedController.startThread();

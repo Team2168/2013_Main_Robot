@@ -1,7 +1,5 @@
 package frc2168_2013;
 
-import edu.wpi.first.wpilibj.Talon;
-
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -71,8 +69,8 @@ public class RobotMap {
 
 	//average encoder
 	public static final int driveAvgEncoderVal = 10;
-
-	//DriveTraincEncoder Parameters
+	
+	//Drivetrain Encoder Parameters /////////////////////////////////
 	public static final int pulsePerRotation = 360; //encoder ticks per rotation
 	public static final int gearRatio = 1/1; //ratio between wheel and encoder
 	public static final int driveEncoderPulsePerRot= pulsePerRotation*gearRatio; //pulse per rotation * gear ratio
@@ -81,9 +79,9 @@ public class RobotMap {
 	public static final int driveEncoderMinPeriod=10;
 	public static final boolean leftDriveTrainEncoderReverse=false;
 	public static final boolean rightDriveTrainEncoderReverse=false;
+	
 
-	//PID Parameters//////////////////////////////////////////////
-	//drivetrain controller steady state determination
+	//PID Parameters //////////////////////////////////////////////////
 	public static final int drivetrainArraySize = 50;
 	public static final double drivetrainPercent = 0.1;
 
