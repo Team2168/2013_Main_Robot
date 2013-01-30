@@ -1,5 +1,7 @@
 package frc2168_2013;
 
+import edu.wpi.first.wpilibj.Talon;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -13,10 +15,17 @@ public class RobotMap {
 	 ****************************************************************/
 	
 	//PWM Channels////////////////////////////////////////////////////
-	public static final int leftDriveMotor = 1;
-	public static final int rightDriveMotor = 2;
-	public static final int shooterMotor = 3;
-	public static final int hopperMotor = 4;
+	
+	
+	
+	public static final int rightCIMFwd = 1;
+	public static final int rightCIMAft = 2;
+	public static final int right550 = 3;
+	public static final int leftCIMFwd = 4;
+	public static final int leftCIMAft = 5;
+	public static final int left550 = 6;
+	public static final int shooterMotor = 7;
+	public static final int hopperMotor = 8;
 	
 	//DIO Channels////////////////////////////////////////////////////
 	public static final int leftDriveEncoderChannelA = 1;

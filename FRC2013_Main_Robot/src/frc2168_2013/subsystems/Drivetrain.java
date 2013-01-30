@@ -1,6 +1,5 @@
 package frc2168_2013.subsystems;
 
-import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc2168_2013.RobotMap;
@@ -11,19 +10,29 @@ public class Drivetrain extends Subsystem {
 	double leftSpeed = 0;
 	double rightSpeed = 0;
 	
-	Talon rightMotor;
-	Talon leftMotor;
-	//Jaguar rightMotor;
-	//Jaguar leftMotor;
-
+	//declared drivetrain motor controllers
+	Talon rightCIMFwd;
+	Talon rightCIMAft;
+	Talon right550;
+	Talon leftCIMFwd;
+	Talon leftCIMAft;
+	Talon left550;
+	
+	
+	
 	/**
 	 * The default constructor for the Drivetrain subsystem.
 	 */
     public Drivetrain(){
-    	rightMotor = new Talon(RobotMap.rightDriveMotor);
-    	leftMotor = new Talon(RobotMap.leftDriveMotor);
-    	//rightMotor = new Jaguar(RobotMap.rightMotor);
-    	//leftMotor = new Jaguar(RobotMap.leftMotor);
+    	
+    	//intializing motor controller using PWM. Refer to RobotMap
+    	rightCIMFwd = new Talon (RobotMap.rightCIMFwd);
+    	rightCIMAft = new Talon (RobotMap.rightCIMAft);
+    	right550 = new Talon (RobotMap.right550);
+    	leftCIMFwd  = new Talon (RobotMap.leftCIMFwd);
+    	leftCIMAft = new Talon (RobotMap.leftCIMAft);
+    	left550 = new Talon (RobotMap.left550);
+    	
     	
     	//TODO: initialize encoders and closed loop control of drivetrain
     }
@@ -36,12 +45,12 @@ public class Drivetrain extends Subsystem {
     }
 	
 	/**
-	 * Sets the speed for the drivetrain motors from joystick values (1.0 to -1.0).
+	 * Drive drive train using tank drive
 	 * 
 	 * @param rightSpeed speed for right motors (1 to -1)
 	 * @param leftSpeed speed for left motors (1 to -1)
 	 */
-    public void setPWM(double rightSpeed, double leftSpeed) {
+    public void tankDrive(double rightSpeed, double leftSpeed) {
     	this.rightSpeed = rightSpeed;
     	this.leftSpeed = leftSpeed;
     	
@@ -55,8 +64,57 @@ public class Drivetrain extends Subsystem {
     	//TODO: add hooks for falcon claw
     	//TODO: add interpolation method to adjust sensitivity
     	
-    	rightMotor.set(rightSpeed);
-    	leftMotor.set(leftSpeed);
+    	rightCIMFwd.set(rightSpeed);
+    	rightCIMAft.set(rightSpeed);
+    	right550.set(rightSpeed);
+    	
+    	leftCIMFwd.set(leftSpeed);
+    	leftCIMAft.set(leftSpeed);
+    	left550.set(leftSpeed);
+    	
+    }
+    /**
+     * drive the right side
+     * @param rightSpeed between -1 and 1
+     */
+    public void driveRight(double rightSpeed) {
+    	this.rightSpeed = rightSpeed;
+    
+    	
+    	//RobotMap defines which motors are inverted on drivetrain.
+    	if(RobotMap.rInvert) {
+    		rightSpeed = -rightSpeed;
+    	}     	
+    	//TODO: add hooks for falcon claw
+    	//TODO: add interpolation method to adjust sensitivity
+    	
+    	rightCIMFwd.set(rightSpeed);
+    	rightCIMAft.set(rightSpeed);
+    	right550.set(rightSpeed);
+    	
+        	
+    }
+    
+    /**
+     * drive the left side
+     * @param leftSpeed between -1 and 1
+     */
+    public void driveLeft(double leftSpeed) {
+    	
+    	this.leftSpeed = leftSpeed;
+    	
+    	//RobotMap defines which motors are inverted on drivetrain.
+    	if(RobotMap.lInvert) {
+    		leftSpeed = -leftSpeed;
+    	}
+    	
+    	//TODO: add hooks for falcon claw
+    	//TODO: add interpolation method to adjust sensitivity
+    	
+    	leftCIMFwd.set(leftSpeed);
+    	leftCIMAft.set(leftSpeed);
+    	left550.set(leftSpeed);
+    	
     }
     
 	/**
