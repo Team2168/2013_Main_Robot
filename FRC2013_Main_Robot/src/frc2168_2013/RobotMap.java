@@ -83,7 +83,6 @@ public class RobotMap {
 	public static final boolean rightDriveTrainEncoderReverse=false;
 
 	//PID Parameters//////////////////////////////////////////////
-	
 	//drivetrain controller steady state determination
 	public static final int drivetrainArraySize = 50;
 	public static final double drivetrainPercent = 0.1;
