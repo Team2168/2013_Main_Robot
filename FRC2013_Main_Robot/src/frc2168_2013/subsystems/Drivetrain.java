@@ -16,12 +16,9 @@ public class Drivetrain extends Subsystem {
 	double rightSpeed = 0;
 	
 	//declared drivetrain motor controllers
-	Talon rightCIMFwd;
-	Talon rightCIMAft;
-	Talon right550;
-	Talon leftCIMFwd;
-	Talon leftCIMAft;
-	Talon left550;
+	Talon rightDriveMotor;
+	Talon leftDriveMotor;
+
 	
 	//declared sensors
 	AverageEncoder rightEncoder;
@@ -47,12 +44,8 @@ public class Drivetrain extends Subsystem {
     public Drivetrain(){
     	
     	//intializing motor controller using PWM. Refer to RobotMap
-    	rightCIMFwd = new Talon (RobotMap.rightCIMFwd);
-    	rightCIMAft = new Talon (RobotMap.rightCIMAft);
-    	right550 = new Talon (RobotMap.right550);
-    	leftCIMFwd  = new Talon (RobotMap.leftCIMFwd);
-    	leftCIMAft = new Talon (RobotMap.leftCIMAft);
-    	left550 = new Talon (RobotMap.left550);
+    	rightDriveMotor = new Talon (RobotMap.rightDriveMotor);
+  	leftDriveMotor = new Talon (RobotMapleftDriveMotor);
     	
     	//initialized right and left drive train encoders
     	rightEncoder = new AverageEncoder(RobotMap.rightDriveEncoderChannelA, RobotMap.rightDriveEncoderChannelB, RobotMap.rightDriveTrainEncoderReverse, CounterBase.EncodingType.k1X, RobotMap.driveAvgEncoderVal);
@@ -124,13 +117,8 @@ public class Drivetrain extends Subsystem {
     	//TODO: add hooks for falcon claw
     	//TODO: add interpolation method to adjust sensitivity
     	
-    	rightCIMFwd.set(rightSpeed);
-    	rightCIMAft.set(rightSpeed);
-    	right550.set(rightSpeed);
-    	
-    	leftCIMFwd.set(leftSpeed);
-    	leftCIMAft.set(leftSpeed);
-    	left550.set(leftSpeed);
+    	leftDriveMotor.set(leftSpeed);
+    	rightDriveMotor.set(rightSpeed);
     	
     }
     /**
@@ -148,11 +136,7 @@ public class Drivetrain extends Subsystem {
     	//TODO: add hooks for falcon claw
     	//TODO: add interpolation method to adjust sensitivity
     	
-    	rightCIMFwd.set(rightSpeed);
-    	rightCIMAft.set(rightSpeed);
-    	right550.set(rightSpeed);
-    	
-        	
+    	rightDriveMotor.set(rightSpeed);
     }
     
     /**
@@ -171,9 +155,7 @@ public class Drivetrain extends Subsystem {
     	//TODO: add hooks for falcon claw
     	//TODO: add interpolation method to adjust sensitivity
     	
-    	leftCIMFwd.set(leftSpeed);
-    	leftCIMAft.set(leftSpeed);
-    	left550.set(leftSpeed);
+    	leftDriveMotor.set(leftSpeed);
     	
     }
     
