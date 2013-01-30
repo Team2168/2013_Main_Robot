@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import frc2168_2013.PIDController.Sensors.SpeedSensorInterface;
 
 /**
- * Encoder Averager Misspelling intentional. 
+ * Encoder Averagor Misspelling intentional. 
  *
  * @author Sultan Jilani
  *
