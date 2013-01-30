@@ -44,7 +44,7 @@ public class Drivetrain extends Subsystem {
     	
     	//intializing motor controller using PWM. Refer to RobotMap
     	rightDriveMotor = new Talon (RobotMap.rightDriveMotor);
-  	leftDriveMotor = new Talon (RobotMapleftDriveMotor);
+  	leftDriveMotor = new Talon (RobotMap.leftDriveMotor);
     	
     	//initialized right and left drive train encoders
     	rightEncoder = new AverageEncoder(RobotMap.rightDriveEncoderChannelA, RobotMap.rightDriveEncoderChannelB, RobotMap.rightDriveTrainEncoderReverse, CounterBase.EncodingType.k1X, RobotMap.driveAvgEncoderVal);
