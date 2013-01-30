@@ -66,8 +66,6 @@ public class RobotMap {
 	/****************************************************************
 	 *                       Drive Train Parameters                 *
 	 ****************************************************************/
-	//encoder////////////////////////////////////////////////////////////
-	
 	//Wheel Radius
 	public static final int driveWheelRadius=2;//Colson wheel radius in inches
 
