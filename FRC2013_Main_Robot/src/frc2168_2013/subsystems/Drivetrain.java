@@ -1,8 +1,12 @@
 package frc2168_2013.subsystems;
 
+import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc2168_2013.RobotMap;
+import frc2168_2013.PIDController.Controller.PIDPosition;
+import frc2168_2013.PIDController.Controller.PIDSpeed;
+import frc2168_2013.PIDController.Sensors.AverageEncoder;
 import frc2168_2013.commands.DriveWithJoystick;
 
 public class Drivetrain extends Subsystem {
@@ -18,7 +22,17 @@ public class Drivetrain extends Subsystem {
 	Talon leftCIMAft;
 	Talon left550;
 	
+	//declared sensors
+	AverageEncoder rightEncoder;
+	AverageEncoder leftEncoder;
 	
+	//declared position controllers
+	PIDPosition rightPosController;
+	PIDPosition leftPosController;
+	
+	//declared speed controllers
+	PIDSpeed rightSpeedController;
+	PIDSpeed leftSpeedController;
 	
 	/**
 	 * The default constructor for the Drivetrain subsystem.
@@ -33,6 +47,32 @@ public class Drivetrain extends Subsystem {
     	leftCIMAft = new Talon (RobotMap.leftCIMAft);
     	left550 = new Talon (RobotMap.left550);
     	
+    	//initialized right and left drive train encoders
+    	rightEncoder = new AverageEncoder(RobotMap.rightDriveEncoderChannelA, RobotMap.rightDriveEncoderChannelB, RobotMap.rightDriveTrainEncoderReverse, CounterBase.EncodingType.k1X, RobotMap.driveAvgEncoderVal);
+    	rightEncoder.setDistancePerPulse(RobotMap.driveEencoderDistPerTick);
+    	rightEncoder.setMaxPeriod(RobotMap.driveEncoderMinPeriod);//min period before reported stopped
+    	rightEncoder.setMinRate(RobotMap.driveEncoderMinRate);//min rate before reported stopped
+    	rightEncoder.start();
+    	
+    	leftEncoder = new AverageEncoder(RobotMap.leftDriveEncoderChannelA, RobotMap.leftDriveEncoderChannelB, RobotMap.leftDriveTrainEncoderReverse, CounterBase.EncodingType.k1X, RobotMap.driveAvgEncoderVal);
+    	leftEncoder.setDistancePerPulse(RobotMap.driveEencoderDistPerTick);
+    	leftEncoder.setMaxPeriod(RobotMap.driveEncoderMinPeriod);//min period before reported stopped
+    	leftEncoder.setMinRate(RobotMap.driveEncoderMinRate);//min rate before reported stopped
+    	leftEncoder.start();
+    	
+    	//Spawn new PID Controller
+    	rightSpeedController = new PIDSpeed("RightSpeedController", RobotMap.driveTrainRightSpeedP, RobotMap.driveTrainRightSpeedI, RobotMap.driveTrainRightSpeedD, rightEncoder, RobotMap.driveTrainPIDPeriod);
+    	rightPosController = new PIDPosition("RightPositionController", RobotMap.driveTrainRightPositionP, RobotMap.driveTrainRightPositionI, RobotMap.driveTrainRightPositionD, rightEncoder, RobotMap.driveTrainPIDPeriod);
+    	leftSpeedController = new PIDSpeed("LeftSpeedController", RobotMap.driveTrainLeftSpeedP, RobotMap.driveTrainLeftSpeedI, RobotMap.driveTrainLeftSpeedD, leftEncoder, RobotMap.driveTrainPIDPeriod);
+    	leftPosController = new PIDPosition("LeftPositionController", RobotMap.driveTrainLeftPositionP, RobotMap.driveTrainLeftPositionI, RobotMap.driveTrainLeftPositionD, leftEncoder, RobotMap.driveTrainPIDPeriod);
+    	
+    	//add min and max outputs and set array size
+    	
+    	//start encoder threads
+    	rightSpeedController.startThread();
+    	rightPosController.startThread();
+    	leftSpeedController.startThread();
+    	leftPosController.startThread();
     	
     	//TODO: initialize encoders and closed loop control of drivetrain
     }
