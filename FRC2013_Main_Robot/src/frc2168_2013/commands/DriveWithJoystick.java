@@ -14,7 +14,7 @@ public class DriveWithJoystick extends CommandBase {
 	}
 
 	protected void execute() {
-		driveTrain.setPWM(oi.baseDriver.getRawAxis(RobotMap.rightJoyAxis), oi.baseDriver.getRawAxis(RobotMap.leftJoyAxis));
+		driveTrain.tankDrive(oi.baseDriver.getRawAxis(RobotMap.rightJoyAxis), oi.baseDriver.getRawAxis(RobotMap.leftJoyAxis));
 	}
 
 	protected void initialize() {
