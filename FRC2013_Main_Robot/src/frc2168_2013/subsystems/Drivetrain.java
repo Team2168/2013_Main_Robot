@@ -7,6 +7,7 @@ import frc2168_2013.RobotMap;
 import frc2168_2013.PIDController.Controller.PIDPosition;
 import frc2168_2013.PIDController.Controller.PIDSpeed;
 import frc2168_2013.PIDController.Sensors.AverageEncoder;
+import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
 import frc2168_2013.commands.DriveWithJoystick;
 
 public class Drivetrain extends Subsystem {
@@ -33,6 +34,12 @@ public class Drivetrain extends Subsystem {
 	//declared speed controllers
 	PIDSpeed rightSpeedController;
 	PIDSpeed leftSpeedController;
+	
+	//declared TCP severs...ONLY FOR DEBUGGING PURPOSES, SHOULD BE REMOVED FOR COMPITITION
+	TCPsocketSender TCPrightPosController;
+	TCPsocketSender TCPrightSpeedController;
+	TCPsocketSender TCPleftPosController;
+	TCPsocketSender TCPleftSpeedController;
 	
 	/**
 	 * The default constructor for the Drivetrain subsystem.
@@ -73,6 +80,19 @@ public class Drivetrain extends Subsystem {
     	rightPosController.startThread();
     	leftSpeedController.startThread();
     	leftPosController.startThread();
+    	
+    	//start TCP Servers for DEBUGING ONLY
+    	TCPrightPosController = new TCPsocketSender(1180, rightPosController);
+    	TCPrightPosController.start();
+    	
+    	TCPrightSpeedController = new TCPsocketSender(1181, rightSpeedController);
+    	TCPrightSpeedController.start();
+    	
+    	TCPleftPosController = new TCPsocketSender(1182, leftPosController);
+    	TCPleftPosController.start();
+    	
+    	TCPleftSpeedController = new TCPsocketSender(1183, leftSpeedController);
+    	TCPleftSpeedController.start();
     	
     	//TODO: initialize encoders and closed loop control of drivetrain
     }
