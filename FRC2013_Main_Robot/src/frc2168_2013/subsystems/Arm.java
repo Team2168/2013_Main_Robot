@@ -1,8 +1,33 @@
 package frc2168_2013.subsystems;
 
+import edu.wpi.first.wpilibj.CounterBase;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc2168_2013.RobotMap;
+import frc2168_2013.PIDController.Controller.PIDPosition;
+import frc2168_2013.PIDController.Sensors.AverageEncoder;
+import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
 
 public class Arm extends Subsystem {
+	
+	//initialized PID Position Controller
+	Talon armMotor;
+	AverageEncoder armEncoder;
+	PIDPosition armPosController;
+	TCPsocketSender TCParmPosController;
+	
+	public Arm(){
+		armMotor = new Talon(RobotMap.armMotor);
+		armEncoder = new AverageEncoder(RobotMap.armEncoderChannelA, RobotMap.armEncoderChannelB, RobotMap.armEncoderReverse, CounterBase.EncodingType.k1X, RobotMap.armAvgEncoderVal);
+		
+		//initialized PID Position Controller
+		armPosController = new PIDPosition("ArmPositionController", RobotMap.armPosP, RobotMap.armPosI, RobotMap.armPosD, armEncoder, RobotMap.armPIDPeriod);
+		armPosController.startThread();
+		
+		//initialized TCP Server for arm position controller, ONLY FOR DEBUDDING, REMOVE FOR COMPETITION
+		TCParmPosController = new TCPsocketSender(1185, armPosController);
+		TCParmPosController.start();
+	}
 
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub

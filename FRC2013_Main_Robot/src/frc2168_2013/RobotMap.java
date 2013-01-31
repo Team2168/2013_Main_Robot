@@ -27,6 +27,7 @@ public class RobotMap {
 	public static final int rightDriveMotor = 2;
 	public static final int shooterMotor = 3;
 	public static final int hopperMotor = 4;
+	public static final int armMotor =5;
 	
 	//DIO Channels////////////////////////////////////////////////////
 	public static final int leftDriveEncoderChannelA = 1;
@@ -39,6 +40,8 @@ public class RobotMap {
 	public static final int hopperDisc2 = 8;
 	public static final int hopperDisc3 = 9;
 	public static final int hopperDisc4 = 10;
+	public static final int armEncoderChannelA = 11;
+	public static final int armEncoderChannelB = 12;
 	public static final int compressorPressureSwitch = 14;
 
 	//Analog Input Channels///////////////////////////////////////////
@@ -60,7 +63,27 @@ public class RobotMap {
 	public static final double shooterEncoderMinRate = 0.0;
 	public static final boolean shooterEncoderReverse = false;
 	
-
+	//average Encoder
+	public static final int shooterAvgEncoderVal = 10;
+		
+	//period to run PID loops on shooter
+	public static final long shooterPIDPeriod = 100;//100ms loop
+	
+	/****************************************************************
+	 *                       Arm Parameters                     *
+	 ****************************************************************/
+	//arm Encoder///////////////////////////////////////////////
+	//TODO: Define the distance per tick, and the encoder rate
+	public static final double armEncoderDistPerTick = 0.0; //units in inches
+	public static final double armEncoderMinRate = 0.0;
+	public static final boolean armEncoderReverse = false;
+	
+	//average encoder
+	public static final int armAvgEncoderVal = 10;
+	
+	//period to run PID loops on arm
+	public static final long armPIDPeriod = 100;//100ms loop
+	
 	/****************************************************************
 	 *                       Drive Train Parameters                 *
 	 ****************************************************************/
@@ -69,7 +92,7 @@ public class RobotMap {
 
 	//average encoder
 	public static final int driveAvgEncoderVal = 10;
-	
+		
 	//Drivetrain Encoder Parameters /////////////////////////////////
 	public static final int pulsePerRotation = 360; //encoder ticks per rotation
 	public static final int gearRatio = 1/1; //ratio between wheel and encoder
@@ -85,7 +108,7 @@ public class RobotMap {
 	public static final int drivetrainArraySize = 50;
 	public static final double drivetrainPercent = 0.1;
 
-	//period to run PID loops
+	//period to run PID loops on drive train
 	public static final long driveTrainPIDPeriod = 100;//100ms loop
 
 	//PID Gains for Left & Right Speed and Position
@@ -107,4 +130,13 @@ public class RobotMap {
 	public static final double driveTrainRightPositionI = 0.000308064641742337; 
 	public static final double driveTrainRightPositionD = -0.000130778888124088;
 	
+	//PID Gains for Shooter Wheel Speed Controller
+	public static final double shooterSpeedP = 0.00574562908722711;
+	public static final double shooterSpeedI = 0.000308064641742337; 
+	public static final double shooterSpeedD = -0.000130778888124088;
+
+	//PID Gains for Arm Position Controller
+	public static final double armPosP = 0.00574562908722711;
+	public static final double armPosI = 0.000308064641742337; 
+	public static final double armPosD = -0.000130778888124088;
 }
