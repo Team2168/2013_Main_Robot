@@ -139,4 +139,15 @@ public class RobotMap {
 	public static final double armPosP = 0.00574562908722711;
 	public static final double armPosI = 0.000308064641742337; 
 	public static final double armPosD = -0.000130778888124088;
+	
+	/****************************************************************
+	 *                TCP Servers  (ONLY FOR DEBUGGING)             *
+	 ****************************************************************/
+	public static final int TCPServerRightDrivetrainPos = 1180;
+	public static final int TCPServerRightDrivetrainSpeed = 1181;
+	public static final int TCPServerLeftDrivetrainPos = 1182;
+	public static final int TCPServerLeftDrivetrainSpeed = 1183;
+	public static final int TCPServerShooterSpeed = 1184;
+	public static final int TCPServerArmPos = 1185;
+	
 }

@@ -19,14 +19,17 @@ public class Shooter extends Subsystem {
 	public Shooter() {
 		shooterMotor = new Talon(RobotMap.shooterMotor);
 		shooterWheelEncoder = new AverageEncoder(RobotMap.shooterEncoderChannelA, RobotMap.shooterEncoderChannelB, RobotMap.shooterEncoderReverse, CounterBase.EncodingType.k1X, RobotMap.shooterAvgEncoderVal);
-				//Set Encoder Parameters
+		shooterWheelEncoder.start();
+		
+		//Set Encoder Parameters
 		shooterWheelEncoder.setDistancePerPulse(RobotMap.shooterEncoderDistPerTick);
 		shooterWheelEncoder.setMinRate(RobotMap.shooterEncoderMinRate);
 		shooterWheelEncoder.setReverseDirection(RobotMap.shooterEncoderReverse);
 		shooterWheelSpeedController = new PIDSpeed("ShooterSpeedController", RobotMap.shooterSpeedP, RobotMap.shooterSpeedI, RobotMap.shooterSpeedD, shooterWheelEncoder, RobotMap.shooterPIDPeriod);
-
+		shooterWheelSpeedController.startThread();
+		
 		//initialized TCP Server, ONLY FOR DEBUDDING, REMOVE FOR COMPETITION
-		TCPshooterSpeedController = new TCPsocketSender(1184, shooterWheelSpeedController);
+		TCPshooterSpeedController = new TCPsocketSender(RobotMap.TCPServerShooterSpeed, shooterWheelSpeedController);
 		TCPshooterSpeedController.start();
 	}
 	

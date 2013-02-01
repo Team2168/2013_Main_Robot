@@ -25,7 +25,7 @@ public class Arm extends Subsystem {
 		armPosController.startThread();
 		
 		//initialized TCP Server for arm position controller, ONLY FOR DEBUDDING, REMOVE FOR COMPETITION
-		TCParmPosController = new TCPsocketSender(1185, armPosController);
+		TCParmPosController = new TCPsocketSender(RobotMap.TCPServerArmPos, armPosController);
 		TCParmPosController.start();
 	}
 

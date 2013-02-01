@@ -74,16 +74,16 @@ public class Drivetrain extends Subsystem {
     	leftPosController.startThread();
     	
     	//start TCP Servers for DEBUGING ONLY
-    	TCPrightPosController = new TCPsocketSender(1180, rightPosController);
+    	TCPrightPosController = new TCPsocketSender(RobotMap.TCPServerRightDrivetrainPos, rightPosController);
     	TCPrightPosController.start();
     	
-    	TCPrightSpeedController = new TCPsocketSender(1181, rightSpeedController);
+    	TCPrightSpeedController = new TCPsocketSender(RobotMap.TCPServerRightDrivetrainSpeed, rightSpeedController);
     	TCPrightSpeedController.start();
     	
-    	TCPleftPosController = new TCPsocketSender(1182, leftPosController);
+    	TCPleftPosController = new TCPsocketSender(RobotMap.TCPServerLeftDrivetrainPos, leftPosController);
     	TCPleftPosController.start();
     	
-    	TCPleftSpeedController = new TCPsocketSender(1183, leftSpeedController);
+    	TCPleftSpeedController = new TCPsocketSender(RobotMap.TCPServerLeftDrivetrainSpeed, leftSpeedController);
     	TCPleftSpeedController.start();
     	
     	//TODO: initialize encoders and closed loop control of drivetrain
