@@ -47,13 +47,13 @@ public class Drivetrain extends Subsystem {
     	leftDriveMotor = new Talon (RobotMap.leftDriveMotor);
     	
     	//initialized right and left drive train encoders
-    	rightEncoder = new AverageEncoder(RobotMap.rightDriveEncoderChannelA, RobotMap.rightDriveEncoderChannelB, RobotMap.rightDriveTrainEncoderReverse, CounterBase.EncodingType.k1X, RobotMap.driveAvgEncoderVal);
+    	rightEncoder = new AverageEncoder(RobotMap.rightDriveEncoderChannelA, RobotMap.rightDriveEncoderChannelB, RobotMap.rightDriveTrainEncoderReverse, CounterBase.EncodingType.k4X, RobotMap.driveAvgEncoderVal);
     	rightEncoder.setDistancePerPulse(RobotMap.driveEencoderDistPerTick);
     	rightEncoder.setMaxPeriod(RobotMap.driveEncoderMinPeriod);//min period before reported stopped
     	rightEncoder.setMinRate(RobotMap.driveEncoderMinRate);//min rate before reported stopped
     	rightEncoder.start();
     	
-    	leftEncoder = new AverageEncoder(RobotMap.leftDriveEncoderChannelA, RobotMap.leftDriveEncoderChannelB, RobotMap.leftDriveTrainEncoderReverse, CounterBase.EncodingType.k1X, RobotMap.driveAvgEncoderVal);
+    	leftEncoder = new AverageEncoder(RobotMap.leftDriveEncoderChannelA, RobotMap.leftDriveEncoderChannelB, RobotMap.leftDriveTrainEncoderReverse, CounterBase.EncodingType.k4X, RobotMap.driveAvgEncoderVal);
     	leftEncoder.setDistancePerPulse(RobotMap.driveEencoderDistPerTick);
     	leftEncoder.setMaxPeriod(RobotMap.driveEncoderMinPeriod);//min period before reported stopped
     	leftEncoder.setMinRate(RobotMap.driveEncoderMinRate);//min rate before reported stopped

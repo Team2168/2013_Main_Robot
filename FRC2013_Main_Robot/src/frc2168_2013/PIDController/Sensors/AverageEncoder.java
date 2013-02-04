@@ -4,9 +4,12 @@ import edu.wpi.first.wpilibj.Encoder;
 import frc2168_2013.PIDController.Sensors.SpeedSensorInterface;
 
 /**
- * Encoder Averagor Misspelling intentional. 
+ * This class extends the basic WPI encoder class. Its purpose is to provide
+ * a smoother rate output by averaging the rate of N samplesIt Implements the SpeedSensorInterface
+ * for use with our custom PID controller.
+ * Encoder with N point averager Misspelling intentional. 
  *
- * @author Sultan Jilani
+ * @author Kevin Harrilal, Team 2168 Aluminum Falcons
  *
  */
 public class AverageEncoder extends Encoder implements SpeedSensorInterface{
@@ -15,17 +18,33 @@ public class AverageEncoder extends Encoder implements SpeedSensorInterface{
 	private double[] averagorArray;
 	private int arrayPos = 0;		//Next array position to put values to be averaged
 	
+	long timeNow;
+	long oldTime;
+	double countNow;
+	double countBefore;
+	double rate;
+	
+	int PPR;
+
+	
 	
 	/**
 	 * Constructor for end point average class
 	 * @param n the size of end point average
 	 */
-	public AverageEncoder(int channelA, int channelB, boolean reverseDirection, EncodingType encoderType, int averageN){
+	public AverageEncoder(int channelA, int channelB, boolean reverseDirection, int PPR, EncodingType encoderType, int averageN){
 		
 		super(channelA,channelB,reverseDirection,encoderType);
 		
-		averagorSize = averageN;
-		averagorArray = new double[averagorSize];
+		this.averagorSize = averageN;
+		this.averagorArray = new double[averagorSize];
+		this.timeNow = 0;
+		this.oldTime = 0;
+		this.countNow = 0;
+		this.countBefore = 0;
+		this.rate = 0;
+		this.PPR=PPR;
+		
 	}
 	
 	
@@ -34,15 +53,12 @@ public class AverageEncoder extends Encoder implements SpeedSensorInterface{
 	 * @return the Average
 	 */
 	private double getAverage(){
-		double holder = 0;
-		for(int i = 0; i<averagorSize; i++){
-			
-			holder+=averagorArray[i];
-			
-		}
+		double sum = 0;
 		
-		return holder/averagorSize;
-		
+		for(int i = 0; i<averagorSize; i++)
+			sum+=averagorArray[i];
+				
+		return sum/averagorSize;	
 	}
 	
 	/**
@@ -55,20 +71,34 @@ public class AverageEncoder extends Encoder implements SpeedSensorInterface{
 		averagorArray[arrayPos] = value;
 		arrayPos++;
 		
-		if (arrayPos>=averagorSize) {		//Is equal or greater to averagorSize because array is zero indexed. Rolls over index position.
-			arrayPos=0;
-		}
-		
+		if (arrayPos>=averagorSize) 		//Is equal or greater to averagorSize because array is zero indexed. Rolls over index position.
+			arrayPos=0;	
 	}
 	
 	//@Override
-	public double getRate()
+	public double getRPM()
 	{
-		putData(super.getRate());
 		
+		//getRate
+		timeNow = System.currentTimeMillis();
+		countNow = super.get();
+		rate=(countNow-countBefore)/(timeNow-oldTime); //counts per millisecond
+		oldTime=timeNow;
+		countBefore=countNow;
 		
-		// TODO Auto-generated method stub
-		return getAverage();
+		//scale to RPM and add to array
+		putData(rate*1000*60/PPR);
+		
+		//return average
+		return getAverage(); //ticks per minute... rpm
+	}
+	
+	
+	
+	public double getAngle()
+	{
+		//counts divided by PulsesPerRot/360
+		return super.get()/PPR*360  ;
 	}
 	
 	public double getPos()
