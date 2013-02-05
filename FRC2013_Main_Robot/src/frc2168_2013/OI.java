@@ -4,6 +4,8 @@ package frc2168_2013;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button; 
 import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc2168_2013.utils.JoystickAnalogButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -11,8 +13,79 @@ import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
  */
 public class OI {
     
+	///////////////////////////////////////////////////////////////////////////
+	//  Driver Joystick
+	///////////////////////////////////////////////////////////////////////////
+	//Create variable for USB joystick
 	public Joystick baseDriver = new Joystick(RobotMap.baseDriveJoystick);
+	
+	//Create mapping for buttons on joystick
+	//Driver Joystick
+	public Button driveButtonA = new JoystickButton(baseDriver, 1),
+					driveButtonB = new JoystickButton(baseDriver, 2),
+					driveButtonX = new JoystickButton(baseDriver, 3),
+					driveButtonY = new JoystickButton(baseDriver, 4),
+					driveButtonLeftBumper = new JoystickButton(baseDriver, 5),
+					driveButtonRightBumper = new JoystickButton(baseDriver, 6),
+					driveButtonReset = new JoystickButton(baseDriver, 7),
+					driveButtonStart = new JoystickButton(baseDriver, 8);
+	
+	//Convenience functions for joystick axis'
+	public double getbaseDriverLeftAxis() {
+		if (baseDriver.getRawAxis(3) < 0) { // Use electronic braking
+				return ((((-RobotMap.mod + 1) * baseDriver.getRawAxis(3)) + 1) * baseDriver.getRawAxis(2));
+		} else {
+				return baseDriver.getRawAxis(1);
+		}
+	}
+	
+	public double getbaseDriverRightAxis() {
+		if (baseDriver.getRawAxis(3) < 0) { // Use electronic braking
+				return ((((-RobotMap.mod + 1) * baseDriver.getRawAxis(3)) + 1) * baseDriver.getRawAxis(5));
+		} else {
+				return baseDriver.getRawAxis(4); 
+		}
+	}
+	
+	
+	
+	
+	///////////////////////////////////////////////////////////////////////////
+	//  Operator Joystick
+	///////////////////////////////////////////////////////////////////////////
 	public Joystick operatorDrive = new Joystick(RobotMap.operatorDriveJoystick);
+	public Button   operatorButtonA = new JoystickButton(operatorDrive, 1),
+					operatorButtonB = new JoystickButton(operatorDrive, 2),
+					operatorButtonX = new JoystickButton(operatorDrive, 3),
+					operatorButtonY = new JoystickButton(operatorDrive, 4),
+					operatorButtonLeftBumper = new JoystickButton(operatorDrive, 5),
+					operatorButtonRightBumper = new JoystickButton(operatorDrive, 6),
+					operatorButtonReset = new JoystickButton(operatorDrive, 7),
+					operatorButtonStart = new JoystickButton(operatorDrive, 8);
+	public JoystickAnalogButton auxTriggerR = new JoystickAnalogButton(operatorDrive, 3, -0.5),
+								auxTriggerL = new JoystickAnalogButton(operatorDrive, 3, 0.5),
+								auxDPadL = new JoystickAnalogButton(operatorDrive, 6, -0.5),	
+								auxDPadR = new JoystickAnalogButton(operatorDrive, 6, 0.5);
+	
+	public double getoperatorDriveLeftStick() {
+			return operatorDrive.getRawAxis(2);
+	}
+	
+	public double getoperatorDriveRightStick() {
+			return operatorDrive.getRawAxis(5); 
+	}
+	
+	
+	public OI() {
+		//Map buttons to commands (operator and driver)
+		driveButtonLeftBumper.whenPressed(); //disengage the hanger
+		driveButtonRightBumper.whenPressed(); //engage the hanger
+		operatorButtonA.whenPressed(); //shooter on
+		operatorButtonB.whenPressed(); //shooter off 
+		auxTriggerR.whenPressed(); //shoot one disc
+		auxTriggerL.whenPressed(); //shoot one disc
+	}
+	
 	
 	//// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
