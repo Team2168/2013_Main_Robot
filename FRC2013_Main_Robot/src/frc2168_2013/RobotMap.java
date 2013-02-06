@@ -27,6 +27,7 @@ public class RobotMap {
 	public static final int rightDriveMotor = 2;
 	public static final int shooterMotor = 3;
 	public static final int hopperMotor = 4;
+	public static final int armMotor = 5;
 	
 	//DIO Channels////////////////////////////////////////////////////
 	public static final int leftDriveEncoderChannelA = 1;

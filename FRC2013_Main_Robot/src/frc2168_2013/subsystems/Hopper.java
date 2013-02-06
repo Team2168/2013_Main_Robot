@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Talon;
 import frc2168_2013.RobotMap;
+import frc2168_2013.commands.DiscLoadManual;
 
 public class Hopper extends Subsystem {
 	DoubleSolenoid stopper;
@@ -23,6 +24,7 @@ public class Hopper extends Subsystem {
 	
 	protected void initDefaultCommand() {
 		//TODO: Add default command.
+		setDefaultCommand(new DiscLoadManual());
 	}
 
 	/**
