@@ -4,52 +4,62 @@ package frc2168_2013.commands;
 import frc2168_2013.RobotMap;
 
 /**
+ * Drive the hopper until we see a frisbee right before the shooter.
  *
  * @author Shriji
  */
 public class DriveUntilFrisbee extends CommandBase {
-	
 	boolean frisbee;
 
+	/**
+	 * Default constructor.
+	 */
     public DriveUntilFrisbee() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(hopper);
-    	
+    	frisbee = false;
     }
 
-    // Called just before this Command runs the first time
+    /**
+     *  Called just before this Command runs the first time
+     */
     protected void initialize() {
     }
-    
-    boolean switchPressed;
 
-    // Called repeatedly when this Command is scheduled to run
+    /**
+     * Called repeatedly when this Command is scheduled to run
+     */
     protected void execute() {
-    	
-    	switchPressed = hopper.disc1Present();
-    	if(switchPressed = true){	//if a frisbee is present at the last checkpoint before contacting shooter
-			hopper.driveHopperPWM(0.0);			//stop the hopper
+    	if(hopper.disc1Present()) {		//If a Frisbee is present at the last
+    									//  position before the shooter.
+			hopper.driveHopperPWM(0.0);	//Stop the hopper
 			frisbee = true;
-		} else{												//if a frisbee isn't present
-			hopper.driveHopperPWM(RobotMap.hopperMotor);	//drive up
+		} else {											//If a Frisbee isn't present,
+			hopper.driveHopperPWM(RobotMap.hopperMotor);	//Drive the hopper
 			frisbee = false;
 		}
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    /**
+     * This ends the command when a frisbee is present.
+     */
     protected boolean isFinished() {
         return frisbee;
     }
 
-    // Called once after isFinished returns true
+    /**
+     * Called once after isFinished returns true.
+     */
     protected void end() {
     	hopper.driveHopperPWM(0.0);
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+    /**
+     * Called when another command which requires one or more of the same
+     * subsystems is scheduled to run.
+     */
     protected void interrupted() {
-    	end();
+    	end(); //Stop the hopper before this command completes.
     }
 }
