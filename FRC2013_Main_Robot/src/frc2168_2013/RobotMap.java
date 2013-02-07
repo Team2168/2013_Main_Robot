@@ -109,4 +109,9 @@ public class RobotMap {
 	public static int mod;
 	public static int driverJoystick;
 	
+	/****************************************************************
+	 *                       Shooter Parameters		                *
+	 ****************************************************************/
+	public static final double hopperVoltage = 0.4;
+	
 }
