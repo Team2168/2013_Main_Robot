@@ -9,33 +9,24 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class ShootSingleFrisbee extends CommandGroup
 {
-	public ShootSingleFrisbee(){
+	public ShootSingleFrisbee(){	
+		//get frisbee ready
+		addSequential(new DriveUntilFrisbee());
 	
+		//TODO: Determine if this wait is necessary
+		//wait so there is a consistent entry velocity into the shooter wheel
+		//addSequential(new Sleep(), .200); //wait for 1/5 second;
 	
+		//verify shooter is at speed
+		//addSequential(new PID_ShooterAtSpeed());
 	
-	//get frisbee ready
-	addSequential(new DriveUntilFrisbee());
-
+		//shoot disc
+		addSequential(new DriveUntilNoFrisbee());
 	
-	//wait for some length of time	
-	addSequential(new Sleep(), .200); //wait for 1/5 second;
-
+		//get another disc ready to fire or timeout
+		addSequential(new DriveUntilFrisbee(), 2);
 	
-	//verify shooter is at speed
-	//addSequential(new PID_ShooterAtSpeed());
-
-	
-	//shoot ball
-	addSequential(new DriveUntilNoFrisbee());
-
-	
-	//get another ball or timeout
-	addSequential(new DriveUntilFrisbee(),2);
-
-	
-
-	//shooter wheel will stop if timed out
-	addSequential(new StopShooterWheel());
-	
+		//shooter wheel will stop if timed out
+		//addSequential(new StopShooterWheel());
 	}
 }
