@@ -7,10 +7,7 @@ public class SetShooterSpeedPWM extends CommandBase {
 	/**
 	 * The default constructor for this command.
 	 * 
-	 * @param speed1 the PWM speed for the first wheel the disc will hit when
-	 *   shot.
-	 * @param speed2 the PWM speed for the second wheel the disc will hit when
-	 *   shot.
+	 * @param speed the PWM speed for the shooter wheel.
 	 */
 	public SetShooterSpeedPWM (double speed) {
 		requires(shooter);

@@ -1,47 +1,45 @@
 package frc2168_2013.subsystems;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-
 public class Hanger extends Subsystem {
-	DoubleSolenoid actuater;
-	//Declares the solenoid 
+	Talon hangerMotor;
+	//Declares the motor 
 	
-	double actuaterAngle;
+	double engageSpeed = 0.5;
+	double disengageSpeed = -0.5;
+	/**
+	 * Values for the motor when initialized/engaged/disengaged 
+	 */
 	
-	Value engaged;
-	Value disengaged;
-	//values for the solenoid when engaged/disengaged
+	/**
+	 * Tells the hanger what to do when it starts
+	 */
 	
 	protected void initDefaultCommand() {
 		//setDefaultCommand(new DisengageHanger());
 	}
 	
+	/**
+	 * Sets the speed for the motor when engaging. 
+	 */
 	public void engage(){
-		actuater.set(engaged);
-		
-	//Sets da value for da solenoid when engaged
+		hangerMotor.set(engageSpeed);
 	}
 	
+	/**
+	 * Sets the speed for the motor when disengaging.
+	 */
 	public void disengage(){
-		actuater.set(disengaged);
-		
-	//Sets da value for da solenoid  when not engaged
+		hangerMotor.set(disengageSpeed);
 	}
 	
-	public double getAngle(double actuaterAngle){
-		return (0.0);
-		//Figure out what gets/sets the angle at the base of the hanger
-		//Finish the code hear
-	}
+	/**
+	 * Stops the motor.
+	 */
+	public void stop(){
+		hangerMotor.set(0.0);
 	
-	public void raise(){
-		//will raise the hanger to be able to go hang itself
-	}
-	
-	public void lower(){
-		//will lower the hanger back to the down position
 	}
 }
