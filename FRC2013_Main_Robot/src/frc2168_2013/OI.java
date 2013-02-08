@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc2168_2013.utils.JoystickAnalogButton;
+import frc2168_2013.commands.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -81,9 +82,9 @@ public class OI {
 		driveButtonLeftBumper.whenPressed(); //disengage the hanger
 		driveButtonRightBumper.whenPressed(); //engage the hanger
 		operatorButtonA.whenPressed(); //shooter on
-		operatorButtonB.whenPressed(); //shooter off 
-		auxTriggerR.whenPressed(); //shoot one disc
-		auxTriggerL.whenPressed(); //shoot one disc
+		operatorButtonB.whenPressed(new StopShooterWheel()); //shooter off 
+		auxTriggerR.whenPressed(new ShootSingleFrisbee()); //shoot one disc
+		auxTriggerL.whenPressed(new ShootSingleFrisbee()); //shoot one disc
 	}
 	
 	

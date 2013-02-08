@@ -1,9 +1,11 @@
 package frc2168_2013.subsystems;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc2168_2013.RobotMap;
 
 public class Arm extends Subsystem {
-
+	
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
 
