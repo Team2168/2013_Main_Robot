@@ -8,7 +8,7 @@ public class Arm extends Subsystem {
 	
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-
+		//setDefaultCommand(new MoveArmManual());
 	}
 
 	/**
@@ -18,7 +18,6 @@ public class Arm extends Subsystem {
 	 */
 	public double getArmAngle(){
 		return 0;
-		
 	}
 
 	/**
@@ -31,13 +30,14 @@ public class Arm extends Subsystem {
 	}
 	
 	/**
-	 * Raise the arm
+	 * Raise the arm.
 	 */
 	public void raiseArm(){
 		//TODO: write the code for this method
 	}
-	/*
-	 * Lower the arm
+	
+	/**
+	 * Lower the arm.
 	 */
 	public void lowerArm(){
 		//TODO: write the code for this method
