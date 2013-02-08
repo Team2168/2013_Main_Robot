@@ -3,7 +3,6 @@ package frc2168_2013.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc2168_2013.commands.DisengageHanger;
 
 
 public class Hanger extends Subsystem {
@@ -17,7 +16,7 @@ public class Hanger extends Subsystem {
 	//values for the solenoid when engaged/disengaged
 	
 	protected void initDefaultCommand() {
-		setDefaultCommand(new DisengageHanger());
+		//setDefaultCommand(new DisengageHanger());
 	}
 	
 	public void engage(){
