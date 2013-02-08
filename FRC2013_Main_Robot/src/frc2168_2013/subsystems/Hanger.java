@@ -16,7 +16,7 @@ public class Hanger extends Subsystem {
 	//values for the solenoid when engaged/disengaged
 	
 	protected void initDefaultCommand() {
-		
+		//setDefaultCommand(new DisengageHanger());
 	}
 	
 	public void engage(){
