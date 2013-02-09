@@ -23,6 +23,7 @@ public class Hopper extends Subsystem {
 	
 	protected void initDefaultCommand() {
 		//TODO: Add default command.
+		//setDefaultCommand(new DiscLoadManual());
 	}
 
 	/**

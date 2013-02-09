@@ -27,6 +27,7 @@ public class RobotMap {
 	public static final int rightDriveMotor = 2;
 	public static final int shooterMotor = 3;
 	public static final int hopperMotor = 4;
+	public static final int armMotor = 5;
 	
 	//DIO Channels////////////////////////////////////////////////////
 	public static final int leftDriveEncoderChannelA = 1;
@@ -106,5 +107,12 @@ public class RobotMap {
 	public static final double driveTrainRightPositionP = 0.00574562908722711;
 	public static final double driveTrainRightPositionI = 0.000308064641742337; 
 	public static final double driveTrainRightPositionD = -0.000130778888124088;
+	public static int mod;
+	public static int driverJoystick;
+	
+	/****************************************************************
+	 *                       Shooter Parameters		                *
+	 ****************************************************************/
+	public static final double hopperVoltage = 0.4;
 	
 }
