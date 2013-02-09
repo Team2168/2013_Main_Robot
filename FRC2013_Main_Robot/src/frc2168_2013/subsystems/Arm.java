@@ -18,8 +18,7 @@ public class Arm extends Subsystem {
 	
 	public Arm(){
 		armMotor = new Talon(RobotMap.armMotor);
-		armEncoder = new AverageEncoder(RobotMap.armEncoderChannelA, RobotMap.armEncoderChannelB, RobotMap.armPulsePerRotation,RobotMap.armEncoderReverse, CounterBase.EncodingType.k1X, RobotMap.armAvgEncoderVal);
-		armEncoder.setDistancePerPulse(RobotMap.armEncoderDistPerTick);
+		armEncoder = new AverageEncoder(RobotMap.armEncoderChannelA, RobotMap.armEncoderChannelB, RobotMap.armEncoderPulsePerRot,RobotMap.armEncoderDistPerTick,RobotMap.armEncoderReverse, RobotMap.armEncodingType, RobotMap.armSpeedReturnType, RobotMap.armPosReturnType,RobotMap.armAvgEncoderVal);
 		armEncoder.setMaxPeriod(RobotMap.armEncoderMinPeriod);//min period before reported stopped
 		armEncoder.setMinRate(RobotMap.armEncoderMinRate);//min rate before reported stopped
 		armEncoder.start();

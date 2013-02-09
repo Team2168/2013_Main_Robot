@@ -1,5 +1,8 @@
 package frc2168_2013;
 
+import edu.wpi.first.wpilibj.CounterBase;
+import frc2168_2013.PIDController.Sensors.AverageEncoder;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -62,18 +65,19 @@ public class RobotMap {
 	//arm Radius
 	public static final int shooterWheelRadius=3;//Colson wheel radius in inches
 	
-
-	public static final int shooterPulsePerRotation = 360; //encoder ticks per rotation
-	public static final int shooterGearRatio = 1/1; //ratio between wheel and encoder
-	public static final int shooterEncoderPulsePerRot= shooterPulsePerRotation*shooterGearRatio; //pulse per rotation * gear ratio
+	private static final int shooterPulsePerRotation = 256; //encoder ticks per rotation (LEAVE PRIVATE)
+	private static final double shooterGearRatio = 30.0/24.0; //ratio between wheel over encoder (LEAVE PRIVATE)
+	public static final int shooterEncoderPulsePerRot=(int) (shooterPulsePerRotation*shooterGearRatio); //pulse per rotation * gear ratio
 	public static final double shooterEncoderDistPerTick=(Math.PI*2*shooterWheelRadius)/shooterEncoderPulsePerRot;
+	public static final CounterBase.EncodingType shooterEncodingType= CounterBase.EncodingType.k4X; //count rising and falling edges on both channels
+	public static final AverageEncoder.PositionReturnType shooterPosReturnType = AverageEncoder.PositionReturnType.DEGREE;
+	public static final AverageEncoder.SpeedReturnType shooterSpeedReturnType = AverageEncoder.SpeedReturnType.RPM;
 	public static final int shooterEncoderMinRate=10; 
 	public static final int shooterEncoderMinPeriod=10;
 	public static final boolean shooterEncoderReverse=false;
-	
-	//average Encoder
-	public static final int shooterAvgEncoderVal = 10;
+	public static final int shooterAvgEncoderVal = 1;
 		
+	
 	//period to run PID loops on shooter
 	public static final long shooterPIDPeriod = 100;//100ms loop
 	
@@ -90,24 +94,23 @@ public class RobotMap {
 	//arm Radius
 	public static final int armWheelRadius=3;//Colson wheel radius in inches
 	
-
 	//Drivetrain Encoder Parameters /////////////////////////////////
-	public static final int armPulsePerRotation = 360; //encoder ticks per rotation
-	public static final int armGearRatio = 1/1; //ratio between wheel and encoder
-	public static final int armEncoderPulsePerRot= armPulsePerRotation*armGearRatio; //pulse per rotation * gear ratio
+	private static final int armPulsePerRotation = 256; //encoder ticks per rotation (LEAVE PRIVATE)
+	private static final double armGearRatio = 30.0/24.0; //ratio between wheel over encoder (LEAVE PRIVATE)
+	public static final int armEncoderPulsePerRot=(int) (armPulsePerRotation*armGearRatio); //pulse per rotation * gear ratio
 	public static final double armEncoderDistPerTick=(Math.PI*2*armWheelRadius)/armEncoderPulsePerRot;
+	public static final CounterBase.EncodingType armEncodingType= CounterBase.EncodingType.k4X; //count rising and falling edges on both channels
+	public static final AverageEncoder.PositionReturnType armPosReturnType = AverageEncoder.PositionReturnType.DEGREE;
+	public static final AverageEncoder.SpeedReturnType armSpeedReturnType = AverageEncoder.SpeedReturnType.RPM;
 	public static final int armEncoderMinRate=10; 
 	public static final int armEncoderMinPeriod=10;
 	public static final boolean armEncoderReverse=false;
-
-		
+	public static final int armAvgEncoderVal = 1;
 
 	
 	//arm voltage constant
 	public static final double hopperVoltage = 0.4;
-	
-	//average encoder
-	public static final int armAvgEncoderVal = 10;
+
 	
 	//period to run PID loops on arm
 	public static final long armPIDPeriod = 100;//100ms loop
@@ -123,19 +126,20 @@ public class RobotMap {
 	//Wheel Radius
 	public static final int driveWheelRadius=2;//Colson wheel radius in inches
 
-	//average encoder
-	public static final int driveAvgEncoderVal = 10;
-		
+	
 	//Drivetrain Encoder Parameters /////////////////////////////////
-	public static final int drivePulsePerRotation = 360; //encoder ticks per rotation
-	public static final double driveGearRatio = 30.0/24.0; //ratio between wheel over encoder
+	private static final int drivePulsePerRotation = 360; //encoder ticks per rotation
+	private static final double driveGearRatio = 30.0/24.0; //ratio between wheel over encoder
 	public static final int driveEncoderPulsePerRot=(int) (drivePulsePerRotation*driveGearRatio); //pulse per rotation * gear ratio
-	public static final double driveEencoderDistPerTick=(Math.PI*2*driveWheelRadius)/driveEncoderPulsePerRot;
+	public static final double driveEncoderDistPerTick=(Math.PI*2*driveWheelRadius)/driveEncoderPulsePerRot;
+	public static final CounterBase.EncodingType driveEncodingType= CounterBase.EncodingType.k4X; //count rising and falling edges on both channels
+	public static final AverageEncoder.PositionReturnType drivePosReturnType = AverageEncoder.PositionReturnType.DEGREE;
+	public static final AverageEncoder.SpeedReturnType driveSpeedReturnType = AverageEncoder.SpeedReturnType.RPM;
 	public static final int driveEncoderMinRate=10; 
 	public static final int driveEncoderMinPeriod=10;
 	public static final boolean leftDriveTrainEncoderReverse=false;
 	public static final boolean rightDriveTrainEncoderReverse=false;
-	
+	public static final int driveAvgEncoderVal = 1;
 
 	//PID Parameters //////////////////////////////////////////////////
 	public static final int drivetrainArraySize = 50;
@@ -162,6 +166,7 @@ public class RobotMap {
 	public static final double driveTrainRightPositionP = 0.00574562908722711;
 	public static final double driveTrainRightPositionI = 0.000308064641742337; 
 	public static final double driveTrainRightPositionD = -0.000130778888124088;
+	
 	public static int mod;
 	public static int driverJoystick;
 	

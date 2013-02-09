@@ -24,7 +24,13 @@ public class AverageEncoder extends Encoder implements SpeedSensorInterface{
 	double countBefore;
 	double rate;
 	
+	private SpeedReturnType speedReturnType;
+	private PositionReturnType posReturnType;
+	
 	int PPR;
+	double distPerTick;
+	
+	
 
 	
 	
@@ -32,7 +38,8 @@ public class AverageEncoder extends Encoder implements SpeedSensorInterface{
 	 * Constructor for end point average class
 	 * @param n the size of end point average
 	 */
-	public AverageEncoder(int channelA, int channelB, int PPR, boolean reverseDirection, EncodingType encoderType, int averageN){
+	public AverageEncoder(int channelA, int channelB, int PPR, double distPerTick, boolean reverseDirection, EncodingType encoderType, int averageN)
+	{
 		
 		super(channelA,channelB,reverseDirection,encoderType);
 		
@@ -43,10 +50,24 @@ public class AverageEncoder extends Encoder implements SpeedSensorInterface{
 		this.countNow = 0;
 		this.countBefore = 0;
 		this.rate = 0;
+		
 		this.PPR=PPR;
+		this.distPerTick=distPerTick;
+		
+		this.posReturnType=PositionReturnType.DEGREE;
+		this.speedReturnType=SpeedReturnType.RPM;
+		
+		super.setDistancePerPulse(distPerTick);
 		
 	}
 	
+	public AverageEncoder(int channelA, int channelB, int PPR, double distPerTick, boolean reverseDirection, EncodingType encoderType, SpeedReturnType speedReturnType, PositionReturnType posReturnType, int averageN)
+	{
+		this(channelA, channelB, PPR, distPerTick, reverseDirection, encoderType, averageN);
+		this.speedReturnType=speedReturnType;
+		this.posReturnType=posReturnType;
+		
+	}
 	
 	/**
 	 * returns (gets) Average of last n values sent, as name says.
@@ -76,20 +97,33 @@ public class AverageEncoder extends Encoder implements SpeedSensorInterface{
 	}
 	
 	//@Override
+
 	public double getRate()
 	{
-		
 		//getRate
 		timeNow = System.currentTimeMillis();
-		countNow = super.get();
+		countNow = (double)super.get();
 		rate=(countNow-countBefore)/(timeNow-oldTime); //counts per millisecond
 		oldTime=timeNow;
 		countBefore=countNow;
 	
+		switch (speedReturnType.value) 
+		{
+		case SpeedReturnType.IPS_val:
+			putData(rate*distPerTick*1000);
+			break;
+		case SpeedReturnType.FPS_val:
+			putData(rate*distPerTick*1000/12); //feet per second
+			break;
+		case SpeedReturnType.RPM_val:
+			putData(rate*1000*60/PPR);  //ticks per minute... rpm
+			break;
+		default:
+			//should be unreachable
+			putData(0);	
+			break;
 		
-		//scale to RPM and add to array
-		putData(rate*1000*60/PPR);
-	
+		}
 		
 		return getAverage(); //ticks per minute... rpm
 	}
@@ -98,13 +132,80 @@ public class AverageEncoder extends Encoder implements SpeedSensorInterface{
 	
 	public double getPos()
 	{
-		;
-		//counts divided by PulsesPerRot/360
-		return (double)(super.get())/PPR*360;
+		
+		switch (posReturnType.value) 
+		{
+        case PositionReturnType.TICKS_val:
+            return get();
+        case PositionReturnType.INCH_val:
+        	return super.getDistance();
+        case PositionReturnType.DEGREE_val:
+        	return (double)(super.get())/PPR*360;
+        case PositionReturnType.RADIANS_val:
+           return (double)(super.get())/PPR*(2*Math.PI);
+        default:
+        	//should be unreachable
+        	return 0;
+		}
 	}
-	
 //	public double getPos()
 //	{
 //		return super.get();
-//	}	
+//	}
+	
+	public static class SpeedReturnType
+	{
+        /**
+         * The integer value representing this enumeration
+         */
+		static final int IPS_val = 0;
+		static final int RPM_val = 1;
+		static final int FPS_val = 2;
+		final int value;
+        /**
+         * Count only the rising edge
+         */
+        public static final SpeedReturnType IPS = new SpeedReturnType(IPS_val);
+        /**
+         * Count both the rising and falling edge
+         */
+        public static final SpeedReturnType RPM = new SpeedReturnType(RPM_val);
+        /**
+         * Count rising and falling on both channels
+         */
+        public static final SpeedReturnType FPS = new SpeedReturnType(FPS_val);
+
+        private SpeedReturnType(int value) {
+            this.value = value;
+        }
+	}
+	
+	 public static class PositionReturnType
+	{
+		static final int TICKS_val = 0;
+		static final int INCH_val = 1;
+		static final int DEGREE_val = 2;
+		static final int RADIANS_val = 3;
+		public final int value;
+       /**
+        * Count only the rising edge
+        */
+       public static final PositionReturnType TICKS = new PositionReturnType(TICKS_val);
+       /**
+        * Count both the rising and falling edge
+        */
+       public static final PositionReturnType INCH = new PositionReturnType(INCH_val);
+       /**
+        * Count rising and falling on both channels
+        */
+       public static final PositionReturnType DEGREE = new PositionReturnType(DEGREE_val);
+       
+       public static final PositionReturnType RADIANS = new PositionReturnType(RADIANS_val);
+
+       private PositionReturnType(int value) {
+           this.value = value;
+       }
+	}	
+
 }
+

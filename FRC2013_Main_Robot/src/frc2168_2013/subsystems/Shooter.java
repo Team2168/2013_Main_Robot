@@ -19,9 +19,9 @@ public class Shooter extends Subsystem {
 		shooterMotor = new Talon(RobotMap.shooterMotor);
 		
 		//Set Encoder Parameters
-		shooterWheelEncoder = new AverageEncoder(RobotMap.shooterEncoderChannelA, RobotMap.shooterEncoderChannelB, RobotMap.shooterPulsePerRotation,RobotMap.shooterEncoderReverse, CounterBase.EncodingType.k1X, RobotMap.shooterAvgEncoderVal);
-		shooterWheelEncoder.setDistancePerPulse(RobotMap.shooterEncoderDistPerTick);
+		shooterWheelEncoder = new AverageEncoder(RobotMap.shooterEncoderChannelA, RobotMap.shooterEncoderChannelB, RobotMap.shooterEncoderPulsePerRot,RobotMap.shooterEncoderDistPerTick,RobotMap.shooterEncoderReverse, RobotMap.shooterEncodingType, RobotMap.shooterSpeedReturnType, RobotMap.shooterPosReturnType,RobotMap.shooterAvgEncoderVal);
 		shooterWheelEncoder.setMinRate(RobotMap.shooterEncoderMinRate);
+		shooterWheelEncoder.setMaxPeriod(RobotMap.shooterEncoderMinPeriod);
 		shooterWheelEncoder.start();
 
 		
