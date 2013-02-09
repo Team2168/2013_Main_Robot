@@ -36,12 +36,13 @@ public class RobotMap {
 	public static final int rightDriveEncoderChannelB = 4;
 	public static final int shooterEncoderChannelA = 5;
 	public static final int shooterEncoderChannelB = 6;
-	public static final int hopperDisc1 = 7;
-	public static final int hopperDisc2 = 8;
-	public static final int hopperDisc3 = 9;
-	public static final int hopperDisc4 = 10;
-	public static final int armEncoderChannelA = 11;
-	public static final int armEncoderChannelB = 12;
+	public static final int armEncoderChannelA = 7;
+	public static final int armEncoderChannelB = 8;
+	public static final int hopperDisc1 = 9;
+	public static final int hopperDisc2 = 10;
+	public static final int hopperDisc3 = 11;
+	public static final int hopperDisc4 = 12;
+
 	public static final int compressorPressureSwitch = 14;
 
 	//Analog Input Channels///////////////////////////////////////////
