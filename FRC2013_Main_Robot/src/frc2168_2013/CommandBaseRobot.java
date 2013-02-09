@@ -8,6 +8,9 @@
 package frc2168_2013;
 
 
+import java.util.TimerTask;
+
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Command;
@@ -27,7 +30,10 @@ import frc2168_2013.utils.SerialCommunicator;
 public class CommandBaseRobot extends IterativeRobot {
 
     Command autonomousCommand;
-
+    java.util.Timer executor;
+    double timeOld=0;
+    
+    
     /**
      * This method is run when the robot is first started up and should be
      * used for any initialization code.
@@ -70,6 +76,34 @@ public class CommandBaseRobot extends IterativeRobot {
         //Initialize the serial port
         //SerialCommunicator.init(9600, 8, SerialPort.Parity.kNone, SerialPort.StopBits.kOne);
         //SerialCommunicator.putData("abcdefghijklmnopqrstuvwxyz");
+        
+        final long period = 40;
+        
+    	TimerTask myTask = new TimerTask(){
+
+   		 public void run() {
+   			timeOld = System.currentTimeMillis();
+   			
+   			
+   			DriverStation.getInstance().waitForData();
+   			CommandBase.driveTrain.driveRight(1);
+
+   			
+   			System.out.println(System.currentTimeMillis()-timeOld);
+   			
+   			CommandBase.driveTrain.driveRight(0);
+   			
+   			 
+  
+
+  			
+   			 
+   		 }
+   		};
+   	
+   	
+   	this.executor = new java.util.Timer();
+		this.executor.schedule(myTask, 0L, period);
     }
 
     /**
@@ -77,6 +111,9 @@ public class CommandBaseRobot extends IterativeRobot {
      */
     public void teleopPeriodic() {
     	Scheduler.getInstance().run();
+    	
+    	
+
     }
     
     /**

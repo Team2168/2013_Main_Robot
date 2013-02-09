@@ -32,11 +32,11 @@ public class AverageEncoder extends Encoder implements SpeedSensorInterface{
 	 * Constructor for end point average class
 	 * @param n the size of end point average
 	 */
-	public AverageEncoder(int channelA, int channelB, boolean reverseDirection, int PPR, EncodingType encoderType, int averageN){
+	public AverageEncoder(int channelA, int channelB, int PPR, boolean reverseDirection, EncodingType encoderType, int averageN){
 		
 		super(channelA,channelB,reverseDirection,encoderType);
 		
-		this.averagorSize = averageN;
+	this.averagorSize = averageN;
 		this.averagorArray = new double[averagorSize];
 		this.timeNow = 0;
 		this.oldTime = 0;
@@ -76,7 +76,7 @@ public class AverageEncoder extends Encoder implements SpeedSensorInterface{
 	}
 	
 	//@Override
-	public double getRPM()
+	public double getRate()
 	{
 		
 		//getRate
@@ -85,11 +85,12 @@ public class AverageEncoder extends Encoder implements SpeedSensorInterface{
 		rate=(countNow-countBefore)/(timeNow-oldTime); //counts per millisecond
 		oldTime=timeNow;
 		countBefore=countNow;
+	
 		
 		//scale to RPM and add to array
 		putData(rate*1000*60/PPR);
+	
 		
-		//return average
 		return getAverage(); //ticks per minute... rpm
 	}
 	
@@ -104,9 +105,5 @@ public class AverageEncoder extends Encoder implements SpeedSensorInterface{
 	public double getPos()
 	{
 		return super.getDistance();
-	}
-	
-	
-	
-	
+	}	
 }

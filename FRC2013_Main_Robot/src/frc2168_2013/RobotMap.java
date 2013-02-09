@@ -68,7 +68,7 @@ public class RobotMap {
 	public static final int driveWheelRadius=2;//Colson wheel radius in inches
 
 	//average encoder
-	public static final int driveAvgEncoderVal = 10;
+	public static final int driveAvgEncoderVal = 1;
 	
 	//Drivetrain Encoder Parameters /////////////////////////////////
 	public static final int pulsePerRotation = 360; //encoder ticks per rotation
