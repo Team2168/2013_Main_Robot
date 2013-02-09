@@ -1,23 +1,36 @@
 package frc2168_2013.subsystems;
 
-import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc2168_2013.RobotMap;
+import frc2168_2013.PIDController.Controller.PIDSpeed;
+import frc2168_2013.PIDController.Sensors.AverageEncoder;
+import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
 import frc2168_2013.commands.SetShooterSpeedPWM;
 
 public class Shooter extends Subsystem {
 	Talon shooterMotor;
-	Encoder shooterWheelEncoder;
+	AverageEncoder shooterWheelEncoder;
+	PIDSpeed shooterWheelSpeedController;
+	TCPsocketSender TCPshooterSpeedController;
 	
 	public Shooter() {
 		shooterMotor = new Talon(RobotMap.shooterMotor);
-		shooterWheelEncoder = new Encoder(RobotMap.shooterEncoderChannelA, 
-				RobotMap.shooterEncoderChannelB);
+		
 		//Set Encoder Parameters
+		shooterWheelEncoder = new AverageEncoder(RobotMap.shooterEncoderChannelA, RobotMap.shooterEncoderChannelB, RobotMap.shooterPulsePerRotation,RobotMap.shooterEncoderReverse, CounterBase.EncodingType.k1X, RobotMap.shooterAvgEncoderVal);
 		shooterWheelEncoder.setDistancePerPulse(RobotMap.shooterEncoderDistPerTick);
 		shooterWheelEncoder.setMinRate(RobotMap.shooterEncoderMinRate);
-		shooterWheelEncoder.setReverseDirection(RobotMap.shooterEncoderReverse);
+		shooterWheelEncoder.start();
+
+		
+		shooterWheelSpeedController = new PIDSpeed("ShooterSpeedController", RobotMap.shooterSpeedP, RobotMap.shooterSpeedI, RobotMap.shooterSpeedD, shooterWheelEncoder, RobotMap.shooterPIDPeriod);
+		shooterWheelSpeedController.startThread();
+
+		//initialized TCP Server, ONLY FOR DEBUDDING, REMOVE FOR COMPETITION
+		TCPshooterSpeedController = new TCPsocketSender(RobotMap.TCPServerShooterSpeed, shooterWheelSpeedController);
+		TCPshooterSpeedController.start();
 	}
 	
 	/**

@@ -79,9 +79,9 @@ public class OI {
 	
 	public OI() {
 		//Map buttons to commands (operator and driver)
-		driveButtonLeftBumper.whenPressed(); //disengage the hanger
-		driveButtonRightBumper.whenPressed(); //engage the hanger
-		operatorButtonA.whenPressed(); //shooter on
+	//	driveButtonLeftBumper.whenPressed(); //disengage the hanger
+	//	driveButtonRightBumper.whenPressed(); //engage the hanger
+	//	operatorButtonA.whenPressed(); //shooter on
 		operatorButtonB.whenPressed(new StopShooterWheel()); //shooter off 
 		auxTriggerR.whenPressed(new ShootSingleFrisbee()); //shoot one disc
 		auxTriggerL.whenPressed(new ShootSingleFrisbee()); //shoot one disc
