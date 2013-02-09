@@ -83,7 +83,7 @@ public class Drivetrain extends Subsystem {
     	TCPleftPosController = new TCPsocketSender(RobotMap.TCPServerLeftDrivetrainPos, leftPosController);
     	TCPleftPosController.start();
     	
-    	TCPleftSpeedController = new TCPsocketSender(RobotMap.TCPServerRightDrivetrainSpeed, leftSpeedController);
+    	TCPleftSpeedController = new TCPsocketSender(RobotMap.TCPServerLeftDrivetrainSpeed, leftSpeedController);
     	TCPleftSpeedController.start();
     	
     	//TODO: initialize encoders and closed loop control of drivetrain
