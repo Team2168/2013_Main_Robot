@@ -77,33 +77,6 @@ public class CommandBaseRobot extends IterativeRobot {
         //SerialCommunicator.init(9600, 8, SerialPort.Parity.kNone, SerialPort.StopBits.kOne);
         //SerialCommunicator.putData("abcdefghijklmnopqrstuvwxyz");
         
-        final long period = 40;
-        
-    	TimerTask myTask = new TimerTask(){
-
-   		 public void run() {
-   			timeOld = System.currentTimeMillis();
-   			
-   			
-   			DriverStation.getInstance().waitForData();
-   			CommandBase.driveTrain.driveRight(1);
-
-   			
-   			System.out.println(System.currentTimeMillis()-timeOld);
-   			
-   			CommandBase.driveTrain.driveRight(0);
-   			
-   			 
-  
-
-  			
-   			 
-   		 }
-   		};
-   	
-   	
-   	this.executor = new java.util.Timer();
-		this.executor.schedule(myTask, 0L, period);
     }
 
     /**
