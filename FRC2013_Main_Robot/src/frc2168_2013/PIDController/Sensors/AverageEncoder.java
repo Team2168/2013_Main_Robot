@@ -96,14 +96,15 @@ public class AverageEncoder extends Encoder implements SpeedSensorInterface{
 	
 	
 	
-	public double getAngle()
-	{
-		//counts divided by PulsesPerRot/360
-		return super.get()/PPR*360  ;
-	}
-	
 	public double getPos()
 	{
-		return super.getDistance();
-	}	
+		;
+		//counts divided by PulsesPerRot/360
+		return (double)(super.get())/PPR*360;
+	}
+	
+//	public double getPos()
+//	{
+//		return super.get();
+//	}	
 }

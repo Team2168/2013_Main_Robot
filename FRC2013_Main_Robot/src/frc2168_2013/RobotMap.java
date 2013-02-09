@@ -128,8 +128,8 @@ public class RobotMap {
 		
 	//Drivetrain Encoder Parameters /////////////////////////////////
 	public static final int drivePulsePerRotation = 360; //encoder ticks per rotation
-	public static final int driveGearRatio = 1/1; //ratio between wheel and encoder
-	public static final int driveEncoderPulsePerRot= drivePulsePerRotation*driveGearRatio; //pulse per rotation * gear ratio
+	public static final double driveGearRatio = 30.0/24.0; //ratio between wheel over encoder
+	public static final int driveEncoderPulsePerRot=(int) (drivePulsePerRotation*driveGearRatio); //pulse per rotation * gear ratio
 	public static final double driveEencoderDistPerTick=(Math.PI*2*driveWheelRadius)/driveEncoderPulsePerRot;
 	public static final int driveEncoderMinRate=10; 
 	public static final int driveEncoderMinPeriod=10;

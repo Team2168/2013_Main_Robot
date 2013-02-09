@@ -41,19 +41,20 @@ public class Drivetrain extends Subsystem {
 	 * The default constructor for the Drivetrain subsystem.
 	 */
     public Drivetrain(){
+    	System.out.println("drive train encoder shit:" + RobotMap.driveEncoderPulsePerRot);
     	
     	//intializing motor controller using PWM. Refer to RobotMap
     	rightDriveMotor = new Talon (RobotMap.rightDriveMotor);
     	leftDriveMotor = new Talon (RobotMap.leftDriveMotor);
     	
     	//initialized right and left drive train encoders
-    	rightEncoder = new AverageEncoder(RobotMap.rightDriveEncoderChannelA, RobotMap.rightDriveEncoderChannelB, 500,RobotMap.rightDriveTrainEncoderReverse, CounterBase.EncodingType.k4X, RobotMap.driveAvgEncoderVal);
+    	rightEncoder = new AverageEncoder(RobotMap.rightDriveEncoderChannelA, RobotMap.rightDriveEncoderChannelB, RobotMap.driveEncoderPulsePerRot,RobotMap.rightDriveTrainEncoderReverse, CounterBase.EncodingType.k4X, RobotMap.driveAvgEncoderVal);
     	rightEncoder.setDistancePerPulse(RobotMap.driveEencoderDistPerTick);
     	rightEncoder.setMaxPeriod(RobotMap.driveEncoderMinPeriod);//min period before reported stopped
     	rightEncoder.setMinRate(RobotMap.driveEncoderMinRate);//min rate before reported stopped
     	rightEncoder.start();
     	
-    	leftEncoder = new AverageEncoder(RobotMap.leftDriveEncoderChannelA, RobotMap.leftDriveEncoderChannelB, 500, RobotMap.leftDriveTrainEncoderReverse, CounterBase.EncodingType.k4X, RobotMap.driveAvgEncoderVal);
+    	leftEncoder = new AverageEncoder(RobotMap.leftDriveEncoderChannelA, RobotMap.leftDriveEncoderChannelB, RobotMap.driveEncoderPulsePerRot, RobotMap.leftDriveTrainEncoderReverse, CounterBase.EncodingType.k4X, RobotMap.driveAvgEncoderVal);
     	leftEncoder.setDistancePerPulse(RobotMap.driveEencoderDistPerTick);
     	leftEncoder.setMaxPeriod(RobotMap.driveEncoderMinPeriod);//min period before reported stopped
     	leftEncoder.setMinRate(RobotMap.driveEncoderMinRate);//min rate before reported stopped
