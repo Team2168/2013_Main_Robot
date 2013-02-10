@@ -8,6 +8,7 @@
 
 # IDE specific #
 *.classpath
+.classpath
 *.settings
 
 
