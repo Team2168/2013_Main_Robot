@@ -85,4 +85,28 @@ public class Hopper extends Subsystem {
 		//TODO: Verify true false for disc presence
 		return !disc4.get();
 	}
+	
+	/**
+	 * Return the number of discs present in the hopper.
+	 * 
+	 * @return the number of discs
+	 */
+	 public int getNumberOfDiscs() {
+	 	int i = 0;
+	 	
+    		if (hopper.disc1Present()) {
+    			i++;
+    		}
+    		if (hopper.disc2Present()) {
+    			i++;
+    		}
+    		if (hopper.disc3Present()) {
+    			i++;
+    		}
+    		if (hopper.disc4Present()) {
+    			i++;
+    		}
+    		
+    		return i;
+	 }
 }
