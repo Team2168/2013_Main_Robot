@@ -47,7 +47,7 @@ public class Shooter extends Subsystem {
      * 
      * @param wheel1 Speed for wheel 1 (1.0 to -1.0)
      */
-    public void setPWM(double speed){
+    public void setPWM(double speed) {
     	shooterMotor.set(speed);
     }
     
@@ -56,16 +56,28 @@ public class Shooter extends Subsystem {
      * 
      * @return the speed of the shooter (inches/seconds)
      */
-    public double getSpeed(){
+    public double getSpeed() {
     	//TODO: Write code for this method
     	return shooterWheelEncoder.getRate();
     }
+    
+    /**
+     * Check to see if the speed controller has reached its set point.
+     * 
+     * @return true if the shooter wheel is up to speed, false otherwise
+     */
+    public boolean atSpeed() {
+    	//TODO: Verify the doesn't return true when the wheel speed is real low (0.0)
+    	return shooterWheelSpeedController.isFinished();
+    }
+    
     /**
      * Stops the encoder from counting.
      */
     public void stopEncoder() {
     	shooterWheelEncoder.stop();
     }
+    
     /**
      * Resets the encoder distance to zero.
      */
