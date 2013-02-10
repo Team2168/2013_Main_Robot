@@ -94,16 +94,16 @@ public class Hopper extends Subsystem {
 	 public int getNumberOfDiscs() {
 	 	int i = 0;
 	 	
-    		if (hopper.disc1Present()) {
+    		if (disc1Present()) {
     			i++;
     		}
-    		if (hopper.disc2Present()) {
+    		if (disc2Present()) {
     			i++;
     		}
-    		if (hopper.disc3Present()) {
+    		if (disc3Present()) {
     			i++;
     		}
-    		if (hopper.disc4Present()) {
+    		if (disc4Present()) {
     			i++;
     		}
     		
