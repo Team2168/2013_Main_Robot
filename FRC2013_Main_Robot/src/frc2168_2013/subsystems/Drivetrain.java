@@ -24,12 +24,12 @@ public class Drivetrain extends Subsystem {
 	AverageEncoder leftEncoder;
 	
 	//declare position controllers
-	PIDPosition rightPosController;
-	PIDPosition leftPosController;
+	public final PIDPosition rightPosController;
+	public final PIDPosition leftPosController;
 	
 	//declare speed controllers
-	PIDSpeed rightSpeedController;
-	PIDSpeed leftSpeedController;
+	public final PIDSpeed rightSpeedController;
+	public final PIDSpeed leftSpeedController;
 	
 	//declare TCP severs...ONLY FOR DEBUGGING PURPOSES, SHOULD BE REMOVED FOR COMPITITION
 	TCPsocketSender TCPrightPosController;

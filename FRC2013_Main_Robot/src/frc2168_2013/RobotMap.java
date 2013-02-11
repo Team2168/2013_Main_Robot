@@ -137,9 +137,9 @@ public class RobotMap {
 	public static final AverageEncoder.SpeedReturnType driveSpeedReturnType = AverageEncoder.SpeedReturnType.RPM;
 	public static final int driveEncoderMinRate=10; 
 	public static final int driveEncoderMinPeriod=10;
-	public static final boolean leftDriveTrainEncoderReverse=false;
+	public static final boolean leftDriveTrainEncoderReverse=true;
 	public static final boolean rightDriveTrainEncoderReverse=false;
-	public static final int driveAvgEncoderVal = 1;
+	public static final int driveAvgEncoderVal = 5;
 
 	//PID Parameters //////////////////////////////////////////////////
 	public static final int drivetrainArraySize = 50;
@@ -155,13 +155,13 @@ public class RobotMap {
 	public static final double driveTrainLeftSpeedI = 0.000308064641742337; 
 	public static final double driveTrainLeftSpeedD = -0.000130778888124088;
 	
-	public static final double driveTrainRightSpeedP = 0.00574562908722711;
-	public static final double driveTrainRightSpeedI = 0.000308064641742337; 
-	public static final double driveTrainRightSpeedD = -0.000130778888124088;
+	public static final double driveTrainRightSpeedP = 0.002;
+	public static final double driveTrainRightSpeedI = 0.0001412646174233;  
+	public static final double driveTrainRightSpeedD = 0.0074778888124088;
 	
-	public static final double driveTrainLeftPositionP = 0.00574562908722711;
-	public static final double driveTrainLeftPositionI = 0.000308064641742337; 
-	public static final double driveTrainLeftPositionD = -0.000130778888124088;
+	public static final double driveTrainLeftPositionP = 0.002;
+	public static final double driveTrainLeftPositionI = 0.0001412646174233;  
+	public static final double driveTrainLeftPositionD = 0.0074778888124088;
 	
 	public static final double driveTrainRightPositionP = 0.00574562908722711;
 	public static final double driveTrainRightPositionI = 0.000308064641742337; 

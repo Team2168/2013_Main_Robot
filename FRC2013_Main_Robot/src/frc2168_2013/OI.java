@@ -82,9 +82,14 @@ public class OI {
 	//	driveButtonLeftBumper.whenPressed(); //disengage the hanger
 	//	driveButtonRightBumper.whenPressed(); //engage the hanger
 	//	operatorButtonA.whenPressed(); //shooter on
+		//delete me
 		operatorButtonB.whenPressed(new StopShooterWheel()); //shooter off 
 		auxTriggerR.whenPressed(new ShootSingleFrisbee()); //shoot one disc
 		auxTriggerL.whenPressed(new ShootSingleFrisbee()); //shoot one disc
+		
+		driveButtonA.whenPressed(new DrivePIDPause());
+		driveButtonB.whenPressed(new DrivePIDPosition(360));
+		driveButtonX.whenPressed(new DrivePIDSpeed());
 	}
 	
 	
