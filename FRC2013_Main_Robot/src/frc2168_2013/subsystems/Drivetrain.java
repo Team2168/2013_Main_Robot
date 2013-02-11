@@ -1,7 +1,9 @@
 package frc2168_2013.subsystems;
 
 import edu.wpi.first.wpilibj.CounterBase;
+import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc2168_2013.RobotMap;
 import frc2168_2013.PIDController.Controller.PIDPosition;
@@ -24,12 +26,12 @@ public class Drivetrain extends Subsystem {
 	AverageEncoder leftEncoder;
 	
 	//declare position controllers
-	public final PIDPosition rightPosController;
-	public final PIDPosition leftPosController;
+	public PIDPosition rightPosController;
+	public PIDPosition leftPosController;
 	
 	//declare speed controllers
-	public final PIDSpeed rightSpeedController;
-	public final PIDSpeed leftSpeedController;
+	public PIDSpeed rightSpeedController;
+	public PIDSpeed leftSpeedController;
 	
 	//declare TCP severs...ONLY FOR DEBUGGING PURPOSES, SHOULD BE REMOVED FOR COMPITITION
 	TCPsocketSender TCPrightPosController;
@@ -69,8 +71,8 @@ public class Drivetrain extends Subsystem {
     	//start controller threads
     	rightSpeedController.startThread();
     	rightPosController.startThread();
-    	leftSpeedController.startThread();
-    	leftPosController.startThread();
+    	//leftSpeedController.startThread();
+    	//leftPosController.startThread();
     	
     	//start TCP Servers for DEBUGING ONLY
     	TCPrightPosController = new TCPsocketSender(RobotMap.TCPServerRightDrivetrainPos, rightPosController);
@@ -172,20 +174,7 @@ public class Drivetrain extends Subsystem {
      * 
      * @return right drivetrain wheel speed in ft/s
      */
-    public double getRightSpeed() {
-    	//TODO: write code for this method
-    	return 0.0;
-    }
-    
-    /**
-     * Returns the speed for the left wheels on the drivetrain.
-     * 
-     * @return left drivetrain wheel speed in ft/s
-     */
-    public double getLeftSpeed(){
-    	//TODO: write code for this method.
-    	return 0.0;
-    }
+
 
 }
 

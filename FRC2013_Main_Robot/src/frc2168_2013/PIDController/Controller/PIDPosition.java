@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc2168_2013.PIDController.Controller.PIDPosition;
 import frc2168_2013.PIDController.Sensors.SpeedSensorInterface;
 import frc2168_2013.PIDController.TCPStream.TCPMessageInterface;
+import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
 
 
 /**
@@ -62,24 +63,24 @@ import frc2168_2013.PIDController.TCPStream.TCPMessageInterface;
 public class PIDPosition implements TCPMessageInterface
 {
 	// gains for gain schedule
-	private volatile double pGain;
-	private volatile double iGain;
-	private volatile double dGain;
+	private  double pGain;
+	private  double iGain;
+	private  double dGain;
 
-	private volatile double pGain2;
-	private volatile double iGain2;
-	private volatile double dGain2;
+	private  double pGain2;
+	private  double iGain2;
+	private  double dGain2;
 	
 	//internal PID variables
-	private volatile double p;
-	private volatile double i;
-	private volatile double d;
+	private  double p;
+	private  double i;
+	private  double d;
 	
 	// enable
-	private volatile boolean enable;
+	private boolean enable;
 	
 	//isFinished
-	private volatile boolean isFinished;
+	private  boolean isFinished;
 	
 	// create local PID portions
 	double prop;
@@ -87,37 +88,37 @@ public class PIDPosition implements TCPMessageInterface
 	double deriv;
 
 	// Other internal variable
-	private volatile boolean enGainSched;
-	private volatile boolean enDerivFilter;
+	private  boolean enGainSched;
+	private  boolean enDerivFilter;
 
 	// internal calcs
-	private volatile double err; // error
-	private volatile double olderr; // oldError
-	private volatile double sp; // setpoint
-	private volatile double cp; // current position
-	private volatile double co; // control output
-	private volatile double coNotSaturated; // control output unmodified for graphing
-	private volatile double coOld; //Control Output of last iteration
-	private volatile double errsum; //total of all errors this loop iteration
-	private volatile double olderrsum; //total of all errors last loop iteration
+	private  double err; // error
+	private  double olderr; // oldError
+	private  double sp; // setpoint
+	private  double cp; // current position
+	private  double co; // control output
+	private  double coNotSaturated; // control output unmodified for graphing
+	private  double coOld; //Control Output of last iteration
+	private  double errsum; //total of all errors this loop iteration
+	private  double olderrsum; //total of all errors last loop iteration
 
 	// timers
-	private volatile double clock;
-	private volatile double executionTime;
-	private volatile double runTime;
+	private  double clock;
+	private  double executionTime;
+	private  double runTime;
 
 	// deriv filters
-	private volatile double filterDerivOld;
-	private volatile double r; // between 0 and 1
+	private  double filterDerivOld;
+	private  double r; // between 0 and 1
 
 	// max and min limit variables
-	private volatile double maxPosOutput; // max positive output (+1)
-	private volatile double maxNegOutput; // max negative output (-1)
-	private volatile double minPosOutput; // min positive output, use to get rid of deadband
-	private volatile double minNegOutput; // min negative output, use to get rid of deadband
+	private  double maxPosOutput; // max positive output (+1)
+	private  double maxNegOutput; // max negative output (-1)
+	private  double minPosOutput; // min positive output, use to get rid of deadband
+	private  double minNegOutput; // min negative output, use to get rid of deadband
 
 	// acceptable steadyState error
-	private volatile double acceptErrorDiff; // allowable error (in units of setpoint)
+	private  double acceptErrorDiff; // allowable error (in units of setpoint)
 
 	// tread executor
 	java.util.Timer executor;
@@ -128,12 +129,12 @@ public class PIDPosition implements TCPMessageInterface
 	SpeedSensorInterface encoder = null;
 
 	// Name of Thread
-	private volatile String name;
+	private  String name;
 	
 	//Variables to Determine ifFinished
-	private volatile int SIZE;
-	private volatile double[] atSpeed;
-	private volatile int count;
+	private  int SIZE;
+	private  double[] atSpeed;
+	private  int count;
 
 
 	
@@ -174,6 +175,7 @@ public class PIDPosition implements TCPMessageInterface
 
 		//disable PID loop
 		this.enable = false;
+		
 		
 		//zero all other parameters
 		this.acceptErrorDiff=0;
@@ -259,7 +261,7 @@ public class PIDPosition implements TCPMessageInterface
 	 * PID loop thread has been created, the PID loop will not start running until a call to {@link #Enable() Enable()} method
 	 * has been made.
 	 */
-	public void startThread()
+	public synchronized void startThread()
 	{
 		this.executor = new java.util.Timer();
 		this.executor.schedule(new PIDSpeedTask(this), 0L, this.period);
@@ -269,7 +271,7 @@ public class PIDPosition implements TCPMessageInterface
 	 * This method enables the PID Loop calculation. After this method is called the controller will calculate the control output in its own thread once every period of the loop defined by the parameter passed to the constructor. 
 	 * This method should only be called after a call to @link {@link #startThread()} has been called first.
 	 */
-	public void Enable()
+	public synchronized void Enable()
 	{
 	
 		this.enable = true;
@@ -279,7 +281,7 @@ public class PIDPosition implements TCPMessageInterface
 	 * This method disables the PID loop calculation. Call this method when ever the PID loop is not needed to help reduce CPU utilization. This method does not kill the thread so a simple call to @link #Enable() will allow the calculations to start again.
 	 * 
 	 */
-	public void Pause()
+	public synchronized void Pause()
 	{
 
 		//disable PID loop
@@ -294,7 +296,7 @@ public class PIDPosition implements TCPMessageInterface
 	/**
 	 * This method is for debugging purposes only. There is no need to call this method during a competition. This method will reset all parameters back to its default. NOTE: Do not call this method when the loop is running. Damage to your system could result from the sudden change in control variables.
 	 */
-	public void reset()
+	public synchronized void reset()
 	{
 		this.isFinished=false;
 
@@ -810,7 +812,8 @@ public class PIDPosition implements TCPMessageInterface
 		this.pGain = Double.valueOf(message[0]).doubleValue();
 		this.iGain = Double.valueOf(message[1]).doubleValue();		
 		this.dGain = Double.valueOf(message[2]).doubleValue();
-		
+		this.sp =  Double.valueOf(message[3]).doubleValue();
+		this.enable = TCPsocketSender.strToBool(message[4]);
 			
 //		
 		this.maxPosOutput = Double.valueOf(message[5]).doubleValue();
@@ -838,10 +841,11 @@ public class PIDPosition implements TCPMessageInterface
 	 * method should only be called from a PIDSpeedTask object which runs this
 	 * method in a periodic thread.
 	 */
-	private synchronized  void calculate()
+	private synchronized void calculate()
 	{
 		runTime=System.currentTimeMillis();
 		
+		System.out.println(enable);
 
 		if (enable)
 		{
@@ -1073,7 +1077,7 @@ public class PIDPosition implements TCPMessageInterface
 		/**
 		 * called periodically in its own thread
 		 */
-		public void run()
+		public synchronized void run()
 		{
 			speedController.calculate();
 

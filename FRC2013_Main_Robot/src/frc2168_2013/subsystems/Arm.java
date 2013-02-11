@@ -26,7 +26,7 @@ public class Arm extends Subsystem {
 		
 		//initialized PID Position Controller
 		armPosController = new PIDPosition("ArmPositionController", RobotMap.armPosP, RobotMap.armPosI, RobotMap.armPosD, armEncoder, RobotMap.armPIDPeriod);
-		armPosController.startThread();
+		//armPosController.startThread();
 		
 		//initialized TCP Server for arm position controller, ONLY FOR DEBUDDING, REMOVE FOR COMPETITION
 		TCParmPosController = new TCPsocketSender(RobotMap.TCPServerArmPos, armPosController);

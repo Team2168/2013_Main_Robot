@@ -47,7 +47,7 @@ public class DrivePIDPosition extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-    	driveTrain.leftPosController.Pause();
+    	this.cancel();
     }
 
     // Called when another command which requires one or more of the same

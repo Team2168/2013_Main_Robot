@@ -15,13 +15,13 @@ public abstract class CommandBase extends Command {
 
     public static OI oi;
     // Create a single static instance of all of your subsystems
-    public static ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+//    public static ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
     public static Drivetrain driveTrain = new Drivetrain();
-    public static Intake intake = new Intake();
-    public static Shooter shooter = new Shooter();
-    public static Hopper hopper = new Hopper();
-    public static Arm arm = new Arm();
-    public static Hanger hanger = new Hanger();
+//    public static Intake intake = new Intake();
+//    public static Shooter shooter = new Shooter();
+//    public static Hopper hopper = new Hopper();
+//    public static Arm arm = new Arm();
+//    public static Hanger hanger = new Hanger();
 
     public static void init() {
         // This MUST be here. If the OI creates Commands (which it very likely
@@ -32,10 +32,9 @@ public abstract class CommandBase extends Command {
         oi = new OI();
 
         // Show what command your subsystem is running on the SmartDashboard
-        SmartDashboard.putData(exampleSubsystem);
+  
         SmartDashboard.putData(driveTrain);
-        SmartDashboard.putData(intake);
-        SmartDashboard.putData(shooter);
+
     }
 
     public CommandBase(String name) {

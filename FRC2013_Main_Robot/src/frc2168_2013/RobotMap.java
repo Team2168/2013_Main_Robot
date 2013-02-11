@@ -19,7 +19,7 @@ public class RobotMap {
 	public static final boolean rInvert = false;
 	public static final boolean lInvert = true;
 		
-	public static final int rightJoyAxis = 5;
+	public static final int rightJoyAxis = 6;
 	public static final int leftJoyAxis = 2;
 	
 	public static final int baseDriveJoystick = 1;

@@ -34,6 +34,7 @@ public class DrivePIDPause extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
+    	this.cancel();
     }
 
     // Called when another command which requires one or more of the same
