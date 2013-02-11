@@ -26,6 +26,7 @@ public class DrivePIDPause extends CommandBase {
     	
     }
 
+    //delete me
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return (driveTrain.rightPosController.isEnabled() == false) && (driveTrain.rightSpeedController.isEnabled() == false) && (driveTrain.leftSpeedController.isEnabled() == false) && (driveTrain.leftPosController.isEnabled() == false);
