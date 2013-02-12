@@ -67,9 +67,7 @@ public class CommandBaseRobot extends IterativeRobot {
     	// another command, remove this line or comment it out.
         autonomousCommand.cancel();
         
-        //Initialize the serial port
-        //SerialCommunicator.init(9600, 8, SerialPort.Parity.kNone, SerialPort.StopBits.kOne);
-        //SerialCommunicator.putData("abcdefghijklmnopqrstuvwxyz");
+        sendToIndicator();
     }
 
     /**
@@ -100,6 +98,48 @@ public class CommandBaseRobot extends IterativeRobot {
      * This method gets called repeatedly while the robot is disabled.
      */
     public void disabledPeriodic() {
+    	
+    }
+    
+    private void sendToIndicator() {
+        /**
+         * Send 8 bits of data to Arduino board
+         * bit 1-3 - number of frisbees
+         * 		000 - zero
+         * 		001 - 1
+         * 		010 - 2
+         * 		011 - 3
+         * 		100 - 4
+         * bit 4 - Shooter up to speed 
+         * bit 5 - Frisbee fired
+         * bit 6 - Robot against 30" bar
+         * bit 7 - Humnan Loaded
+         * bit 8 - Endgame
+         */
+    	StringBuffer sb = new StringBuffer();
+    	Hopper hopper = new Hopper();
+    	int i = 0;
+    	if (hopper.disc1Present()) {
+    		i++;
+    	}
+    	if (hopper.disc2Present()) {
+    		i++;
+    	}
+    	if (hopper.disc3Present()) {
+    		i++;
+    	}
+    	if (hopper.disc4Present()) {
+    		i++;
+    	}
+    	sb.append(Integer.toBinaryString(i));
+    	
+    	Shooter shooter = new Shooter();
+    	double shooterSpeed = shooter.getSpeed();
+    	
+        // Initialize the serial port
+        SerialCommunicator.init(9600, 8, SerialPort.Parity.kNone, SerialPort.StopBits.kOne);
+        // send the data
+        SerialCommunicator.putData(sb.toString());
     	
     }
 }
