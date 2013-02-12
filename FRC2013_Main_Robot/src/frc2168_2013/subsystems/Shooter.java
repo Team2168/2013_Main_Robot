@@ -26,6 +26,7 @@ public class Shooter extends Subsystem {
 
 		
 		shooterWheelSpeedController = new PIDSpeed("ShooterSpeedController", RobotMap.shooterSpeedP, RobotMap.shooterSpeedI, RobotMap.shooterSpeedD, shooterWheelEncoder, RobotMap.shooterPIDPeriod);
+		shooterWheelSpeedController.setSIZE(RobotMap.shooterPIDArraySize);
 		shooterWheelSpeedController.startThread();
 
 		//initialized TCP Server, ONLY FOR DEBUDDING, REMOVE FOR COMPETITION

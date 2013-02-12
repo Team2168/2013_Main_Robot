@@ -24,12 +24,12 @@ public class Drivetrain extends Subsystem {
 	AverageEncoder leftEncoder;
 	
 	//declare position controllers
-	public final PIDPosition rightPosController;
-	public final PIDPosition leftPosController;
+	public PIDPosition rightPosController;
+	public PIDPosition leftPosController;
 	
 	//declare speed controllers
-	public final PIDSpeed rightSpeedController;
-	public final PIDSpeed leftSpeedController;
+	public PIDSpeed rightSpeedController;
+	public PIDSpeed leftSpeedController;
 	
 	//declare TCP severs...ONLY FOR DEBUGGING PURPOSES, SHOULD BE REMOVED FOR COMPITITION
 	TCPsocketSender TCPrightPosController;
@@ -64,7 +64,11 @@ public class Drivetrain extends Subsystem {
     	leftSpeedController = new PIDSpeed("LeftSpeedController", RobotMap.driveTrainLeftSpeedP, RobotMap.driveTrainLeftSpeedI, RobotMap.driveTrainLeftSpeedD, leftEncoder, RobotMap.driveTrainPIDPeriod);
     	leftPosController = new PIDPosition("LeftPositionController", RobotMap.driveTrainLeftPositionP, RobotMap.driveTrainLeftPositionI, RobotMap.driveTrainLeftPositionD, leftEncoder, RobotMap.driveTrainPIDPeriod);
     	
-    	//TODO: add min and max output defaults and set array size
+    	//add min and max output defaults and set array size
+    	rightSpeedController.setSIZE(RobotMap.drivetrainPIDArraySize);
+    	leftSpeedController.setSIZE(RobotMap.drivetrainPIDArraySize);
+    	rightPosController.setSIZE(RobotMap.drivetrainPIDArraySize);
+    	leftPosController.setSIZE(RobotMap.drivetrainPIDArraySize);    	
     	
     	//start controller threads
     	rightSpeedController.startThread();

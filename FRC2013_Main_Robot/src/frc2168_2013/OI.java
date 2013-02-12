@@ -89,7 +89,7 @@ public class OI {
 		
 		driveButtonA.whenPressed(new DrivePIDPause());
 		driveButtonB.whenPressed(new DrivePIDPosition(360));
-		driveButtonX.whenPressed(new DrivePIDSpeed());
+		driveButtonX.whenPressed(new DrivePIDSpeed(300));
 	}
 	
 	

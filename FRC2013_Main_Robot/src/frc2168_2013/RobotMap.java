@@ -76,8 +76,10 @@ public class RobotMap {
 	public static final int shooterEncoderMinPeriod=10;
 	public static final boolean shooterEncoderReverse=false;
 	public static final int shooterAvgEncoderVal = 1;
-		
 	
+	//PID Parameters //////////////////////////////////////////////////
+	public static final int shooterPIDArraySize = 50;
+			
 	//period to run PID loops on shooter
 	public static final long shooterPIDPeriod = 100;//100ms loop
 	
@@ -90,6 +92,9 @@ public class RobotMap {
 	/****************************************************************
 	 *                       Arm Parameters                     *
 	 ****************************************************************/
+	//arm voltage constant
+	public static final double hopperVoltage = 0.4;
+
 	//arm Encoder///////////////////////////////////////////////
 	//arm Radius
 	public static final int armWheelRadius=3;//Colson wheel radius in inches
@@ -106,12 +111,10 @@ public class RobotMap {
 	public static final int armEncoderMinPeriod=10;
 	public static final boolean armEncoderReverse=false;
 	public static final int armAvgEncoderVal = 1;
-
 	
-	//arm voltage constant
-	public static final double hopperVoltage = 0.4;
+	//PID Parameters //////////////////////////////////////////////////
+	public static final int armPIDArraySize = 50;
 
-	
 	//period to run PID loops on arm
 	public static final long armPIDPeriod = 100;//100ms loop
 	
@@ -142,8 +145,7 @@ public class RobotMap {
 	public static final int driveAvgEncoderVal = 5;
 
 	//PID Parameters //////////////////////////////////////////////////
-	public static final int drivetrainArraySize = 50;
-	public static final double drivetrainPercent = 0.1;
+	public static final int drivetrainPIDArraySize = 50;
 
 	//period to run PID loops on drive train
 	public static final long driveTrainPIDPeriod = 100;//100ms loop

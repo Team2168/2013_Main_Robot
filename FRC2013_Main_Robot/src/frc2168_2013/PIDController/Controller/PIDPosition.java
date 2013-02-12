@@ -804,7 +804,7 @@ public class PIDPosition implements TCPMessageInterface
 	 */
 	public synchronized void receiveJSON(String[] message)
 	{
-		System.out.println("receive command");
+		//System.out.println("receive command");
 		try
 		{
 		this.pGain = Double.valueOf(message[0]).doubleValue();
@@ -828,7 +828,7 @@ public class PIDPosition implements TCPMessageInterface
 		}
 		catch (NumberFormatException e)
 		{
-			System.out.println("Don't send empty values");
+			//System.out.println("Don't send empty values");
 		}
 	}
 	
@@ -951,33 +951,33 @@ public class PIDPosition implements TCPMessageInterface
 					if (co > maxPosOutput)
 					{
 						integ = maxPosOutput - prop - deriv;
-						System.out.println("one.one");
+						//System.out.println("one.one");
 					}
 					
 					if (co < maxNegOutput)
 					{
 						integ = maxNegOutput - prop - deriv;
-						System.out.println("one.two");
+						//System.out.println("one.two");
 					}
 					
 					// prevent integral windup
 					if (co > maxPosOutput)
 					{
 						errsum = integ / i;
-						System.out.println("one.three");
+						//System.out.println("one.three");
 					}
 					
 					if (co < maxNegOutput)
 					{
 						errsum = integ / i;
-						System.out.println("one.four");
+						//System.out.println("one.four");
 					}
 					// generate new control output based on min and max and
 					// integral windup.
 					co = prop + integ + deriv;
 					olderrsum=errsum;
 					
-					System.out.println("one");
+					//System.out.println("one");
 				} else
 				{
 					// no integral term so dont need to prevent windup
@@ -988,7 +988,7 @@ public class PIDPosition implements TCPMessageInterface
 					if (co < maxNegOutput)
 						co = maxNegOutput;
 					
-					System.out.println("two");
+					//System.out.println("two");
 				}
 
 				// check to see if we met our setpoint
@@ -1000,7 +1000,7 @@ public class PIDPosition implements TCPMessageInterface
 					co = 0; //keeps wheel spinning at old rate
 					olderrsum = 0; //stop accumulating error
 					
-					System.out.println("three");
+					//System.out.println("three");
 					
 				} else
 				{
@@ -1014,14 +1014,14 @@ public class PIDPosition implements TCPMessageInterface
 					if (err > 0 && coNotSaturated < minPosOutput)
 					{
 						co = minPosOutput;
-						System.out.println("four");
+						//System.out.println("four");
 						
 					}
 					if (err < 0 && coNotSaturated > minNegOutput)
 						
 					{
 						co = minNegOutput;
-						System.out.println("five");
+						//System.out.println("five");
 					}
 
 				}

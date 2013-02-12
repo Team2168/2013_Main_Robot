@@ -235,7 +235,7 @@ private void sender()
 					
 					try
 					{
-						Thread.sleep(30);
+						Thread.sleep(200);
 					} 
 					catch (InterruptedException e)
 					{
