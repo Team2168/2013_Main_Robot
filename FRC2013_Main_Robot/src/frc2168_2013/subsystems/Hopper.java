@@ -8,6 +8,8 @@ import frc2168_2013.OI;
 import frc2168_2013.RobotMap;
 
 public class Hopper extends Subsystem {
+	double speed = 0.0;
+	
 	DoubleSolenoid stopper;
 	Talon hopperMotor;
 	DigitalInput disc1, disc2, disc3, disc4;
@@ -35,7 +37,6 @@ public class Hopper extends Subsystem {
 	public void driveHopperPWM(double speed) {
 		if(OI.hInvert)
 			speed = -speed;
-		
 		hopperMotor.set(speed);
 	}
 	
