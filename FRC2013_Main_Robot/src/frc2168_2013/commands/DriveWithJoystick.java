@@ -6,7 +6,8 @@ import frc2168_2013.RobotMap;
 public class DriveWithJoystick extends CommandBase {
 	
 	public DriveWithJoystick(){
-		requires(driveTrain);
+		requires(driveTrainL);
+		requires(driveTrainR);
 	}
 
 	protected void end() {
@@ -14,7 +15,8 @@ public class DriveWithJoystick extends CommandBase {
 	}
 
 	protected void execute() {
-		driveTrain.tankDrive(oi.baseDriver.getRawAxis(RobotMap.rightJoyAxis), oi.baseDriver.getRawAxis(RobotMap.leftJoyAxis));
+		driveTrainL.tankDriveLeft(oi.baseDriver.getRawAxis(RobotMap.leftJoyAxis));
+		driveTrainR.tankDriveRight(oi.baseDriver.getRawAxis(RobotMap.rightJoyAxis));
 	}
 
 	protected void initialize() {
