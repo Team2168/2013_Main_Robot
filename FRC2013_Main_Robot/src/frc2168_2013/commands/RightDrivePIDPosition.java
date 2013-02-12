@@ -5,48 +5,51 @@ package frc2168_2013.commands;
  *
  * @author shriji
  */
-public class DrivePIDSpeed extends CommandBase {
-	
-	private double setPoint;
+public class RightDrivePIDPosition extends CommandBase {
 
-    public DrivePIDSpeed() {
+	private double setPoint;
+	
+    public RightDrivePIDPosition() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(driveTrainR);
-    	this.setPoint = driveTrainR.rightSpeedController.getSetPoint();
+    	this.setPoint = driveTrainR.rightPosController.getSetPoint();
+    	
     }
-    
-   public DrivePIDSpeed(double setPoint){
-	   this();
-	   this.setPoint = setPoint;
-	   
-   }
 
+    public RightDrivePIDPosition(double setPoint){
+ 	   this();
+ 	   this.setPoint = setPoint;
+ 	   
+    }
+
+    //delete me
+    
+    
     // Called just before this Command runs the first time
     protected void initialize() {
-    	driveTrainR.rightSpeedController.reset();
-    	driveTrainR.rightSpeedController.Enable();
+    	driveTrainR.rightPosController.reset();
+    	driveTrainR.rightPosController.Enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (setPoint != 0)
-    		driveTrainR.rightSpeedController.setSetPoint(setPoint);
-    	driveTrainR.driveRight(driveTrainR.rightSpeedController.getControlOutput());
+    	
+    		driveTrainR.rightPosController.setSetPoint(setPoint);
+    	driveTrainR.driveRight(driveTrainR.rightPosController.getControlOutput());
     	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return driveTrainR.rightSpeedController.isEnabled() == false;
+    	return driveTrainR.rightPosController.isEnabled() == true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	driveTrainR.rightSpeedController.Pause();
+    	driveTrainR.rightPosController.Pause();
     }
 
-    //delete me
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {

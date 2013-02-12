@@ -10,10 +10,12 @@ import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
 
 public class Arm extends Subsystem {
 	
+	double armSpeed = 0;
+	
 	//initialized PID Position Controller
 	Talon armMotor;
 	AverageEncoder armEncoder;
-	PIDPosition armPosController;
+	public PIDPosition armPosController;
 	TCPsocketSender TCParmPosController;
 	
 	public Arm(){
@@ -47,6 +49,22 @@ public class Arm extends Subsystem {
 		return 0;
 		
 	}
+
+	public void driveArm(double armSpeed) {
+    	
+    	this.armSpeed = armSpeed;
+    	
+    	//RobotMap defines which motors are inverted on drivetrain.
+    	if(RobotMap.aInvert) {
+    		armSpeed = -armSpeed;
+    	}
+    	
+    	//TODO: add hooks for falcon claw
+    	//TODO: add interpolation method to adjust sensitivity
+    	
+    	armMotor.set(armSpeed);
+    	
+    }
 
 	/**
 	 * Set the arm angle.

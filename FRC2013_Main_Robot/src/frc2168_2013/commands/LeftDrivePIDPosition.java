@@ -5,11 +5,11 @@ package frc2168_2013.commands;
  *
  * @author shriji
  */
-public class DrivePIDPosition extends CommandBase {
+public class LeftDrivePIDPosition extends CommandBase {
 
 	private double setPoint;
 	
-    public DrivePIDPosition() {
+    public LeftDrivePIDPosition() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(driveTrainL);
@@ -17,7 +17,7 @@ public class DrivePIDPosition extends CommandBase {
     	
     }
 
-    public DrivePIDPosition(double setPoint){
+    public LeftDrivePIDPosition(double setPoint){
  	   this();
  	   this.setPoint = setPoint;
  	   

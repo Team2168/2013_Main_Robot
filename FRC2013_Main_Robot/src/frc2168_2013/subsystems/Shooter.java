@@ -12,7 +12,7 @@ import frc2168_2013.commands.SetShooterSpeedPWM;
 public class Shooter extends Subsystem {
 	Talon shooterMotor;
 	AverageEncoder shooterWheelEncoder;
-	PIDSpeed shooterWheelSpeedController;
+	public PIDSpeed shooterWheelSpeedController;
 	TCPsocketSender TCPshooterSpeedController;
 	
 	public Shooter() {
@@ -47,7 +47,7 @@ public class Shooter extends Subsystem {
      * 
      * @param wheel1 Speed for wheel 1 (1.0 to -1.0)
      */
-    public void setPWM(double speed) {
+    public void driveShooter(double speed) {
     	shooterMotor.set(speed);
     }
     
