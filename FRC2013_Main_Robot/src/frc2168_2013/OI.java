@@ -20,7 +20,8 @@ public class OI {
 	public static final boolean rInvert = true; //for R driveTrain
 	public static final boolean lInvert = false; //for L driveTrain
 	public static final boolean aInvert = false; //for arm
-	public static final boolean sInvert = false; //for arm
+	public static final boolean sInvert = false; //for shooter
+	public static final boolean hInvert = false; //for hopper
 		
 	public static final int rightJoyAxis = 5;
 	public static final int leftJoyAxis = 2;

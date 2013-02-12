@@ -4,9 +4,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Talon;
+import frc2168_2013.OI;
 import frc2168_2013.RobotMap;
 
 public class Hopper extends Subsystem {
+	double speed = 0.0;
+	
 	DoubleSolenoid stopper;
 	Talon hopperMotor;
 	DigitalInput disc1, disc2, disc3, disc4;
@@ -31,7 +34,14 @@ public class Hopper extends Subsystem {
 	 * 
 	 * @param speed the speed to drive the motor at (1.0 to -1.0)
 	 */
-	public void driveHopperPWM(double speed) {
+	public void driveHopper(double speed) {
+		this.speed = speed;
+    	
+    	//OI defines which motors are inverted
+    	if(OI.hInvert) {
+    		speed = -speed;
+    	}
+    	
 		hopperMotor.set(speed);
 	}
 	

@@ -55,13 +55,11 @@ public class Arm extends Subsystem {
     	
     	this.armSpeed = armSpeed;
     	
-    	//RobotMap defines which motors are inverted on drivetrain.
+    	//OI defines which motors are inverted
     	if(OI.aInvert) {
     		armSpeed = -armSpeed;
     	}
     	
-    	//TODO: add hooks for falcon claw
-    	//TODO: add interpolation method to adjust sensitivity
     	
     	armMotor.set(armSpeed);
     	

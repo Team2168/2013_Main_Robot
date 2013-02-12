@@ -33,11 +33,11 @@ public class DriveUntilNoFrisbee extends CommandBase {
     	if(hopper.disc1Present()) {
         	//Drive the hopper if a frisbee is present at the last disc
     		//  position before contacting shooter.
-			hopper.driveHopperPWM(RobotMap.hopperVoltage);
+			hopper.driveHopper(RobotMap.hopperVoltage);
 			frisbee = true;
 		} else {
 			//Otherwise stop the hopper motor
-			hopper.driveHopperPWM(0.0);
+			hopper.driveHopper(0.0);
 			frisbee = false;
 		}
     }
@@ -61,6 +61,6 @@ public class DriveUntilNoFrisbee extends CommandBase {
      */
     protected void interrupted() {
     	//If we are interrupted, stop the hopper motor.
-    	hopper.driveHopperPWM(0.0);
+    	hopper.driveHopper(0.0);
     }
 }
