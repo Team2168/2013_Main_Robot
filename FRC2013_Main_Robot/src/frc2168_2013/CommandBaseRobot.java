@@ -20,7 +20,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import frc2168_2013.commands.CommandBase;
-import frc2168_2013.commands.ExampleCommand;
 import frc2168_2013.utils.SerialCommunicator;
 
 /**
@@ -43,7 +42,7 @@ public class CommandBaseRobot extends IterativeRobot {
      */
     public void robotInit() {
         // instantiate the command used for the autonomous period
-        autonomousCommand = new ExampleCommand();
+       // example of how to do that -> autonomousCommand = new ExampleCommand();
 
         // Initialize all subsystems
         CommandBase.init();
