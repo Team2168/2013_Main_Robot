@@ -88,7 +88,7 @@ public class OI {
 		auxTriggerL.whenPressed(new ShootSingleFrisbee()); //shoot one disc
 		
 		driveButtonA.whenPressed(new DrivePIDPause());
-		driveButtonB.whenPressed(new DrivePIDPosition(360));
+		driveButtonB.whenPressed(new DrivePIDPosition());
 		driveButtonX.whenPressed(new DrivePIDSpeed());
 	}
 	
