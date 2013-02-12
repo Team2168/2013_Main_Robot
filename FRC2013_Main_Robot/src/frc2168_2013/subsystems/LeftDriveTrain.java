@@ -3,12 +3,13 @@ package frc2168_2013.subsystems;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc2168_2013.OI;
 import frc2168_2013.RobotMap;
 import frc2168_2013.PIDController.Controller.PIDPosition;
 import frc2168_2013.PIDController.Controller.PIDSpeed;
 import frc2168_2013.PIDController.Sensors.AverageEncoder;
 import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
-import frc2168_2013.commands.DriveWithJoystick;
+import frc2168_2013.commands.DriveDrivetrainWithJoystick;
 
 public class LeftDriveTrain extends Subsystem {
 	
@@ -69,7 +70,7 @@ public class LeftDriveTrain extends Subsystem {
      * Initialize the default command for the drivetrain subsystem.
      */
 	public void initDefaultCommand() {
-		setDefaultCommand(new DriveWithJoystick());
+		setDefaultCommand(new DriveDrivetrainWithJoystick());
     }
 	
 	/**
@@ -78,12 +79,13 @@ public class LeftDriveTrain extends Subsystem {
 	 * @param leftSpeed speed for left motors (1 to -1)
 	 */
     public void tankDriveLeft(double leftSpeed) {
-    	this.leftSpeed = leftSpeed;
-    	
+    	   	
     	//RobotMap defines which motors are inverted on drivetrain.
-    	if(RobotMap.lInvert) {
+    	if(OI.lInvert) {
     		leftSpeed = -leftSpeed;
     	}
+    	
+    	this.leftSpeed = leftSpeed;
     	
     	//TODO: add hooks for falcon claw
     	//TODO: add interpolation method to adjust sensitivity
@@ -102,7 +104,7 @@ public class LeftDriveTrain extends Subsystem {
     	this.leftSpeed = leftSpeed;
     	
     	//RobotMap defines which motors are inverted on drivetrain.
-    	if(RobotMap.lInvert) {
+    	if(OI.lInvert) {
     		leftSpeed = -leftSpeed;
     	}
     	
@@ -112,16 +114,6 @@ public class LeftDriveTrain extends Subsystem {
     	leftDriveMotor.set(leftSpeed);
     	
     }
-    
-	/**
-	 * Sets the speed for the drivetrain motors (ft/s)
-	 *
-	 * @param leftSpeed speed for the left motors (ft/s)
-	 */
-	public void setLeftSpeed(double leftSpeed) {
-		//TODO: finish the code for this method
-	}
-    
   
     /**
      * Returns the speed for the left wheels on the drivetrain.
@@ -130,7 +122,7 @@ public class LeftDriveTrain extends Subsystem {
      */
     public double getLeftSpeed(){
     	//TODO: write code for this method.
-    	return 0.0;
+    	return leftSpeed;
     }
 
 }

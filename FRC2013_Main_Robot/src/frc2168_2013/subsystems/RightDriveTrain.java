@@ -3,12 +3,13 @@ package frc2168_2013.subsystems;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc2168_2013.OI;
 import frc2168_2013.RobotMap;
 import frc2168_2013.PIDController.Controller.PIDPosition;
 import frc2168_2013.PIDController.Controller.PIDSpeed;
 import frc2168_2013.PIDController.Sensors.AverageEncoder;
 import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
-import frc2168_2013.commands.DriveWithJoystick;
+import frc2168_2013.commands.DriveDrivetrainWithJoystick;
 
 public class RightDriveTrain extends Subsystem {
 	
@@ -70,7 +71,7 @@ public class RightDriveTrain extends Subsystem {
      * Initialize the default command for the drivetrain subsystem.
      */
 	public void initDefaultCommand() {
-		setDefaultCommand(new DriveWithJoystick());
+		setDefaultCommand(new DriveDrivetrainWithJoystick());
     }
 	
 	/**
@@ -79,12 +80,14 @@ public class RightDriveTrain extends Subsystem {
 	 * @param rightSpeed speed for right motors (1 to -1)
 	 */
     public void tankDriveRight(double rightSpeed) {
-    	this.rightSpeed = rightSpeed;
     	
     	//RobotMap defines which motors are inverted on drivetrain.
-    	if(RobotMap.rInvert) {
+    	if(OI.rInvert) {
     		rightSpeed = -rightSpeed;
     	}
+    	
+    	this.rightSpeed = rightSpeed;
+    	
     	
     	//TODO: add hooks for falcon claw
     	//TODO: add interpolation method to adjust sensitivity
@@ -101,7 +104,7 @@ public class RightDriveTrain extends Subsystem {
     
     	
     	//RobotMap defines which motors are inverted on drivetrain.
-    	if(RobotMap.rInvert) {
+    	if(OI.rInvert) {
     		rightSpeed = -rightSpeed;
     	}     	
     	//TODO: add hooks for falcon claw
@@ -110,15 +113,6 @@ public class RightDriveTrain extends Subsystem {
     	rightDriveMotor.set(rightSpeed);
     }
   
-	/**
-	 * Sets the speed for the drivetrain motors (ft/s)
-	 * 
-	 * @param rightSpeed speed for the right motors (ft/s)
-	 */
-	public void setRightSpeed(double rightSpeed) {
-		//TODO: finish the code for this method
-	}
-    
     /**
      * Returns the speed for the right wheels on the drivetrain.
      * 
@@ -126,7 +120,7 @@ public class RightDriveTrain extends Subsystem {
      */
     public double getRightSpeed() {
     	//TODO: write code for this method
-    	return 0.0;
+    	return rightSpeed;
     }
 }
 

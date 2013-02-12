@@ -3,6 +3,7 @@ package frc2168_2013.subsystems;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc2168_2013.OI;
 import frc2168_2013.RobotMap;
 import frc2168_2013.PIDController.Controller.PIDPosition;
 import frc2168_2013.PIDController.Sensors.AverageEncoder;
@@ -55,7 +56,7 @@ public class Arm extends Subsystem {
     	this.armSpeed = armSpeed;
     	
     	//RobotMap defines which motors are inverted on drivetrain.
-    	if(RobotMap.aInvert) {
+    	if(OI.aInvert) {
     		armSpeed = -armSpeed;
     	}
     	
