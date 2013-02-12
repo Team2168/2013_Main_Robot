@@ -16,8 +16,9 @@ public class RobotMap {
 	 ****************************************************************/
 	
 	//TODO: organize the rest of these. Some should live in OI, not RobotMap
-	public static final boolean rInvert = true;
-	public static final boolean lInvert = false;
+	public static final boolean rInvert = true; //for R driveTrain
+	public static final boolean lInvert = false; //for L driveTrain
+	public static final boolean aInvert = false; //for arm
 		
 	public static final int rightJoyAxis = 5;
 	public static final int leftJoyAxis = 2;
