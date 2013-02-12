@@ -16,11 +16,14 @@ public class RobotMap {
 	 ****************************************************************/
 	
 	//TODO: organize the rest of these. Some should live in OI, not RobotMap
-	public static final boolean rInvert = false;
+	public static final boolean rInvert = true;
 	public static final boolean lInvert = true;
 		
-	public static final int rightJoyAxis = 6;
-	public static final int leftJoyAxis = 2;
+	//public static final int rightJoyAxis = 5; //logitech
+	//public static final int leftJoyAxis = 2; //logitech
+
+	public static final int rightJoyAxis = 3; //ps3
+	public static final int leftJoyAxis = 2; //ps3
 	
 	public static final int baseDriveJoystick = 1;
 	public static final int operatorDriveJoystick = 2;
@@ -33,10 +36,10 @@ public class RobotMap {
 	public static final int armMotor =5;
 	
 	//DIO Channels////////////////////////////////////////////////////
-	public static final int leftDriveEncoderChannelA = 1;
-	public static final int leftDriveEncoderChannelB = 2;
-	public static final int rightDriveEncoderChannelA = 3;
-	public static final int rightDriveEncoderChannelB = 4;
+	public static final int leftDriveEncoderChannelA = 4;
+	public static final int leftDriveEncoderChannelB = 3;
+	public static final int rightDriveEncoderChannelA = 2;
+	public static final int rightDriveEncoderChannelB = 1;
 	public static final int shooterEncoderChannelA = 5;
 	public static final int shooterEncoderChannelB = 6;
 	public static final int armEncoderChannelA = 7;
@@ -138,8 +141,9 @@ public class RobotMap {
 	public static final int driveEncoderMinRate=10; 
 	public static final int driveEncoderMinPeriod=10;
 	public static final boolean leftDriveTrainEncoderReverse=true;
-	public static final boolean rightDriveTrainEncoderReverse=false;
+	public static final boolean rightDriveTrainEncoderReverse=true;
 	public static final int driveAvgEncoderVal = 5;
+	
 
 	//PID Parameters //////////////////////////////////////////////////
 	public static final int drivetrainArraySize = 50;

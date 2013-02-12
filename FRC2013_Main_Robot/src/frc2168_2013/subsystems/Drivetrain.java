@@ -18,8 +18,8 @@ public class Drivetrain extends Subsystem {
 	double rightSpeed = 0;
 	
 	//declare drivetrain motor controllers
-	Talon rightDriveMotor;
-	Talon leftDriveMotor;
+	Victor rightDriveMotor;
+	Jaguar leftDriveMotor;
 
 	//declare sensors
 	AverageEncoder rightEncoder;
@@ -43,35 +43,42 @@ public class Drivetrain extends Subsystem {
 	 * The default constructor for the Drivetrain subsystem.
 	 */
     public Drivetrain(){
-    	System.out.println("drive train encoder shit:" + RobotMap.driveEncoderPulsePerRot);
-    	
-    	//intializing motor controller using PWM. Refer to RobotMap
-    	rightDriveMotor = new Talon (RobotMap.rightDriveMotor);
-    	leftDriveMotor = new Talon (RobotMap.leftDriveMotor);
-    	
-    	//initialized right and left drive train encoders
+//    	System.out.println("drive train encoder shit:" + RobotMap.driveEncoderPulsePerRot);
+//    	
+//    	//intializing motor controller using PWM. Refer to RobotMap
+    	rightDriveMotor = new Victor (RobotMap.rightDriveMotor);
+    	leftDriveMotor = new Jaguar (RobotMap.leftDriveMotor);
+//    	
+//    	//initialized right and left drive train encoders
     	rightEncoder = new AverageEncoder(RobotMap.rightDriveEncoderChannelA, RobotMap.rightDriveEncoderChannelB, RobotMap.driveEncoderPulsePerRot,RobotMap.driveEncoderDistPerTick, RobotMap.rightDriveTrainEncoderReverse, RobotMap.driveEncodingType, RobotMap.driveSpeedReturnType, RobotMap.drivePosReturnType, RobotMap.driveAvgEncoderVal);
     	rightEncoder.setMaxPeriod(RobotMap.driveEncoderMinPeriod);//min period before reported stopped
     	rightEncoder.setMinRate(RobotMap.driveEncoderMinRate);//min rate before reported stopped
     	rightEncoder.start();
-    	
+//    	
     	leftEncoder = new AverageEncoder(RobotMap.leftDriveEncoderChannelA, RobotMap.leftDriveEncoderChannelB, RobotMap.driveEncoderPulsePerRot,RobotMap.driveEncoderDistPerTick, RobotMap.leftDriveTrainEncoderReverse, RobotMap.driveEncodingType, RobotMap.driveSpeedReturnType, RobotMap.drivePosReturnType,RobotMap.driveAvgEncoderVal);
     	leftEncoder.setMaxPeriod(RobotMap.driveEncoderMinPeriod);//min period before reported stopped
     	leftEncoder.setMinRate(RobotMap.driveEncoderMinRate);//min rate before reported stopped
     	leftEncoder.start();
-    	
-    	//Spawn new PID Controller
+//    	
+//    	//Spawn new PID Controller
     	rightSpeedController = new PIDSpeed("RightSpeedController", RobotMap.driveTrainRightSpeedP, RobotMap.driveTrainRightSpeedI, RobotMap.driveTrainRightSpeedD, rightEncoder, RobotMap.driveTrainPIDPeriod);
     	rightPosController = new PIDPosition("RightPositionController", RobotMap.driveTrainRightPositionP, RobotMap.driveTrainRightPositionI, RobotMap.driveTrainRightPositionD, rightEncoder, RobotMap.driveTrainPIDPeriod);
     	leftSpeedController = new PIDSpeed("LeftSpeedController", RobotMap.driveTrainLeftSpeedP, RobotMap.driveTrainLeftSpeedI, RobotMap.driveTrainLeftSpeedD, leftEncoder, RobotMap.driveTrainPIDPeriod);
     	leftPosController = new PIDPosition("LeftPositionController", RobotMap.driveTrainLeftPositionP, RobotMap.driveTrainLeftPositionI, RobotMap.driveTrainLeftPositionD, leftEncoder, RobotMap.driveTrainPIDPeriod);
+//    	
+    	
+    	leftSpeedController.setSIZE(RobotMap.drivetrainArraySize);
+    	rightSpeedController.setSIZE(RobotMap.drivetrainArraySize);
+    	leftPosController.setSIZE(RobotMap.drivetrainArraySize);
+    	rightPosController.setSIZE(RobotMap.drivetrainArraySize);
+    	
     	
     	//TODO: add min and max output defaults and set array size
     	
     	//start controller threads
     	rightSpeedController.startThread();
     	rightPosController.startThread();
-    	//leftSpeedController.startThread();
+//    	leftSpeedController.startThread();
     	//leftPosController.startThread();
     	
     	//start TCP Servers for DEBUGING ONLY
@@ -80,7 +87,7 @@ public class Drivetrain extends Subsystem {
     	
     	TCPrightSpeedController = new TCPsocketSender(RobotMap.TCPServerRightDrivetrainSpeed, rightSpeedController);
     	TCPrightSpeedController.start();
-    	
+    	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
     	TCPleftPosController = new TCPsocketSender(RobotMap.TCPServerLeftDrivetrainPos, leftPosController);
     	TCPleftPosController.start();
     	
@@ -119,6 +126,8 @@ public class Drivetrain extends Subsystem {
     	
     	leftDriveMotor.set(leftSpeed);
     	rightDriveMotor.set(rightSpeed);
+    	
+    	//System.out.println(leftEncoder.getPos() + "        " + rightEncoder.getPos());
     	
     }
     /**

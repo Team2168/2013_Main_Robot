@@ -868,6 +868,7 @@ public class PIDSpeed implements TCPMessageInterface
 	{
 		runTime=System.currentTimeMillis();
 		
+		System.out.println(name + enable);
 
 		if (enable)
 		{

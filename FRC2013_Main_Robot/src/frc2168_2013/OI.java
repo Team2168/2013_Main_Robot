@@ -36,7 +36,7 @@ public class OI {
 		if (baseDriver.getRawAxis(3) < 0) { // Use electronic braking
 				return ((((-RobotMap.mod + 1) * baseDriver.getRawAxis(3)) + 1) * baseDriver.getRawAxis(2));
 		} else {
-				return baseDriver.getRawAxis(1);
+				return baseDriver.getRawAxis(2);
 		}
 	}
 	
@@ -84,10 +84,11 @@ public class OI {
 	//	operatorButtonA.whenPressed(); //shooter on
 		//delete me
 
+		driveButtonA.whenPressed(new PID_Pause());
+		driveButtonB.whenPressed(new PID_PositionRight(300));
+		driveButtonX.whenPressed(new PID_SpeedRight(360));
 		
-		driveButtonA.whenPressed(new DrivePIDPause());
-		driveButtonB.whenPressed(new DrivePIDPosition(360));
-		driveButtonX.whenPressed(new DrivePIDSpeed(300));
+
 	}
 	
 	

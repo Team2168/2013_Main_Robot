@@ -56,7 +56,7 @@ public class CommandBaseRobot extends IterativeRobot {
      */
     public void autonomousInit() {
         // schedule the autonomous command (example)
-        autonomousCommand.start();
+        //autonomousCommand.start();
     }
 
     /**
@@ -74,7 +74,7 @@ public class CommandBaseRobot extends IterativeRobot {
     	// This makes sure that the autonomous stops running when teleop starts
     	// running. If you want the autonomous to continue until interrupted by
     	// another command, remove this line or comment it out.
-        autonomousCommand.cancel();
+        //autonomousCommand.cancel();
         
         //Initialize the serial port
         //SerialCommunicator.init(9600, 8, SerialPort.Parity.kNone, SerialPort.StopBits.kOne);
@@ -88,10 +88,23 @@ public class CommandBaseRobot extends IterativeRobot {
     public void teleopPeriodic() {
     	Scheduler.getInstance().run();
     	
-    	CommandBase.driveTrain.driveLeft(1);
-    	CommandBase.driveTrain.driveRight(1);
-    	
-    	
+//    	try {
+//			Thread.sleep(2000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//    	
+//    	CommandBase.driveTrain.rightPosController.Enable();
+//   
+//    	try {
+//			Thread.sleep(2000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//    	
+//    	CommandBase.driveTrain.rightPosController.Pause();
 
     }
     

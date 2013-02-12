@@ -845,7 +845,7 @@ public class PIDPosition implements TCPMessageInterface
 	{
 		runTime=System.currentTimeMillis();
 		
-		System.out.println(enable);
+		System.out.println(name + enable);
 
 		if (enable)
 		{
