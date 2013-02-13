@@ -3,6 +3,7 @@ package frc2168_2013.subsystems;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc2168_2013.OI;
 import frc2168_2013.RobotMap;
 import frc2168_2013.PIDController.Controller.PIDSpeed;
 import frc2168_2013.PIDController.Sensors.AverageEncoder;
@@ -14,9 +15,11 @@ public class Shooter extends Subsystem {
 	AverageEncoder shooterWheelEncoder;
 	PIDSpeed shooterWheelSpeedController;
 	TCPsocketSender TCPshooterSpeedController;
+
 	
 	public Shooter() {
 		shooterMotor = new Talon(RobotMap.shooterMotor);
+
 		
 		//Set Encoder Parameters
 		shooterWheelEncoder = new AverageEncoder(RobotMap.shooterEncoderChannelA, RobotMap.shooterEncoderChannelB, RobotMap.shooterEncoderPulsePerRot,RobotMap.shooterEncoderDistPerTick,RobotMap.shooterEncoderReverse, RobotMap.shooterEncodingType, RobotMap.shooterSpeedReturnType, RobotMap.shooterPosReturnType,RobotMap.shooterAvgEncoderVal);
@@ -49,7 +52,15 @@ public class Shooter extends Subsystem {
      * @param wheel1 Speed for wheel 1 (1.0 to -1.0)
      */
     public void setPWM(double speed) {
-    	shooterMotor.set(speed);
+       
+        
+        //RobotMap defines which motors are inverted on drivetrain.
+        if(OI.sInvert) {
+        speed = -speed;
+        }
+       
+        shooterMotor.set(speed);
+
     }
     
     /**
