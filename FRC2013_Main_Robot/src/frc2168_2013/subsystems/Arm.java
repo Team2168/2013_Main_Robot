@@ -3,6 +3,7 @@ package frc2168_2013.subsystems;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc2168_2013.OI;
 import frc2168_2013.RobotMap;
 import frc2168_2013.PIDController.Controller.PIDPosition;
 import frc2168_2013.PIDController.Sensors.AverageEncoder;
@@ -45,17 +46,18 @@ public class Arm extends Subsystem {
 	 * @return the angle of the arm in degrees
 	 */
 	public double getArmAngle(){
-		return 0;
+		return armEncoder.getPos();
 		
 	}
 
-	/**
-	 * Set the arm angle.
-	 * 
-	 * @param angle angle of the arm it should be at degrees
-	 */
-	public void setArmAngle(double angle){
-		//TODO: write the code for this method
+
+	
+	public void driveArmPWM(double speed)
+	{
+		if (OI.aInvert)
+			speed = -speed;
+		
+		armMotor.set(speed);
 	}
 	
 	/**

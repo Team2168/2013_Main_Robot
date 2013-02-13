@@ -20,8 +20,8 @@ public class OI {
 	//Create variable for USB joystick
 	public Joystick baseDriver = new Joystick(RobotMap.baseDriveJoystick);
 	
-	
-	public static final boolean sInvert = false; //for arm
+	public static final boolean aInvert = false; //for arm
+	public static final boolean sInvert = false; //for shooter
 	public static final boolean hInvert = false; //for hopper
 	
 	//Create mapping for buttons on joystick
