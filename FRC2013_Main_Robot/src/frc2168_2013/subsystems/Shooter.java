@@ -55,9 +55,9 @@ public class Shooter extends Subsystem {
        
         
         //RobotMap defines which motors are inverted on drivetrain.
-        if(OI.sInvert) {
-        speed = -speed;
-        }
+        if(OI.sInvert)
+        	speed = -speed;
+        
        
         shooterMotor.set(speed);
 

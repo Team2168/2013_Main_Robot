@@ -22,6 +22,7 @@ public class OI {
 	
 	
 	public static final boolean sInvert = false; //for arm
+	public static final boolean hInvert = false; //for hopper
 	
 	//Create mapping for buttons on joystick
 	//Driver Joystick
