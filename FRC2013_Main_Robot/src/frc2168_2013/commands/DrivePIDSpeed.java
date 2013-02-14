@@ -12,8 +12,8 @@ public class DrivePIDSpeed extends CommandBase {
     public DrivePIDSpeed() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(driveTrain);
-    	this.setPoint = driveTrain.rightSpeedController.getSetPoint();
+    	requires(drivetrain);
+    	this.setPoint = drivetrain.rightSpeedController.getSetPoint();
     }
     
    public DrivePIDSpeed(double setPoint){
@@ -24,26 +24,26 @@ public class DrivePIDSpeed extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	driveTrain.rightSpeedController.reset();
-    	driveTrain.rightSpeedController.Enable();
+    	drivetrain.rightSpeedController.reset();
+    	drivetrain.rightSpeedController.Enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if (setPoint != 0)
-    		driveTrain.rightSpeedController.setSetPoint(setPoint);
-    	driveTrain.driveRight(driveTrain.rightSpeedController.getControlOutput());
+    		drivetrain.rightSpeedController.setSetPoint(setPoint);
+    	drivetrain.driveRight(drivetrain.rightSpeedController.getControlOutput());
     	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return driveTrain.rightSpeedController.isEnabled() == false;
+        return drivetrain.rightSpeedController.isEnabled() == false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	driveTrain.rightSpeedController.Pause();
+    	drivetrain.rightSpeedController.Pause();
     }
 
     //delete me

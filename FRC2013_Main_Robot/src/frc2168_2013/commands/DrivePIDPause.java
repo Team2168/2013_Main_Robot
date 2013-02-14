@@ -10,15 +10,15 @@ public class DrivePIDPause extends CommandBase {
     public DrivePIDPause() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(driveTrain);
+    	requires(drivetrain);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	driveTrain.rightPosController.Pause();
-    	driveTrain.rightSpeedController.Pause();
-    	driveTrain.leftPosController.Pause();
-    	driveTrain.leftSpeedController.Pause();
+    	drivetrain.rightPosController.Pause();
+    	drivetrain.rightSpeedController.Pause();
+    	drivetrain.leftPosController.Pause();
+    	drivetrain.leftSpeedController.Pause();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -29,7 +29,10 @@ public class DrivePIDPause extends CommandBase {
     //delete me
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (driveTrain.rightPosController.isEnabled() == false) && (driveTrain.rightSpeedController.isEnabled() == false) && (driveTrain.leftSpeedController.isEnabled() == false) && (driveTrain.leftPosController.isEnabled() == false);
+        return (drivetrain.rightPosController.isEnabled() == false)
+        		&& (drivetrain.rightSpeedController.isEnabled() == false)
+        		&& (drivetrain.leftSpeedController.isEnabled() == false)
+        		&& (drivetrain.leftPosController.isEnabled() == false);
     }
 
     // Called once after isFinished returns true
