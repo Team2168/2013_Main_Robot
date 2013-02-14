@@ -1,54 +1,58 @@
 
 package frc2168_2013.commands;
 
-import frc2168_2013.RobotMap;
-
 /**
  *
  * @author shriji
  */
-public class DriveHopperTillFull_IntakeUseONLY extends CommandBase {
+public class ArmPIDPosition extends CommandBase {
 
-	boolean frisbee;
+	private double setPoint;
 	
-    public DriveHopperTillFull_IntakeUseONLY() {
-    	requires(hopper);
+    public ArmPIDPosition() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(arm);
+    	this.setPoint = arm.armPosController.getSetPoint();
     	
     }
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
+    public ArmPIDPosition(double setPoint){
+ 	   this();
+ 	   this.setPoint = setPoint;
+ 	   
     }
 
-    boolean lastSwitch_Hopper;
+    //delete me
     
+    
+    // Called just before this Command runs the first time
+    protected void initialize() {
+    	arm.armPosController.reset();
+    	arm.armPosController.Enable();
+    }
+
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	lastSwitch_Hopper = hopper.disc4Present();
-    	if(lastSwitch_Hopper = true){	//if a frisbee is present at the last switch on hopper
-			hopper.driveHopperPWM(0.0);	//stop hopper
-			frisbee = true;
-		} else{												//if a frisbee isn't present
-			hopper.driveHopperPWM(RobotMap.hopperVoltage);	//drive till present
-			frisbee = false;
-		}
+    	
+    	arm.armPosController.setSetPoint(setPoint);
+    	arm.driveArm(arm.armPosController.getControlOutput());
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return frisbee;
+    	return arm.armPosController.isEnabled() == true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	end();
+    	arm.armPosController.Pause();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	hopper.driveHopperPWM(0.0);
+    	end();
     }
 }

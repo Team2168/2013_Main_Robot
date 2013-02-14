@@ -1,6 +1,5 @@
 package frc2168_2013.commands;
 
-
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc2168_2013.OI;
@@ -16,7 +15,7 @@ public abstract class CommandBase extends Command {
 
     public static OI oi;
     // Create a single static instance of all of your subsystems
-    public static Drivetrain driveTrain = new Drivetrain();
+    public static Drivetrain drivetrain = new Drivetrain();
     public static Intake intake = new Intake();
     public static Shooter shooter = new Shooter();
     public static Hopper hopper = new Hopper();
@@ -32,7 +31,7 @@ public abstract class CommandBase extends Command {
         oi = new OI();
 
         // Show what command your subsystem is running on the SmartDashboard
-        SmartDashboard.putData(driveTrain);
+        SmartDashboard.putData(drivetrain);
         SmartDashboard.putData(intake);
         SmartDashboard.putData(shooter);
     }

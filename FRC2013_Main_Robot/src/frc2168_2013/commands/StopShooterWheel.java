@@ -24,7 +24,7 @@ public class StopShooterWheel extends CommandBase {
      * Called repeatedly when this Command is scheduled to run.
      */
     protected void execute() {
-    	shooter.setPWM(0.0);
+    	shooter.driveShooter(0.0);
     }
 
     /**
