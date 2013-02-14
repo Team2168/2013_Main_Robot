@@ -3,6 +3,7 @@ package frc2168_2013.subsystems;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc2168_2013.OI;
 import frc2168_2013.RobotMap;
 import frc2168_2013.PIDController.Controller.PIDPosition;
 import frc2168_2013.PIDController.Controller.PIDSpeed;
@@ -110,9 +111,9 @@ public class Drivetrain extends Subsystem {
     	this.leftSpeed = leftSpeed;
     	
     	//RobotMap defines which motors are inverted on drivetrain.
-    	if(RobotMap.rInvert) {
+    	if(OI.rInvert) {
     		rightSpeed = -rightSpeed;
-    	} else if(RobotMap.lInvert) {
+    	} else if(OI.lInvert) {
     		leftSpeed = -leftSpeed;
     	}
     	
@@ -132,7 +133,7 @@ public class Drivetrain extends Subsystem {
     
     	
     	//RobotMap defines which motors are inverted on drivetrain.
-    	if(RobotMap.rInvert) {
+    	if(OI.rInvert) {
     		rightSpeed = -rightSpeed;
     	}     	
     	//TODO: add hooks for falcon claw
@@ -150,7 +151,7 @@ public class Drivetrain extends Subsystem {
     	this.leftSpeed = leftSpeed;
     	
     	//RobotMap defines which motors are inverted on drivetrain.
-    	if(RobotMap.lInvert) {
+    	if(OI.lInvert) {
     		leftSpeed = -leftSpeed;
     	}
     	
