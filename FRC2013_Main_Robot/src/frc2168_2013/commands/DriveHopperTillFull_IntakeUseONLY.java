@@ -28,10 +28,10 @@ public class DriveHopperTillFull_IntakeUseONLY extends CommandBase {
     protected void execute() {
     	lastSwitch_Hopper = hopper.disc4Present();
     	if(lastSwitch_Hopper = true){	//if a frisbee is present at the last switch on hopper
-			hopper.driveHopper(0.0);			//stop hopper
+			hopper.driveHopperPWM(0.0);	//stop hopper
 			frisbee = true;
 		} else{												//if a frisbee isn't present
-			hopper.driveHopper(RobotMap.hopperVoltage);	//drive till present
+			hopper.driveHopperPWM(RobotMap.hopperVoltage);	//drive till present
 			frisbee = false;
 		}
     }
@@ -49,6 +49,6 @@ public class DriveHopperTillFull_IntakeUseONLY extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	hopper.driveHopper(0.0);
+    	hopper.driveHopperPWM(0.0);
     }
 }

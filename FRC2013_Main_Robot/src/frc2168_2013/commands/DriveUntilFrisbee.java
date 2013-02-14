@@ -33,10 +33,10 @@ public class DriveUntilFrisbee extends CommandBase {
     protected void execute() {
     	if(hopper.disc1Present()) {		//If a Frisbee is present at the last
     									//  position before the shooter.
-			hopper.driveHopper(0.0);	//Stop the hopper
+			hopper.driveHopperPWM(0.0);	//Stop the hopper
 			frisbee = true;
 		} else {											//If a Frisbee isn't present,
-			hopper.driveHopper(RobotMap.hopperMotor);	//Drive the hopper
+			hopper.driveHopperPWM(RobotMap.hopperMotor);	//Drive the hopper
 			frisbee = false;
 		}
     }
@@ -52,7 +52,7 @@ public class DriveUntilFrisbee extends CommandBase {
      * Called once after isFinished returns true.
      */
     protected void end() {
-    	hopper.driveHopper(0.0);
+    	hopper.driveHopperPWM(0.0);
     }
 
     /**
