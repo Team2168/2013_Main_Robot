@@ -83,10 +83,10 @@ public class OI {
 				  operatorButtonRightBumper = new JoystickButton(operatorDrive, 6),
 				  operatorButtonReset = new JoystickButton(operatorDrive, 7),
 				  operatorButtonStart = new JoystickButton(operatorDrive, 8);
-	public JoystickAnalogButton auxTriggerR = new JoystickAnalogButton(operatorDrive, 3, -0.5),
-								auxTriggerL = new JoystickAnalogButton(operatorDrive, 3, 0.5),
-								auxDPadL = new JoystickAnalogButton(operatorDrive, 6, -0.5),	
-								auxDPadR = new JoystickAnalogButton(operatorDrive, 6, 0.5);
+	public JoystickAnalogButton operatorTriggerR = new JoystickAnalogButton(operatorDrive, 3, -0.5),
+								operatorTriggerL = new JoystickAnalogButton(operatorDrive, 3, 0.5),
+								operatorDPadL = new JoystickAnalogButton(operatorDrive, 6, -0.5),	
+								operatorDPadR = new JoystickAnalogButton(operatorDrive, 6, 0.5);
 	
 	public double getoperatorDriveLeftStick() {
 		return operatorDrive.getRawAxis(leftJoyAxis);
@@ -104,8 +104,8 @@ public class OI {
 		//operatorButtonA.whenPressed(); //shooter on
 		//delete me
 		operatorButtonB.whenPressed(new StopShooterWheel()); //shooter off 
-		auxTriggerR.whenPressed(new ShootSingleFrisbee()); //shoot one disc
-		auxTriggerL.whenPressed(new ShootSingleFrisbee()); //shoot one disc
+		operatorTriggerR.whenPressed(new ShootSingleFrisbee()); //shoot one disc
+		operatorTriggerL.whenPressed(new ShootSingleFrisbee()); //shoot one disc
 		
 		driveButtonA.whenPressed(new DrivePIDPause());
 		driveButtonB.whenPressed(new DrivePIDPosition(360));
