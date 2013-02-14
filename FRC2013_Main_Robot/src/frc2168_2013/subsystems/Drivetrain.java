@@ -96,16 +96,16 @@ public class Drivetrain extends Subsystem {
     /**
      * Initialize the default command for the drivetrain subsystem.
      */
-	public void initDefaultCommand() {
+    public void initDefaultCommand() {
 		setDefaultCommand(new DriveWithJoystick());
     }
 	
-	/**
-	 * Drive drive train using tank drive
-	 * 
-	 * @param rightSpeed speed for right motors (1 to -1)
-	 * @param leftSpeed speed for left motors (1 to -1)
-	 */
+    /**
+     * Drive drive train using tank drive
+     * 
+     * @param rightSpeed speed for right motors (1 to -1)
+     * @param leftSpeed speed for left motors (1 to -1)
+     */
     public void tankDrive(double rightSpeed, double leftSpeed) {
     	this.rightSpeed = rightSpeed;
     	this.leftSpeed = leftSpeed;
@@ -121,17 +121,16 @@ public class Drivetrain extends Subsystem {
     	//TODO: add interpolation method to adjust sensitivity
     	
     	leftDriveMotor.set(leftSpeed);
-    	rightDriveMotor.set(rightSpeed);
-    	
+    	rightDriveMotor.set(rightSpeed);	
     }
+    
     /**
      * drive the right side
      * @param rightSpeed between -1 and 1
      */
     public void driveRight(double rightSpeed) {
     	this.rightSpeed = rightSpeed;
-    
-    	
+
     	//RobotMap defines which motors are inverted on drivetrain.
     	if(OI.rInvert) {
     		rightSpeed = -rightSpeed;
@@ -147,7 +146,6 @@ public class Drivetrain extends Subsystem {
      * @param leftSpeed between -1 and 1
      */
     public void driveLeft(double leftSpeed) {
-    	
     	this.leftSpeed = leftSpeed;
     	
     	//RobotMap defines which motors are inverted on drivetrain.
@@ -159,18 +157,17 @@ public class Drivetrain extends Subsystem {
     	//TODO: add interpolation method to adjust sensitivity
     	
     	leftDriveMotor.set(leftSpeed);
-    	
     }
     
-	/**
-	 * Sets the speed for the drivetrain motors (ft/s)
-	 * 
-	 * @param rightSpeed speed for the right motors (ft/s)
-	 * @param leftSpeed speed for the left motors (ft/s)
-	 */
-	public void setSpeed(double rightSpeed, double leftSpeed) {
-		//TODO: finish the code for this method
-	}
+    /**
+     * Sets the speed for the drivetrain motors (ft/s)
+     * 
+     * @param rightSpeed speed for the right motors (ft/s)
+     * @param leftSpeed speed for the left motors (ft/s)
+     */
+    public void setSpeed(double rightSpeed, double leftSpeed) {
+    	//TODO: finish the code for this method
+    }
     
     /**
      * Returns the speed for the right wheels on the drivetrain.
@@ -191,6 +188,5 @@ public class Drivetrain extends Subsystem {
     	//TODO: write code for this method.
     	return 0.0;
     }
-
 }
 
