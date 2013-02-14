@@ -163,9 +163,6 @@ public class RobotMap {
 	public static final double driveTrainRightPositionI = 0.000308064641742337; 
 	public static final double driveTrainRightPositionD = -0.000130778888124088;
 	
-	public static int mod;
-	public static int driverJoystick;
-	
 
 	/****************************************************************
 	 *                TCP Servers  (ONLY FOR DEBUGGING)             *
