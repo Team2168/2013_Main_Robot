@@ -22,9 +22,10 @@ public class OI {
 	public static final boolean aInvert = false; //for arm
 	public static final boolean sInvert = false; //for shooter
 	public static final boolean hInvert = false; //for hopper
-
 	public static final int rightJoyAxis = 5;
 	public static final int leftJoyAxis = 2;
+	//Falcon Claw Brake Modifier
+	public static final double mod = 0.125;	// Low minimum/modifier for Falcon Claw
 	
 	//Create variable for USB joystick
 	public Joystick baseDriver = new Joystick(RobotMap.baseDriveJoystick);
@@ -42,18 +43,21 @@ public class OI {
 	
 	//Convenience functions for joystick axis'
 	public double getbaseDriverLeftAxis() {
-		if (baseDriver.getRawAxis(3) < 0) { // Use electronic braking
-				return ((((-RobotMap.mod + 1) * baseDriver.getRawAxis(3)) + 1) * baseDriver.getRawAxis(2));
+		if (baseDriver.getRawAxis(3) < -0.01) { // Use electronic braking - Falcon Claw
+				//The more the triggers are pulled, less voltage goes to the drivetrain motors
+				return ((((-mod + 1) * baseDriver.getRawAxis(3)) + 1) * baseDriver.getRawAxis(2));
 		} else {
-				return baseDriver.getRawAxis(1);
+				//otherwise 
+				return baseDriver.getRawAxis(2);
 		}
 	}
 	
 	public double getbaseDriverRightAxis() {
-		if (baseDriver.getRawAxis(3) < 0) { // Use electronic braking
-				return ((((-RobotMap.mod + 1) * baseDriver.getRawAxis(3)) + 1) * baseDriver.getRawAxis(5));
+		if (baseDriver.getRawAxis(3) < -0.01) { // Use electronic braking - Falcon Claw
+				//The more the triggers are pulled, less voltage goes to the drivetrain motors 
+				return ((((-mod + 1) * baseDriver.getRawAxis(3)) + 1) * baseDriver.getRawAxis(5));
 		} else {
-				return baseDriver.getRawAxis(4); 
+				return baseDriver.getRawAxis(5); 
 		}
 	}
 	
