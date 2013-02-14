@@ -13,25 +13,26 @@ import frc2168_2013.commands.*;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-    
-	///////////////////////////////////////////////////////////////////////////
-	//  Driver Joystick
-	///////////////////////////////////////////////////////////////////////////
-	public static final boolean rInvert = true; //for R driveTrain
+	public static final boolean rInvert = true;  //for R driveTrain
 	public static final boolean lInvert = false; //for L driveTrain
 	public static final boolean aInvert = false; //for arm
 	public static final boolean sInvert = false; //for shooter
 	public static final boolean hInvert = false; //for hopper
 	public static final int rightJoyAxis = 5;
 	public static final int leftJoyAxis = 2;
+	
+	
+	///////////////////////////////////////////////////////////////////////////
+	//  Driver Joystick                                                      //
+	///////////////////////////////////////////////////////////////////////////
 	//Falcon Claw Brake Modifier
 	public static final double mod = 0.125;	// Low minimum/modifier for Falcon Claw
 	
 	//Create variable for USB joystick
-	public Joystick baseDriver = new Joystick(RobotMap.baseDriveJoystick);
+	public static final int baseDriveJoystick = 1;
+	public Joystick baseDriver = new Joystick(baseDriveJoystick);
 	
 	//Create mapping for buttons on joystick
-	//Driver Joystick
 	public Button driveButtonA = new JoystickButton(baseDriver, 1),
 					driveButtonB = new JoystickButton(baseDriver, 2),
 					driveButtonX = new JoystickButton(baseDriver, 3),
@@ -43,58 +44,64 @@ public class OI {
 	
 	//Convenience functions for joystick axis'
 	public double getbaseDriverLeftAxis() {
-		if (baseDriver.getRawAxis(3) < -0.01) { // Use electronic braking - Falcon Claw
-				//The more the triggers are pulled, less voltage goes to the drivetrain motors
-				return ((((-mod + 1) * baseDriver.getRawAxis(3)) + 1) * baseDriver.getRawAxis(2));
+		if (baseDriver.getRawAxis(3) < -0.01) {
+			// Use electronic braking - Falcon Claw
+			//The more the triggers are pulled, less voltage goes to the
+			//  drivetrain motors.
+			return ((((-mod + 1) * baseDriver.getRawAxis(3)) + 1)
+					* baseDriver.getRawAxis(leftJoyAxis));
 		} else {
-				//otherwise 
-				return baseDriver.getRawAxis(2);
+			//otherwise 
+			return baseDriver.getRawAxis(leftJoyAxis);
 		}
 	}
 	
 	public double getbaseDriverRightAxis() {
-		if (baseDriver.getRawAxis(3) < -0.01) { // Use electronic braking - Falcon Claw
-				//The more the triggers are pulled, less voltage goes to the drivetrain motors 
-				return ((((-mod + 1) * baseDriver.getRawAxis(3)) + 1) * baseDriver.getRawAxis(5));
+		if (baseDriver.getRawAxis(3) < -0.01) {
+			// Use electronic braking - Falcon Claw
+			//The more the triggers are pulled, less voltage goes to the
+			//  drivetrain motors. 
+			return ((((-mod + 1) * baseDriver.getRawAxis(3)) + 1)
+					* baseDriver.getRawAxis(rightJoyAxis));
 		} else {
-				return baseDriver.getRawAxis(5); 
+			return baseDriver.getRawAxis(rightJoyAxis); 
 		}
 	}
 	
 	
-	
-	
 	///////////////////////////////////////////////////////////////////////////
-	//  Operator Joystick
+	//  Operator Joystick                                                    //
 	///////////////////////////////////////////////////////////////////////////
-	public Joystick operatorDrive = new Joystick(RobotMap.operatorDriveJoystick);
-	public Button   operatorButtonA = new JoystickButton(operatorDrive, 1),
-					operatorButtonB = new JoystickButton(operatorDrive, 2),
-					operatorButtonX = new JoystickButton(operatorDrive, 3),
-					operatorButtonY = new JoystickButton(operatorDrive, 4),
-					operatorButtonLeftBumper = new JoystickButton(operatorDrive, 5),
-					operatorButtonRightBumper = new JoystickButton(operatorDrive, 6),
-					operatorButtonReset = new JoystickButton(operatorDrive, 7),
-					operatorButtonStart = new JoystickButton(operatorDrive, 8);
+	public static final int operatorDriveJoystick = 2;
+	public Joystick operatorDrive = new Joystick(operatorDriveJoystick);
+	
+	public Button operatorButtonA = new JoystickButton(operatorDrive, 1),
+				  operatorButtonB = new JoystickButton(operatorDrive, 2),
+				  operatorButtonX = new JoystickButton(operatorDrive, 3),
+				  operatorButtonY = new JoystickButton(operatorDrive, 4),
+				  operatorButtonLeftBumper = new JoystickButton(operatorDrive, 5),
+				  operatorButtonRightBumper = new JoystickButton(operatorDrive, 6),
+				  operatorButtonReset = new JoystickButton(operatorDrive, 7),
+				  operatorButtonStart = new JoystickButton(operatorDrive, 8);
 	public JoystickAnalogButton auxTriggerR = new JoystickAnalogButton(operatorDrive, 3, -0.5),
 								auxTriggerL = new JoystickAnalogButton(operatorDrive, 3, 0.5),
 								auxDPadL = new JoystickAnalogButton(operatorDrive, 6, -0.5),	
 								auxDPadR = new JoystickAnalogButton(operatorDrive, 6, 0.5);
 	
 	public double getoperatorDriveLeftStick() {
-			return operatorDrive.getRawAxis(2);
+		return operatorDrive.getRawAxis(leftJoyAxis);
 	}
 	
 	public double getoperatorDriveRightStick() {
-			return operatorDrive.getRawAxis(5); 
+		return operatorDrive.getRawAxis(rightJoyAxis); 
 	}
 	
 	
 	public OI() {
 		//Map buttons to commands (operator and driver)
-	//	driveButtonLeftBumper.whenPressed(); //disengage the hanger
-	//	driveButtonRightBumper.whenPressed(); //engage the hanger
-	//	operatorButtonA.whenPressed(); //shooter on
+		//driveButtonLeftBumper.whenPressed(); //disengage the hanger
+		//driveButtonRightBumper.whenPressed(); //engage the hanger
+		//operatorButtonA.whenPressed(); //shooter on
 		//delete me
 		operatorButtonB.whenPressed(new StopShooterWheel()); //shooter off 
 		auxTriggerR.whenPressed(new ShootSingleFrisbee()); //shoot one disc
