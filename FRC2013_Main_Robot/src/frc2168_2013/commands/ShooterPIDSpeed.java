@@ -5,18 +5,18 @@ package frc2168_2013.commands;
  *
  * @author shriji
  */
-public class DrivePIDSpeed extends CommandBase {
+public class ShooterPIDSpeed extends CommandBase {
 	
 	private double setPoint;
 
-    public DrivePIDSpeed() {
+    public ShooterPIDSpeed() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(drivetrain);
-    	this.setPoint = drivetrain.rightSpeedController.getSetPoint();
+    	requires(shooter);
+    	this.setPoint = shooter.shooterWheelSpeedController.getSetPoint();
     }
     
-   public DrivePIDSpeed(double setPoint){
+   public ShooterPIDSpeed(double setPoint){
 	   this();
 	   this.setPoint = setPoint;
 	   
@@ -24,26 +24,26 @@ public class DrivePIDSpeed extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	drivetrain.rightSpeedController.reset();
-    	drivetrain.rightSpeedController.Enable();
+    	shooter.shooterWheelSpeedController.reset();
+    	shooter.shooterWheelSpeedController.Enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if (setPoint != 0)
-    		drivetrain.rightSpeedController.setSetPoint(setPoint);
-    	drivetrain.driveRight(drivetrain.rightSpeedController.getControlOutput());
+    		shooter.shooterWheelSpeedController.setSetPoint(setPoint);
+    	shooter.driveShooter(shooter.shooterWheelSpeedController.getControlOutput());
     	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return drivetrain.rightSpeedController.isEnabled() == false;
+        return shooter.shooterWheelSpeedController.isEnabled() == false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	drivetrain.rightSpeedController.Pause();
+    	shooter.shooterWheelSpeedController.Pause();
     }
 
     //delete me

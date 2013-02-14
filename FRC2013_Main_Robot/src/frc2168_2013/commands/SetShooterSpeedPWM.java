@@ -16,7 +16,7 @@ public class SetShooterSpeedPWM extends CommandBase {
 	
 	protected void initialize() {
 		//Set the "speed" for the wheels as provided in the constructor
-		shooter.setPWM(speed);
+		shooter.driveShooter(speed);
 	}
 
 	protected void execute() {

@@ -1,8 +1,8 @@
 package frc2168_2013.commands;
 
-public class DriveWithJoystick extends CommandBase {
+public class DriveDrivetrainWithJoystick extends CommandBase {
 	
-	public DriveWithJoystick(){
+	public DriveDrivetrainWithJoystick(){
 		requires(drivetrain);
 	}
 

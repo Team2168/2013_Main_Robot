@@ -12,15 +12,14 @@ public class DrivePIDPosition extends CommandBase {
     public DrivePIDPosition() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(driveTrain);
-    	this.setPoint = driveTrain.leftPosController.getSetPoint();
+    	requires(drivetrain);
+    	this.setPoint = drivetrain.leftPosController.getSetPoint();
     	
     }
 
     public DrivePIDPosition(double setPoint){
  	   this();
  	   this.setPoint = setPoint;
- 	   
     }
 
     //delete me
@@ -28,26 +27,25 @@ public class DrivePIDPosition extends CommandBase {
     
     // Called just before this Command runs the first time
     protected void initialize() {
-    	driveTrain.leftPosController.reset();
-    	driveTrain.leftPosController.Enable();
+    	drivetrain.leftPosController.reset();
+    	drivetrain.leftPosController.Enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
-    		driveTrain.leftPosController.setSetPoint(setPoint);
-    	driveTrain.driveLeft(driveTrain.leftPosController.getControlOutput());
+    	drivetrain.leftPosController.setSetPoint(setPoint);
+    	drivetrain.driveLeft(drivetrain.leftPosController.getControlOutput());
     	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return driveTrain.leftPosController.isEnabled() == false;
+    	return drivetrain.leftPosController.isEnabled() == true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	driveTrain.leftPosController.Pause();
+    	drivetrain.leftPosController.Pause();
     }
 
     // Called when another command which requires one or more of the same
