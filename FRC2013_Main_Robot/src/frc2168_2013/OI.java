@@ -13,8 +13,8 @@ import frc2168_2013.commands.*;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	public static final boolean rInvert = true;  //for R driveTrain
-	public static final boolean lInvert = false; //for L driveTrain
+	public static final boolean rInvert = false;  //for R driveTrain
+	public static final boolean lInvert = true; //for L driveTrain
 	public static final boolean aInvert = false; //for arm
 	public static final boolean sInvert = false; //for shooter
 	public static final boolean hInvert = false; //for hopper
