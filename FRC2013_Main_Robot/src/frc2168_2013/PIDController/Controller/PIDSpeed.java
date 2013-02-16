@@ -804,7 +804,7 @@ public class PIDSpeed implements TCPMessageInterface
 		this.pGain = Double.valueOf(message[0]).doubleValue();
 		this.iGain = Double.valueOf(message[1]).doubleValue();		
 		this.dGain = Double.valueOf(message[2]).doubleValue();
-		
+		this.sp = Double.valueOf(message[3]).doubleValue();
 		this.maxPosOutput = Double.valueOf(message[5]).doubleValue();
 		this.maxNegOutput = Double.valueOf(message[6]).doubleValue();
 		this.minPosOutput = Double.valueOf(message[7]).doubleValue();

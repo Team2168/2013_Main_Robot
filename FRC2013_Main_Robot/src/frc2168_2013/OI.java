@@ -13,8 +13,8 @@ import frc2168_2013.commands.*;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	public static final boolean rInvert = false;  //for R driveTrain
-	public static final boolean lInvert = true; //for L driveTrain
+	public static final boolean rInvert = true;  //for R driveTrain
+	public static final boolean lInvert = false; //for L driveTrain
 	public static final boolean aInvert = false; //for arm
 	public static final boolean sInvert = false; //for shooter
 	public static final boolean hInvert = false; //for hopper
@@ -52,7 +52,7 @@ public class OI {
 					* baseDriver.getRawAxis(leftJoyAxis));
 		} else {
 			//otherwise 
-			return baseDriver.getRawAxis(leftJoyAxis);
+			return -baseDriver.getRawAxis(leftJoyAxis);
 		}
 	}
 	
@@ -64,7 +64,7 @@ public class OI {
 			return ((((-mod + 1) * baseDriver.getRawAxis(3)) + 1)
 					* baseDriver.getRawAxis(rightJoyAxis));
 		} else {
-			return baseDriver.getRawAxis(rightJoyAxis); 
+			return -baseDriver.getRawAxis(rightJoyAxis); 
 		}
 	}
 	
@@ -89,11 +89,11 @@ public class OI {
 								operatorDPadR = new JoystickAnalogButton(operatorDrive, 6, 0.5);
 	
 	public double getoperatorDriveLeftStick() {
-		return operatorDrive.getRawAxis(leftJoyAxis);
+		return -operatorDrive.getRawAxis(leftJoyAxis);
 	}
 	
 	public double getoperatorDriveRightStick() {
-		return operatorDrive.getRawAxis(rightJoyAxis); 
+		return -operatorDrive.getRawAxis(rightJoyAxis); 
 	}
 	
 	
@@ -108,8 +108,8 @@ public class OI {
 		operatorTriggerL.whenPressed(new ShootSingleFrisbee()); //shoot one disc
 		
 		driveButtonA.whenPressed(new DrivePIDPause());
-		driveButtonB.whenPressed(new DrivePIDPosition(360));
-		driveButtonX.whenPressed(new DrivePIDSpeed(300));
+		driveButtonB.whenPressed(new DrivePIDPosition());
+		driveButtonX.whenPressed(new DrivePIDSpeed());
 	}
 	
 	
