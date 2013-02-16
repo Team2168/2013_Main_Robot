@@ -17,9 +17,10 @@ public class RobotMap {
 	//PWM Channels////////////////////////////////////////////////////
 	public static final int leftDriveMotor = 1;
 	public static final int rightDriveMotor = 2;
-	public static final int shooterMotor = 3;
-	public static final int hopperMotor = 4;
-	public static final int armMotor =5;
+	public static final int shooterMotor = 7;
+	public static final int hopperMotor = 6;
+	public static final int armMotorL = 3;
+	public static final int armMotorR = 5;
 	
 	//DIO Channels////////////////////////////////////////////////////
 	public static final int leftDriveEncoderChannelA = 1;

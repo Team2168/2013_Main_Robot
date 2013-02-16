@@ -8,19 +8,25 @@ import frc2168_2013.RobotMap;
 import frc2168_2013.PIDController.Controller.PIDPosition;
 import frc2168_2013.PIDController.Sensors.AverageEncoder;
 import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
+import frc2168_2013.commands.DriveArmWithJoystick;
+import frc2168_2013.commands.DriveWithJoystick;
 
 public class Arm extends Subsystem {
 	
 	double armSpeed = 0;
 	
 	//initialized PID Position Controller
-	Talon armMotor;
+	Talon armMotorL;
+	Talon armMotorR;
 	AverageEncoder armEncoder;
 	public PIDPosition armPosController;
 	TCPsocketSender TCParmPosController;
+
+	private double speed;
 	
 	public Arm(){
-		armMotor = new Talon(RobotMap.armMotor);
+		armMotorL = new Talon(RobotMap.armMotorL);
+		armMotorR = new Talon(RobotMap.armMotorR);
 		armEncoder = new AverageEncoder(RobotMap.armEncoderChannelA, RobotMap.armEncoderChannelB, RobotMap.armEncoderPulsePerRot,RobotMap.armEncoderDistPerTick,RobotMap.armEncoderReverse, RobotMap.armEncodingType, RobotMap.armSpeedReturnType, RobotMap.armPosReturnType,RobotMap.armAvgEncoderVal);
 		armEncoder.setMaxPeriod(RobotMap.armEncoderMinPeriod);//min period before reported stopped
 		armEncoder.setMinRate(RobotMap.armEncoderMinRate);//min rate before reported stopped
@@ -39,6 +45,7 @@ public class Arm extends Subsystem {
 
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
+		setDefaultCommand(new DriveArmWithJoystick());
 
 	}
 
@@ -52,25 +59,19 @@ public class Arm extends Subsystem {
 		
 	}
 	
-	public void driveArmPWM(double speed)
-	{
-		if (OI.aInvert)
-			speed = -speed;
-		
-		armMotor.set(speed);
-	}
-
+	
 	public void driveArm(double armSpeed) {
     	
     	this.armSpeed = armSpeed;
     	
     	//OI defines which motors are inverted
-    	if(OI.aInvert) {
+    	if(OI.aLinvert)
     		armSpeed = -armSpeed;
-    	}
     	
     	
-    	armMotor.set(armSpeed);
+    	
+    	armMotorL.set(armSpeed);
+    	armMotorR.set(-armSpeed);
     	
     }
 
