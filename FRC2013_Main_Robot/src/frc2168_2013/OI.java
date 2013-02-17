@@ -3,7 +3,6 @@ package frc2168_2013;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button; 
-import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc2168_2013.utils.JoystickAnalogButton;
 import frc2168_2013.commands.*;
@@ -98,18 +97,18 @@ public class OI {
 	
 	
 	public OI() {
-		//Map buttons to commands (operator and driver)
-		//driveButtonLeftBumper.whenPressed(); //disengage the hanger
-		//driveButtonRightBumper.whenPressed(); //engage the hanger
-		//operatorButtonA.whenPressed(); //shooter on
-		//delete me
-		operatorButtonB.whenPressed(new StopShooterWheel()); //shooter off 
-		operatorTriggerR.whenPressed(new ShootSingleFrisbee()); //shoot one disc
-		operatorTriggerL.whenPressed(new ShootSingleFrisbee()); //shoot one disc
-		
+		//DRIVER BUTTON MAP//
+		driveButtonLeftBumper.whenPressed(new HangerDisengage()); //disengage the hanger
+		driveButtonRightBumper.whenPressed(new HangerEngage()); //engage the hanger
 		driveButtonA.whenPressed(new DrivePIDPause());
 		driveButtonB.whenPressed(new DrivePIDPosition());
 		driveButtonX.whenPressed(new DrivePIDSpeed());
+
+		//OPERATOR BUTTON MAP//
+		//operatorButtonA.whenPressed(); //shooter on
+		operatorButtonB.whenPressed(new StopShooterWheel()); //shooter off 
+		operatorTriggerR.whenPressed(new ShootSingleFrisbee()); //shoot one disc
+		operatorTriggerL.whenPressed(new ShootSingleFrisbee()); //shoot one disc
 	}
 	
 	

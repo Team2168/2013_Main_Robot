@@ -37,15 +37,16 @@ public class RobotMap {
 
 	public static final int compressorPressureSwitch = 14;
 
-	//Analog Input Channels///////////////////////////////////////////
-
 	//Relay Output Channels///////////////////////////////////////////
 	public static final int compressorPower = 1;
 
 	//Solenoid Channels///////////////////////////////////////////////
-	public static final int hopperDiscStopperApply = 1;
-	public static final int hopperDiscStopperRelease = 2;
+	public static final int hopperDiscStopperApply     = 1;
+	public static final int hopperDiscStopperRelease   = 2;
+	public static final int hangerDiscStopperEngage    = 3;
+	public static final int hangerDiscStopperDisengage = 4;
 
+	//Analog Input Channels///////////////////////////////////////////
 
 	/****************************************************************
 	 *                       Shooter Parameters                     *
