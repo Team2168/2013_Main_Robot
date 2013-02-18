@@ -14,7 +14,7 @@ public class DriveArmWithJoystick extends CommandBase {
 	}
 
 	protected void execute() {
-		arm.driveArm(oi.operatorDrive.getRawAxis(OI.leftJoyAxis));
+		arm.driveArm(oi.getoperatorDriveLeftStick());
 	}
 
 	protected void initialize() {

@@ -15,7 +15,7 @@ public class RobotMap {
 	 *                       CRIO MAP                               *
 	 ****************************************************************/	
 	//PWM Channels////////////////////////////////////////////////////
-	public static final int leftDriveMotor = 1;
+	public static final int leftDriveMotor = 9;
 	public static final int rightDriveMotor = 2;
 	public static final int shooterMotor = 7;
 	public static final int hopperMotor = 6;
@@ -29,8 +29,8 @@ public class RobotMap {
 	public static final int rightDriveEncoderChannelB = 4;
 	public static final int shooterEncoderChannelA = 5;
 	public static final int shooterEncoderChannelB = 6;
-	public static final int armEncoderChannelA = 7;
-	public static final int armEncoderChannelB = 8;
+	public static final int armEncoderChannelA = 13;
+	public static final int armEncoderChannelB = 14;
 	public static final int hopperDisc1 = 9;
 	public static final int hopperDisc2 = 10;
 	public static final int hopperDisc3 = 11;
@@ -91,7 +91,7 @@ public class RobotMap {
 	
 	//Drivetrain Encoder Parameters /////////////////////////////////
 	private static final int armPulsePerRotation = 256; //encoder ticks per rotation (LEAVE PRIVATE)
-	private static final double armGearRatio = 30.0/24.0; //ratio between wheel over encoder (LEAVE PRIVATE)
+	private static final double armGearRatio = 1.024; //ratio between wheel over encoder (LEAVE PRIVATE)
 	public static final int armEncoderPulsePerRot = (int) (armPulsePerRotation*armGearRatio); //pulse per rotation * gear ratio
 	public static final double armEncoderDistPerTick = (Math.PI*2*armWheelRadius)/armEncoderPulsePerRot;
 	public static final CounterBase.EncodingType armEncodingType = CounterBase.EncodingType.k4X; //count rising and falling edges on both channels
@@ -99,7 +99,7 @@ public class RobotMap {
 	public static final AverageEncoder.SpeedReturnType armSpeedReturnType = AverageEncoder.SpeedReturnType.RPM;
 	public static final int armEncoderMinRate = 10;
 	public static final int armEncoderMinPeriod = 10;
-	public static final boolean armEncoderReverse = false;
+	public static final boolean armEncoderReverse = true;
 	public static final int armAvgEncoderVal = 1;
 	
 	//PID Parameters //////////////////////////////////////////////////
@@ -109,9 +109,9 @@ public class RobotMap {
 	public static final long armPIDPeriod = 100;//100ms loop
 	
 	//PID Gains for Arm Position Controller
-	public static final double armPosP =  0.00574562908722711;
-	public static final double armPosI =  0.000308064641742337; 
-	public static final double armPosD = -0.000130778888124088;
+	public static final double armPosP = 0.002;
+	public static final double armPosI = 0.0001412646174233; 
+	public static final double armPosD = 0.0074778888124088;
 	
 	
 	/****************************************************************

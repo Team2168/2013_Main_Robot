@@ -15,8 +15,8 @@ import frc2168_2013.commands.*;
 public class OI {
 	public static final boolean rInvert = true;  //for R driveTrain
 	public static final boolean lInvert = false; //for L driveTrain
-	public static final boolean aLinvert = true; //for arm
-	public static final boolean aRinvert = true; //for arm
+	public static final boolean aLinvert = false; //for arm
+	public static final boolean aRinvert = false; //for arm
 	public static final boolean sInvert = false; //for shooter
 	public static final boolean hInvert = false; //for hopper
 	public static final int rightJoyAxis = 5;
@@ -53,7 +53,7 @@ public class OI {
 					* baseDriver.getRawAxis(leftJoyAxis));
 		} else {
 			//otherwise 
-			return baseDriver.getRawAxis(leftJoyAxis);
+			return -baseDriver.getRawAxis(leftJoyAxis);
 		}
 	}
 	
@@ -65,7 +65,7 @@ public class OI {
 			return ((((-mod + 1) * baseDriver.getRawAxis(3)) + 1)
 					* baseDriver.getRawAxis(rightJoyAxis));
 		} else {
-			return baseDriver.getRawAxis(rightJoyAxis); 
+			return -baseDriver.getRawAxis(rightJoyAxis); 
 		}
 	}
 	
@@ -90,11 +90,11 @@ public class OI {
 								operatorDPadR = new JoystickAnalogButton(operatorDrive, 6, 0.5);
 	
 	public double getoperatorDriveLeftStick() {
-		return operatorDrive.getRawAxis(leftJoyAxis);
+		return -operatorDrive.getRawAxis(leftJoyAxis);
 	}
 	
 	public double getoperatorDriveRightStick() {
-		return operatorDrive.getRawAxis(rightJoyAxis); 
+		return -operatorDrive.getRawAxis(rightJoyAxis); 
 	}
 	
 	
@@ -104,13 +104,16 @@ public class OI {
 		//driveButtonRightBumper.whenPressed(); //engage the hanger
 		//operatorButtonA.whenPressed(); //shooter on
 		//delete me
-		operatorButtonB.whenPressed(new StopShooterWheel()); //shooter off 
+		//operatorButtonB.whenPressed(new StopShooterWheel()); //shooter off 
 		operatorTriggerR.whenPressed(new ShootSingleFrisbee()); //shoot one disc
 		operatorTriggerL.whenPressed(new ShootSingleFrisbee()); //shoot one disc
 		
-		driveButtonA.whenPressed(new DrivePIDPause());
-		driveButtonB.whenPressed(new DrivePIDPosition(360));
-		driveButtonX.whenPressed(new DrivePIDSpeed(300));
+		
+		
+		operatorButtonA.whenPressed(new ArmPIDPause());
+		operatorButtonB.whenPressed(new ArmPIDPosition(60));
+		operatorButtonX.whenPressed(new ArmPIDPosition(80));
+		operatorButtonY.whenPressed(new ArmPIDPosition());
 	}
 	
 	
