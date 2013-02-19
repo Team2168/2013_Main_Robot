@@ -101,7 +101,7 @@ public class OI {
 		driveButtonLeftBumper.whenPressed(new HangerDisengage()); //disengage the hanger
 		driveButtonRightBumper.whenPressed(new HangerEngage()); //engage the hanger
 
-		
+		//OPERATOR BUTTON MAP//
 		operatorTriggerR.whenPressed(new ShootSingleFrisbee()); //shoot one disc
 		operatorTriggerL.whenPressed(new ShootSingleFrisbee()); //shoot one disc
 
