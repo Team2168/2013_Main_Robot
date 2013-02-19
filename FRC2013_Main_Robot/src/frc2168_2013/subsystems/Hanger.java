@@ -9,8 +9,8 @@ public class Hanger extends Subsystem {
 	DoubleSolenoid actuator;
 	
 	public Hanger() {
-		actuator = new DoubleSolenoid(RobotMap.hangerDiscStopperDisengage,
-									  RobotMap.hangerDiscStopperEngage);
+		actuator = new DoubleSolenoid(RobotMap.hangerDisengage,
+		                              RobotMap.hangerEngage);
 	}
 	
 	/**
