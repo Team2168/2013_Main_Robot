@@ -14,7 +14,7 @@ public class DriveShooterWithJoystick extends CommandBase {
 	}
 
 	protected void execute() {
-		shooter.driveShooter(oi.operatorDrive.getRawAxis(OI.leftJoyAxis));
+		shooter.setShooterPWM(oi.getoperatorDriveLeftStick());
 	}
 
 	protected void initialize() {

@@ -1,45 +1,38 @@
 package frc2168_2013.subsystems;
 
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc2168_2013.RobotMap;
+import frc2168_2013.commands.HangerDisengage;
 
 public class Hanger extends Subsystem {
-	Talon hangerMotor;
-	//Declares the motor 
+	DoubleSolenoid actuator;
 	
-	double engageSpeed = 0.5;
-	double disengageSpeed = -0.5;
-	/**
-	 * Values for the motor when initialized/engaged/disengaged 
-	 */
+	public Hanger() {
+		actuator = new DoubleSolenoid(RobotMap.hangerDiscStopperDisengage,
+									  RobotMap.hangerDiscStopperEngage);
+	}
 	
 	/**
 	 * Tells the hanger what to do when it starts
 	 */
-	
 	protected void initDefaultCommand() {
-		//setDefaultCommand(new DisengageHanger());
+		setDefaultCommand(new HangerDisengage());
 	}
 	
 	/**
-	 * Sets the speed for the motor when engaging. 
+	 * Engage the hanger / retract the actuators.
 	 */
-	public void engage(){
-		hangerMotor.set(engageSpeed);
+	public void engage() {
+		//TODO: Verify that kForward engages the hanger
+		actuator.set(DoubleSolenoid.Value.kReverse);
 	}
 	
 	/**
-	 * Sets the speed for the motor when disengaging.
+	 * Disengage the hanger / extend the actuators
 	 */
 	public void disengage(){
-		hangerMotor.set(disengageSpeed);
-	}
-	
-	/**
-	 * Stops the motor.
-	 */
-	public void stop(){
-		hangerMotor.set(0.0);
-	
+		//TODO: Verify that kForward disengages the hanger
+		actuator.set(DoubleSolenoid.Value.kForward);
 	}
 }

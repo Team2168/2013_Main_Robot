@@ -32,7 +32,7 @@ public class ShooterPIDSpeed extends CommandBase {
     protected void execute() {
     	if (setPoint != 0)
     		shooter.shooterWheelSpeedController.setSetPoint(setPoint);
-    	shooter.driveShooter(shooter.shooterWheelSpeedController.getControlOutput());
+    	shooter.setShooterPWM(shooter.shooterWheelSpeedController.getControlOutput());
     	
     }
 

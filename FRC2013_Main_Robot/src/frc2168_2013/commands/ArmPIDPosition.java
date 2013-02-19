@@ -36,7 +36,7 @@ public class ArmPIDPosition extends CommandBase {
     protected void execute() {
     	
     	arm.armPosController.setSetPoint(setPoint);
-    	arm.driveArm(arm.armPosController.getControlOutput());
+    	arm.setArmPWM(arm.armPosController.getControlOutput());
     	
     }
 

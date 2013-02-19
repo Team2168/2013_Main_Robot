@@ -8,6 +8,8 @@ import frc2168_2013.RobotMap;
 import frc2168_2013.PIDController.Controller.PIDSpeed;
 import frc2168_2013.PIDController.Sensors.AverageEncoder;
 import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
+import frc2168_2013.commands.DriveArmWithJoystick;
+import frc2168_2013.commands.DriveShooterWithJoystick;
 import frc2168_2013.commands.SetShooterSpeedPWM;
 
 public class Shooter extends Subsystem {
@@ -42,7 +44,7 @@ public class Shooter extends Subsystem {
 	 */
     public void initDefaultCommand() {
     	//Set the shooter wheels to not spin.
-    	setDefaultCommand(new SetShooterSpeedPWM(0.0));
+    	setDefaultCommand(new DriveShooterWithJoystick());
     }
    
     /**
@@ -51,16 +53,13 @@ public class Shooter extends Subsystem {
      * 
      * @param wheel1 Speed for wheel 1 (1.0 to -1.0)
      */
-    public void setPWM(double speed) {
+    public void setShooterPWM(double speed) {
         //RobotMap defines which motors are inverted on drivetrain.
         if(OI.sInvert)
         	speed = -speed;   
         shooterMotor.set(speed);
     }
     
-    public void driveShooter(double speed) {
-    	shooterMotor.set(speed);
-    }
     
     /**
      * Get the speed of the shooter.

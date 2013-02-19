@@ -25,8 +25,8 @@ public class Arm extends Subsystem {
 	private double speed;
 	
 	public Arm(){
-		armMotorL = new Talon(RobotMap.armMotorL);
-		armMotorR = new Talon(RobotMap.armMotorR);
+		armMotorL = new Talon(RobotMap.leftArmMotor);
+		armMotorR = new Talon(RobotMap.rightArmMotor);
 		armEncoder = new AverageEncoder(RobotMap.armEncoderChannelA, RobotMap.armEncoderChannelB, RobotMap.armEncoderPulsePerRot,RobotMap.armEncoderDistPerTick,RobotMap.armEncoderReverse, RobotMap.armEncodingType, RobotMap.armSpeedReturnType, RobotMap.armPosReturnType,RobotMap.armAvgEncoderVal);
 		armEncoder.setMaxPeriod(RobotMap.armEncoderMinPeriod);//min period before reported stopped
 		armEncoder.setMinRate(RobotMap.armEncoderMinRate);//min rate before reported stopped
@@ -60,7 +60,7 @@ public class Arm extends Subsystem {
 	}
 	
 	
-	public void driveArm(double armSpeed) {
+	public void setArmPWM(double armSpeed) {
     	
     	this.armSpeed = armSpeed;
     	
@@ -68,10 +68,8 @@ public class Arm extends Subsystem {
     	if(OI.aLinvert)
     		armSpeed = -armSpeed;
     	
-    	
-    	
     	armMotorL.set(armSpeed);
-    	armMotorR.set(-armSpeed);
+    	armMotorR.set(-armSpeed); //automatically invert right side from left side
     	
     }
 

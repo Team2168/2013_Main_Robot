@@ -3,7 +3,6 @@ package frc2168_2013;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button; 
-import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc2168_2013.utils.JoystickAnalogButton;
 import frc2168_2013.commands.*;
@@ -15,8 +14,7 @@ import frc2168_2013.commands.*;
 public class OI {
 	public static final boolean rInvert = true;  //for R driveTrain
 	public static final boolean lInvert = false; //for L driveTrain
-	public static final boolean aLinvert = false; //for arm
-	public static final boolean aRinvert = false; //for arm
+	public static final boolean aLinvert = false; //for arm left motor
 	public static final boolean sInvert = false; //for shooter
 	public static final boolean hInvert = false; //for hopper
 	public static final int rightJoyAxis = 5;
@@ -99,21 +97,19 @@ public class OI {
 	
 	
 	public OI() {
-		//Map buttons to commands (operator and driver)
-		//driveButtonLeftBumper.whenPressed(); //disengage the hanger
-		//driveButtonRightBumper.whenPressed(); //engage the hanger
-		//operatorButtonA.whenPressed(); //shooter on
-		//delete me
-		//operatorButtonB.whenPressed(new StopShooterWheel()); //shooter off 
+		//DRIVER BUTTON MAP//
+		driveButtonLeftBumper.whenPressed(new HangerDisengage()); //disengage the hanger
+		driveButtonRightBumper.whenPressed(new HangerEngage()); //engage the hanger
+
+		
 		operatorTriggerR.whenPressed(new ShootSingleFrisbee()); //shoot one disc
 		operatorTriggerL.whenPressed(new ShootSingleFrisbee()); //shoot one disc
-		
-		
-		
+
 		operatorButtonA.whenPressed(new ArmPIDPause());
 		operatorButtonB.whenPressed(new ArmPIDPosition(60));
 		operatorButtonX.whenPressed(new ArmPIDPosition(80));
 		operatorButtonY.whenPressed(new ArmPIDPosition());
+
 	}
 	
 	
