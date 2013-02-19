@@ -45,8 +45,8 @@ public class RobotMap {
 	//Solenoid Channels///////////////////////////////////////////////
 	public static final int hopperDiscStopperApply     = 1;
 	public static final int hopperDiscStopperRelease   = 2;
-	public static final int hangerDiscStopperEngage    = 3;
-	public static final int hangerDiscStopperDisengage = 4;
+	public static final int hangerEngage               = 3;
+	public static final int hangerDisengage            = 4;
 
 	//Analog Input Channels///////////////////////////////////////////
 
