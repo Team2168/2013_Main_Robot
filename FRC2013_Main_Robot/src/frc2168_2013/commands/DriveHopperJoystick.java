@@ -3,10 +3,14 @@ package frc2168_2013.commands;
 import frc2168_2013.OI;
 
 
-public class DriveShooterWithJoystick extends CommandBase {
+public class DriveHopperJoystick extends CommandBase {
 	
-	public DriveShooterWithJoystick(){
-		requires(shooter);
+	double speed;
+	
+	public DriveHopperJoystick(double speed){
+		
+		requires(hopper);
+		this.speed= speed;
 	}
 
 	protected void end() {
@@ -14,7 +18,7 @@ public class DriveShooterWithJoystick extends CommandBase {
 	}
 
 	protected void execute() {
-		shooter.setShooterPWM(oi.getoperatorDriveLeftStick());
+		hopper.driveHopperPWM(speed);
 	}
 
 	protected void initialize() {
@@ -26,7 +30,7 @@ public class DriveShooterWithJoystick extends CommandBase {
 	}
 
 	protected boolean isFinished() {
-		return true;
+		return false;
 	}
 
 }

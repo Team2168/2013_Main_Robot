@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Talon;
 import frc2168_2013.OI;
 import frc2168_2013.RobotMap;
+import frc2168_2013.commands.DriveHopperJoystick;
 
 public class Hopper extends Subsystem {
 	double speed = 0.0;
@@ -26,7 +27,7 @@ public class Hopper extends Subsystem {
 	
 	protected void initDefaultCommand() {
 		//TODO: Add default command.
-		//setDefaultCommand(new DiscLoadManual());
+		setDefaultCommand(new DriveHopperJoystick(0));
 	}
 
 	/**
@@ -39,6 +40,7 @@ public class Hopper extends Subsystem {
 			speed = -speed;
 		hopperMotor.set(speed);
 	}
+
 	
 	/**
 	 * Engages the stopper so that discs don't go into the shooter.

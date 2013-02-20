@@ -12,6 +12,7 @@ import java.util.TimerTask;
 
 import com.sun.squawk.platform.posix.natives.Time;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.SerialPort;
@@ -35,6 +36,7 @@ public class CommandBaseRobot extends IterativeRobot {
     java.util.Timer executor;
     double timeOld=0;
     
+    Compressor compressor;
     
     /**
      * This method is run when the robot is first started up and should be
@@ -47,6 +49,10 @@ public class CommandBaseRobot extends IterativeRobot {
         // Initialize all subsystems
         CommandBase.init();
 
+        //Start the compressor
+        compressor = new Compressor(RobotMap.compressorPressureSwitch, RobotMap.compressorPower);
+        compressor.start();
+        
     	System.out.println("ROBOT FINISHED LOADING!");
     }
 

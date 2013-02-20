@@ -95,16 +95,22 @@ public class OI {
 		return -operatorDrive.getRawAxis(rightJoyAxis); 
 	}
 	
+	public double getoperatorTrigger(){
+		return operatorDrive.getRawAxis(3);
+	}
+	
 	
 	public OI() {
 		//DRIVER BUTTON MAP//
-		driveButtonLeftBumper.whenPressed(new HangerDisengage()); //disengage the hanger
-		driveButtonRightBumper.whenPressed(new HangerEngage()); //engage the hanger
+		driveButtonLeftBumper.whileHeld(new HangerDisengage()); //disengage the hanger
+		driveButtonRightBumper.whileHeld(new HangerEngage()); //engage the hanger
 
 		//OPERATOR BUTTON MAP//
-		operatorTriggerR.whenPressed(new ShootSingleFrisbee()); //shoot one disc
-		operatorTriggerL.whenPressed(new ShootSingleFrisbee()); //shoot one disc
-
+//		operatorTriggerR.whenPressed(new ShootSingleFrisbee()); //shoot one disc
+//		operatorTriggerL.whenPressed(new ShootSingleFrisbee()); //shoot one disc
+		operatorTriggerR.whileHeld(new DriveHopperJoystick(0.9));
+		operatorTriggerL.whileHeld(new DriveHopperJoystick(-0.9));
+		
 		operatorButtonA.whenPressed(new ArmPIDPause());
 		operatorButtonB.whenPressed(new ArmPIDPosition(60));
 		operatorButtonX.whenPressed(new ArmPIDPosition(80));
