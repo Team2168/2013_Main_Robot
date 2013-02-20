@@ -16,7 +16,7 @@ public class OI {
 	public static final boolean lInvert = false; //for L driveTrain
 	public static final boolean ainvert = true; //for arm left motor
 	public static final boolean sInvert = false; //for shooter
-	public static final boolean hInvert = false; //for hopper
+	public static final boolean hInvert = true; //for hopper
 	public static final int rightJoyAxis = 5;
 	public static final int leftJoyAxis = 2;
 	
