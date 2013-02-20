@@ -15,6 +15,8 @@ public class Arm extends Subsystem {
 	
 	double armSpeed = 0;
 	
+	//TODO: Add switches for end of travel safety
+	
 	//initialized PID Position Controller
 	Talon armMotorL;
 	Talon armMotorR;
@@ -65,7 +67,7 @@ public class Arm extends Subsystem {
     	this.armSpeed = armSpeed;
     	
     	//OI defines which motors are inverted
-    	if(OI.aLinvert)
+    	if(OI.ainvert)
     		armSpeed = -armSpeed;
     	
     	armMotorL.set(armSpeed);
