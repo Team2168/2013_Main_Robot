@@ -8,7 +8,7 @@
 package frc2168_2013;
 
 
-import java.util.TimerTask;
+
 
 import com.sun.squawk.platform.posix.natives.Time;
 
@@ -33,8 +33,7 @@ import frc2168_2013.utils.SerialCommunicator;
 public class CommandBaseRobot extends IterativeRobot {
 
     Command autonomousCommand;
-    java.util.Timer executor;
-    double timeOld=0;
+
     
     Compressor compressor;
     
