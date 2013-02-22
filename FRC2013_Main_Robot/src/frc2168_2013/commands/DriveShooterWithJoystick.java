@@ -26,7 +26,7 @@ public class DriveShooterWithJoystick extends CommandBase {
 	}
 
 	protected boolean isFinished() {
-		return true;
+		return false;
 	}
 
 }
