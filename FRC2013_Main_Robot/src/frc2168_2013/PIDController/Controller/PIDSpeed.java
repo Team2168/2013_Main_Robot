@@ -5,7 +5,7 @@ import java.util.TimerTask;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc2168_2013.PIDController.Controller.PIDSpeed;
-import frc2168_2013.PIDController.Sensors.SpeedSensorInterface;
+import frc2168_2013.PIDController.Sensors.PIDSensorInterface;
 import frc2168_2013.PIDController.TCPStream.TCPMessageInterface;
 
 
@@ -123,7 +123,7 @@ public class PIDSpeed implements TCPMessageInterface
 
 	
 	// encoder
-	SpeedSensorInterface encoder = null;
+	PIDSensorInterface encoder = null;
 
 	// Name of Thread
 	private volatile String name;
@@ -153,7 +153,7 @@ public class PIDSpeed implements TCPMessageInterface
  * @throws NullPointerException if the Speed Sensor object passed is null;
  */
 	public PIDSpeed(String name, double P, double I, double D,
-			SpeedSensorInterface currentPos, long period)
+			PIDSensorInterface currentPos, long period)
 	{
 
 		if (currentPos == null)
@@ -209,6 +209,7 @@ public class PIDSpeed implements TCPMessageInterface
 		this.isFinished=false;
 		
 		//at speed size
+		this.SIZE = 1;
 		this.atSpeed = new double[SIZE];
 		this.count=0;
 		
@@ -242,7 +243,7 @@ public class PIDSpeed implements TCPMessageInterface
 	 */
 	
 	public PIDSpeed(String name, double pUp, double iUp, double dUp,
-			double pDown, double iDown, double dDown, SpeedSensorInterface currentPos,
+			double pDown, double iDown, double dDown, PIDSensorInterface currentPos,
 			long period)
 	{
 		this(name, pUp, iUp, dUp, currentPos, period);

@@ -7,16 +7,16 @@ import java.util.TimerTask;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc2168_2013.PIDController.Controller.PIDPosition;
-import frc2168_2013.PIDController.Sensors.SpeedSensorInterface;
+import frc2168_2013.PIDController.Sensors.PIDSensorInterface;
 import frc2168_2013.PIDController.TCPStream.TCPMessageInterface;
 
 
 /**
  * @author Kevin Harrilal, First Robotics Team 2168
  * 
- * The PID Speed class implements a PID controller used to perform speed control
+ * The PID Position class implements a PID controller used to perform position control
  * on a DC motor. The purpose of this class is to keep a DC motor rotating at a constant
- * speed when the correct P, I, and D gains have been chosen.
+ * position when the correct P, I, and D gains have been chosen.
  * <br><br>
  * The controller implements the parallel form the PID controller.
  * <br><br>
@@ -46,12 +46,13 @@ import frc2168_2013.PIDController.TCPStream.TCPMessageInterface;
  * leftEncoder.start(); //start the encoder<br>
  * leftEncoder.reset(); //reset the encoder (not needed but useful)
  * <br><br>
- * PIDSpeed speedController = new PIDSpeed("DriveTrain Speed Controller", P, I, D, leftEncoder, period); //launch the PID thread <br>
- * speedController.Enable(); //start the PID thread<br>
+ * PIDPosition posController = new PIDSpeed("DriveTrain Position Controller", P, I, D, leftEncoder, period); //launch the PID thread <br>
+ * posController.startThread(); //starts the PID Controller in its own thread
+ * posController.Enable(); //start the PID calculation<br>
  * 
  * <br><br>
  * <br><br>
- * Multiple instances of the PIDSpeed Object can be created for multiple PID loops to run. Each loop will run in its own thread at the
+ * Multiple instances of the PIDPosition Object can be created for multiple PID loops to run. Each loop will run in its own thread at the
  * period specified in its constructor.
  *<br><br>
  * 
@@ -82,9 +83,9 @@ public class PIDPosition implements TCPMessageInterface
 	private volatile boolean isFinished;
 	
 	// create local PID portions
-	double prop;
-	double integ;
-	double deriv;
+	private double prop;
+	private double integ;
+	private double deriv;
 
 	// Other internal variable
 	private volatile boolean enGainSched;
@@ -120,12 +121,12 @@ public class PIDPosition implements TCPMessageInterface
 	private volatile double acceptErrorDiff; // allowable error (in units of setpoint)
 
 	// tread executor
-	java.util.Timer executor;
-	long period;
+	private java.util.Timer executor;
+	private long period;
 
 	
 	// encoder
-	SpeedSensorInterface encoder = null;
+	PIDSensorInterface encoder = null;
 
 	// Name of Thread
 	private volatile String name;
@@ -155,7 +156,7 @@ public class PIDPosition implements TCPMessageInterface
  * @throws NullPointerException if the Speed Sensor object passed is null;
  */
 	public PIDPosition(String name, double P, double I, double D,
-			SpeedSensorInterface currentPos, long period)
+			PIDSensorInterface currentPos, long period)
 	{
 
 		if (currentPos == null)
@@ -211,6 +212,7 @@ public class PIDPosition implements TCPMessageInterface
 		this.isFinished=false;
 		
 		//at speed size
+		this.SIZE = 1;
 		this.atSpeed = new double[SIZE];
 		this.count=0;
 		
@@ -243,7 +245,7 @@ public class PIDPosition implements TCPMessageInterface
 	 */
 	
 	public PIDPosition(String name, double pUp, double iUp, double dUp,
-			double pDown, double iDown, double dDown, SpeedSensorInterface currentPos,
+			double pDown, double iDown, double dDown, PIDSensorInterface currentPos,
 			long period)
 	{
 		this(name, pUp, iUp, dUp, currentPos, period);
@@ -262,7 +264,7 @@ public class PIDPosition implements TCPMessageInterface
 	public void startThread()
 	{
 		this.executor = new java.util.Timer();
-		this.executor.schedule(new PIDSpeedTask(this), 0L, this.period);
+		this.executor.schedule(new PIDTask(this), 0L, this.period);
 	}
 	
 	/**
@@ -515,7 +517,6 @@ public class PIDPosition implements TCPMessageInterface
 	{
 		return period;
 	}
-
 
 
 	/**
@@ -776,6 +777,9 @@ public class PIDPosition implements TCPMessageInterface
 		"}\n";		
 	}
 	
+	/**
+	 * This is used with a TCP Stream debugger to show the values of the PID loop.
+	 */
 	public synchronized String JSONInit()
 	{
 		return "{" +
@@ -811,8 +815,7 @@ public class PIDPosition implements TCPMessageInterface
 		this.iGain = Double.valueOf(message[1]).doubleValue();		
 		this.dGain = Double.valueOf(message[2]).doubleValue();
 		this.sp = Double.valueOf(message[3]).doubleValue();
-			
-//		
+					
 		this.maxPosOutput = Double.valueOf(message[5]).doubleValue();
 		this.maxNegOutput = Double.valueOf(message[6]).doubleValue();
 		this.minPosOutput = Double.valueOf(message[7]).doubleValue();
@@ -821,14 +824,14 @@ public class PIDPosition implements TCPMessageInterface
 		this.acceptErrorDiff = Double.valueOf(message[10]).doubleValue();
 //		setSIZE(Integer.valueOf(message[11]).intValue());
 //		
-//		if(TCPsocketSender.strToBool(message[4]))
+//		if(TCPsocketSender.strToBool(message[4])) //enable PID boolean
 //			new PID_PosDrive(Double.valueOf(message[3]).doubleValue()).start();
 //		else
 //			new PID_Pause().start();
 		}
 		catch (NumberFormatException e)
 		{
-			//System.out.println("Don't send empty values");
+			System.out.println("Don't send empty values");
 		}
 	}
 	
@@ -854,183 +857,179 @@ public class PIDPosition implements TCPMessageInterface
 			
 			//noticed that WPILibJ Encoder will sometimes throw a NaN for getRate. Although
 			//This could potentially NaN all values of the Control Loop for the period which
-			//the encoder returns NaN. We check for the Nan Value and clamp the rate to its last
+			//the encoder returns NaN. We check for the NaN Value and clamp the rate to its last
 			//value.
-			 double tempRate = encoder.getPos();// cp is in units distance per second (i.e inches/sec)
-			 if (!Double.isNaN(tempRate))
-				 cp = tempRate;
+			double tempPos = encoder.getPos(); 
+			if (!Double.isNaN(tempPos))
+				cp = tempPos; //cp is in nominal units returned by the sensor
 
 
-//			// if setpoint is 0, set output to zero
-//			if (sp == 0)
-//			{
-//				co = 0;
-//			} 
-//			else // setpoint is not zero... so we do PID calc
-//			{
 
-				// calculate error between current position and setpoint
-				err = sp - cp;
+			// calculate error between current position and setpoint
+			err = sp - cp;
 
-				// if gain schedule has been enabled, make sure we use
-				// proper PID gains
-				if (enGainSched && err < 0)
+			// if gain schedule has been enabled, make sure we use
+			// proper PID gains
+			if (enGainSched && (err < 0))
+			{
+				p = pGain2;
+				i = iGain2;
+				d = dGain2;
+			} else
+			{
+				p = pGain;
+				i = iGain;
+				d = dGain;
+			}
+
+			// calculate proportional gain
+			prop = p * err;
+
+
+			// calculate integral gain by summing past errors
+			errsum = err + olderrsum;
+			integ = i * errsum;
+
+			//save old ErrorSum for use in next loop
+			olderrsum += errsum;
+
+			// calculate derivative gain d/dt
+			executionTime = System.currentTimeMillis() - clock; // time between loops
+
+			// prevent divide by zero error, by disabling deriv term
+			// if execution time is zero.
+			if (executionTime >= 0 )
+				deriv = d * ((err - olderr) / (executionTime)); //deriv term											
+			else
+				deriv = 0;
+
+			// update clock with current time for next loop
+			clock = System.currentTimeMillis();
+
+
+			// filter derivative noise using euler filter method
+			// if filtering is enabled
+			double filteredDeriv = 0;
+			if (enDerivFilter)
+			{
+				filteredDeriv = (1 - r) * filterDerivOld + r * deriv;
+				filterDerivOld = filteredDeriv;
+				deriv = filteredDeriv;
+			}
+
+
+			// calculate new control output based on filtering
+			co = prop + integ + deriv;
+
+			// save control output for graphing
+			coNotSaturated = co;
+
+			// The below statements allow us to condition the output
+			// of our controller so that it perfoms better than
+			// a standard PID controller.
+
+			// if there is an integral term we prevent integral windup
+			// and clamp the output to the max output value to
+			// prevent output saturation by using back calculation method
+
+
+			if (i != 0)
+			{
+				//TODO: See if these items can be combined into two IF statements
+				// clamp to max values
+				if (co > maxPosOutput)
 				{
-					p = pGain2;
-					i = iGain2;
-					d = dGain2;
-				} else
-				{
-					p = pGain;
-					i = iGain;
-					d = dGain;
+					integ = maxPosOutput - prop - deriv;
+					//System.out.println("one.one");
 				}
 
-				// calculate proportional gain
-				prop = p * err;
-
-				
-
-				// calculate integral gain by summing past errors
-				errsum = err + olderrsum;
-				integ = i * errsum;
-				
-				//save for use in next loop
-				olderrsum += errsum;
-				
-				// calculate derivative gain d/dt
-				executionTime = System.currentTimeMillis() - clock; // time
-																	// between
-																	// loops
-
-				// prevent divide by zero error, by disabiling deriv term
-				// if execution time is zero.
-				if (executionTime >= 0 )
+				if (co < maxNegOutput)
 				{
-					deriv = d * ((err - olderr) / (executionTime)); // delta
-																	// error/delta
-																	// time
-				}													
-				else
-				{
-					deriv = 0;
-				}
-				// update clock with current time for next loop
-				clock = System.currentTimeMillis();
-				
-				
-				// filter derivative noise using euler filter method
-				// if filtering is enabled
-				double filteredDeriv = 0;
-				if (enDerivFilter)
-				{
-					filteredDeriv = (1 - r) * filterDerivOld + r * deriv;
-					filterDerivOld = filteredDeriv;
-					deriv = filteredDeriv;
+					integ = maxNegOutput - prop - deriv;
+					//System.out.println("one.two");
 				}
 
+				// prevent integral windup
+				if (co > maxPosOutput)
+				{
+					errsum = integ / i;
+					//System.out.println("one.three");
+				}
 
-				// calculate new control output based on filtering
+				if (co < maxNegOutput)
+				{
+					errsum = integ / i;
+					//System.out.println("one.four");
+				}
+				
+				
+				// generate new control output based on min and max and
+				// integral windup.
 				co = prop + integ + deriv;
+				olderrsum=errsum;
 
-				// save control output for graphing
-				coNotSaturated = co;
+				//System.out.println("one");
+			} else
+			{
+				// no integral term so don't need to prevent windup
+				// we can just clamp to max/min value to prevent
+				// saturation
+				if (co > maxPosOutput)
+					co = maxPosOutput;
+				if (co < maxNegOutput)
+					co = maxNegOutput;
 
-				// The below statements allow us to condition the output
-				// of our controller so that it perfoms better than
-				// a standard PID controller.
+				//System.out.println("two");
+			}
 
-				// if there is an integral term we prevent integral windup
-				// and clamp the output to the max output value to
-				// prevent output saturation
-				// clamp output to min and max output value to prevent
+			// check to see if we met our setpoint
+			// if current value is within exceptable range make control, 
+			// we stop integrating error
+			if (Math.abs(err) <= acceptErrorDiff)
+			{
+				co = 0; //stops wheel at position, assumes no mechanical load
+				olderrsum = 0; //stop accumulating error
 
-				if (i != 0)
+				//System.out.println("three");
+
+			} else
+			{
+
+				// there is still a significant error
+				// we now check if output signal is below
+				// the deadband, if it is, we increase the
+				// output above deadband
+				// to drive the motor
+
+				if (err > 0 && coNotSaturated < minPosOutput)
 				{
-					// clamp to max values
-					if (co > maxPosOutput)
-					{
-						integ = maxPosOutput - prop - deriv;
-						//System.out.println("one.one");
-					}
+					co = minPosOutput;
+					//System.out.println("four");
 					
-					if (co < maxNegOutput)
-					{
-						integ = maxNegOutput - prop - deriv;
-						//System.out.println("one.two");
-					}
-					
-					// prevent integral windup
-					if (co > maxPosOutput)
-					{
-						errsum = integ / i;
-						//System.out.println("one.three");
-					}
-					
-					if (co < maxNegOutput)
-					{
-						errsum = integ / i;
-						//System.out.println("one.four");
-					}
-					// generate new control output based on min and max and
-					// integral windup.
-					co = prop + integ + deriv;
-					olderrsum=errsum;
-					
-					//System.out.println("one");
-				} else
+					//TODO: Reset integral term to value so that there is 
+					//no windup integ = MinPosOutput - prop - deriv.;
+				}
+				if (err < 0 && coNotSaturated > minNegOutput)
+
 				{
-					// no integral term so dont need to prevent windup
-					// we can just clamp to max/min value to prevent
-					// saturation
-					if (co > maxPosOutput)
-						co = maxPosOutput;
-					if (co < maxNegOutput)
-						co = maxNegOutput;
+					co = minNegOutput;
+					//System.out.println("five");
 					
-					//System.out.println("two");
+					//TODO: Reset integral term to value so that there is 
+					//no windup integ = MinPosOutput - prop - deriv.;
 				}
 
-				// check to see if we met our setpoint
-				// if current value is within exceptable range make control
-				// output last
-				// output value and stop integrating error
- 				if (Math.abs(err) <= acceptErrorDiff)
-				{
-					co = 0; //keeps wheel spinning at old rate
-					olderrsum = 0; //stop accumulating error
-					
-					//System.out.println("three");
-					
-				} else
-				{
-					
-					// there is still a significant error
-					// we now check if output signal is below
-					// the deadband, if it is, we increase the
-					// output above deadband
-					// to drive the motor
+			}
 
-					if (err > 0 && coNotSaturated < minPosOutput)
-					{
-						co = minPosOutput;
-						//System.out.println("four");
-						
-					}
-					if (err < 0 && coNotSaturated > minNegOutput)
-						
-					{
-						co = minNegOutput;
-						//System.out.println("five");
-					}
 
-				}
- 				
+			coOld = co;
 
-				coOld = co;
-				
-				//see if setpoint is reached
-				atSpeed();
+			//see if setpoint is reached
+			
+			//TODO: maybe for poisiton control we can remove the atSpeed
+			//command and just set the boolean to true inside the acceptDiffError
+			//if block
+			atSpeed();
 				
 			
 		}
@@ -1044,14 +1043,14 @@ public class PIDPosition implements TCPMessageInterface
 	 * @author HarrilalEngineering
 	 * 
 	 */
-	private class PIDSpeedTask extends TimerTask
+	private class PIDTask extends TimerTask
 	{
-		// internal PIDSpeed object to run in new thread
-		private PIDPosition speedController;
+		// internal PID object to run in new thread
+		private PIDPosition Controller;
 
 
 		/**
-		 * constructor for the private class PIDSpeedTask, which will be used to
+		 * constructor for the private class PIDTask, which will be used to
 		 * spawn a new thread. Each thread will continuously run the run()
 		 * function
 		 * 
@@ -1060,14 +1059,14 @@ public class PIDPosition implements TCPMessageInterface
 		 * @param controller
 		 *            the controller parameters used to create the thread
 		 */
-		private PIDSpeedTask(PIDPosition controller)
+		private PIDTask(PIDPosition controller)
 		{
 
 			if (controller == null)
 			{
 				throw new NullPointerException(" PIDController was null");
 			}
-			speedController = controller;
+			this.Controller = controller;
 		}
 
 		/**
@@ -1075,7 +1074,7 @@ public class PIDPosition implements TCPMessageInterface
 		 */
 		public void run()
 		{
-			speedController.calculate();
+			Controller.calculate();
 
 		}
 	}

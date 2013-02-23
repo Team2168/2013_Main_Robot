@@ -34,7 +34,6 @@ public class CommandBaseRobot extends IterativeRobot {
 
     Command autonomousCommand;
 
-    
     Compressor compressor;
     
     /**

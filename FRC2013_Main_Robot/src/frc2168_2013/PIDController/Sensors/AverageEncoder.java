@@ -1,7 +1,7 @@
 package frc2168_2013.PIDController.Sensors;
 
 import edu.wpi.first.wpilibj.Encoder;
-import frc2168_2013.PIDController.Sensors.SpeedSensorInterface;
+import frc2168_2013.PIDController.Sensors.PIDSensorInterface;
 
 /**
  * This class extends the basic WPI encoder class. Its purpose is to provide
@@ -12,7 +12,7 @@ import frc2168_2013.PIDController.Sensors.SpeedSensorInterface;
  * @author Kevin Harrilal, Team 2168 Aluminum Falcons
  *
  */
-public class AverageEncoder extends Encoder implements SpeedSensorInterface{
+public class AverageEncoder extends Encoder implements PIDSensorInterface{
 	
 	private int averagorSize;
 	private double[] averagorArray;

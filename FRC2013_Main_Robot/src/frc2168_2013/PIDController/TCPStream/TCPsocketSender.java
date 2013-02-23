@@ -276,39 +276,3 @@ public static void main(String args[])
 
 }
 
-// String Message;
-//
-// Message = "{"
-// +", \"_expected Period", this.period
-// +", \"_execcution Time\":" + this.executionTime
-// +", \"_output\":" + this.co
-// +", \"_error\":" + this.err
-// +", \"_Prop Term\":" + this.prop
-// +", \"_Integ Term\":" + this.integ
-// +", \"_Deriv Term\":" + this.deriv
-// +", \"_Error Sum\":" + this.errsum
-// + ", \"_CO Unsaturated\":" + this.coNotSaturated
-// + ", \"_P_Used\":" + this.p
-// + ", \"_I_Used\":" + this.i
-// + ", \"_D_Used\":" + this.d
-//
-// + ", \"_Encoder Rate\":" + this.cp
-// + ", \"_setPoint\":" + this.sp
-//
-// + ", \"_max Pos Output\":" + this.maxPosOutput
-// + ", \"_max Neg Output\":" + this.maxNegOutput
-// + ", \"_min Pos Output\":" + this.minPosOutput
-// + ", \"_min Neg Output\":" + this.minNegOutput
-//
-// + ", \"_deriv Filter Constant\":" + this.r
-// + ", \"_acceptable Err\":" + this.acceptErrorDiff
-//
-//
-// + ", \"_PID Enabled\":" + this.enable
-// + ", \"_debug Enabled\":" + this.debugEnabled
-// + ", \"_deriv Filter Enabled\":" + this.enDerivFilter
-// + ", \"_Gain Sched Enabled\":" + this.enGainSched
-// + ", \"_is Finished\":" + this.isFinished
-//
-// + "}";//end of string
-
