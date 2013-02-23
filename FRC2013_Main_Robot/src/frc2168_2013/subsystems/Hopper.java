@@ -18,6 +18,8 @@ public class Hopper extends Subsystem {
 	public Hopper() {
 		stopper = new DoubleSolenoid(RobotMap.hopperDiscStopperApply, 
 				RobotMap.hopperDiscStopperRelease);
+		stopper.set(DoubleSolenoid.Value.kForward);
+		
 		hopperMotor = new Talon(RobotMap.hopperMotor);
 		disc1 = new DigitalInput(RobotMap.hopperDisc1);
 		disc2 = new DigitalInput(RobotMap.hopperDisc2);
