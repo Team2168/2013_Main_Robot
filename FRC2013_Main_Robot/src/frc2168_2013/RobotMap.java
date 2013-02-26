@@ -10,6 +10,8 @@ import frc2168_2013.PIDController.Sensors.AverageEncoder;
  * floating around.
  */
 public class RobotMap {
+	
+	public final static boolean USE_TALONS = false;
 
 	/****************************************************************
 	 *                       CRIO MAP                               *
