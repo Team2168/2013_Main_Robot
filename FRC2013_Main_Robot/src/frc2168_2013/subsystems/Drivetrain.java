@@ -2,6 +2,7 @@ package frc2168_2013.subsystems;
 
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc2168_2013.OI;
 import frc2168_2013.RobotMap;
@@ -16,10 +17,6 @@ public class Drivetrain extends Subsystem {
 	double leftSpeed = 0;
 	double rightSpeed = 0;
 	
-	//declare drivetrain motor controllers
-	Talon rightDriveMotor;
-	Talon leftDriveMotor;
-
 	//declare sensors
 	AverageEncoder rightEncoder;
 	AverageEncoder leftEncoder;
@@ -37,16 +34,28 @@ public class Drivetrain extends Subsystem {
 	TCPsocketSender TCPrightSpeedController;
 	TCPsocketSender TCPleftPosController;
 	TCPsocketSender TCPleftSpeedController;
+
+	Talon rightTalonDriveMotor;
+	Talon leftTalonDriveMotor;
+
+	Victor rightVictorDriveMotor;
+	Victor leftVictorDriveMotor;
 	
 	/**
 	 * The default constructor for the Drivetrain subsystem.
 	 */
     public Drivetrain(){
     	System.out.println("drive train encoder shit:" + RobotMap.driveEncoderPulsePerRot);
-    	
+    
+    	//declare drivetrain motor controllers
     	//intializing motor controller using PWM. Refer to RobotMap
-    	rightDriveMotor = new Talon (RobotMap.rightDriveMotor);
-    	leftDriveMotor = new Talon (RobotMap.leftDriveMotor);
+    	if(RobotMap.USE_TALONS) {
+        	rightTalonDriveMotor = new Talon (RobotMap.rightDriveMotor);
+        	leftTalonDriveMotor = new Talon (RobotMap.leftDriveMotor);	
+    	} else {
+    		rightVictorDriveMotor = new Victor (RobotMap.rightDriveMotor);
+        	leftVictorDriveMotor = new Victor (RobotMap.leftDriveMotor);    		
+    	}
     	
     	//initialized right and left drive train encoders
     	rightEncoder = new AverageEncoder(RobotMap.rightDriveEncoderChannelA, RobotMap.rightDriveEncoderChannelB, RobotMap.driveEncoderPulsePerRot,RobotMap.driveEncoderDistPerTick, RobotMap.rightDriveTrainEncoderReverse, RobotMap.driveEncodingType, RobotMap.driveSpeedReturnType, RobotMap.drivePosReturnType, RobotMap.driveAvgEncoderVal);
@@ -113,15 +122,21 @@ public class Drivetrain extends Subsystem {
     	//RobotMap defines which motors are inverted on drivetrain.
     	if(OI.rInvert) {
     		rightSpeed = -rightSpeed;
-    	} else if(OI.lInvert) {
+    	}
+    	if(OI.lInvert) {
     		leftSpeed = -leftSpeed;
     	}
     	
-    	//TODO: add hooks for falcon claw
-    	//TODO: add interpolation method to adjust sensitivity
+    	leftSpeed = minSpeedThreshold(leftSpeed);
+    	rightSpeed = minSpeedThreshold(rightSpeed);
     	
-    	leftDriveMotor.set(leftSpeed);
-    	rightDriveMotor.set(rightSpeed);	
+    	if(RobotMap.USE_TALONS) {
+    		leftTalonDriveMotor.set(leftSpeed);
+    		rightTalonDriveMotor.set(rightSpeed);
+    	} else {
+    		leftVictorDriveMotor.set(leftSpeed);
+    		rightVictorDriveMotor.set(rightSpeed);
+    	}
     }
     
     /**
@@ -134,11 +149,15 @@ public class Drivetrain extends Subsystem {
     	//RobotMap defines which motors are inverted on drivetrain.
     	if(OI.rInvert) {
     		rightSpeed = -rightSpeed;
-    	}     	
-    	//TODO: add hooks for falcon claw
-    	//TODO: add interpolation method to adjust sensitivity
+    	}
+
+    	rightSpeed = minSpeedThreshold(rightSpeed);
     	
-    	rightDriveMotor.set(rightSpeed);
+    	if(RobotMap.USE_TALONS) {
+    		rightTalonDriveMotor.set(rightSpeed);
+    	} else {
+    		rightVictorDriveMotor.set(rightSpeed);
+    	}
     }
     
     /**
@@ -153,10 +172,13 @@ public class Drivetrain extends Subsystem {
     		leftSpeed = -leftSpeed;
     	}
     	
-    	//TODO: add hooks for falcon claw
-    	//TODO: add interpolation method to adjust sensitivity
+    	leftSpeed = minSpeedThreshold(leftSpeed);
     	
-    	leftDriveMotor.set(leftSpeed);
+    	if(RobotMap.USE_TALONS) {
+    		rightTalonDriveMotor.set(leftSpeed);
+    	} else {
+    		rightVictorDriveMotor.set(leftSpeed);
+    	}
     }
     
     /**
@@ -187,6 +209,26 @@ public class Drivetrain extends Subsystem {
     public double getLeftSpeed(){
     	//TODO: write code for this method.
     	return 0.0;
+    }
+    
+    /**
+     * A minimum threshold function. The command to the motor has to exceed a
+     * certain value for it to be sent.
+     * 
+     * @param speed The input value
+     * @return the adjusted speed value
+     */
+    private double minSpeedThreshold(double speed) {
+    	double mySpeed = 0.0;
+    	
+    	//Need a voltage greater than the below value for a value to be sent
+    	//  out to the motor.
+    	//Empirically have seen 0.057 being sent out with stick centered.
+    	if(Math.abs(speed) > 0.06) {
+    		mySpeed = speed;
+    	}
+    
+    	return mySpeed;
     }
 }
 
