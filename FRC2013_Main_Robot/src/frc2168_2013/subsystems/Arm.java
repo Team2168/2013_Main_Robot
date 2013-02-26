@@ -1,5 +1,6 @@
 package frc2168_2013.subsystems;
 
+import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -23,7 +24,11 @@ public class Arm extends Subsystem {
 	AverageEncoder armEncoder;
 	public PIDPosition armPosController;
 	TCPsocketSender TCParmPosController;
-
+	
+	AnalogChannel lowHardStop;
+	AnalogChannel highHardStop;
+	static final double SWITCH_PRESSED_VOLTAGE  = 3.0;
+	
 	private double speed;
 	
 	public Arm(){
@@ -34,6 +39,8 @@ public class Arm extends Subsystem {
 		armEncoder.setMinRate(RobotMap.armEncoderMinRate);//min rate before reported stopped
 		armEncoder.start();
 		
+		lowHardStop = new AnalogChannel(1);
+		highHardStop = new AnalogChannel(2);
 		
 		//initialized PID Position Controller
 		armPosController = new PIDPosition("ArmPositionController", RobotMap.armPosP, RobotMap.armPosI, RobotMap.armPosD, armEncoder, RobotMap.armPIDPeriod);
@@ -69,6 +76,19 @@ public class Arm extends Subsystem {
     	//OI defines which motors are inverted
     	if(OI.ainvert)
     		armSpeed = -armSpeed;
+    
+    	//Check the hard stops before sending a value out to the motor
+    	//Positive armSpeed = lower arm
+    	//Stop raising the arm if it's being commanded up.
+    	if (highHardStopPressed() && (armSpeed < 0)) {
+    		armSpeed = 0.0;
+    	}
+    	
+    	//Negative armSpeed = raise arm
+    	//Stop lowering the arm if it's being commanded down
+    	if (lowHardStopPressed() && (armSpeed > 0)) {
+    		armSpeed = 0.0;
+    	}
     	
     	armMotorL.set(armSpeed);
     	armMotorR.set(-armSpeed); //automatically invert right side from left side
@@ -95,5 +115,21 @@ public class Arm extends Subsystem {
 	 */
 	public void lowerArm(){
 		//TODO: write the code for this method
+	}
+	
+	/**
+	 * Check if the lower hard stop switch is pressed
+	 * @return true if pressed
+	 */
+	public boolean lowHardStopPressed() {
+		return (lowHardStop.getValue() > SWITCH_PRESSED_VOLTAGE);
+	}
+	
+	/**
+	 * Check if the upper hard stop switch is pressed
+	 * @return true if pressed
+	 */
+	public boolean highHardStopPressed() {
+		return (highHardStop.getValue() > SWITCH_PRESSED_VOLTAGE);
 	}
 }

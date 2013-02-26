@@ -9,6 +9,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc2168_2013.PIDController.Controller.PIDPosition;
 import frc2168_2013.PIDController.Sensors.PIDSensorInterface;
 import frc2168_2013.PIDController.TCPStream.TCPMessageInterface;
+import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
+import frc2168_2013.commands.ArmPIDPause;
+import frc2168_2013.commands.ArmPIDPosition;
 
 
 /**
@@ -824,10 +827,10 @@ public class PIDPosition implements TCPMessageInterface
 		this.acceptErrorDiff = Double.valueOf(message[10]).doubleValue();
 //		setSIZE(Integer.valueOf(message[11]).intValue());
 //		
-//		if(TCPsocketSender.strToBool(message[4])) //enable PID boolean
-//			new PID_PosDrive(Double.valueOf(message[3]).doubleValue()).start();
-//		else
-//			new PID_Pause().start();
+		if(TCPsocketSender.strToBool(message[4])) //enable PID boolean
+			new ArmPIDPosition(Double.valueOf(message[3]).doubleValue()).start();
+		else
+			new ArmPIDPause().start();
 		}
 		catch (NumberFormatException e)
 		{
@@ -987,8 +990,9 @@ public class PIDPosition implements TCPMessageInterface
 			// we stop integrating error
 			if (Math.abs(err) <= acceptErrorDiff)
 			{
-				co = 0; //stops wheel at position, assumes no mechanical load
-				olderrsum = 0; //stop accumulating error
+			
+				errsum=olderrsum;	
+				olderrsum = olderrsum; //stop accumulating error
 
 				//System.out.println("three");
 
@@ -1001,23 +1005,23 @@ public class PIDPosition implements TCPMessageInterface
 				// output above deadband
 				// to drive the motor
 
-				if (err > 0 && coNotSaturated < minPosOutput)
-				{
-					co = minPosOutput;
-					//System.out.println("four");
-					
-					//TODO: Reset integral term to value so that there is 
-					//no windup integ = MinPosOutput - prop - deriv.;
-				}
-				if (err < 0 && coNotSaturated > minNegOutput)
-
-				{
-					co = minNegOutput;
-					//System.out.println("five");
-					
-					//TODO: Reset integral term to value so that there is 
-					//no windup integ = MinPosOutput - prop - deriv.;
-				}
+//				if (err > 0 && coNotSaturated < minPosOutput)
+//				{
+//					co = minPosOutput;
+//					//System.out.println("four");
+//					
+//					//TODO: Reset integral term to value so that there is 
+//					integ = minPosOutput - prop - deriv;
+//				}
+//				if (err < 0 && coNotSaturated > minNegOutput)
+//
+//				{
+//					co = minNegOutput;
+//					//System.out.println("five");
+//					
+//					//TODO: Reset integral term to value so that there is 
+//					integ = minPosOutput - prop - deriv;
+//				}
 
 			}
 

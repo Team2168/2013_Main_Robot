@@ -14,7 +14,7 @@ public class DriveArmWithJoystick extends CommandBase {
 	}
 
 	protected void execute() {
-		arm.setArmPWM(oi.getoperatorDriveRightStick() * 0.2); //Oh so fast!
+		arm.setArmPWM(oi.getoperatorDriveRightStick()); //Oh so fast!
 	}
 
 	protected void initialize() {

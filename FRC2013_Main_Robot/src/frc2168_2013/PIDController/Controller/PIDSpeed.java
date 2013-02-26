@@ -752,7 +752,7 @@ public class PIDSpeed implements TCPMessageInterface
 				"\"_I_Used\":" + this.i + "," +
 				"\"_D_Used\":" + this.d + "," +
 				
-				"\"_Encoder Rate\":" + encoder.getRate() + "," +
+				"\"_Encoder Rate\":" + encoder.getPos() + "," +
 				"\"_setPoint\":" + this.sp + "," +
 				
 				"\"_max Pos Output\":" + this.maxPosOutput + "," +

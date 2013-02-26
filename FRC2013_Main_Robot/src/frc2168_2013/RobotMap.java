@@ -10,6 +10,11 @@ import frc2168_2013.PIDController.Sensors.AverageEncoder;
  * floating around.
  */
 public class RobotMap {
+	
+	//80 half court
+	//82 back of pry
+	//88 froont of pyr
+	//122 wall
 
 	/****************************************************************
 	 *                       CRIO MAP                               *

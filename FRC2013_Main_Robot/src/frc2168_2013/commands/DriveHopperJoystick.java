@@ -18,7 +18,7 @@ public class DriveHopperJoystick extends CommandBase {
 	}
 
 	protected void execute() {
-		hopper.driveHopperPWM(speed);
+		hopper.driveHopperPWM(oi.getoperatorTrigger());
 	}
 
 	protected void initialize() {
