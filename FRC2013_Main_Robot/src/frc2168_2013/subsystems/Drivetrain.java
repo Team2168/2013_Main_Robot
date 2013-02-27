@@ -115,10 +115,7 @@ public class Drivetrain extends Subsystem {
      * @param rightSpeed speed for right motors (1 to -1)
      * @param leftSpeed speed for left motors (1 to -1)
      */
-    public void tankDrive(double rightSpeed, double leftSpeed) {
-    	this.rightSpeed = rightSpeed;
-    	this.leftSpeed = leftSpeed;
-    	
+    public void tankDrive(double rightSpeed, double leftSpeed) {    	
     	//RobotMap defines which motors are inverted on drivetrain.
     	if(OI.rInvert) {
     		rightSpeed = -rightSpeed;
@@ -129,6 +126,9 @@ public class Drivetrain extends Subsystem {
     	
     	leftSpeed = minSpeedThreshold(leftSpeed);
     	rightSpeed = minSpeedThreshold(rightSpeed);
+    	
+	this.rightSpeed = rightSpeed;
+    	this.leftSpeed = leftSpeed;
     	
     	if(RobotMap.USE_TALONS) {
     		leftTalonDriveMotor.set(leftSpeed);
