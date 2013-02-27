@@ -111,10 +111,14 @@ public class OI {
 		operatorTriggerR.whileHeld(new DriveHopperJoystick(0.9));
 		operatorTriggerL.whileHeld(new DriveHopperJoystick(-0.9));
 		
+		operatorButtonLeftBumper.whileHeld(new StopperDisengage());
+		operatorButtonRightBumper.whileHeld(new StopperEngage());
+		
 		operatorButtonA.whenPressed(new ArmPIDPause());
-		operatorButtonB.whenPressed(new ArmPIDPosition(60));
-		operatorButtonX.whenPressed(new ArmPIDPosition(80));
-		operatorButtonY.whenPressed(new ArmPIDPosition());
+		operatorButtonB.whenPressed(new ArmPIDPosition(82));
+		
+		operatorButtonX.whenPressed(new ArmPIDPosition());
+//		operatorButtonY.whenPressed(new ArmPIDPosition());
 
 	}
 	

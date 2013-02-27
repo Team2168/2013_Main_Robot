@@ -16,7 +16,7 @@ public class Shooter extends Subsystem {
 	Talon shooterMotor;
 	AverageEncoder shooterWheelEncoder;
 	public PIDSpeed shooterWheelSpeedController;
-	TCPsocketSender TCPshooterSpeedController;
+	//TCPsocketSender TCPshooterSpeedController;
 
 	
 	public Shooter() {
@@ -35,8 +35,8 @@ public class Shooter extends Subsystem {
 		shooterWheelSpeedController.startThread();
 
 		//initialized TCP Server, ONLY FOR DEBUDDING, REMOVE FOR COMPETITION
-		TCPshooterSpeedController = new TCPsocketSender(RobotMap.TCPServerShooterSpeed, shooterWheelSpeedController);
-		TCPshooterSpeedController.start();
+//		TCPshooterSpeedController = new TCPsocketSender(RobotMap.TCPServerShooterSpeed, shooterWheelSpeedController);
+//		TCPshooterSpeedController.start();
 	}
 	
 	/**
