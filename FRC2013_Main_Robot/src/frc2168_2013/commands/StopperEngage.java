@@ -11,7 +11,7 @@ public class StopperEngage extends CommandBase {
 	 * Default constructor.
 	 */
     public StopperEngage() {
-    	requires(hopper);
+    	//requires(hopper);
     }
 
     /**

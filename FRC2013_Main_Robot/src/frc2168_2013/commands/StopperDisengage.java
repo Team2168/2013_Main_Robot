@@ -8,7 +8,7 @@ package frc2168_2013.commands;
 public class StopperDisengage extends CommandBase {
 
     public StopperDisengage() {
-    	requires(hopper);
+    	//requires(hopper);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	
@@ -30,12 +30,12 @@ public class StopperDisengage extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-    	end();
+    	
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	hopper.disengageStopper();
+    	
     }
 }
