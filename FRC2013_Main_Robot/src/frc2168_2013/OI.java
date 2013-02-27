@@ -12,14 +12,32 @@ import frc2168_2013.commands.*;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	public static final boolean rInvert = true;  //for R driveTrain
-	public static final boolean lInvert = false; //for L driveTrain
-	public static final boolean ainvert = true; //for arm left motor
-	public static final boolean sInvert = true; //for shooter
-	public static final boolean hInvert = true; //for hopper
-	public static final int rightJoyAxis = 5;
-	public static final int leftJoyAxis = 2;
-	public static final int triggerAxis = 3;
+	public static final boolean      rInvert = true;  //for R driveTrain
+	public static final boolean      lInvert = false; //for L driveTrain
+	public static final boolean      ainvert = true;  //for arm left motor
+	public static final boolean      sInvert = true;  //for shooter
+	public static final boolean      hInvert = true;  //for hopper
+	public static final int     rightJoyAxis = 5;
+	public static final int      leftJoyAxis = 2;
+	public static final int      triggerAxis = 3;
+	
+	// minSpeed needs to be tweaked based on the particular drivetrain.
+	// It is the speed at which the drivetrain barely starts moving
+	private static final double minDriveSpeed = 0.125;
+	static double joystickScale[][] = {
+		/* Joystick Input, Scaled Output */
+		{ 1.00, 1.00 },
+		{ 0.90, 0.68 },
+		{ 0.50, 0.32 },
+		{ 0.06, minDriveSpeed },
+		{ 0.06, 0.00 },
+		{ 0.00, 0.00 },
+		{ -0.06, 0.00 },
+		{ -0.06, -minDriveSpeed },
+		{ -0.50, -0.32 },
+		{ -0.90, -0.68 },
+		{ -1.00, -1.00 } };
+	
 	
 	
 	///////////////////////////////////////////////////////////////////////////
@@ -32,13 +50,13 @@ public class OI {
 	
 	//Create mapping for buttons on joystick
 	public Button driveButtonA = new JoystickButton(baseDriver, 1),
-					driveButtonB = new JoystickButton(baseDriver, 2),
-					driveButtonX = new JoystickButton(baseDriver, 3),
-					driveButtonY = new JoystickButton(baseDriver, 4),
-					driveButtonLeftBumper = new JoystickButton(baseDriver, 5),
-					driveButtonRightBumper = new JoystickButton(baseDriver, 6),
-					driveButtonReset = new JoystickButton(baseDriver, 7),
-					driveButtonStart = new JoystickButton(baseDriver, 8);
+				  driveButtonB = new JoystickButton(baseDriver, 2),
+				  driveButtonX = new JoystickButton(baseDriver, 3),
+				  driveButtonY = new JoystickButton(baseDriver, 4),
+				  driveButtonLeftBumper = new JoystickButton(baseDriver, 5),
+				  driveButtonRightBumper = new JoystickButton(baseDriver, 6),
+				  driveButtonReset = new JoystickButton(baseDriver, 7),
+				  driveButtonStart = new JoystickButton(baseDriver, 8);
 
 	/**
 	 * Get the adjusted left joystick value
@@ -46,14 +64,15 @@ public class OI {
 	 * @return The driver's left joystick value
 	 */
 	public double getbaseDriverLeftAxis() {
+		double leftSpeed = interpolate(baseDriver.getRawAxis(leftJoyAxis));
+		
+		//If the trigger (brake) is pressed, use falcon claw
 		if (baseDriver.getRawAxis(3) < -0.01) {
-			//If the trigger (brake) is pressed, use falcon claw
-			return falconClaw(baseDriver.getRawAxis(rightJoyAxis),
-					baseDriver.getRawAxis(triggerAxis));
-		} else {
-			//otherwise just return the inverted stick value
-			return -baseDriver.getRawAxis(leftJoyAxis);
+			leftSpeed = falconClaw(leftSpeed, baseDriver.getRawAxis(triggerAxis));
 		}
+		
+		//flip sign so up on stick is a positive value (forward motion)
+		return -leftSpeed;
 	}
 	
 	/**
@@ -62,14 +81,15 @@ public class OI {
 	 * @return The driver's right joystick value
 	 */
 	public double getbaseDriverRightAxis() {
+		double rightSpeed = interpolate(baseDriver.getRawAxis(rightJoyAxis));
+		
+		//If the trigger (brake) is pressed, use falcon claw
 		if (baseDriver.getRawAxis(3) < -0.01) {
-			//If the trigger (brake) is pressed, use falcon claw
-			return falconClaw(baseDriver.getRawAxis(rightJoyAxis),
-					baseDriver.getRawAxis(triggerAxis));
-		} else {
-			//otherwise just return the inverted stick value
-			return -baseDriver.getRawAxis(rightJoyAxis); 
+			rightSpeed = falconClaw(rightSpeed, baseDriver.getRawAxis(triggerAxis));
 		}
+		
+		//flip sign so up on stick is a positive value (forward motion)
+		return -rightSpeed;
 	}
 	
 	/**
@@ -81,16 +101,49 @@ public class OI {
 	 * @return The adjusted value.
 	 */
 	private double falconClaw(double inputSpeed, double brake) {
-		// minSpeed needs to be tweaked based on the particular drivetrain.
-		// It is the speed to travel at when drive sticks are full up, and the
-		//   "brake" is fully applied. 
-		// e.g. The speed at which the drivetrain barely starts moving
-		final double minSpeed = 0.125;
-		
-		return ((1 - ((-minSpeed + 1) * Math.abs(brake))) * inputSpeed);
+		return ((1 - ((-minDriveSpeed + 1) * Math.abs(brake))) * inputSpeed);
 	}
-	
-	
+
+	/**
+	 * A function to modify the joystick values using linear interpolation.
+	 * The objective is augment the joystick value going to the motor controllers
+	 *   to widen the region of "fine" control while still allowing full speed.
+	 * 
+	 * @param input The value to augment.
+	 * @return The adjusted value.
+	 */
+	private double interpolate(double input) {
+		double retVal = 0.0;
+		boolean done = false;
+		double m, b;
+		
+		//make sure input is between 1.0 and -1.0
+		if (input > 1.0) {
+			input = 1.0;
+		} else if (input < -1.0) {
+			input = -1.0;
+		}
+		
+		//Find the two points in our array, between which the input falls. 
+		//We will start at i = 1 since we can't have a point fall outside our array.
+		for (int i = 1; !done && i < joystickScale.length; i++) {
+			if (input >= joystickScale[i][0]) {
+				//We found where the point falls in out array, between index i and i-1
+				//Calculate the equation for the line. y=mx+b
+				m = (joystickScale[i][1] - joystickScale[i-1][1])/(joystickScale[i][0] - joystickScale[i-1][0]);
+				b = joystickScale[i][1] - (m * joystickScale[i][0]);
+				retVal = m * input + b;
+				
+				//we're finished, don't continue to loop
+				done = true;
+			}
+		}
+		
+		return retVal;
+	}
+
+
+
 	///////////////////////////////////////////////////////////////////////////
 	//  Operator Joystick                                                    //
 	///////////////////////////////////////////////////////////////////////////
