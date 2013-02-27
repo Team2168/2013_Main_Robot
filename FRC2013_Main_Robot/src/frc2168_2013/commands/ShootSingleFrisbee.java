@@ -15,10 +15,13 @@ public class ShootSingleFrisbee extends CommandGroup
 	
 		//TODO: Determine if this wait is necessary
 		//wait so there is a consistent entry velocity into the shooter wheel
-		//addSequential(new Sleep(), .200); //wait for 1/5 second;
+		addSequential(new Sleep(), .200); //wait for 1/5 second;
 	
 		//verify shooter is at speed
 		//addSequential(new PID_ShooterAtSpeed());
+		
+		//disengage the hard stop
+		addSequential(new StopperDisengage());
 	
 		//shoot disc
 		addSequential(new DriveUntilNoFrisbee());

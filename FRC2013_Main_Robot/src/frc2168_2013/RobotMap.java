@@ -87,7 +87,7 @@ public class RobotMap {
 	 *                       Arm Parameters                     *
 	 ****************************************************************/
 	//arm voltage constant
-	public static final double hopperVoltage = 0.4;
+	public static final double hopperVoltage = 0.7;
 
 	//arm Encoder///////////////////////////////////////////////
 	//arm Radius
