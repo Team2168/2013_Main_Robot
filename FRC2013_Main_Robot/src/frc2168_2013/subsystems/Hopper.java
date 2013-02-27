@@ -11,15 +11,15 @@ import frc2168_2013.commands.DriveHopperJoystick;
 public class Hopper extends Subsystem {
 	double speed = 0.0;
 	
-	DoubleSolenoid stopper;
+//	DoubleSolenoid stopper;
 	Talon hopperMotor;
 	DigitalInput disc1, disc2, disc3, disc4;
 	
 	public Hopper() {
-		stopper = new DoubleSolenoid(RobotMap.hopperDiscStopperApply, 
-				RobotMap.hopperDiscStopperRelease);
-		stopper.set(DoubleSolenoid.Value.kForward);
-		
+//		stopper = new DoubleSolenoid(RobotMap.hopperDiscStopperApply, 
+//				RobotMap.hopperDiscStopperRelease);
+//		stopper.set(DoubleSolenoid.Value.kForward);
+//		
 		hopperMotor = new Talon(RobotMap.hopperMotor);
 		disc1 = new DigitalInput(RobotMap.hopperDisc1);
 		disc2 = new DigitalInput(RobotMap.hopperDisc2);
@@ -47,16 +47,16 @@ public class Hopper extends Subsystem {
 	/**
 	 * Engages the stopper so that discs don't go into the shooter.
 	 */
-	public void engageStopper(){
-		stopper.set(DoubleSolenoid.Value.kForward);
-	}
-	
+//	public void engageStopper(){
+//		stopper.set(DoubleSolenoid.Value.kForward);
+//	}
+//	
 	/**
 	 * Disengages the stopper so the discs can go into the shooter.
 	 */
-	public void disengageStopper(){
-		stopper.set(DoubleSolenoid.Value.kReverse);
-	}
+//	public void disengageStopper(){
+//		stopper.set(DoubleSolenoid.Value.kReverse);
+//	}
 	
 	/**
 	 * Detects if disc1 is present. Disc1 is the disc closest to the shooter.

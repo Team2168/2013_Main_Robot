@@ -11,7 +11,7 @@ public class StopperEngage extends CommandBase {
 	 * Default constructor.
 	 */
     public StopperEngage() {
-    	requires(hopper);
+    	requires(hardStop);
     }
 
     /**
@@ -24,7 +24,7 @@ public class StopperEngage extends CommandBase {
      * Called repeatedly when this Command is scheduled to run.
      */
     protected void execute() {
-    	hopper.engageStopper();
+    	hardStop.engageStopper();
     }
 
     /**
