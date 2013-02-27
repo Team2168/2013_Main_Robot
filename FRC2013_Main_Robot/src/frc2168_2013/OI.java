@@ -19,14 +19,13 @@ public class OI {
 	public static final boolean hInvert = true; //for hopper
 	public static final int rightJoyAxis = 5;
 	public static final int leftJoyAxis = 2;
+	public static final int triggerAxis = 3;
 	
 	
 	///////////////////////////////////////////////////////////////////////////
 	//  Driver Joystick                                                      //
 	///////////////////////////////////////////////////////////////////////////
-	//Falcon Claw Brake Modifier
-	public static final double mod = 0.125;	// Low minimum/modifier for Falcon Claw
-	
+
 	//Create variable for USB joystick
 	public static final int baseDriveJoystick = 1;
 	public Joystick baseDriver = new Joystick(baseDriveJoystick);
@@ -40,31 +39,55 @@ public class OI {
 					driveButtonRightBumper = new JoystickButton(baseDriver, 6),
 					driveButtonReset = new JoystickButton(baseDriver, 7),
 					driveButtonStart = new JoystickButton(baseDriver, 8);
-	
-	//Convenience functions for joystick axis'
+
+	/**
+	 * Get the adjusted left joystick value
+	 * 
+	 * @return The driver's left joystick value
+	 */
 	public double getbaseDriverLeftAxis() {
 		if (baseDriver.getRawAxis(3) < -0.01) {
-			// Use electronic braking - Falcon Claw
-			//The more the triggers are pulled, less voltage goes to the
-			//  drivetrain motors.
-			return ((((-mod + 1) * baseDriver.getRawAxis(3)) + 1)
-					* baseDriver.getRawAxis(leftJoyAxis));
+			//If the trigger (brake) is pressed, use falcon claw
+			return falconClaw(baseDriver.getRawAxis(rightJoyAxis),
+					baseDriver.getRawAxis(triggerAxis));
 		} else {
-			//otherwise 
+			//otherwise just return the inverted stick value
 			return -baseDriver.getRawAxis(leftJoyAxis);
 		}
 	}
 	
+	/**
+	 * Get the adjusted right joystick value
+	 * 
+	 * @return The driver's right joystick value
+	 */
 	public double getbaseDriverRightAxis() {
 		if (baseDriver.getRawAxis(3) < -0.01) {
-			// Use electronic braking - Falcon Claw
-			//The more the triggers are pulled, less voltage goes to the
-			//  drivetrain motors. 
-			return ((((-mod + 1) * baseDriver.getRawAxis(3)) + 1)
-					* baseDriver.getRawAxis(rightJoyAxis));
+			//If the trigger (brake) is pressed, use falcon claw
+			return falconClaw(baseDriver.getRawAxis(rightJoyAxis),
+					baseDriver.getRawAxis(triggerAxis));
 		} else {
+			//otherwise just return the inverted stick value
 			return -baseDriver.getRawAxis(rightJoyAxis); 
 		}
+	}
+	
+	/**
+	 * Electronic braking - aka "Falcon Claw"
+	 * The more the "brake" is pulled, the slower output speed
+	 * 
+	 * @param inputSpeed The input value to scale back based on brake input. (1 to -1)
+	 * @param brake The brake input value. (0 to -1)
+	 * @return The adjusted value.
+	 */
+	private double falconClaw(double inputSpeed, double brake) {
+		// minSpeed needs to be tweaked based on the particular drivetrain.
+		// It is the speed to travel at when drive sticks are full up, and the
+		//   "brake" is fully applied. 
+		// e.g. The speed at which the drivetrain barely starts moving
+		final double minSpeed = 0.125;
+		
+		return ((1 - ((-minSpeed + 1) * Math.abs(brake))) * inputSpeed);
 	}
 	
 	
@@ -111,8 +134,8 @@ public class OI {
 		operatorTriggerR.whileHeld(new DriveHopperJoystick(0.9));
 		operatorTriggerL.whileHeld(new DriveHopperJoystick(-0.9));
 		
-		operatorButtonLeftBumper.whileHeld(new StopperDisengage());
-		operatorButtonRightBumper.whileHeld(new StopperEngage());
+		operatorButtonLeftBumper.whenPressed(new StopperDisengage());
+		operatorButtonRightBumper.whenPressed(new StopperEngage());
 		
 		operatorButtonA.whenPressed(new ArmPIDPause());
 		operatorButtonB.whenPressed(new ArmPIDPosition(82));
