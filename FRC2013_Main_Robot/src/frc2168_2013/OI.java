@@ -23,7 +23,7 @@ public class OI {
 	
 	// minSpeed needs to be tweaked based on the particular drivetrain.
 	// It is the speed at which the drivetrain barely starts moving
-	private static final double minDriveSpeed = 0.125;
+	private static final double minDriveSpeed = 0.222;
 	static double joystickScale[][] = {
 		/* Joystick Input, Scaled Output */
 		{ 1.00, 1.00 },
