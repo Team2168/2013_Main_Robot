@@ -23,7 +23,7 @@ public class OI {
 	
 	// minSpeed needs to be tweaked based on the particular drivetrain.
 	// It is the speed at which the drivetrain barely starts moving
-	private static final double minDriveSpeed = 0.125;
+	private static final double minDriveSpeed = 0.222;
 	static double joystickScale[][] = {
 		/* Joystick Input, Scaled Output */
 		{ 1.00, 1.00 },
@@ -184,8 +184,8 @@ public class OI {
 		//OPERATOR BUTTON MAP//
 //		operatorTriggerR.whenPressed(new ShootSingleFrisbee()); //shoot one disc
 //		operatorTriggerL.whenPressed(new ShootSingleFrisbee()); //shoot one disc
-		operatorTriggerR.whileHeld(new DriveHopperJoystick(0.9));
-		operatorTriggerL.whileHeld(new DriveHopperJoystick(-0.9));
+		operatorTriggerR.whileHeld(new DriveHopperJoystick(-RobotMap.hopperVoltage));
+		operatorTriggerL.whileHeld(new DriveHopperJoystick(RobotMap.hopperVoltage));
 		
 		operatorButtonLeftBumper.whenPressed(new StopperDisengage());
 		operatorButtonRightBumper.whenPressed(new StopperEngage());
@@ -195,6 +195,8 @@ public class OI {
 		
 		operatorButtonX.whenPressed(new ArmPIDPosition());
 //		operatorButtonY.whenPressed(new ArmPIDPosition());
+		
+		operatorButtonStart.whenPressed(new ShootSingleFrisbee()); //shoot one frisbee at a time
 
 	}
 	
