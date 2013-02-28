@@ -184,8 +184,8 @@ public class OI {
 		//OPERATOR BUTTON MAP//
 //		operatorTriggerR.whenPressed(new ShootSingleFrisbee()); //shoot one disc
 //		operatorTriggerL.whenPressed(new ShootSingleFrisbee()); //shoot one disc
-		operatorTriggerR.whileHeld(new DriveHopperJoystick(0.7));
-		operatorTriggerL.whileHeld(new DriveHopperJoystick(-0.7));
+		operatorTriggerR.whileHeld(new DriveHopperJoystick(-0.6));
+		operatorTriggerL.whileHeld(new DriveHopperJoystick(0.6));
 		
 		operatorButtonLeftBumper.whenPressed(new StopperDisengage());
 		operatorButtonRightBumper.whenPressed(new StopperEngage());

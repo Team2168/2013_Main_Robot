@@ -3,7 +3,7 @@ package frc2168_2013.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc2168_2013.RobotMap;
-import frc2168_2013.commands.HangerDisengage;
+import frc2168_2013.commands.StopperDisengage;
 
 public class HardStop extends Subsystem {
 	DoubleSolenoid stopper;
@@ -18,7 +18,7 @@ public class HardStop extends Subsystem {
 	 * Tells the hanger what to do when it starts
 	 */
 	protected void initDefaultCommand() {
-		setDefaultCommand(new HangerDisengage());
+		setDefaultCommand(new StopperDisengage());
 	}
 	
 	/**

@@ -40,7 +40,7 @@ public class Hopper extends Subsystem {
 	public void driveHopperPWM(double speed) {
 		if(OI.hInvert)
 			speed = -speed;
-		hopperMotor.set(speed);
+		hopperMotor.set(-speed);
 	}
 
 	
