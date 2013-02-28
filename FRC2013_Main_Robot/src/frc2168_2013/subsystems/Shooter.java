@@ -8,7 +8,6 @@ import frc2168_2013.RobotMap;
 import frc2168_2013.PIDController.Controller.PIDSpeed;
 import frc2168_2013.PIDController.Sensors.AverageEncoder;
 import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
-import frc2168_2013.commands.DriveArmWithJoystick;
 import frc2168_2013.commands.DriveShooterWithJoystick;
 import frc2168_2013.commands.SetShooterSpeedPWM;
 
