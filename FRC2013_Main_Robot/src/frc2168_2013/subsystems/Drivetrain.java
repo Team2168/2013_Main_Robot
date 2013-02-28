@@ -45,7 +45,7 @@ public class Drivetrain extends Subsystem {
 	 * The default constructor for the Drivetrain subsystem.
 	 */
     public Drivetrain(){
-    	System.out.println("drive train encoder shit:" + RobotMap.driveEncoderPulsePerRot);
+    	System.out.println("drive train encoder stuff:" + RobotMap.driveEncoderPulsePerRot);
     
     	//declare drivetrain motor controllers
     	//intializing motor controller using PWM. Refer to RobotMap
@@ -116,27 +116,8 @@ public class Drivetrain extends Subsystem {
      * @param leftSpeed speed for left motors (1 to -1)
      */
     public void tankDrive(double rightSpeed, double leftSpeed) {    	
-    	//RobotMap defines which motors are inverted on drivetrain.
-    	if(OI.rInvert) {
-    		rightSpeed = -rightSpeed;
-    	}
-    	if(OI.lInvert) {
-    		leftSpeed = -leftSpeed;
-    	}
-    	
-    	leftSpeed = minSpeedThreshold(leftSpeed);
-    	rightSpeed = minSpeedThreshold(rightSpeed);
-    	
-	this.rightSpeed = rightSpeed;
-    	this.leftSpeed = leftSpeed;
-    	
-    	if(RobotMap.USE_TALONS) {
-    		leftTalonDriveMotor.set(leftSpeed);
-    		rightTalonDriveMotor.set(rightSpeed);
-    	} else {
-    		leftVictorDriveMotor.set(leftSpeed);
-    		rightVictorDriveMotor.set(rightSpeed);
-    	}
+    	driveRight(rightSpeed);
+    	driveLeft(leftSpeed);
     }
     
     /**
@@ -229,6 +210,23 @@ public class Drivetrain extends Subsystem {
     	}
     
     	return mySpeed;
+    }
+    
+    /**
+     * Zero the distance travelled by the drivetrain.
+     */
+    public void resetDistance() {
+    	//TODO: zero the encoder distance
+    }
+    
+    /**
+     * Get the accumulated distance traveled since the last reset.
+     * 
+     * @return distance in inches
+     */
+    public double getDistance(){
+    	//TODO: get the accumulated distance traveled since the last reset
+    	return 0;
     }
 }
 
