@@ -38,7 +38,7 @@ public class RobotMap {
 	public static final int hopperDisc2 = 10;
 	public static final int hopperDisc3 = 11;
 	public static final int hopperDisc4 = 12;
-
+	public static final int upperAndLowerLimitSwitches = 13; //signal can be wired to the same input
 	public static final int compressorPressureSwitch = 14;
 
 	//Relay Output Channels///////////////////////////////////////////
@@ -51,7 +51,9 @@ public class RobotMap {
 	public static final int hangerDisengage            = 4;
 
 	//Analog Input Channels///////////////////////////////////////////
-
+	public static final int lowHardStop = 1;
+	public static final int upperHardStop = 2;
+	
 	/****************************************************************
 	 *                       Shooter Parameters                     *
 	 ****************************************************************/

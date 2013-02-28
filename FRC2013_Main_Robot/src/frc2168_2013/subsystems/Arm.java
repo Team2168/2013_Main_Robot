@@ -9,7 +9,7 @@ import frc2168_2013.RobotMap;
 import frc2168_2013.PIDController.Controller.PIDPosition;
 import frc2168_2013.PIDController.Sensors.AverageEncoder;
 import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
-import frc2168_2013.commands.DriveArmWithJoystick;
+import frc2168_2013.commands.UpperArmSafetyStop;
 
 public class Arm extends Subsystem {
 	
@@ -47,13 +47,14 @@ public class Arm extends Subsystem {
 		TCParmPosController = new TCPsocketSender(RobotMap.TCPServerArmPos, armPosController);
 		TCParmPosController.start();
 		
-		lowHardStop = new AnalogChannel(1);
-		highHardStop = new AnalogChannel(2);
+		lowHardStop = new AnalogChannel(RobotMap.lowHardStop);
+		highHardStop = new AnalogChannel(RobotMap.upperHardStop);
 	}
 
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		setDefaultCommand(new DriveArmWithJoystick());
+//		setDefaultCommand(new DriveArmWithJoystick());
+		setDefaultCommand(new UpperArmSafetyStop());
 
 	}
 
