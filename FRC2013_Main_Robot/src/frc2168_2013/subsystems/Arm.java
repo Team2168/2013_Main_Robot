@@ -1,5 +1,6 @@
 package frc2168_2013.subsystems;
 
+import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -9,7 +10,6 @@ import frc2168_2013.PIDController.Controller.PIDPosition;
 import frc2168_2013.PIDController.Sensors.AverageEncoder;
 import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
 import frc2168_2013.commands.DriveArmWithJoystick;
-import frc2168_2013.commands.DriveWithJoystick;
 
 public class Arm extends Subsystem {
 	
@@ -24,6 +24,10 @@ public class Arm extends Subsystem {
 	public PIDPosition armPosController;
 	TCPsocketSender TCParmPosController;
 
+	AnalogChannel lowHardStop;
+	AnalogChannel highHardStop;
+	private static final double SWITCH_PRESSED_VOLTAGE  = 3.0;
+	
 	private double speed;
 	
 	public Arm(){
@@ -34,7 +38,6 @@ public class Arm extends Subsystem {
 		armEncoder.setMinRate(RobotMap.armEncoderMinRate);//min rate before reported stopped
 		armEncoder.start();
 		
-		
 		//initialized PID Position Controller
 		armPosController = new PIDPosition("ArmPositionController", RobotMap.armPosP, RobotMap.armPosI, RobotMap.armPosD, armEncoder, RobotMap.armPIDPeriod);
 		armPosController.setSIZE(RobotMap.armPIDArraySize);
@@ -43,6 +46,9 @@ public class Arm extends Subsystem {
 		//initialized TCP Server for arm position controller, ONLY FOR DEBUDDING, REMOVE FOR COMPETITION
 		TCParmPosController = new TCPsocketSender(RobotMap.TCPServerArmPos, armPosController);
 		TCParmPosController.start();
+		
+		lowHardStop = new AnalogChannel(1);
+		highHardStop = new AnalogChannel(2);
 	}
 
 	protected void initDefaultCommand() {
@@ -70,6 +76,19 @@ public class Arm extends Subsystem {
     	if(OI.ainvert)
     		armSpeed = -armSpeed;
     	
+    	//Check the hard stops before sending a value out to the motor
+    	//Positive armSpeed = lower arm
+    	//Stop raising the arm if it's being commanded up.
+    	if (highHardStopPressed() && (armSpeed < 0)) {
+    		armSpeed = 0.0;
+    	}
+    	
+    	//Negative armSpeed = raise arm
+    	//Stop lowering the arm if it's being commanded down
+    	if (lowHardStopPressed() && (armSpeed > 0)) {
+    		armSpeed = 0.0;
+    	}
+    	
     	armMotorL.set(armSpeed);
     	armMotorR.set(-armSpeed); //automatically invert right side from left side
     	
@@ -95,5 +114,21 @@ public class Arm extends Subsystem {
 	 */
 	public void lowerArm(){
 		//TODO: write the code for this method
+	}
+	
+	/**
+	 * Check if the lower hard stop switch is pressed
+	 * @return true if pressed
+	 */
+	public boolean lowHardStopPressed() {
+		return (lowHardStop.getValue() > SWITCH_PRESSED_VOLTAGE);
+	}
+
+	/**
+	 * Check if the upper hard stop switch is pressed
+	 * @return true if pressed
+	 */
+	public boolean highHardStopPressed() {
+		return (highHardStop.getValue() > SWITCH_PRESSED_VOLTAGE);
 	}
 }
