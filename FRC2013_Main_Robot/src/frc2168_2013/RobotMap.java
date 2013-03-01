@@ -51,6 +51,8 @@ public class RobotMap {
 	public static final int hangerDisengage            = 4;
 
 	//Analog Input Channels///////////////////////////////////////////
+	public static final int armLowStop = 1;
+	public static final int armHighStop = 2;
 	public static final int gyroChannel = 3;
 
 	/****************************************************************
