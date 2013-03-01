@@ -1,6 +1,7 @@
 package frc2168_2013.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc2168_2013.RobotMap;
 
 /**
  * 
@@ -12,8 +13,11 @@ public class ShootSingleFrisbee extends CommandGroup
 	public ShootSingleFrisbee(){
 		addSequential(new StopperEngage());
 		
+		//unload the stopper
+		//addSequential(new DriveHopperJoystick(-RobotMap.hopperVoltage), .09);
+		
 		//get frisbee ready
-		addSequential(new DriveUntilFrisbee());
+		addSequential(new DriveUntilFrisbee(), 5.0);
 	
 		//TODO: Determine if this wait is necessary
 		//wait so there is a consistent entry velocity into the shooter wheel

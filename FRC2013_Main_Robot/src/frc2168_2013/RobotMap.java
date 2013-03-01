@@ -51,6 +51,9 @@ public class RobotMap {
 	public static final int hangerDisengage            = 4;
 
 	//Analog Input Channels///////////////////////////////////////////
+	public static final int armLowStop = 1;
+	public static final int armHighStop = 2;
+	public static final int gyroChannel = 3;
 
 	/****************************************************************
 	 *                       Shooter Parameters                     *
@@ -115,7 +118,7 @@ public class RobotMap {
 	//PID Gains for Arm Position Controller
 
 	public static final double armPosP = 0.002;
-	public static final double armPosI = 0.0001412646174233; 
+	public static final double armPosI = 0.001412646174233; 
 	public static final double armPosD = 0.0074778888124088;
 	
 
@@ -163,6 +166,8 @@ public class RobotMap {
 	public static final double driveTrainRightPositionP =  0.00574562908722711;
 	public static final double driveTrainRightPositionI =  0.000308064641742337; 
 	public static final double driveTrainRightPositionD = -0.000130778888124088;
+	
+	public static final double angleValRange = 2.5;
 
 
 	/****************************************************************

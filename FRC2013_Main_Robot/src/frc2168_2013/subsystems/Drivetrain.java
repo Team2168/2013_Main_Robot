@@ -1,6 +1,7 @@
 package frc2168_2013.subsystems;
 
 import edu.wpi.first.wpilibj.CounterBase;
+import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -41,11 +42,13 @@ public class Drivetrain extends Subsystem {
 	Victor rightVictorDriveMotor;
 	Victor leftVictorDriveMotor;
 	
+	Gyro turnSense;
+	
 	/**
 	 * The default constructor for the Drivetrain subsystem.
 	 */
     public Drivetrain(){
-    	System.out.println("drive train encoder shit:" + RobotMap.driveEncoderPulsePerRot);
+    	System.out.println("drive train encoder stuff:" + RobotMap.driveEncoderPulsePerRot);
     
     	//declare drivetrain motor controllers
     	//intializing motor controller using PWM. Refer to RobotMap
@@ -99,6 +102,9 @@ public class Drivetrain extends Subsystem {
 //    	TCPleftSpeedController = new TCPsocketSender(RobotMap.TCPServerLeftDrivetrainSpeed, leftSpeedController);
 //    	TCPleftSpeedController.start();
 //    	
+    	turnSense = new Gyro(RobotMap.gyroChannel);
+    	
+    	
     	//TODO: initialize encoders and closed loop control of drivetrain
     }
 	
@@ -116,27 +122,8 @@ public class Drivetrain extends Subsystem {
      * @param leftSpeed speed for left motors (1 to -1)
      */
     public void tankDrive(double rightSpeed, double leftSpeed) {    	
-    	//RobotMap defines which motors are inverted on drivetrain.
-    	if(OI.rInvert) {
-    		rightSpeed = -rightSpeed;
-    	}
-    	if(OI.lInvert) {
-    		leftSpeed = -leftSpeed;
-    	}
-    	
-    	leftSpeed = minSpeedThreshold(leftSpeed);
-    	rightSpeed = minSpeedThreshold(rightSpeed);
-    	
-	this.rightSpeed = rightSpeed;
-    	this.leftSpeed = leftSpeed;
-    	
-    	if(RobotMap.USE_TALONS) {
-    		leftTalonDriveMotor.set(leftSpeed);
-    		rightTalonDriveMotor.set(rightSpeed);
-    	} else {
-    		leftVictorDriveMotor.set(leftSpeed);
-    		rightVictorDriveMotor.set(rightSpeed);
-    	}
+    	driveRight(rightSpeed);
+    	driveLeft(leftSpeed);
     }
     
     /**
@@ -230,5 +217,39 @@ public class Drivetrain extends Subsystem {
     
     	return mySpeed;
     }
+    
+    /**
+     * Zero the distance traveled by the drivetrain.
+     */
+    public void resetDistance() {
+    	//TODO: zero the encoder distance
+    }
+    
+    /**
+     * Get the accumulated distance traveled since the last reset.
+     * 
+     * @return distance in inches
+     */
+    public double getDistance(){
+    	//TODO: get the accumulated distance traveled since the last reset
+    	return 0;
+    }
+    
+    /**
+     * Get the current heading of the robot fro mthe gyro sensor.
+     * 
+     * @return The heading of the robot in degrees
+     */
+    public double getAngle(){
+    	return turnSense.getAngle();	
+    }
+    
+    /**
+     * Zeros the drivetrain gyro sensor.
+     */
+    public void resetAngle(){
+    	turnSense.reset();
+    }
+    
 }
 

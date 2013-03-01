@@ -47,8 +47,8 @@ public class Arm extends Subsystem {
 		TCParmPosController = new TCPsocketSender(RobotMap.TCPServerArmPos, armPosController);
 		TCParmPosController.start();
 		
-		lowHardStop = new AnalogChannel(1);
-		highHardStop = new AnalogChannel(2);
+		lowHardStop = new AnalogChannel(RobotMap.armLowStop);
+		highHardStop = new AnalogChannel(RobotMap.armHighStop);
 	}
 
 	protected void initDefaultCommand() {
