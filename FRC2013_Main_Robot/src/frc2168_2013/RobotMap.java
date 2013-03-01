@@ -51,6 +51,7 @@ public class RobotMap {
 	public static final int hangerDisengage            = 4;
 
 	//Analog Input Channels///////////////////////////////////////////
+	public static final int gyroChannel = 3;
 
 	/****************************************************************
 	 *                       Shooter Parameters                     *
@@ -164,7 +165,6 @@ public class RobotMap {
 	public static final double driveTrainRightPositionI =  0.000308064641742337; 
 	public static final double driveTrainRightPositionD = -0.000130778888124088;
 	
-	public static final int gyroChannel = 2;
 	public static final double angleValRange = 2.5;
 
 
