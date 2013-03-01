@@ -197,6 +197,7 @@ public class OI {
 //		operatorButtonY.whenPressed(new ArmPIDPosition());
 		
 		operatorButtonStart.whenPressed(new ShootSingleFrisbee()); //shoot one frisbee at a time
+		operatorButtonReset.whileHeld(new StopHopperWhenFull()); //if reset is held run the stop hopper when full command
 
 	}
 	
