@@ -20,6 +20,7 @@ public class DriveDrivetrainStraight extends CommandBase {
 		currentLeftSpeed = currentRightSpeed = 0.0;
 		drivetrain.tankDrive(0, 0);
 		drivetrain.resetDistance();
+		drivetrain.resetAngle();
 	}
 	
 	protected void initialize() {
@@ -31,7 +32,8 @@ public class DriveDrivetrainStraight extends CommandBase {
 	 * Drive straight until we are at our destination
 	 */
 	protected void execute() {
-		double newLeftSpeed, newRightSpeed = 0;
+		double newLeftSpeed, newRightSpeed, angle = 0;
+		double speedModifierL = 1, speedModifierR = 1;
 
 		//if we aren't there yet, set speed
 		if(drivetrain.getDistance() < destDistance) {
@@ -43,9 +45,24 @@ public class DriveDrivetrainStraight extends CommandBase {
 			newRightSpeed = rateLimit(newRightSpeed, currentRightSpeed, rateLimit);
 			
 			//Add in turn based on gyro offset
+			angle = drivetrain.getAngle();			//assuming clockwise is positive, 10% increment in speed
+			if (angle > 0){							//can make modifier use function(angular displacement)
+				
+				speedModifierR = speedModifierR * 1.10;
+				
+			} else if (angle < 0){
+				
+				speedModifierL = speedModifierL * 1.10;
+				
+			} else {
+				
+				speedModifierR = 1;
+				speedModifierL = 1;
+				
+			}
 			
 			//output to motors
-			drivetrain.tankDrive(newRightSpeed, newLeftSpeed);
+			drivetrain.tankDrive((speedModifierR * newRightSpeed), (speedModifierL * newLeftSpeed));
 			
 			currentLeftSpeed = newLeftSpeed;
 			currentRightSpeed = newRightSpeed;

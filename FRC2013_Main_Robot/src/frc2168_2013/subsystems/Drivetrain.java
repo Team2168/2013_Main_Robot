@@ -1,6 +1,7 @@
 package frc2168_2013.subsystems;
 
 import edu.wpi.first.wpilibj.CounterBase;
+import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -40,6 +41,8 @@ public class Drivetrain extends Subsystem {
 
 	Victor rightVictorDriveMotor;
 	Victor leftVictorDriveMotor;
+	
+	Gyro turnSense;
 	
 	/**
 	 * The default constructor for the Drivetrain subsystem.
@@ -99,6 +102,9 @@ public class Drivetrain extends Subsystem {
 //    	TCPleftSpeedController = new TCPsocketSender(RobotMap.TCPServerLeftDrivetrainSpeed, leftSpeedController);
 //    	TCPleftSpeedController.start();
 //    	
+    	turnSense = new Gyro(RobotMap.gyroChannel);
+    	
+    	
     	//TODO: initialize encoders and closed loop control of drivetrain
     }
 	
@@ -228,5 +234,21 @@ public class Drivetrain extends Subsystem {
     	//TODO: get the accumulated distance traveled since the last reset
     	return 0;
     }
+    
+    public double getAngle(){
+    	
+    	double angle = 0;
+    	angle = turnSense.getAngle();
+    	
+    	return angle;
+    		
+    }
+    
+    public void resetAngle(){
+    	
+    	turnSense.reset();
+    	
+    }
+    
 }
 
