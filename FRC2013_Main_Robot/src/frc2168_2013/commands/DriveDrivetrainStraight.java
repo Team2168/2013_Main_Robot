@@ -32,7 +32,7 @@ public class DriveDrivetrainStraight extends CommandBase {
 	 * Drive straight until we are at our destination
 	 */
 	protected void execute() {
-		double newLeftSpeed, newRightSpeed, angle = 0;
+		double newLeftSpeed = 0, newRightSpeed = 0, angle = 0;
 		double speedModifierL = 1, speedModifierR = 1;
 
 		//if we aren't there yet, set speed
@@ -44,21 +44,18 @@ public class DriveDrivetrainStraight extends CommandBase {
 			newLeftSpeed = rateLimit(newLeftSpeed, currentLeftSpeed, rateLimit);
 			newRightSpeed = rateLimit(newRightSpeed, currentRightSpeed, rateLimit);
 			
-			//Add in turn based on gyro offset
+			//Add in turn based on gyro offset (+/-1 deg deadband)
 			angle = drivetrain.getAngle();			//assuming clockwise is positive, 10% increment in speed
-			if (angle > 0){							//can make modifier use function(angular displacement)
-				
+			if (angle > 1){							//can make modifier use function(angular displacement)
+				//increase right speed to turn to the left
 				speedModifierR = speedModifierR * 1.10;
-				
-			} else if (angle < 0){
-				
-				speedModifierL = speedModifierL * 1.10;
-				
+			} else if (angle < -1){
+				//increase left speed to turn to the right
+				speedModifierL = speedModifierL * 1.10;			
 			} else {
-				
+				//Continue driving straight
 				speedModifierR = 1;
 				speedModifierL = 1;
-				
 			}
 			
 			//output to motors
@@ -71,8 +68,6 @@ public class DriveDrivetrainStraight extends CommandBase {
 			drivetrain.tankDrive(0.0, 0.0);
 			finished = true;
 		}
-		
-		
 	}
 
 	

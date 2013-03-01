@@ -219,7 +219,7 @@ public class Drivetrain extends Subsystem {
     }
     
     /**
-     * Zero the distance travelled by the drivetrain.
+     * Zero the distance traveled by the drivetrain.
      */
     public void resetDistance() {
     	//TODO: zero the encoder distance
@@ -235,19 +235,20 @@ public class Drivetrain extends Subsystem {
     	return 0;
     }
     
+    /**
+     * Get the current heading of the robot fro mthe gyro sensor.
+     * 
+     * @return The heading of the robot in degrees
+     */
     public double getAngle(){
-    	
-    	double angle = 0;
-    	angle = turnSense.getAngle();
-    	
-    	return angle;
-    		
+    	return turnSense.getAngle();	
     }
     
+    /**
+     * Zeros the drivetrain gyro sensor.
+     */
     public void resetAngle(){
-    	
     	turnSense.reset();
-    	
     }
     
 }
