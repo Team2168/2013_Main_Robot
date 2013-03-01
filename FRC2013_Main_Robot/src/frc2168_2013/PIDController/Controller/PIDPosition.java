@@ -202,7 +202,7 @@ public class PIDPosition implements TCPMessageInterface
 		this.maxNegOutput=-1;
 		this.maxPosOutput=1;
 		this.minNegOutput=0;
-		this.minPosOutput=0;
+		this.minPosOutput=0; //minimum for arm at 82 degrees is around 0.315
 		
 		
 		//set all booleans to false

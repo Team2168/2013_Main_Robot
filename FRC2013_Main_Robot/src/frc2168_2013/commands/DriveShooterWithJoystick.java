@@ -14,13 +14,15 @@ public class DriveShooterWithJoystick extends CommandBase {
 	}
 
 	protected void execute() {
-		shooter.setShooterPWM(oi.getoperatorDriveLeftStick());
+		//shooter.setShooterPWM(oi.getoperatorDriveLeftStick());
+		shooter.setShooterPWM(oi.getTestAxis(3));
+		System.out.println("Shooter Speed = " + oi.getTestAxis(3));
 	}
 
 	protected void initialize() {
 		// TODO Auto-generated method stub
 	}
-
+ 
 	protected void interrupted() {
 		// TODO Auto-generated method stub
 	}
