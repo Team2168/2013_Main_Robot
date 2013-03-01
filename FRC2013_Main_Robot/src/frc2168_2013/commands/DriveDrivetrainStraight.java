@@ -3,7 +3,7 @@ package frc2168_2013.commands;
 public class DriveDrivetrainStraight extends CommandBase {
 
 	private double destDistance; //The goal distance in inches
-	private static final double rateLimit = 0.15;
+	private static final double rateLimit = 0.05;
 	private double currentLeftSpeed, currentRightSpeed;
 	private boolean finished;
 	
@@ -35,7 +35,7 @@ public class DriveDrivetrainStraight extends CommandBase {
 
 		//if we aren't there yet, set speed
 		if(drivetrain.getDistance() < destDistance) {
-			newLeftSpeed = newRightSpeed = 0.8;
+			newLeftSpeed = newRightSpeed = 0.5;
 			
 			//TODO: Replace with speed controller
 			//Simple rate limiter
