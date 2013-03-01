@@ -115,7 +115,7 @@ public class RobotMap {
 	//PID Gains for Arm Position Controller
 
 	public static final double armPosP = 0.002;
-	public static final double armPosI = 0.0001412646174233; 
+	public static final double armPosI = 0.001412646174233; 
 	public static final double armPosD = 0.0074778888124088;
 	
 
