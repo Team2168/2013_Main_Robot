@@ -109,6 +109,10 @@ public class CommandBaseRobot extends IterativeRobot {
     	//TODO: Stop all motors
     	//TODO: automatically deploy lifter if it isn't already? last minute hang
     	
+    	//Kill all active commands and make sure new ones don't run.
+    	Scheduler.getInstance().removeAll();
+    	Scheduler.getInstance().disable();
+    	
     	SerialCommunicator.free();
     }
     
