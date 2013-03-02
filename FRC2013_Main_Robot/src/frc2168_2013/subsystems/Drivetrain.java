@@ -31,10 +31,10 @@ public class Drivetrain extends Subsystem {
 	public PIDSpeed leftSpeedController;
 	
 	//declare TCP severs...ONLY FOR DEBUGGING PURPOSES, SHOULD BE REMOVED FOR COMPITITION
-//	TCPsocketSender TCPrightPosController;
-//	TCPsocketSender TCPrightSpeedController;
-//	TCPsocketSender TCPleftPosController;
-//	TCPsocketSender TCPleftSpeedController;
+	TCPsocketSender TCPrightPosController;
+	TCPsocketSender TCPrightSpeedController;
+	TCPsocketSender TCPleftPosController;
+	TCPsocketSender TCPleftSpeedController;
 
 	Talon rightTalonDriveMotor;
 	Talon leftTalonDriveMotor;
@@ -90,20 +90,20 @@ public class Drivetrain extends Subsystem {
     	leftPosController.startThread();
     	
     	//start TCP Servers for DEBUGING ONLY
-//    	TCPrightPosController = new TCPsocketSender(RobotMap.TCPServerRightDrivetrainPos, rightPosController);
-//    	TCPrightPosController.start();
-//    	
-//    	TCPrightSpeedController = new TCPsocketSender(RobotMap.TCPServerRightDrivetrainSpeed, rightSpeedController);
-//    	TCPrightSpeedController.start();
-//    	
-//    	TCPleftPosController = new TCPsocketSender(RobotMap.TCPServerLeftDrivetrainPos, leftPosController);
-//    	TCPleftPosController.start();
-//    	
-//    	TCPleftSpeedController = new TCPsocketSender(RobotMap.TCPServerLeftDrivetrainSpeed, leftSpeedController);
-//    	TCPleftSpeedController.start();
-//    	
-    	turnSense = new Gyro(RobotMap.gyroChannel);
-    	resetAngle();
+    	TCPrightPosController = new TCPsocketSender(RobotMap.TCPServerRightDrivetrainPos, rightPosController);
+    	TCPrightPosController.start();
+    	
+    	TCPrightSpeedController = new TCPsocketSender(RobotMap.TCPServerRightDrivetrainSpeed, rightSpeedController);
+    	TCPrightSpeedController.start();
+    	
+    	TCPleftPosController = new TCPsocketSender(RobotMap.TCPServerLeftDrivetrainPos, leftPosController);
+    	TCPleftPosController.start();
+    	
+    	TCPleftSpeedController = new TCPsocketSender(RobotMap.TCPServerLeftDrivetrainSpeed, leftSpeedController);
+    	TCPleftSpeedController.start();
+    	
+    	//turnSense = new Gyro(RobotMap.gyroChannel);
+    	//resetAngle();
     	
     	//TODO: initialize encoders and closed loop control of drivetrain
     }

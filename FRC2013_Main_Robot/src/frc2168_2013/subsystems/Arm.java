@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc2168_2013.OI;
 import frc2168_2013.RobotMap;
 import frc2168_2013.PIDController.Controller.PIDPosition;
+import frc2168_2013.PIDController.Controller.PIDPositionArm;
 import frc2168_2013.PIDController.Sensors.AverageEncoder;
 import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
 import frc2168_2013.commands.DriveArmWithJoystick;
@@ -21,7 +22,7 @@ public class Arm extends Subsystem {
 	Talon armMotorL;
 	Talon armMotorR;
 	AverageEncoder armEncoder;
-	public PIDPosition armPosController;
+	public PIDPositionArm armPosController;
 	TCPsocketSender TCParmPosController;
 
 	AnalogChannel lowHardStop;
@@ -39,8 +40,14 @@ public class Arm extends Subsystem {
 		armEncoder.start();
 		
 		//initialized PID Position Controller
-		armPosController = new PIDPosition("ArmPositionController", RobotMap.armPosP, RobotMap.armPosI, RobotMap.armPosD, armEncoder, RobotMap.armPIDPeriod);
+		armPosController = new PIDPositionArm("ArmPositionController", RobotMap.armPosP, RobotMap.armPosI, RobotMap.armPosD, armEncoder, RobotMap.armPIDPeriod);
 		armPosController.setSIZE(RobotMap.armPIDArraySize);
+		armPosController.setRange(15);
+		armPosController.setLowAngleDrive(0.6);
+		armPosController.setMidAngleDrive(0.2);
+		armPosController.setHighAngleDrive(0.4);
+		armPosController.setMidAngleThresh(20);
+		armPosController.setHighAngleThresh(90);
 		armPosController.startThread();
 		
 		//initialized TCP Server for arm position controller, ONLY FOR DEBUDDING, REMOVE FOR COMPETITION
@@ -91,6 +98,8 @@ public class Arm extends Subsystem {
     	
     	armMotorL.set(armSpeed);
     	armMotorR.set(-armSpeed); //automatically invert right side from left side
+    	
+    	System.out.println(armSpeed);
     	
     }
 

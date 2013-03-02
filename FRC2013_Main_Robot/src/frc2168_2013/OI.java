@@ -192,12 +192,13 @@ public class OI {
 		
 		operatorButtonA.whenPressed(new ArmPIDPause());
 		operatorButtonB.whenPressed(new ArmPIDPosition(82));
+		operatorButtonY.whenPressed(new ResetEncoder());
 		
 		operatorButtonX.whenPressed(new ArmPIDPosition());
 //		operatorButtonY.whenPressed(new ArmPIDPosition());
 		
 		operatorButtonStart.whenPressed(new ShootSingleFrisbee()); //shoot one frisbee at a time
-
+		operatorButtonReset.whileHeld(new StopHopperWhenFull());
 	}
 	
 	

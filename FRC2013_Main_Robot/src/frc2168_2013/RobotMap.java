@@ -63,7 +63,7 @@ public class RobotMap {
 	public static final int shooterWheelRadius = 3;//Colson wheel radius in inches
 
 	private static final int shooterPulsePerRotation = 256; //encoder ticks per rotation (LEAVE PRIVATE)
-	private static final double shooterGearRatio = 30.0/24.0; //ratio between wheel over encoder (LEAVE PRIVATE)
+	private static final double shooterGearRatio = 14.0/60.0; //ratio between wheel over encoder (LEAVE PRIVATE)
 	public static final int shooterEncoderPulsePerRot = (int) (shooterPulsePerRotation*shooterGearRatio); //pulse per rotation * gear ratio
 	public static final double shooterEncoderDistPerTick = (Math.PI*2*shooterWheelRadius)/shooterEncoderPulsePerRot;
 	public static final CounterBase.EncodingType shooterEncodingType = CounterBase.EncodingType.k4X; //count rising and falling edges on both channels

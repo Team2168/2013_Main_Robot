@@ -14,7 +14,7 @@ public class ShootSingleFrisbee extends CommandGroup
 		addSequential(new StopperEngage());
 		
 		//unload the stopper
-		//addSequential(new DriveHopperJoystick(-RobotMap.hopperVoltage), .09);
+		addSequential(new DriveHopperJoystick(-0.4), .06);
 		
 		//get frisbee ready
 		addSequential(new DriveUntilFrisbee(), 5.0);

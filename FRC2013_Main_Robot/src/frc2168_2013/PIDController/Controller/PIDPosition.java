@@ -6,7 +6,7 @@ import java.util.TimerTask;
 
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc2168_2013.PIDController.Controller.PIDPosition;
+import frc2168_2013.PIDController.Controller.PIDPositionArm;
 import frc2168_2013.PIDController.Sensors.PIDSensorInterface;
 import frc2168_2013.PIDController.TCPStream.TCPMessageInterface;
 
@@ -141,7 +141,7 @@ public class PIDPosition implements TCPMessageInterface
 
 
 /**
- * This is the default constructor for the {@link PIDPosition} class. All other constructors within
+ * This is the default constructor for the {@link PIDPositionArm} class. All other constructors within
  * this class make a call to this constructor first.
  *
  *
@@ -222,7 +222,7 @@ public class PIDPosition implements TCPMessageInterface
 	}
 
 	/**
-	 * This constructor for the {@link PIDPosition} class allows the user to set PID gains for gainScheduling.<br><br>
+	 * This constructor for the {@link PIDPositionArm} class allows the user to set PID gains for gainScheduling.<br><br>
 	 * This is handy for when one would like to have separate gains when the Error between the setpoint and the CurrentValue 
 	 * is Positive verse Negative. For example this would be useful if one wished to have separate gains to go forward and reverse on a drivetrain.<br><br>
 	 * This constructor also instantiates the new thread for the PID loop will run in. Although the 
@@ -1056,17 +1056,17 @@ public class PIDPosition implements TCPMessageInterface
 		 * 
 		 * @param id
 		 *            a string used to identify this particular controller
-		 * @param controller
+		 * @param pidPosition
 		 *            the controller parameters used to create the thread
 		 */
-		private PIDTask(PIDPosition controller)
+		private PIDTask(PIDPosition pidPosition)
 		{
 
-			if (controller == null)
+			if (pidPosition == null)
 			{
 				throw new NullPointerException(" PIDController was null");
 			}
-			this.Controller = controller;
+			this.Controller = pidPosition;
 		}
 
 		/**

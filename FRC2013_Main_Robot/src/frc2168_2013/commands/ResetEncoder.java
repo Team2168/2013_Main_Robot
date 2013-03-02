@@ -1,32 +1,33 @@
 package frc2168_2013.commands;
 
-import frc2168_2013.OI;
+import edu.wpi.first.wpilibj.command.Command;
 
-
-public class DriveArmWithJoystick extends CommandBase {
+public class ResetEncoder extends CommandBase {
 	
-	public DriveArmWithJoystick(){
-		requires(arm);
-	}
 
 	protected void end() {
 		// TODO Auto-generated method stub
+
 	}
 
 	protected void execute() {
-		arm.setArmPWM(oi.getoperatorDriveRightStick()); //Oh so fast!
+		// TODO Auto-generated method stub
+
 	}
 
 	protected void initialize() {
 		// TODO Auto-generated method stub
+		arm.armPosController.resetEncoder();
 	}
 
 	protected void interrupted() {
 		// TODO Auto-generated method stub
+
 	}
 
 	protected boolean isFinished() {
-		return false;
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 }
