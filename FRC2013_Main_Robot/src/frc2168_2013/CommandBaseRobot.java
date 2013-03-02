@@ -59,6 +59,7 @@ public class CommandBaseRobot extends IterativeRobot {
      */
     public void autonomousInit() {
         // schedule the autonomous command (example)
+    	Scheduler.getInstance().enable();
         //autonomousCommand.start();
     	Scheduler.getInstance().enable();
     }
@@ -83,7 +84,7 @@ public class CommandBaseRobot extends IterativeRobot {
         //Initialize the serial port
         //SerialCommunicator.init(9600, 8, SerialPort.Parity.kNone, SerialPort.StopBits.kOne);
         //SerialCommunicator.putData("abcdefghijklmnopqrstuvwxyz");
-        Scheduler.getInstance().enable();
+    	Scheduler.getInstance().enable();
     }
 
     /**
@@ -109,7 +110,7 @@ public class CommandBaseRobot extends IterativeRobot {
     public void disabledInit() {
     	//TODO: Stop all motors
     	//TODO: automatically deploy lifter if it isn't already? last minute hang
-    	
+
     	//Kill all active commands and make sure new ones don't run.
     	Scheduler.getInstance().removeAll();
     	Scheduler.getInstance().disable();
