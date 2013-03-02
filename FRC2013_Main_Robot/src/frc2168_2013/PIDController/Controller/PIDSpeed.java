@@ -7,6 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc2168_2013.PIDController.Controller.PIDSpeed;
 import frc2168_2013.PIDController.Sensors.PIDSensorInterface;
 import frc2168_2013.PIDController.TCPStream.TCPMessageInterface;
+import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
+import frc2168_2013.commands.ShooterPIDPause;
+import frc2168_2013.commands.ShooterPIDSpeed;
 
 
 /**
@@ -814,14 +817,14 @@ public class PIDSpeed implements TCPMessageInterface
 		this.acceptErrorDiff = Double.valueOf(message[10]).doubleValue();
 //		setSIZE(Integer.valueOf(message[11]).intValue());
 //		
-//		if(TCPsocketSender.strToBool(message[4]))
-//		{
-//		//	Enable();
-//		//new PID_Drive_Speed(Double.valueOf(message[3]).doubleValue()).start();
-//		
-//		}//new PID_Drive(Double.valueOf(message[3]).doubleValue()).start();
-//		else
-//			new PID_Pause().start();
+		if(TCPsocketSender.strToBool(message[4]))
+		{
+		//	Enable();
+		new ShooterPIDSpeed(Double.valueOf(message[3]).doubleValue()).start();
+		
+		}//new PID_Drive(Double.valueOf(message[3]).doubleValue()).start();
+		else
+			new ShooterPIDPause().start();
 		}
 		catch (NumberFormatException e)
 		{
@@ -980,33 +983,33 @@ public class PIDSpeed implements TCPMessageInterface
 					if (co > maxPosOutput)
 					{
 						integ = maxPosOutput - prop - deriv;
-						//System.out.println("one.one");
+						System.out.println("one.one");
 					}
 					
 					if (co < maxNegOutput)
 					{
 						integ = maxNegOutput - prop - deriv;
-						//System.out.println("one.two");
+						System.out.println("one.two");
 					}
 					
 					// prevent integral windup
 					if (co > maxPosOutput)
 					{
 						errsum = integ / i;
-						//System.out.println("one.three");
+						System.out.println("one.three");
 					}
 					
 					if (co < maxNegOutput)
 					{
 						errsum = integ / i;
-						//System.out.println("one.four");
+						System.out.println("one.four");
 					}
 					// generate new control output based on min and max and
 					// integral windup.
 					co = prop + integ + deriv;
 					olderrsum=errsum;
 					
-					//System.out.println("one");
+					System.out.println("one");
 				} else
 				{
 					// no integral term so dont need to prevent windup
@@ -1017,7 +1020,7 @@ public class PIDSpeed implements TCPMessageInterface
 					if (co < maxNegOutput)
 						co = maxNegOutput;
 					
-					//System.out.println("two");
+					System.out.println("two");
 				}
 
 				// check to see if we met our setpoint
@@ -1029,7 +1032,7 @@ public class PIDSpeed implements TCPMessageInterface
 					co = coOld; //keeps wheel spinning at old rate
 					olderrsum = errsum; //stop accumulating error
 					
-					//System.out.println("three");
+					System.out.println("three");
 					
 				} else
 				{
@@ -1043,8 +1046,8 @@ public class PIDSpeed implements TCPMessageInterface
 					if (err > 0 && coNotSaturated < minPosOutput
 							&& co < (maxPosOutput - minPosOutput))
 					{
-						//co = coOld + prop + integ + deriv;
-						//System.out.println("four");
+						co = coOld + prop + integ + deriv;
+						System.out.println("four");
 						
 					}
 					if (err < 0 && coNotSaturated < maxNegOutput
@@ -1052,7 +1055,7 @@ public class PIDSpeed implements TCPMessageInterface
 						
 					{
 						co = coOld + prop + integ + deriv;
-						//System.out.println("five");
+						System.out.println("five");
 					}
 
 				}

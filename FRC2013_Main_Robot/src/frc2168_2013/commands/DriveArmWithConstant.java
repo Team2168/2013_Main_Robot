@@ -1,34 +1,37 @@
 package frc2168_2013.commands;
 
 import frc2168_2013.OI;
+import frc2168_2013.RobotMap;
 
 
-public class DriveShooterWithJoystick extends CommandBase {
+public class DriveArmWithConstant extends CommandBase {
 	
-	public DriveShooterWithJoystick(){
-		requires(shooter);
+	public DriveArmWithConstant(){
+		requires(arm);
+		setTimeout(.8);
 	}
 
 	protected void end() {
 		// TODO Auto-generated method stub
+		arm.setArmPWM(0.0);
 	}
 
 	protected void execute() {
-		//shooter.setShooterPWM(oi.getoperatorDriveLeftStick());
-		shooter.setShooterPWM(oi.getTestAxis(3));
-		//System.out.println("Shooter Speed = " + oi.getTestAxis(3));
+		if(arm.armPosController.getSensorPos() < 30)
+		arm.setArmPWM(RobotMap.armConstVoltage); //Oh so fast!
 	}
 
 	protected void initialize() {
 		// TODO Auto-generated method stub
 	}
- 
+
 	protected void interrupted() {
 		// TODO Auto-generated method stub
+		end();
 	}
 
 	protected boolean isFinished() {
-		return false;
+		return isTimedOut();
 	}
 
 }

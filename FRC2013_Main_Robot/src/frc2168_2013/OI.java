@@ -187,18 +187,23 @@ public class OI {
 		operatorTriggerR.whileHeld(new DriveHopperJoystick(-RobotMap.hopperVoltage));
 		operatorTriggerL.whileHeld(new DriveHopperJoystick(RobotMap.hopperVoltage));
 		
-		operatorButtonLeftBumper.whenPressed(new StopperDisengage());
-		operatorButtonRightBumper.whenPressed(new StopperEngage());
 		
-		operatorButtonA.whenPressed(new ArmPIDPause());
-		operatorButtonB.whenPressed(new ArmPIDPosition(82));
-		operatorButtonY.whenPressed(new ResetEncoder());
 		
-		operatorButtonX.whenPressed(new ArmPIDPosition());
+		operatorButtonLeftBumper.whenPressed(new ArmPIDPosition(77));
+		operatorButtonRightBumper.whenPressed(new ArmPIDPause());
+		
+//		operatorButtonA.whenPressed(new ArmPIDPause());
+		operatorButtonA.whenPressed(new ShooterPIDPause());
+		//operatorButtonB.whenPressed(new ArmPIDPosition(82));
+		operatorButtonB.whenPressed(new ShooterPIDSpeed());
+		operatorButtonY.whenPressed(new DriveArmWithConstant());
+		
+		operatorButtonX.whenPressed(new DriveArmHome());
 //		operatorButtonY.whenPressed(new ArmPIDPosition());
 		
 		operatorButtonStart.whenPressed(new ShootSingleFrisbee()); //shoot one frisbee at a time
 		operatorButtonReset.whileHeld(new StopHopperWhenFull());
+		operatorButtonReset.whenReleased(new DriveHopperBackTimed());
 	}
 	
 	

@@ -94,12 +94,13 @@ public class Arm extends Subsystem {
     	//Stop lowering the arm if it's being commanded down
     	if (lowHardStopPressed() && (armSpeed > 0)) {
     		armSpeed = 0.0;
+    		armPosController.resetEncoder();
     	}
     	
     	armMotorL.set(armSpeed);
     	armMotorR.set(-armSpeed); //automatically invert right side from left side
     	
-    	System.out.println(armSpeed);
+    	//System.out.println(armSpeed);
     	
     }
 

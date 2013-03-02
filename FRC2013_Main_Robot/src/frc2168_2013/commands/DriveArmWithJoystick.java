@@ -9,10 +9,6 @@ public class DriveArmWithJoystick extends CommandBase {
 		requires(arm);
 	}
 
-	protected void end() {
-		// TODO Auto-generated method stub
-	}
-
 	protected void execute() {
 		arm.setArmPWM(oi.getoperatorDriveRightStick()); //Oh so fast!
 	}
@@ -27,6 +23,10 @@ public class DriveArmWithJoystick extends CommandBase {
 
 	protected boolean isFinished() {
 		return false;
+	}
+	
+	protected void end() {
+		// TODO Auto-generated method stub
 	}
 
 }
