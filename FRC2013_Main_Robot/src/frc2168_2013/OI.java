@@ -23,7 +23,7 @@ public class OI {
 	
 	// minSpeed needs to be tweaked based on the particular drivetrain.
 	// It is the speed at which the drivetrain barely starts moving
-	private static final double minDriveSpeed = 0.222;
+	public static final double minDriveSpeed = 0.222;
 	static double joystickScale[][] = {
 		/* Joystick Input, Scaled Output */
 		{ 1.00, 1.00 },
@@ -199,6 +199,18 @@ public class OI {
 		
 		operatorButtonStart.whenPressed(new ShootSingleFrisbee()); //shoot one frisbee at a time
 		operatorButtonReset.whileHeld(new StopHopperWhenFull());
+		
+		
+		//Test Joystick Commands
+		//TODO: Remove this for competition!
+		testButton5.whenPressed(new DriveDrivetrainTurn(90));		//rotate clockwise
+		testButton4.whenPressed(new DriveDrivetrainTurn(-90));		//rotate counter-clockwise
+		
+		testButton3.whenPressed(new DriveDrivetrainStraight(64));	//drive forward (need to subtract 8 inches to actuallyget to the destination)
+		
+		//
+		testButtonTrigger.whenPressed(new DriveDrivetrainTurn(0));
+		testButtonTrigger.whenReleased(new DriveDrivetrainStraight(0));
 	}
 	
 	
@@ -241,5 +253,13 @@ public class OI {
 		return testStick.getRawAxis(3);
 	}
 	
+	public Button testButtonTrigger = new JoystickButton(testStick, 1),
+			  testButton2 = new JoystickButton(testStick, 2),
+			  testButton3 = new JoystickButton(testStick, 3),
+			  testButton4 = new JoystickButton(testStick, 4),
+			  testButton5 = new JoystickButton(testStick, 5),
+			  testButton6 = new JoystickButton(testStick, 6),
+			  testButton7 = new JoystickButton(testStick, 7),
+			  testButton8 = new JoystickButton(testStick, 8);
 }
 

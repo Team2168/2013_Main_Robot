@@ -4,28 +4,28 @@ import frc2168_2013.RobotMap;
 
 public class DriveDrivetrainTurn extends CommandBase {
 
-	private double desAngle = 0; //The goal distance in inches
-	private double actAngle = 0;
+	private double destinationAngle = 0; //The goal distance in inches
+	private double currentAngle = 0;
 	private boolean finished;
-	private double angleRange;
+	
+	private static final double ROTATION_SPEED = 0.7; //(1.0 to -1.0)
+	private static final double ERROR = 5.0; //acceptable positional error in deg.
 	
 	/**
 	 * Default constructor.
 	 * 
-	 * @param distance The angle to turn, in radians(i think?)
+	 * @param distance The angle to turn, in degrees (positive is clockwise)
 	 */
 	public DriveDrivetrainTurn(double angle) {
 		requires(drivetrain);
-		
-		finished = false;
-		desAngle = angle;
-		angleRange = RobotMap.angleValRange;
-		drivetrain.tankDrive(0, 0);
-		drivetrain.resetAngle();
+		destinationAngle = angle;
 	}
 	
 	protected void initialize() {
-		//nothing special to do here
+		finished = false;
+		
+		drivetrain.tankDrive(0, 0);
+		drivetrain.resetAngle();
 	}
 
 
@@ -33,39 +33,20 @@ public class DriveDrivetrainTurn extends CommandBase {
 	 * Drive straight until we are at our destination
 	 */
 	protected void execute() {
-			
-			desAngle = drivetrain.getAngle();			//assuming clockwise is positive, assuming range in robotmap is good.
-			
-			while ((desAngle < (actAngle - angleRange)) || (desAngle > (actAngle + angleRange))){		//range is currently set at 2.5
-				
-				if (desAngle > 0){
-					
-					drivetrain.tankDrive(0.10, 0.00);
-					
-				} else if (desAngle < 0){
-					
-					drivetrain.tankDrive(0.00, 0.10);
-					
-				} else {
-					
-					drivetrain.tankDrive(0.00, 0.00);
-				
-				}
-				
-				desAngle = drivetrain.getAngle();
-			}
-			
-			if ((desAngle < (actAngle - angleRange)) || (desAngle > (actAngle + angleRange))){
-				
-				finished = true;
-				
-			} else {
-				
-				finished = false;
-				
-			}
+		System.out.println("Gyro: " + drivetrain.getAngle());
 		
+		//Positive angle is rotation clockwise, negative is counter-clockwise
+		if (Math.abs(currentAngle - destinationAngle) < ERROR) {
+			//We're there
+			finished = true;
+		} else if (destinationAngle > drivetrain.getAngle()) {
+			//rotate clockwise
+			drivetrain.tankDrive(-ROTATION_SPEED, ROTATION_SPEED);
+		} else {
+			//rotate counterclockwise
+			drivetrain.tankDrive(ROTATION_SPEED, -ROTATION_SPEED);
 		}
+	}
 
 	
 	protected boolean isFinished() {

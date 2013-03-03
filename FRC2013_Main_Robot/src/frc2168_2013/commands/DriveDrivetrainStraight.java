@@ -1,9 +1,11 @@
 package frc2168_2013.commands;
 
+import frc2168_2013.OI;
+
 public class DriveDrivetrainStraight extends CommandBase {
 
 	private double destDistance; //The goal distance in inches
-	private static final double rateLimit = 0.05;
+	private static final double rateLimit = 0.01;
 	private double currentLeftSpeed, currentRightSpeed;
 	private boolean finished;
 	
@@ -15,34 +17,36 @@ public class DriveDrivetrainStraight extends CommandBase {
 	public DriveDrivetrainStraight(double distance) {
 		requires(drivetrain);
 		
-		finished = false;
 		destDistance = distance;
-		currentLeftSpeed = currentRightSpeed = 0.0;
+	}
+	
+	protected void initialize() {
+		finished = false;
+		currentLeftSpeed = currentRightSpeed = OI.minDriveSpeed;
 		drivetrain.tankDrive(0, 0);
 		drivetrain.resetDistance();
 		drivetrain.resetAngle();
 	}
-	
-	protected void initialize() {
-		//nothing special to do here
-	}
 
 
 	/**
-	 * Drive straight until we are at our destination
+	 * Drive straight until we are at our destination.
+	 * This only travels forwards right now.
 	 */
 	protected void execute() {
 		double newLeftSpeed = 0, newRightSpeed = 0, angle = 0;
 		double speedModifierL = 1, speedModifierR = 1;
 
+		//TODO: allow reverse moves! add a multiplier to flip sign 
+		
 		//if we aren't there yet, set speed
 		if(drivetrain.getDistance() < destDistance) {
-			newLeftSpeed = newRightSpeed = 0.5;
+			newLeftSpeed = newRightSpeed = 0.4;
 			
 			//TODO: Replace with speed controller
 			//Simple rate limiter
-			newLeftSpeed = rateLimit(newLeftSpeed, currentLeftSpeed, rateLimit);
-			newRightSpeed = rateLimit(newRightSpeed, currentRightSpeed, rateLimit);
+			newLeftSpeed = drivetrain.rateLimit(newLeftSpeed, currentLeftSpeed, rateLimit);
+			newRightSpeed = drivetrain.rateLimit(newRightSpeed, currentRightSpeed, rateLimit);
 			
 			//Add in turn based on gyro offset (+/-1 deg deadband)
 			angle = drivetrain.getAngle();			//assuming clockwise is positive, 10% increment in speed
@@ -85,26 +89,5 @@ public class DriveDrivetrainStraight extends CommandBase {
 	protected void interrupted() {
 		//Clear the current command to motor controllers if we're interrupted.
 		drivetrain.tankDrive(0, 0);
-	}
-
-	/**
-	 * A simple rate limiter.
-	 * http://www.chiefdelphi.com/forums/showpost.php?p=1212189&postcount=3
-	 * 
-	 * @param input the input value (speed from command/joystick)
-	 * @param speed the speed currently being traveled at
-	 * @param maxChange the rate limit
-	 * @return the new output speed (rate limited)
-	 */
-	private double rateLimit(double input, double speed, double maxChange) {
-		if (input > (speed + maxChange)) {
-	        speed = speed + maxChange;
-		} else if (input < (speed - maxChange)) {
-	        speed = speed - maxChange;
-		} else {
-	        speed = input;
-		}
-		
-		return speed;
 	}
 }
