@@ -60,6 +60,7 @@ public class CommandBaseRobot extends IterativeRobot {
     public void autonomousInit() {
         // schedule the autonomous command (example)
         //autonomousCommand.start();
+    	Scheduler.getInstance().enable();
     }
 
     /**
@@ -82,7 +83,7 @@ public class CommandBaseRobot extends IterativeRobot {
         //Initialize the serial port
         //SerialCommunicator.init(9600, 8, SerialPort.Parity.kNone, SerialPort.StopBits.kOne);
         //SerialCommunicator.putData("abcdefghijklmnopqrstuvwxyz");
-        
+        Scheduler.getInstance().enable();
     }
 
     /**

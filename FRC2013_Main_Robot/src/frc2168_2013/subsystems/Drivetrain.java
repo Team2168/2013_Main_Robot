@@ -61,21 +61,39 @@ public class Drivetrain extends Subsystem {
     	}
     	
     	//initialized right and left drive train encoders
-    	rightEncoder = new AverageEncoder(RobotMap.rightDriveEncoderChannelA, RobotMap.rightDriveEncoderChannelB, RobotMap.driveEncoderPulsePerRot,RobotMap.driveEncoderDistPerTick, RobotMap.rightDriveTrainEncoderReverse, RobotMap.driveEncodingType, RobotMap.driveSpeedReturnType, RobotMap.drivePosReturnType, RobotMap.driveAvgEncoderVal);
+    	rightEncoder = new AverageEncoder(RobotMap.rightDriveEncoderChannelA,
+    			RobotMap.rightDriveEncoderChannelB, RobotMap.driveEncoderPulsePerRot,
+    			RobotMap.driveEncoderDistPerTick, RobotMap.rightDriveTrainEncoderReverse,
+    			RobotMap.driveEncodingType, RobotMap.driveSpeedReturnType,
+    			RobotMap.drivePosReturnType, RobotMap.driveAvgEncoderVal);
+    	rightEncoder.setPosReturnType(AverageEncoder.PositionReturnType.INCH);
     	rightEncoder.setMaxPeriod(RobotMap.driveEncoderMinPeriod);//min period before reported stopped
     	rightEncoder.setMinRate(RobotMap.driveEncoderMinRate);//min rate before reported stopped
     	rightEncoder.start();
     	
-    	leftEncoder = new AverageEncoder(RobotMap.leftDriveEncoderChannelA, RobotMap.leftDriveEncoderChannelB, RobotMap.driveEncoderPulsePerRot,RobotMap.driveEncoderDistPerTick, RobotMap.leftDriveTrainEncoderReverse, RobotMap.driveEncodingType, RobotMap.driveSpeedReturnType, RobotMap.drivePosReturnType,RobotMap.driveAvgEncoderVal);
+    	leftEncoder = new AverageEncoder(RobotMap.leftDriveEncoderChannelA,
+    			RobotMap.leftDriveEncoderChannelB, RobotMap.driveEncoderPulsePerRot,
+    			RobotMap.driveEncoderDistPerTick, RobotMap.leftDriveTrainEncoderReverse,
+    			RobotMap.driveEncodingType, RobotMap.driveSpeedReturnType,
+    			RobotMap.drivePosReturnType,RobotMap.driveAvgEncoderVal);
+    	leftEncoder.setPosReturnType(AverageEncoder.PositionReturnType.INCH);
     	leftEncoder.setMaxPeriod(RobotMap.driveEncoderMinPeriod);//min period before reported stopped
     	leftEncoder.setMinRate(RobotMap.driveEncoderMinRate);//min rate before reported stopped
     	leftEncoder.start();
     	
     	//Spawn new PID Controller
-    	rightSpeedController = new PIDSpeed("RightSpeedController", RobotMap.driveTrainRightSpeedP, RobotMap.driveTrainRightSpeedI, RobotMap.driveTrainRightSpeedD, rightEncoder, RobotMap.driveTrainPIDPeriod);
-    	rightPosController = new PIDPosition("RightPositionController", RobotMap.driveTrainRightPositionP, RobotMap.driveTrainRightPositionI, RobotMap.driveTrainRightPositionD, rightEncoder, RobotMap.driveTrainPIDPeriod);
-    	leftSpeedController = new PIDSpeed("LeftSpeedController", RobotMap.driveTrainLeftSpeedP, RobotMap.driveTrainLeftSpeedI, RobotMap.driveTrainLeftSpeedD, leftEncoder, RobotMap.driveTrainPIDPeriod);
-    	leftPosController = new PIDPosition("LeftPositionController", RobotMap.driveTrainLeftPositionP, RobotMap.driveTrainLeftPositionI, RobotMap.driveTrainLeftPositionD, leftEncoder, RobotMap.driveTrainPIDPeriod);
+    	rightSpeedController = new PIDSpeed("RightSpeedController", RobotMap.driveTrainRightSpeedP,
+    			RobotMap.driveTrainRightSpeedI, RobotMap.driveTrainRightSpeedD, rightEncoder,
+    			RobotMap.driveTrainPIDPeriod);
+    	rightPosController = new PIDPosition("RightPositionController", RobotMap.driveTrainRightPositionP,
+    			RobotMap.driveTrainRightPositionI, RobotMap.driveTrainRightPositionD, rightEncoder,
+    			RobotMap.driveTrainPIDPeriod);
+    	leftSpeedController = new PIDSpeed("LeftSpeedController", RobotMap.driveTrainLeftSpeedP,
+    			RobotMap.driveTrainLeftSpeedI, RobotMap.driveTrainLeftSpeedD, leftEncoder,
+    			RobotMap.driveTrainPIDPeriod);
+    	leftPosController = new PIDPosition("LeftPositionController", RobotMap.driveTrainLeftPositionP,
+    			RobotMap.driveTrainLeftPositionI, RobotMap.driveTrainLeftPositionD, leftEncoder,
+    			RobotMap.driveTrainPIDPeriod);
     	
     	//add min and max output defaults and set array size
     	rightSpeedController.setSIZE(RobotMap.drivetrainPIDArraySize);
@@ -84,26 +102,26 @@ public class Drivetrain extends Subsystem {
     	leftPosController.setSIZE(RobotMap.drivetrainPIDArraySize);    	
     	
     	//start controller threads
-    	rightSpeedController.startThread();
+    	//rightSpeedController.startThread();
     	rightPosController.startThread();
-    	leftSpeedController.startThread();
+    	//leftSpeedController.startThread();
     	leftPosController.startThread();
     	
     	//start TCP Servers for DEBUGING ONLY
     	TCPrightPosController = new TCPsocketSender(RobotMap.TCPServerRightDrivetrainPos, rightPosController);
     	TCPrightPosController.start();
-    	
-    	TCPrightSpeedController = new TCPsocketSender(RobotMap.TCPServerRightDrivetrainSpeed, rightSpeedController);
-    	TCPrightSpeedController.start();
-    	
+//    	
+//    	TCPrightSpeedController = new TCPsocketSender(RobotMap.TCPServerRightDrivetrainSpeed, rightSpeedController);
+//    	TCPrightSpeedController.start();
+//    	
     	TCPleftPosController = new TCPsocketSender(RobotMap.TCPServerLeftDrivetrainPos, leftPosController);
     	TCPleftPosController.start();
+//    	
+//    	TCPleftSpeedController = new TCPsocketSender(RobotMap.TCPServerLeftDrivetrainSpeed, leftSpeedController);
+//    	TCPleftSpeedController.start();
     	
-    	TCPleftSpeedController = new TCPsocketSender(RobotMap.TCPServerLeftDrivetrainSpeed, leftSpeedController);
-    	TCPleftSpeedController.start();
-    	
-    	//turnSense = new Gyro(RobotMap.gyroChannel);
-    	//resetAngle();
+    	turnSense = new Gyro(RobotMap.gyroChannel);
+    	resetAngle();
     	
     	//TODO: initialize encoders and closed loop control of drivetrain
     }
@@ -162,9 +180,9 @@ public class Drivetrain extends Subsystem {
     	this.leftSpeed = leftSpeed;
     	
     	if(RobotMap.USE_TALONS) {
-    		rightTalonDriveMotor.set(leftSpeed);
+    		leftTalonDriveMotor.set(leftSpeed);
     	} else {
-    		rightVictorDriveMotor.set(leftSpeed);
+    		leftVictorDriveMotor.set(leftSpeed);
     	}
     }
     
@@ -222,7 +240,8 @@ public class Drivetrain extends Subsystem {
      * Zero the distance traveled by the drivetrain.
      */
     public void resetDistance() {
-    	//TODO: zero the encoder distance
+    	rightEncoder.reset();
+    	leftEncoder.reset();
     }
     
     /**
@@ -231,12 +250,15 @@ public class Drivetrain extends Subsystem {
      * @return distance in inches
      */
     public double getDistance(){
-    	//TODO: get the accumulated distance traveled since the last reset
-    	return 0;
+    	System.out.println("RightEncoder = " + rightEncoder.getPos());
+    	System.out.println("LeftEncoder = " + leftEncoder.getPos());
+    	System.out.println("Gyro = " + getAngle());
+    	
+    	return ((rightEncoder.getPos() + leftEncoder.getPos())/2);
     }
     
     /**
-     * Get the current heading of the robot fro mthe gyro sensor.
+     * Get the current heading of the robot from the gyro sensor.
      * 
      * @return The heading of the robot in degrees
      */
@@ -251,5 +273,25 @@ public class Drivetrain extends Subsystem {
     	turnSense.reset();
     }
     
+    /**
+	 * A simple rate limiter.
+	 * http://www.chiefdelphi.com/forums/showpost.php?p=1212189&postcount=3
+	 * 
+	 * @param input the input value (speed from command/joystick)
+	 * @param speed the speed currently being traveled at
+	 * @param maxChange the rate limit
+	 * @return the new output speed (rate limited)
+	 */
+	public double rateLimit(double input, double speed, double maxChange) {
+		if (input > (speed + maxChange)) {
+	        speed = speed + maxChange;
+		} else if (input < (speed - maxChange)) {
+	        speed = speed - maxChange;
+		} else {
+	        speed = input;
+		}
+		
+		return speed;
+	}
 }
 
