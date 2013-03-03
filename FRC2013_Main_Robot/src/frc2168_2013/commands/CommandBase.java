@@ -35,6 +35,8 @@ public abstract class CommandBase extends Command {
         SmartDashboard.putData(drivetrain);
         SmartDashboard.putData(intake);
         SmartDashboard.putData(shooter);
+        SmartDashboard.putData(hopper);
+        SmartDashboard.putData(arm);
     }
 
     public CommandBase(String name) {
