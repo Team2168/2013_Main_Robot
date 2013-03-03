@@ -187,20 +187,25 @@ public class OI {
 		operatorTriggerR.whileHeld(new DriveHopperJoystick(-RobotMap.hopperVoltage));
 		operatorTriggerL.whileHeld(new DriveHopperJoystick(RobotMap.hopperVoltage));
 		
+		
 		operatorButtonLeftBumper.whenPressed(new StopperDisengage());
-		operatorButtonRightBumper.whenPressed(new StopperEngage());
+		operatorButtonRightBumper.whenPressed(new StopperEngage());		
+	//	operatorButtonLeftBumper.whenPressed(new ArmPIDPosition(77));
+	//	operatorButtonRightBumper.whenPressed(new ArmPIDPause());
 		
-		operatorButtonA.whenPressed(new ArmPIDPause());
-		operatorButtonB.whenPressed(new ArmPIDPosition(82));
-		operatorButtonY.whenPressed(new ResetEncoder());
+//		operatorButtonA.whenPressed(new ArmPIDPause());
+		operatorButtonA.whenPressed(new ShooterPIDPause());
+		//operatorButtonB.whenPressed(new ArmPIDPosition(82));
+		operatorButtonB.whenPressed(new RaiseArmSequence(77));
+		operatorButtonY.whenPressed(new DriveArmWithConstant());
 		
-		operatorButtonX.whenPressed(new ArmPIDPosition());
+		operatorButtonX.whenPressed(new DriveArmHome());
 //		operatorButtonY.whenPressed(new ArmPIDPosition());
 		
 		operatorButtonStart.whenPressed(new ShootSingleFrisbee()); //shoot one frisbee at a time
 		operatorButtonReset.whileHeld(new StopHopperWhenFull());
-		
-		
+		operatorButtonReset.whenReleased(new DriveHopperBackTimed());
+
 		//Test Joystick Commands
 		//TODO: Remove this for competition!
 		testButton5.whenPressed(new DriveDrivetrainTurn(90));		//rotate clockwise
@@ -208,7 +213,7 @@ public class OI {
 		
 		testButton3.whenPressed(new DriveDrivetrainStraight(64));	//drive forward (need to subtract 8 inches to actuallyget to the destination)
 		
-		//
+		//Kill turn and drive commands
 		testButtonTrigger.whenPressed(new DriveDrivetrainTurn(0));
 		testButtonTrigger.whenReleased(new DriveDrivetrainStraight(0));
 	}

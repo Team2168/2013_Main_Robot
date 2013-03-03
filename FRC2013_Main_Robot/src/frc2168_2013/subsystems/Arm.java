@@ -94,6 +94,7 @@ public class Arm extends Subsystem {
     	//Stop lowering the arm if it's being commanded down
     	if (lowHardStopPressed() && (armSpeed > 0)) {
     		armSpeed = 0.0;
+    		armPosController.resetEncoder();
     	}
     	
     	armMotorL.set(armSpeed);

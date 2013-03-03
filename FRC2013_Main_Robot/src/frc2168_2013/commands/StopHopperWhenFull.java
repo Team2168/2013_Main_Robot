@@ -17,12 +17,14 @@ public class StopHopperWhenFull extends CommandBase {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(hopper);
+    	requires(hardStop);
     }
 
     /**
      *  Called just before this Command runs the first time
      */
     protected void initialize() {
+    	hardStop.engageStopper();
     }
 
     /**
@@ -31,6 +33,7 @@ public class StopHopperWhenFull extends CommandBase {
     protected void execute() {
     	if(hopper.getNumberOfDiscs() >= 3) {	//If Frisbees are present at all the sensors
 			hopper.driveHopperPWM(0.0);	//Stop the hopper
+			
 		} else {											
 			hopper.driveHopperPWM(RobotMap.hopperMotor);	//else, Drive the hopper
 		}

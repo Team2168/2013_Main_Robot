@@ -21,6 +21,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import frc2168_2013.commands.CommandBase;
+import frc2168_2013.commands.DriveArmHome;
+import frc2168_2013.commands.DriveArmHomeInit;
 import frc2168_2013.utils.SerialCommunicator;
 
 /**
@@ -33,6 +35,7 @@ import frc2168_2013.utils.SerialCommunicator;
 public class CommandBaseRobot extends IterativeRobot {
 
     Command autonomousCommand;
+    Command armPositionInit;
 
     Compressor compressor;
     
@@ -43,6 +46,8 @@ public class CommandBaseRobot extends IterativeRobot {
     public void robotInit() {
         // instantiate the command used for the autonomous period
        // example of how to do that -> autonomousCommand = new ExampleCommand();
+    	
+    	armPositionInit = new DriveArmHome();
 
         // Initialize all subsystems
         CommandBase.init();
@@ -59,6 +64,7 @@ public class CommandBaseRobot extends IterativeRobot {
      */
     public void autonomousInit() {
         // schedule the autonomous command (example)
+    	Scheduler.getInstance().enable();
         //autonomousCommand.start();
     	Scheduler.getInstance().enable();
     }
@@ -79,11 +85,13 @@ public class CommandBaseRobot extends IterativeRobot {
     	// running. If you want the autonomous to continue until interrupted by
     	// another command, remove this line or comment it out.
         //autonomousCommand.cancel();
+    	
+    	armPositionInit.start();
         
         //Initialize the serial port
         //SerialCommunicator.init(9600, 8, SerialPort.Parity.kNone, SerialPort.StopBits.kOne);
         //SerialCommunicator.putData("abcdefghijklmnopqrstuvwxyz");
-        Scheduler.getInstance().enable();
+    	Scheduler.getInstance().enable();
     }
 
     /**
@@ -109,7 +117,7 @@ public class CommandBaseRobot extends IterativeRobot {
     public void disabledInit() {
     	//TODO: Stop all motors
     	//TODO: automatically deploy lifter if it isn't already? last minute hang
-    	
+
     	//Kill all active commands and make sure new ones don't run.
     	Scheduler.getInstance().removeAll();
     	Scheduler.getInstance().disable();
