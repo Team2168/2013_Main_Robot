@@ -17,7 +17,7 @@ public class ShootSingleFrisbee extends CommandGroup
 //		addSequential(new DriveHopperJoystick(-0.4), .06);
 		
 		//get frisbee ready
-		addSequential(new DriveUntilFrisbee(), 5.0);
+		addSequential(new DriveUntilFrisbee(), 2.0);
 		
 	
 		//TODO: Determine if this wait is necessary

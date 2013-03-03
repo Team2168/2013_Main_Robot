@@ -58,6 +58,12 @@ public class RobotMap {
 	/****************************************************************
 	 *                       Shooter Parameters                     *
 	 ****************************************************************/
+	public static final double PRE_SPIN_SPEED = 900;
+	public static final double FRONT_PYRAMID_3PT_SPEED = 3000;
+	public static final double WALL_3PT_SPEED = 3000;;
+	public static final double BACK_PYRAMID_3PT_SPEED =3000;
+	public static final double HALF_COURT_3PT_SPEED = 3000;
+	
 	//Shooter Wheel Encoder///////////////////////////////////////////////
 	//arm Radius
 	public static final int shooterWheelRadius = 3;//Colson wheel radius in inches
@@ -89,10 +95,15 @@ public class RobotMap {
 	/****************************************************************
 	 *                       Arm Parameters                     *
 	 ****************************************************************/
+	public static final double FRONT_PYRAMID_3PT_ANGLE = 80;
+	public static final double WALL_3PT_ANGLE = 102;
+	public static final double BACK_PYRAMID_3PT_ANGLE = 77;
+	public static final double HALF_COURT_3PT_ANGLE = 70;
+	
 	//arm voltage constant
 	public static final double hopperVoltage = 0.6;
 	public static final double armConstVoltage = 0.7;
-	public static final double armConstVoltageHome = -0.3;
+	public static final double armConstVoltageHome = -0.4;
 
 	//arm Encoder///////////////////////////////////////////////
 	//arm Radius
