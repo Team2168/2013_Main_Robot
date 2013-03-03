@@ -188,14 +188,15 @@ public class OI {
 		operatorTriggerL.whileHeld(new DriveHopperJoystick(RobotMap.hopperVoltage));
 		
 		
-		
-		operatorButtonLeftBumper.whenPressed(new ArmPIDPosition(77));
-		operatorButtonRightBumper.whenPressed(new ArmPIDPause());
+		operatorButtonLeftBumper.whenPressed(new StopperDisengage());
+		operatorButtonRightBumper.whenPressed(new StopperEngage());		
+	//	operatorButtonLeftBumper.whenPressed(new ArmPIDPosition(77));
+	//	operatorButtonRightBumper.whenPressed(new ArmPIDPause());
 		
 //		operatorButtonA.whenPressed(new ArmPIDPause());
 		operatorButtonA.whenPressed(new ShooterPIDPause());
 		//operatorButtonB.whenPressed(new ArmPIDPosition(82));
-		operatorButtonB.whenPressed(new ShooterPIDSpeed());
+		operatorButtonB.whenPressed(new RaiseArmSequence(77));
 		operatorButtonY.whenPressed(new DriveArmWithConstant());
 		
 		operatorButtonX.whenPressed(new DriveArmHome());

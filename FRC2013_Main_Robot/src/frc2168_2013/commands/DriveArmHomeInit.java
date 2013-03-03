@@ -4,9 +4,9 @@ import frc2168_2013.OI;
 import frc2168_2013.RobotMap;
 
 
-public class DriveArmHome extends CommandBase {
+public class DriveArmHomeInit extends CommandBase {
 	
-	public DriveArmHome(){
+	public DriveArmHomeInit(){
 		requires(arm);
 	}
 
@@ -16,6 +16,9 @@ public class DriveArmHome extends CommandBase {
 	}
 
 	protected void execute() {
+		if(arm.armPosController.getSensorPos() > 23 )
+		arm.setArmPWM(RobotMap.armConstVoltageHome); //Oh so fast!
+		else if (arm.armPosController.getSensorPos() > 10 )
 			arm.setArmPWM(RobotMap.armConstVoltageHome); //Oh so fast!
 	}
 
@@ -29,7 +32,7 @@ public class DriveArmHome extends CommandBase {
 	}
 
 	protected boolean isFinished() {
-		return arm.lowHardStopPressed();
+		return arm.armPosController.getSensorPos() <= 10;
 	}
 
 }
