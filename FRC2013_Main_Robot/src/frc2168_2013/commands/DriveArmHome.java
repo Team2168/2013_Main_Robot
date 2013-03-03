@@ -1,16 +1,22 @@
 package frc2168_2013.commands;
 
 import frc2168_2013.OI;
+import frc2168_2013.RobotMap;
 
 
-public class DriveArmWithJoystick extends CommandBase {
+public class DriveArmHome extends CommandBase {
 	
-	public DriveArmWithJoystick(){
+	public DriveArmHome(){
 		requires(arm);
 	}
 
+	protected void end() {
+		// TODO Auto-generated method stub
+		arm.setArmPWM(0.0);
+	}
+
 	protected void execute() {
-		arm.setArmPWM(oi.getoperatorDriveRightStick()); //Oh so fast!
+			arm.setArmPWM(RobotMap.armConstVoltageHome); //Oh so fast!
 	}
 
 	protected void initialize() {
@@ -19,14 +25,11 @@ public class DriveArmWithJoystick extends CommandBase {
 
 	protected void interrupted() {
 		// TODO Auto-generated method stub
+		end();
 	}
 
 	protected boolean isFinished() {
-		return false;
-	}
-	
-	protected void end() {
-		// TODO Auto-generated method stub
+		return arm.lowHardStopPressed();
 	}
 
 }

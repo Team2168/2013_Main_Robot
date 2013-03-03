@@ -431,12 +431,12 @@ public class PIDPositionArm implements TCPMessageInterface
 	 * @return the rate output of the Speed Sensor used with this PID Controller in type double. The unit of this value
 	 * is in the native unit of the Speed Sensor.
 	 */
-	public  double getSensorRate()
+	public  double getSensorPos()
 	{
-		return cp;
+		return encoder.getPos();
 	}
 
-	public double returnRate()
+	public double getSensorRate()
 	{
 		return encoder.getRate();
 	}
@@ -1067,78 +1067,78 @@ public class PIDPositionArm implements TCPMessageInterface
 				System.out.println("three");
 
 			}
-			else
-			{
-
-				// there is still a significant error
-				// we now check if output signal is below
-				// the deadband, if it is, we increase the
-				// output above deadband
-				// to drive the motor
-				if (err>0)
-				{
-					if(cp <= midAngleThresh)
-					{
-						co=lowAngleDrive;
-						System.out.println("six.one");
-					}
-				}
-				
-				System.out.println("Range");
-				if (err > 0 && coNotSaturated < minPosOutput)
-				{
-					co = minPosOutput;
-					System.out.println("four");
-
-					//TODO: Reset integral term to value so that there is 
-					integ = minPosOutput - prop - deriv;
-				}
-				if (err < 0 && coNotSaturated > minNegOutput)
-
-				{
-					co = minNegOutput;
-					System.out.println("five");
-
-					//TODO: Reset integral term to value so that there is 
-					integ = minPosOutput - prop - deriv;
-				}
-
-			}
-
-			//else //not in range so drive with constant
-			{
-
-//					else if(cp <= highAngleThresh)
-//					{
-//						co=midAngleDrive;
-//						System.out.println("six.two");
-//					}
-//					else
-//					{
-//						co=highAngleDrive;
-//						System.out.println("six.three");
-//					}
-
-//				}
-//				else
+//			else
+//			{
+//
+//				// there is still a significant error
+//				// we now check if output signal is below
+//				// the deadband, if it is, we increase the
+//				// output above deadband
+//				// to drive the motor
+//				if (err>0)
 //				{
-//					if(cp <= midAngleThresh){
-//						co=lowAngleDrive-gravityCompDrive;
-//						System.out.println("seven.one");
+//					if(cp <= midAngleThresh)
+//					{
+//						co=lowAngleDrive;
+//						System.out.println("six.one");
 //					}
-//					else if(cp <= highAngleThresh){
-//						co=midAngleDrive-gravityCompDrive;
-//						System.out.println("seven.two");
-//					}
-//					else{
-//						co=highAngleDrive-gravityCompDrive;
-//						System.out.println("seven.three");
-//					}
-//
-//
 //				}
+//				
+//				System.out.println("Range");
+//				if (err > 0 && coNotSaturated < minPosOutput)
+//				{
+//					co = minPosOutput;
+//					System.out.println("four");
+//
+//					//TODO: Reset integral term to value so that there is 
+//					integ = minPosOutput - prop - deriv;
+//				}
+//				if (err < 0 && coNotSaturated > minNegOutput)
+//
+//				{
+//					co = minNegOutput;
+//					System.out.println("five");
+//
+//					//TODO: Reset integral term to value so that there is 
+//					integ = minPosOutput - prop - deriv;
+//				}
+//
+//			}
+//
+//			//else //not in range so drive with constant
+//			{
+//
+////					else if(cp <= highAngleThresh)
+////					{
+////						co=midAngleDrive;
+////						System.out.println("six.two");
+////					}
+////					else
+////					{
+////						co=highAngleDrive;
+////						System.out.println("six.three");
+////					}
+//
+////				}
+////				else
+////				{
+////					if(cp <= midAngleThresh){
+////						co=lowAngleDrive-gravityCompDrive;
+////						System.out.println("seven.one");
+////					}
+////					else if(cp <= highAngleThresh){
+////						co=midAngleDrive-gravityCompDrive;
+////						System.out.println("seven.two");
+////					}
+////					else{
+////						co=highAngleDrive-gravityCompDrive;
+////						System.out.println("seven.three");
+////					}
+////
+////
+////				}
 
-			}
+//			}
 
 
 			coOld = co;
