@@ -8,8 +8,8 @@ public class DriveHopperJoystick extends CommandBase {
 	double speed;
 	
 	public DriveHopperJoystick(double speed){
-		
 		requires(hopper);
+		
 		this.speed= speed;
 	}
 
