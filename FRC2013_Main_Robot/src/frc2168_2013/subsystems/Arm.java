@@ -99,7 +99,7 @@ public class Arm extends Subsystem {
     	armMotorL.set(armSpeed);
     	armMotorR.set(-armSpeed); //automatically invert right side from left side
     	
-    	System.out.println(armSpeed);
+    	//System.out.println(armSpeed);
     	
     }
 

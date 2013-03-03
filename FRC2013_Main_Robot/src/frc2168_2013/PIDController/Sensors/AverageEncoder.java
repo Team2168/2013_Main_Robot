@@ -40,10 +40,9 @@ public class AverageEncoder extends Encoder implements PIDSensorInterface{
 	 */
 	public AverageEncoder(int channelA, int channelB, int PPR, double distPerTick, boolean reverseDirection, EncodingType encoderType, int averageN)
 	{
-		
 		super(channelA,channelB,reverseDirection,encoderType);
 		
-	this.averagorSize = averageN;
+		this.averagorSize = averageN;
 		this.averagorArray = new double[averagorSize];
 		this.timeNow = 0;
 		this.oldTime = 0;
@@ -180,32 +179,37 @@ public class AverageEncoder extends Encoder implements PIDSensorInterface{
         }
 	}
 	
-	 public static class PositionReturnType
+	public static class PositionReturnType
 	{
 		static final int TICKS_val = 0;
 		static final int INCH_val = 1;
 		static final int DEGREE_val = 2;
 		static final int RADIANS_val = 3;
 		public final int value;
-       /**
-        * Count only the rising edge
-        */
-       public static final PositionReturnType TICKS = new PositionReturnType(TICKS_val);
-       /**
-        * Count both the rising and falling edge
-        */
-       public static final PositionReturnType INCH = new PositionReturnType(INCH_val);
-       /**
-        * Count rising and falling on both channels
-        */
-       public static final PositionReturnType DEGREE = new PositionReturnType(DEGREE_val);
-       
-       public static final PositionReturnType RADIANS = new PositionReturnType(RADIANS_val);
+		/**
+         * Count only the rising edge
+         */
+		public static final PositionReturnType TICKS = new PositionReturnType(TICKS_val);
+		/**
+		 * Count both the rising and falling edge
+		 */
+		public static final PositionReturnType INCH = new PositionReturnType(INCH_val);
+		/**
+		 * Count rising and falling on both channels
+		 */
+		public static final PositionReturnType DEGREE = new PositionReturnType(DEGREE_val);
 
-       private PositionReturnType(int value) {
-           this.value = value;
-       }
-	}	
+		public static final PositionReturnType RADIANS = new PositionReturnType(RADIANS_val);
+
+		private PositionReturnType(int value) {
+			this.value = value;
+		}
+	}
+	
+	public void setPosReturnType(PositionReturnType value) {
+		this.posReturnType = value;
+	}
+	 
 
 }
 
