@@ -8,15 +8,22 @@ public class DriveDrivetrainStraight extends CommandBase {
 	private static final double rateLimit = 0.01;
 	private double currentLeftSpeed, currentRightSpeed;
 	private boolean finished;
+	private double direction = 1.0;
 	
 	/**
-	 * Default constructor.
+	 * Default constructor. Only called once from OI.
 	 * 
 	 * @param distance The distance to drive straight in inches
 	 */
 	public DriveDrivetrainStraight(double distance) {
 		requires(drivetrain);
-		
+		if(distance < 0) {
+			//Driving reverse
+			direction = -1.0;
+		} else {
+			//Driving forward
+			direction = 1.0;
+		}
 		destDistance = distance;
 	}
 	
@@ -37,10 +44,9 @@ public class DriveDrivetrainStraight extends CommandBase {
 		double newLeftSpeed = 0, newRightSpeed = 0, angle = 0;
 		double speedModifierL = 1, speedModifierR = 1;
 
-		//TODO: allow reverse moves! add a multiplier to flip sign 
-		
 		//if we aren't there yet, set speed
-		if(drivetrain.getDistance() < destDistance) {
+		if(((direction >= 0) && drivetrain.getDistance() < destDistance)
+				|| ((direction < 0)&& drivetrain.getDistance() > destDistance)) {
 			newLeftSpeed = newRightSpeed = 0.4;
 			
 			//TODO: Replace with speed controller
@@ -51,11 +57,21 @@ public class DriveDrivetrainStraight extends CommandBase {
 			//Add in turn based on gyro offset (+/-1 deg deadband)
 			angle = drivetrain.getAngle();			//assuming clockwise is positive, 10% increment in speed
 			if (angle > 1){							//can make modifier use function(angular displacement)
-				//increase right speed to turn to the left
-				speedModifierR = speedModifierR * 1.10;
-			} else if (angle < -1){
-				//increase left speed to turn to the right
-				speedModifierL = speedModifierL * 1.10;			
+				if(direction < 0) {
+					//increase left speed to turn to the right - when going backward
+					speedModifierL = speedModifierL * 1.10;
+				} else {
+					//increase right speed to turn to the left - when going forward
+					speedModifierR = speedModifierR * 1.10;
+				}
+			} else if (angle < -1) {
+				if(direction < 0) {
+					//increase right speed to turn to the left - when going backward
+					speedModifierR = speedModifierR * 1.10;
+				} else {
+					//increase left speed to turn to the right - when going forward
+					speedModifierL = speedModifierL * 1.10;
+				}
 			} else {
 				//Continue driving straight
 				speedModifierR = 1;
@@ -63,7 +79,8 @@ public class DriveDrivetrainStraight extends CommandBase {
 			}
 			
 			//output to motors
-			drivetrain.tankDrive((speedModifierR * newRightSpeed), (speedModifierL * newLeftSpeed));
+			drivetrain.tankDrive((speedModifierR * newRightSpeed * direction),
+					(speedModifierL * newLeftSpeed * direction));
 			
 			currentLeftSpeed = newLeftSpeed;
 			currentRightSpeed = newRightSpeed;
