@@ -56,7 +56,9 @@ public class OI {
 				  driveButtonLeftBumper = new JoystickButton(baseDriver, 5),
 				  driveButtonRightBumper = new JoystickButton(baseDriver, 6),
 				  driveButtonReset = new JoystickButton(baseDriver, 7),
-				  driveButtonStart = new JoystickButton(baseDriver, 8);
+				  driveButtonStart = new JoystickButton(baseDriver, 8),
+				  driveButtonLeftStick = new JoystickButton(baseDriver, 9),
+				  driveButtonRightStick = new JoystickButton(baseDriver, 10);
 
 	/**
 	 * Get the adjusted left joystick value
@@ -157,7 +159,9 @@ public class OI {
 				  operatorButtonLeftBumper = new JoystickButton(operatorDrive, 5),
 				  operatorButtonRightBumper = new JoystickButton(operatorDrive, 6),
 				  operatorButtonReset = new JoystickButton(operatorDrive, 7),
-				  operatorButtonStart = new JoystickButton(operatorDrive, 8);
+				  operatorButtonStart = new JoystickButton(operatorDrive, 8),
+				  operatorButtonLeftStick = new JoystickButton(operatorDrive, 9),
+				  operatorButtonRightStick = new JoystickButton(operatorDrive, 10);
 	public JoystickAnalogButton operatorTriggerR = new JoystickAnalogButton(operatorDrive, 3, -0.5),
 								operatorTriggerL = new JoystickAnalogButton(operatorDrive, 3, 0.5),
 								operatorDPadL = new JoystickAnalogButton(operatorDrive, 6, -0.5),	
@@ -182,25 +186,19 @@ public class OI {
 		driveButtonRightBumper.whileHeld(new HangerEngage()); //engage the hanger
 
 		//OPERATOR BUTTON MAP//
-//		operatorTriggerR.whenPressed(new ShootSingleFrisbee()); //shoot one disc
-//		operatorTriggerL.whenPressed(new ShootSingleFrisbee()); //shoot one disc
 		operatorTriggerR.whileHeld(new DriveHopperJoystick(-RobotMap.hopperVoltage));
 		operatorTriggerL.whileHeld(new DriveHopperJoystick(RobotMap.hopperVoltage));
-		
-		
 		operatorButtonLeftBumper.whenPressed(new StopperDisengage());
 		operatorButtonRightBumper.whenPressed(new StopperEngage());		
-	//	operatorButtonLeftBumper.whenPressed(new ArmPIDPosition(77));
-	//	operatorButtonRightBumper.whenPressed(new ArmPIDPause());
 		
-//		operatorButtonA.whenPressed(new ArmPIDPause());
-		operatorButtonA.whenPressed(new ShooterPIDPause());
+		operatorButtonRightStick.whenPressed(new ArmPIDPause());
+		operatorButtonLeftStick.whenPressed(new ShooterPIDPause());
 		//operatorButtonB.whenPressed(new ArmPIDPosition(82));
-		operatorButtonB.whenPressed(new RaiseArmSequence(77));
-		operatorButtonY.whenPressed(new DriveArmWithConstant());
 		
-		operatorButtonX.whenPressed(new DriveArmHome());
-//		operatorButtonY.whenPressed(new ArmPIDPosition());
+		operatorButtonA.whenPressed(new Preset_Arm_Load());
+		operatorButtonB.whenPressed(new Preset_FrontOfPyramid_3pt());
+		operatorButtonY.whenPressed(new Preset_Wall_3pt());
+		operatorButtonX.whenPressed(new Preset_HalfCourt_3pt());
 		
 		operatorButtonStart.whenPressed(new ShootSingleFrisbee()); //shoot one frisbee at a time
 		operatorButtonReset.whileHeld(new StopHopperWhenFull());
