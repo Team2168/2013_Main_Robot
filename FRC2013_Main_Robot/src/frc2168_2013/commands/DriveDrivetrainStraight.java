@@ -9,13 +9,39 @@ public class DriveDrivetrainStraight extends CommandBase {
 	private double currentLeftSpeed, currentRightSpeed;
 	private boolean finished;
 	private double direction = 1.0;
+	private boolean runForever = false;
 	
 	/**
-	 * Default constructor. Only called once from OI.
+	 * Drive the drivetrain straight.
 	 * 
 	 * @param distance The distance to drive straight in inches
 	 */
 	public DriveDrivetrainStraight(double distance) {
+		this(distance, false);
+	}
+	
+	/**
+	 * Drive the drivetrain straight.
+	 * This constructor can be used (if passed true) to hold the robot in
+	 * position indefinitely.
+	 * 
+	 * @param runForever If true, the command will not complete when the
+	 *   destination is reached
+	 */
+	public DriveDrivetrainStraight(boolean runForever) {
+		//TODO: Make this work regardless of direction of travel
+		//  (only holds in one direction right now)
+		this(0.0, runForever);
+	}
+	
+	/**
+	 * Drive the drivetrain straight.
+	 * 
+	 * @param distance The distance to drive straight in inches
+	 * @param runForever If true, the command will not complete when the
+	 *   destination is reached
+	 */
+	public DriveDrivetrainStraight(double distance, boolean runForever) {
 		requires(drivetrain);
 		if(distance < 0) {
 			//Driving reverse
@@ -25,6 +51,7 @@ public class DriveDrivetrainStraight extends CommandBase {
 			direction = 1.0;
 		}
 		destDistance = distance;
+		this.runForever = runForever;  
 	}
 	
 	protected void initialize() {
@@ -87,7 +114,7 @@ public class DriveDrivetrainStraight extends CommandBase {
 		} else {
 			//we are there, stop
 			drivetrain.tankDrive(0.0, 0.0);
-			finished = true;
+			finished = (true && !runForever);
 		}
 	}
 
