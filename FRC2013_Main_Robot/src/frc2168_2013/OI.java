@@ -215,6 +215,8 @@ public class OI {
 		//Kill turn and drive commands
 		testButtonTrigger.whenPressed(new DriveDrivetrainTurn(0));
 		testButtonTrigger.whenReleased(new DriveDrivetrainStraight(0));
+		
+		testButton6.whileHeld(new DriveDrivetrainStraight(true));
 	}
 	
 	
