@@ -206,13 +206,14 @@ public class OI {
 		operatorButtonReset.whileHeld(new StopHopperWhenFull());
 		operatorButtonReset.whenReleased(new DriveHopperBackTimed());
 
+		
 		//Test Joystick Commands
 		//TODO: Remove this for competition!
 		testButton5.whenPressed(new DriveDrivetrainTurn(90));		//rotate clockwise
 		testButton4.whenPressed(new DriveDrivetrainTurn(-90));		//rotate counter-clockwise
 		
-		testButton3.whenPressed(new DriveDrivetrainStraight(64));	//drive forward (need to subtract 8 inches to actuallyget to the destination)
-		testButton2.whenPressed(new DriveDrivetrainStraight(-64));	//drive reverse
+		testButton3.whenPressed(new DriveDrivetrainStraight(88));	//drive forward (need to subtract 8 inches to actuallyget to the destination)
+		testButton2.whenPressed(new DriveDrivetrainStraight(-84));	//drive reverse
 		//Kill turn and drive commands
 		testButtonTrigger.whenPressed(new DriveDrivetrainTurn(0));
 		testButtonTrigger.whenReleased(new DriveDrivetrainStraight(0));
