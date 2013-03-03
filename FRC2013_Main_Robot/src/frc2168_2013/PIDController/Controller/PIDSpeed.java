@@ -1027,38 +1027,49 @@ public class PIDSpeed implements TCPMessageInterface
 				// if current value is within exceptable range make control
 				// output last
 				// output value and stop integrating error
- 				if (Math.abs(err) <= acceptErrorDiff)
+				
+				if (Math.abs(err) <= acceptErrorDiff)
 				{
-					co = coOld; //keeps wheel spinning at old rate
-					olderrsum = errsum; //stop accumulating error
-					
-					System.out.println("three");
-					
-				} else
-				{
-					
-					// there is still a significant error
-					// we now check if output signal is below
-					// the deadband, if it is, we increase the
-					// output above deadband
-					// to drive the motor
 
-					if (err > 0 && coNotSaturated < minPosOutput
-							&& co < (maxPosOutput - minPosOutput))
-					{
-						co = coOld + prop + integ + deriv;
-						System.out.println("four");
-						
-					}
-					if (err < 0 && coNotSaturated < maxNegOutput
-							&& co < (maxNegOutput - minNegOutput))
-						
-					{
-						co = coOld + prop + integ + deriv;
-						System.out.println("five");
-					}
+					errsum=olderrsum;	
+					olderrsum = olderrsum; //stop accumulating error
+
+					System.out.println("three");
 
 				}
+				
+// 				if (Math.abs(err) <= acceptErrorDiff)
+//				{
+//					co = coOld; //keeps wheel spinning at old rate
+//					olderrsum = errsum; //stop accumulating error
+//					
+//					System.out.println("three");
+//					
+//				} else
+//				{
+//					
+//					// there is still a significant error
+//					// we now check if output signal is below
+//					// the deadband, if it is, we increase the
+//					// output above deadband
+//					// to drive the motor
+//
+//					if (err > 0 && coNotSaturated < minPosOutput
+//							&& co < (maxPosOutput - minPosOutput))
+//					{
+//						co = coOld + prop + integ + deriv;
+//						System.out.println("four");
+//						
+//					}
+//					if (err < 0 && coNotSaturated < maxNegOutput
+//							&& co < (maxNegOutput - minNegOutput))
+//						
+//					{
+//						co = coOld + prop + integ + deriv;
+//						System.out.println("five");
+//					}
+//
+//				}
  				
 
 				coOld = co;

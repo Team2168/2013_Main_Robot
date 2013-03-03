@@ -162,9 +162,9 @@ public class Drivetrain extends Subsystem {
     	this.leftSpeed = leftSpeed;
     	
     	if(RobotMap.USE_TALONS) {
-    		rightTalonDriveMotor.set(leftSpeed);
+    		leftTalonDriveMotor.set(leftSpeed);
     	} else {
-    		rightVictorDriveMotor.set(leftSpeed);
+    		leftVictorDriveMotor.set(leftSpeed);
     	}
     }
     

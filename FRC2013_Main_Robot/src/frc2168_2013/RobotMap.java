@@ -52,8 +52,8 @@ public class RobotMap {
 
 	//Analog Input Channels///////////////////////////////////////////
 	public static final int armLowStop = 1;
-	public static final int armHighStop = 2;
-	public static final int gyroChannel = 3;
+	public static final int armHighStop = 3;
+	public static final int gyroChannel = 2;
 
 	/****************************************************************
 	 *                       Shooter Parameters                     *

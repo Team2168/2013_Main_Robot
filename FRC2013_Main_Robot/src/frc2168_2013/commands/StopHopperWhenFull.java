@@ -17,12 +17,14 @@ public class StopHopperWhenFull extends CommandBase {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(hopper);
+    	requires(hardStop);
     }
 
     /**
      *  Called just before this Command runs the first time
      */
     protected void initialize() {
+    	hardStop.engageStopper();
     }
 
     /**
