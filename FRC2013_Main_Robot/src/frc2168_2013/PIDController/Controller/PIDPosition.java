@@ -206,7 +206,6 @@ public class PIDPosition implements TCPMessageInterface
 		
 		
 		//set all booleans to false
-
 		this.enDerivFilter=false;
 		this.enGainSched=false;
 		this.isFinished=false;
