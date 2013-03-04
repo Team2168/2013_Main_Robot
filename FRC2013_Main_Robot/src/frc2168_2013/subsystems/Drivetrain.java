@@ -121,6 +121,7 @@ public class Drivetrain extends Subsystem {
 //    	TCPleftSpeedController.start();
     	
     	turnSense = new Gyro(RobotMap.gyroChannel);
+    	turnSense.setSensitivity(0.0070);
     	resetAngle();
     	
     	//TODO: initialize encoders and closed loop control of drivetrain
