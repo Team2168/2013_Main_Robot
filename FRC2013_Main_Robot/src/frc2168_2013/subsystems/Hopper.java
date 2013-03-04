@@ -3,6 +3,7 @@ package frc2168_2013.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Talon;
 import frc2168_2013.OI;
 import frc2168_2013.RobotMap;
@@ -13,6 +14,7 @@ public class Hopper extends Subsystem {
 	
 	Talon hopperMotor;
 	DigitalInput disc1, disc2, disc3, disc4;
+	Relay teamDiscLight;
 	
 	public Hopper() {
 		hopperMotor = new Talon(RobotMap.hopperMotor);
@@ -20,6 +22,7 @@ public class Hopper extends Subsystem {
 		disc2 = new DigitalInput(RobotMap.hopperDisc2);
 		disc3 = new DigitalInput(RobotMap.hopperDisc3);
 		disc4 = new DigitalInput(RobotMap.hopperDisc4);
+		teamDiscLight = new Relay(RobotMap.teamDiscLight);
 	}
 	
 	protected void initDefaultCommand() {
@@ -97,5 +100,20 @@ public class Hopper extends Subsystem {
     		}
     		
     		return i;
+	 }
+	 
+	 /**
+	  * Turn on the team disc light indicator.
+	  */
+	 public void setDiscLightOn() {
+		 //Apply 12V to the + spike output, and gnd to the - spike output
+		 teamDiscLight.set(Relay.Value.kForward);
+	 }
+	 
+	 /**
+	  * Turn off the team disc light indicator.
+	  */
+	 public void setDiscLightOff() {
+		 teamDiscLight.set(Relay.Value.kOff);
 	 }
 }

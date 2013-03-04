@@ -43,6 +43,7 @@ public class RobotMap {
 
 	//Relay Output Channels///////////////////////////////////////////
 	public static final int compressorPower = 1;
+	public static final int teamDiscLight   = 2;
 
 	//Solenoid Channels///////////////////////////////////////////////
 	public static final int hopperDiscStopperApply     = 1;

@@ -184,6 +184,8 @@ public class OI {
 		//DRIVER BUTTON MAP//
 		driveButtonLeftBumper.whileHeld(new HangerDisengage()); //disengage the hanger
 		driveButtonRightBumper.whileHeld(new HangerEngage()); //engage the hanger
+		driveButtonA.whenPressed(new TeamDiscLightOn());
+		driveButtonA.whenReleased(new TeamDiscLightOff());
 
 		//OPERATOR BUTTON MAP//
 		operatorTriggerR.whileHeld(new DriveHopperJoystick(-RobotMap.hopperVoltage));
