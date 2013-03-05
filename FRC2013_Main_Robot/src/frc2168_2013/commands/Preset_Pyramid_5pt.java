@@ -6,12 +6,12 @@ import frc2168_2013.RobotMap;
 /**
  * Shots into the goal from against the wall (right under the goal).
  */
-public class Preset_Wall_3pt extends CommandGroup {
+public class Preset_Pyramid_5pt extends CommandGroup {
 	
-	public Preset_Wall_3pt(){
+	public Preset_Pyramid_5pt(){
 		//Raise arm
-		addParallel(new RaiseArmSequence(RobotMap.WALL_3PT_ANGLE));
+		addParallel(new RaiseArmSequence(RobotMap.PYRAMID_5PT_ANGLE));
 		//Get wheel up to speed
-		addParallel(new ShooterPIDSpeed(RobotMap.WALL_3PT_SPEED));
+		addParallel(new ShooterPIDSpeed(RobotMap.PYRAMID_5PT_SPEED));
 	}
 }

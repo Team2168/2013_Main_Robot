@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class DriveHopperBackTimed extends CommandGroup {
 	
 	public DriveHopperBackTimed(){
-		addSequential(new DriveHopperJoystick(-0.4), 0.4);
+		addSequential(new DriveHopperJoystick(-0.35), 0.1);
 	}
 
 }

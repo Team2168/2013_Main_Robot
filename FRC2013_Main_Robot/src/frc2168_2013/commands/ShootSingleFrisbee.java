@@ -13,13 +13,12 @@ public class ShootSingleFrisbee extends CommandGroup
 	public ShootSingleFrisbee(){
 		addSequential(new StopperEngage());
 		
-		//unload the stopper
-//		addSequential(new DriveHopperJoystick(-0.4), .06);
-		
 		//get frisbee ready
 		addSequential(new DriveUntilFrisbee(), 2.0);
 		
-	
+		//unload the stopper
+		addSequential(new DriveHopperBackTimed());
+		
 		//TODO: Determine if this wait is necessary
 		//wait so there is a consistent entry velocity into the shooter wheel
 		addSequential(new Sleep(), .200); //wait;
@@ -33,15 +32,11 @@ public class ShootSingleFrisbee extends CommandGroup
 		//shoot disc
 		addSequential(new DriveUntilNoFrisbee());
 		
-		addSequential(new DriveHopperJoystick(-0.4), .06);
-	
+		addSequential(new Sleep(), 0.1);
 		addSequential(new StopperEngage());
 		
 		//get another disc ready to fire or timeout
 		addSequential(new DriveUntilFrisbee(), 2);
-	
-		
-		//shooter wheel will stop if timed out
-		//addSequential(new StopShooterWheel());
+		addSequential(new DriveHopperBackTimed());
 	}
 }
