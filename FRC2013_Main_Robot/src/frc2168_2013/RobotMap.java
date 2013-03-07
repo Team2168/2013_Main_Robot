@@ -61,10 +61,10 @@ public class RobotMap {
 	 ****************************************************************/
 	public static final double PRE_SPIN_SPEED          =  900;
 	public static final double WALL_3PT_SPEED          = 3000; //up against the goal
-	public static final double PYRAMID_5PT_SPEED       = 2300;
-	public static final double FRONT_PYRAMID_3PT_SPEED = 3000; //closer to the goal
-	public static final double BACK_PYRAMID_3PT_SPEED  = 3000; //further from the goal
-	public static final double HALF_COURT_3PT_SPEED    = 3000;
+	public static final double PYRAMID_5PT_SPEED       = 2300; //NOT tested
+	public static final double FRONT_PYRAMID_3PT_SPEED = 4100; //closer to the goal, tested
+	public static final double BACK_PYRAMID_3PT_SPEED  = 3650; //further from the goal, tested
+	public static final double HALF_COURT_3PT_SPEED    = 3000; //NOT tested
 	
 	//Shooter Wheel Encoder///////////////////////////////////////////////
 	//arm Radius
@@ -97,11 +97,11 @@ public class RobotMap {
 	/****************************************************************
 	 *                       Arm Parameters                         *
 	 ****************************************************************/
-	public static final double WALL_3PT_ANGLE          = 102; //up against the goal
-	public static final double PYRAMID_5PT_ANGLE       = 102;
-	public static final double FRONT_PYRAMID_3PT_ANGLE =  80; //closer to the goal
-	public static final double BACK_PYRAMID_3PT_ANGLE  =  77; //further from the goal
-	public static final double HALF_COURT_3PT_ANGLE    =  70;
+	public static final double WALL_3PT_ANGLE          = 102; //up against the goal, NOT tested
+	public static final double PYRAMID_5PT_ANGLE       = 102; //NOT tested
+	public static final double FRONT_PYRAMID_3PT_ANGLE =  82; //closer to the goal, tested
+	public static final double BACK_PYRAMID_3PT_ANGLE  =  79; //further from the goal, tested
+	public static final double HALF_COURT_3PT_ANGLE    =  70; //NOT tested
 	
 	//arm voltage constant
 	public static final double hopperVoltage = 0.6;
