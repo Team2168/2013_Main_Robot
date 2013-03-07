@@ -171,9 +171,9 @@ public class RobotMap {
 	//PID Gains for Left & Right Speed and Position
 	//Bandwidth =
 	//Phase Margin = 
-	public static final double driveTrainLeftSpeedP =  0.00574562908722711;
-	public static final double driveTrainLeftSpeedI =  0.000308064641742337; 
-	public static final double driveTrainLeftSpeedD = -0.000130778888124088;
+	public static final double driveTrainLeftSpeedP =  0.002;
+	public static final double driveTrainLeftSpeedI =  0.0001412646174233; 
+	public static final double driveTrainLeftSpeedD =  0.0074778888124088;
 
 	public static final double driveTrainRightSpeedP = 0.002;
 	public static final double driveTrainRightSpeedI = 0.0001412646174233;  
@@ -183,9 +183,9 @@ public class RobotMap {
 	public static final double driveTrainLeftPositionI = 0.0001412646174233;  
 	public static final double driveTrainLeftPositionD = 0.0074778888124088;
 
-	public static final double driveTrainRightPositionP =  0.00574562908722711;
-	public static final double driveTrainRightPositionI =  0.000308064641742337; 
-	public static final double driveTrainRightPositionD = -0.000130778888124088;
+	public static final double driveTrainRightPositionP =  0.002;
+	public static final double driveTrainRightPositionI =  0.0001412646174233; 
+	public static final double driveTrainRightPositionD = 0.0074778888124088;
 	
 	//autonomous gyro angle error.
 	public static final double angleValRange = 1.5;
