@@ -50,6 +50,21 @@ public class Hopper extends Subsystem {
 		//TODO: Verify true false for disc presence 
 		return !disc1.get();
 	}
+	
+	boolean old1 = false, old2 = false, outputVal = false;
+	public boolean disc1PresentDebounced(){
+		//Three consecutive samples required for a state change 
+		if(!disc1.get() == old1 == old2) {
+			outputVal = !disc1.get();
+		}
+		
+		//Update history
+		old2 = old1;
+		old1 = !disc1.get();
+		
+		return outputVal;
+	}
+	
 	/**
 	 * Detects if disc2 is present. Disc1 is the disc closest to the shooter.
 	 * 

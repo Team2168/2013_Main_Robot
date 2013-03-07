@@ -31,7 +31,7 @@ public class DriveUntilFrisbee extends CommandBase {
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
-    	if(hopper.disc1Present()) {		//If a Frisbee is present at the last
+    	if(hopper.disc1PresentDebounced()) {		//If a Frisbee is present at the last
     									//  position before the shooter.
 			hopper.driveHopperPWM(0.0);	//Stop the hopper
 			frisbee = true;
