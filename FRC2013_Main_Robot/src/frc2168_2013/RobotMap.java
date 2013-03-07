@@ -102,6 +102,7 @@ public class RobotMap {
 	public static final double FRONT_PYRAMID_3PT_ANGLE =  82; //closer to the goal, tested
 	public static final double BACK_PYRAMID_3PT_ANGLE  =  79; //further from the goal, tested
 	public static final double HALF_COURT_3PT_ANGLE    =  70; //NOT tested
+	public static final double ARM_HORIZONTAL_ANGLE    =  52;
 	
 	//arm voltage constant
 	public static final double hopperVoltage = 0.6;
