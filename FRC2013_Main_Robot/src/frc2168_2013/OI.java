@@ -201,7 +201,9 @@ public class OI {
 		//SHots from the side of the pyramid closest to the goal (drive team calls this rear)
 		operatorButtonB.whenPressed(new Preset_AutoAndFrontPyramid_3pt());
 		
-		operatorButtonX.whenPressed(new Preset_WallAndTopPyramid_3ptAnd5pt());
+		operatorButtonX.whenPressed(new Preset_TopPyramid_5pt());
+		operatorButtonA.whenPressed(new Preset_AutoAndFrontPyramid_3pt());
+		operatorButtonY.whenPressed(new Preset_Wall_3pt());
 		
 		operatorButtonStart.whenPressed(new ShootSingleFrisbee()); //shoot one frisbee at a time
 		operatorButtonReset.whileHeld(new StopHopperWhenFull());

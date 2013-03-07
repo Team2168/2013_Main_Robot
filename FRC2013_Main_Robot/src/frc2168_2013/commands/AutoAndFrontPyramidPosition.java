@@ -31,6 +31,6 @@ public class AutoAndFrontPyramidPosition extends CommandBase {
 	protected boolean isFinished() {
 		//Keep engaging the hanger until another command come along that
 		// requires the hanger.
-		return false;
+		return true;
 	}
 }

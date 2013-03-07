@@ -50,10 +50,10 @@ public class RobotMap {
 	public static final int hopperDiscStopperRelease   = 2;
 	public static final int hangerEngage               = 3;
 	public static final int hangerDisengage            = 4;
-	public static final int shortArmCylinderApply	   = 5;
-	public static final int shortArmCylinderRelease	   = 6;
-	public static final int longArmCylinderApply	   = 7;
-	public static final int longArmCylinderRelease	   = 8;
+	public static final int shortArmCylinderRetraact   = 5;
+	public static final int shortArmCylinderExtend	   = 6;
+	public static final int longArmCylinderRetract	   = 7;
+	public static final int longArmCylinderExtend      = 8;
 
 	//Analog Input Channels///////////////////////////////////////////
 	public static final int armLowStop  = 1;

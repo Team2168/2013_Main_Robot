@@ -1,7 +1,7 @@
 package frc2168_2013.commands;
 
 /**
- * A command to fire cylinders to achive stow position on arms
+ * Puts the arm in the stow position
  * 
  * @author ICW
  *
@@ -29,8 +29,6 @@ public class StowArmPosition extends CommandBase {
 	}
 
 	protected boolean isFinished() {
-		//Keep engaging the hanger until another command come along that
-		// requires the hanger.
-		return false;
+		return true;
 	}
 }
