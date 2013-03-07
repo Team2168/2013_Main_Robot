@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc2168_2013.commands.CommandBase;
 import frc2168_2013.commands.DriveArmHome;
 import frc2168_2013.commands.Auto.*;
+import frc2168_2013.dashboard.CompetitionDashboard;
 import frc2168_2013.utils.SerialCommunicator;
 
 /**
@@ -32,10 +33,12 @@ public class CommandBaseRobot extends IterativeRobot {
 
     Command autonomousCommand;
     Command armPositionInit;
+    Command dashboard;
 
     Compressor compressor;
     
     SendableChooser autoChooser;
+    SendableChooser dashChooser;
     
     /**
      * This method is run when the robot is first started up and should be
@@ -53,8 +56,11 @@ public class CommandBaseRobot extends IterativeRobot {
         compressor.start();
         
         
-        //get autoValue from Dashboard
+        //Initialize auto mode chooser
         autoSelectInit();
+        
+        //Initialize dashboard
+        dashSelectInit();
         
         
         //End of Robot Init
@@ -72,6 +78,11 @@ public class CommandBaseRobot extends IterativeRobot {
         
     	// schedule the autonomous command (example)
         autonomousCommand.start();
+        
+        
+        //start dashboard
+        dashboard = (Command) dashChooser.getSelected();
+        dashboard.start();
     }
 
     /**
@@ -93,6 +104,10 @@ public class CommandBaseRobot extends IterativeRobot {
     		autonomousCommand.cancel();
     	
     	armPositionInit.start();
+    	
+        //start dashboard
+        dashboard = (Command) dashChooser.getSelected();
+        dashboard.start();
         
         //Initialize the serial port for LEDs
         //SerialCommunicator.init(9600, 8, SerialPort.Parity.kNone, SerialPort.StopBits.kOne);
@@ -142,5 +157,13 @@ public class CommandBaseRobot extends IterativeRobot {
         autoChooser.addObject ("2 disc close Auto - Left", new FrontOfPyramid_3pt_Left());
         
         SmartDashboard.putData("Autonomous mode", autoChooser);
+    }
+    
+    private void dashSelectInit()
+    {
+        dashChooser = new SendableChooser();
+        dashChooser.addDefault("Competition Dash", new CompetitionDashboard());
+        //dashChooser.addObject("PID Debug Dash", new ShooterWheelPIDDashboard());
+        SmartDashboard.putData("Dashboard Chooser", dashChooser);
     }
 }
