@@ -48,6 +48,11 @@ public class Arm extends Subsystem {
 		armPosController.setHighAngleDrive(0.4);
 		armPosController.setMidAngleThresh(20);
 		armPosController.setHighAngleThresh(90);
+		
+		
+		armPosController.setpGain2(RobotMap.armPosPDown);
+		armPosController.setiGain2(RobotMap.armPosIDown);
+		armPosController.setdGain2(RobotMap.armPosIDown);
 		armPosController.startThread();
 		
 		//initialized TCP Server for arm position controller, ONLY FOR DEBUDDING, REMOVE FOR COMPETITION
