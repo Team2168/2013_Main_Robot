@@ -17,6 +17,7 @@ public class OI {
 	public static final boolean      ainvert = true;  //for arm left motor
 	public static final boolean      sInvert = true;  //for shooter
 	public static final boolean      hInvert = true;  //for hopper
+	
 	public static final int     rightJoyAxis = 5;
 	public static final int      leftJoyAxis = 2;
 	public static final int      triggerAxis = 3;
@@ -195,12 +196,14 @@ public class OI {
 		
 		operatorButtonRightStick.whenPressed(new ArmPIDPause());
 		operatorButtonLeftStick.whenPressed(new ShooterPIDPause());
-		//operatorButtonB.whenPressed(new ArmPIDPosition(82));
+		
 		
 		operatorDPadL.whenPressed(new Preset_Arm_Load());
 		operatorDPadR.whenPressed(new Preset_HalfCourt_3pt());
+		
 		//Shots from the side of the pyramid furthest from the goal (drive team calls this front)
 		operatorButtonA.whenPressed(new Preset_RearOfPyramid_3pt());
+		
 		//SHots from the side of the pyramid closest to the goal (drive team calls this rear)
 		operatorButtonB.whenPressed(new Preset_FrontOfPyramid_3pt());
 		operatorButtonY.whenPressed(new Preset_Wall_3pt());
