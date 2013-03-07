@@ -4,6 +4,7 @@ package frc2168_2013;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button; 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc2168_2013.utils.JoystickAnalogButton;
 import frc2168_2013.commands.*;
 
@@ -210,7 +211,12 @@ public class OI {
 		operatorButtonReset.whileHeld(new StopHopperWhenFull());
 		operatorButtonReset.whenReleased(new DriveHopperBackTimed());
 
+		SmartDashboard.putData("Shoot one frisbee", new ShootSingleFrisbee());
+		SmartDashboard.putData("Start Shooter Wheel", new ShooterPIDSpeed(RobotMap.PYRAMID_5PT_SPEED));
+		SmartDashboard.putData("Stop Shooter Wheel", new ShooterPIDPause());
 		
+		
+				
 		//Test Joystick Commands
 		//TODO: Remove this for competition!
 		testButton5.whenPressed(new DriveDrivetrainTurn(90));		//rotate clockwise

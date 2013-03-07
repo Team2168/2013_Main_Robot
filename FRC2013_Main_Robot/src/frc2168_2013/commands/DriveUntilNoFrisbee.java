@@ -30,7 +30,7 @@ public class DriveUntilNoFrisbee extends CommandBase {
      * Called repeatedly when this Command is scheduled to run.
      */
     protected void execute() {
-    	if(hopper.disc1Present()) {
+    	if(hopper.disc1PresentDebounced()) {
         	//Drive the hopper if a frisbee is present at the last disc
     		//  position before contacting shooter.
 			hopper.driveHopperPWM(RobotMap.hopperVoltage);
