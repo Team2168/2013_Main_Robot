@@ -45,14 +45,19 @@ public class CommandBaseRobot extends IterativeRobot {
         // Initialize all subsystems
         CommandBase.init();
         
+        // run command to zero arm automatically
     	armPositionInit = new DriveArmHome();
 
         //Start the compressor
         compressor = new Compressor(RobotMap.compressorPressureSwitch, RobotMap.compressorPower);
         compressor.start();
         
+        
+        //get autoValue from Dashboard
         autoSelectInit();
         
+        
+        //End of Robot Init
     	System.out.println("ROBOT FINISHED LOADING!");
     }
 
@@ -64,6 +69,7 @@ public class CommandBaseRobot extends IterativeRobot {
     	
     	// instantiate the command used for the autonomous period
         autonomousCommand = (Command) autoChooser.getSelected();
+        
     	// schedule the autonomous command (example)
         autonomousCommand.start();
     }
