@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc2168_2013.commands.CommandBase;
-import frc2168_2013.commands.DriveArmHome;
 import frc2168_2013.commands.Auto.*;
 import frc2168_2013.utils.SerialCommunicator;
 
@@ -45,8 +44,6 @@ public class CommandBaseRobot extends IterativeRobot {
         // Initialize all subsystems
         CommandBase.init();
         
-    	armPositionInit = new DriveArmHome();
-
         //Start the compressor
         compressor = new Compressor(RobotMap.compressorPressureSwitch, RobotMap.compressorPower);
         compressor.start();
@@ -130,10 +127,7 @@ public class CommandBaseRobot extends IterativeRobot {
     private void autoSelectInit() {
         autoChooser = new SendableChooser();
         
-        autoChooser.addDefault ("3 disc far Auto - Sides", new RearOfPyramid_3pt_Side());
-        autoChooser.addObject("2 disc close Auto - Center", new FrontOfPyramid_3pt_Center());
-        autoChooser.addObject ("2 disc close Auto - Right", new FrontOfPyramid_3pt_Right());
-        autoChooser.addObject ("2 disc close Auto - Left", new FrontOfPyramid_3pt_Left());
+        autoChooser.addDefault ("3 disc Auto", new FrontOfPyramid_3pt());
         
         SmartDashboard.putData("Autonomous mode", autoChooser);
     }

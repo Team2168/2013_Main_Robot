@@ -7,11 +7,6 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc2168_2013.OI;
 import frc2168_2013.RobotMap;
-import frc2168_2013.PIDController.Controller.PIDPosition;
-import frc2168_2013.PIDController.Controller.PIDPositionArm;
-import frc2168_2013.PIDController.Sensors.AverageEncoder;
-import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
-import frc2168_2013.commands.DriveArmWithJoystick;
 import frc2168_2013.commands.StowArmPosition;
 
 public class Arm extends Subsystem {

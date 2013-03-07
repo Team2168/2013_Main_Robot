@@ -9,10 +9,10 @@ import frc2168_2013.commands.*;
  * @author James
  *
  */
-public class FrontOfPyramid_3pt_Right extends CommandGroup {
-	public FrontOfPyramid_3pt_Right() {
-		//Get arm and shooter ready
-		addSequential(new Preset_FrontOfPyramid_3pt());
+public class FrontOfPyramid_3pt extends CommandGroup {
+	public FrontOfPyramid_3pt() {
+		//get arm and shooter ready
+		addSequential(new Preset_AutoAndFrontPyramid_3pt());
 		
 		//Shoot two discs
 		addSequential(new ShootSingleFrisbee());
@@ -21,13 +21,13 @@ public class FrontOfPyramid_3pt_Right extends CommandGroup {
 		//stop wheel
 		addSequential(new ShooterPIDPause());
 		//lower arm
-		addSequential(new DriveArmHome());
+		addSequential(new Preset_Arm_Load());
 		
 		//Drive to the mid-field line
 		//  drive backward
 		//addSequential(new DriveDrivetrainStraight(-XX));
 		//  rotate to square up with the midfield line
-		//addSequential(new DriveDrivetrainTurn(45));
+		//addSequential(new DriveDrivetrainTurn(-45));
 		//  drive backward
 		//addSequential(new DriveDrivetrainStraight(-XX));
 	}
