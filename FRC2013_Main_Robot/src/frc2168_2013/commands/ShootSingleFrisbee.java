@@ -25,6 +25,7 @@ public class ShootSingleFrisbee extends CommandGroup
 	
 		//verify shooter is at speed
 		//addSequential(new PID_ShooterAtSpeed());
+		//addSequential(new PID_ArmAtPosition());
 		
 		//disengage the hard stop
 		addSequential(new StopperDisengage());

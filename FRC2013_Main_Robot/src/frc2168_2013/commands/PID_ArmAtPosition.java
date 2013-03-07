@@ -6,6 +6,8 @@ public class PID_ArmAtPosition extends CommandBase
 {
 public PID_ArmAtPosition()
 {
+	//no need to require the subsystem
+	//the PID controller owns the subsystem
 
 }
 

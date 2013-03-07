@@ -6,7 +6,8 @@ public class PID_ShooterAtSpeed extends CommandBase
 {
 public PID_ShooterAtSpeed()
 {
-
+	//no need to require the subsystem
+	//the PID controller owns the subsystem
 }
 
 protected void initialize()
