@@ -53,8 +53,8 @@ public class RobotMap {
 
 	//Analog Input Channels///////////////////////////////////////////
 	public static final int armLowStop  = 1;
-	public static final int armHighStop = 3;
 	public static final int gyroChannel = 2;
+	public static final int armHighStop = 3;
 
 	/****************************************************************
 	 *                       Shooter Parameters                     *
@@ -74,7 +74,7 @@ public class RobotMap {
 	private static final double shooterGearRatio = 14.0/60.0; //ratio between wheel over encoder (LEAVE PRIVATE)
 	public static final int shooterEncoderPulsePerRot = (int) (shooterPulsePerRotation*shooterGearRatio); //pulse per rotation * gear ratio
 	public static final double shooterEncoderDistPerTick = (Math.PI*2*shooterWheelRadius)/shooterEncoderPulsePerRot;
-	public static final CounterBase.EncodingType shooterEncodingType = CounterBase.EncodingType.k4X; //count rising and falling edges on both channels
+	public static final CounterBase.EncodingType shooterEncodingType = CounterBase.EncodingType.k1X; //count rising and falling edges on both channels
 	public static final AverageEncoder.PositionReturnType shooterPosReturnType = AverageEncoder.PositionReturnType.DEGREE;
 	public static final AverageEncoder.SpeedReturnType shooterSpeedReturnType = AverageEncoder.SpeedReturnType.RPM;
 	public static final int shooterEncoderMinRate = 10; 
