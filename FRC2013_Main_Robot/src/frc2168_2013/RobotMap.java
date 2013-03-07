@@ -90,7 +90,7 @@ public class RobotMap {
 
 	//PID Gains for Shooter Wheel Speed Controller
 	public static final double shooterSpeedP =  0.0002;
-	public static final double shooterSpeedI =  0.00001412646174233; 
+	public static final double shooterSpeedI =  0.000001412646174233; 
 	public static final double shooterSpeedD = 0.0074778888124088;
 
 
@@ -105,8 +105,8 @@ public class RobotMap {
 	
 	//arm voltage constant
 	public static final double hopperVoltage = 0.6;
-	public static final double armConstVoltage = 0.7;
-	public static final double armConstVoltageHome = -0.4;
+	public static final double armConstVoltage = 0.7; //voltage to overcome 
+	public static final double armConstVoltageHome = -0.4; //voltage to zero arm on startup
 
 	//arm Encoder///////////////////////////////////////////////
 	//arm Radius
@@ -134,8 +134,12 @@ public class RobotMap {
 	//PID Gains for Arm Position Controller
 
 	public static final double armPosP = 0.002;
-	public static final double armPosI = 0.001412646174233; 
+	public static final double armPosI = 0.00001412646174233; 
 	public static final double armPosD = 0.0074778888124088;
+	
+	public static final double armPosPDown = 0.002;
+	public static final double armPosIDown = 0.000001412646174233; 
+	public static final double armPosDDown = 0.0074778888124088;
 	
 
 	/****************************************************************
