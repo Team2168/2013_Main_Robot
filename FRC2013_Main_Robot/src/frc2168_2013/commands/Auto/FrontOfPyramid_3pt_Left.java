@@ -2,6 +2,9 @@ package frc2168_2013.commands.Auto;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc2168_2013.commands.*;
+import frc2168_2013.commands.Presets.Preset_FrontOfPyramid_3pt;
+import frc2168_2013.commands.subSystems.Arm.DriveArmHome;
+import frc2168_2013.commands.subSystems.Shooter.ShooterPIDPause;
 
 /**
  * Auto command. Sits still and shoots discs from close range at the three point goal.

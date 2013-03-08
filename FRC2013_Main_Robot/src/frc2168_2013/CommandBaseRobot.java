@@ -17,8 +17,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc2168_2013.commands.CommandBase;
-import frc2168_2013.commands.DriveArmHome;
 import frc2168_2013.commands.Auto.*;
+import frc2168_2013.commands.subSystems.Arm.DriveArmHome;
 import frc2168_2013.dashboard.CompetitionDashboard;
 import frc2168_2013.utils.SerialCommunicator;
 

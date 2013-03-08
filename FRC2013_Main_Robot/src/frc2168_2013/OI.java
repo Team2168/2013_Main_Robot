@@ -6,6 +6,23 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc2168_2013.utils.JoystickAnalogButton;
 import frc2168_2013.commands.*;
+import frc2168_2013.commands.Presets.Preset_ArmHorizontal;
+import frc2168_2013.commands.Presets.Preset_Arm_Load;
+import frc2168_2013.commands.Presets.Preset_HalfCourt_3pt;
+import frc2168_2013.commands.Presets.Preset_Pyramid_5pt;
+import frc2168_2013.commands.Presets.Preset_RearOfPyramid_3pt;
+import frc2168_2013.commands.subSystems.Arm.ArmPIDPause;
+import frc2168_2013.commands.subSystems.Arm.DriveArmWithConstant;
+import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainStraight;
+import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainTurn;
+import frc2168_2013.commands.subSystems.Hanger.HangerDisengage;
+import frc2168_2013.commands.subSystems.Hanger.HangerEngage;
+import frc2168_2013.commands.subSystems.Hopper.DriveHopperBackTimed;
+import frc2168_2013.commands.subSystems.Hopper.DriveHopperJoystick;
+import frc2168_2013.commands.subSystems.Hopper.StopHopperWhenFull;
+import frc2168_2013.commands.subSystems.Shooter.ShooterPIDPause;
+import frc2168_2013.commands.subSystems.Stopper.StopperDisengage;
+import frc2168_2013.commands.subSystems.Stopper.StopperEngage;
 
 /**
  * This class is the glue that binds the controls on the physical operator

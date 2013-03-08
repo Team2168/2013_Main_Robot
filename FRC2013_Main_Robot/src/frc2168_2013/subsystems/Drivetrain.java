@@ -11,7 +11,7 @@ import frc2168_2013.PIDController.Controller.PIDPosition;
 import frc2168_2013.PIDController.Controller.PIDSpeed;
 import frc2168_2013.PIDController.Sensors.AverageEncoder;
 import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
-import frc2168_2013.commands.DriveWithJoystick;
+import frc2168_2013.commands.subSystems.DriveTrain.DriveWithJoystick;
 
 public class Drivetrain extends Subsystem {
 	

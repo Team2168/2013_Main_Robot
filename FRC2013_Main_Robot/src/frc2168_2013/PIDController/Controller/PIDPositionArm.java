@@ -10,8 +10,8 @@ import frc2168_2013.PIDController.Controller.PIDPosition;
 import frc2168_2013.PIDController.Sensors.PIDSensorInterface;
 import frc2168_2013.PIDController.TCPStream.TCPMessageInterface;
 import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
-import frc2168_2013.commands.ArmPIDPause;
-import frc2168_2013.commands.ArmPIDPosition;
+import frc2168_2013.commands.subSystems.Arm.ArmPIDPause;
+import frc2168_2013.commands.subSystems.Arm.ArmPIDPosition;
 
 
 /**

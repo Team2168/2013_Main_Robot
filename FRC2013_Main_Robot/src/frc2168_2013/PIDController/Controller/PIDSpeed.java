@@ -8,8 +8,8 @@ import frc2168_2013.PIDController.Controller.PIDSpeed;
 import frc2168_2013.PIDController.Sensors.PIDSensorInterface;
 import frc2168_2013.PIDController.TCPStream.TCPMessageInterface;
 import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
-import frc2168_2013.commands.ShooterPIDPause;
-import frc2168_2013.commands.ShooterPIDSpeed;
+import frc2168_2013.commands.subSystems.Shooter.ShooterPIDPause;
+import frc2168_2013.commands.subSystems.Shooter.ShooterPIDSpeed;
 
 
 /**

@@ -1,0 +1,11 @@
+package frc2168_2013.commands.subSystems.Hopper;
+
+import edu.wpi.first.wpilibj.command.CommandGroup;
+
+public class DriveHopperBackTimed extends CommandGroup {
+	
+	public DriveHopperBackTimed(){
+		addSequential(new DriveHopperJoystick(-0.35), 0.1);
+	}
+
+}
