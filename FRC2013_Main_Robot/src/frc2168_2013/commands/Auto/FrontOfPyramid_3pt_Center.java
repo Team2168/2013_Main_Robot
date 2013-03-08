@@ -15,7 +15,7 @@ import frc2168_2013.commands.subSystems.Shooter.ShooterPIDPause;
 public class FrontOfPyramid_3pt_Center extends CommandGroup {
 	public FrontOfPyramid_3pt_Center() {
 		//Get arm and shooter ready
-		addSequential(new Preset_FrontOfPyramid_3pt());
+		addParallel(new Preset_FrontOfPyramid_3pt());
 		
 		//Shoot two discs
 		addSequential(new ShootSingleFrisbee());
@@ -23,19 +23,9 @@ public class FrontOfPyramid_3pt_Center extends CommandGroup {
 		
 		//stop wheel
 		addSequential(new ShooterPIDPause());
+		
 		//lower arm
 		addSequential(new DriveArmHome());
 		
-		//Drive around the tower to the mid-field line
-		//  drive forward
-		//addSequential(new DriveDrivetrainStraight(XX));
-		//  rotate 90
-		//addSequential(new DriveDrivetrainTurn(90));
-		//  drive forward
-		//addSequential(new DriveDrivetrainStraight(XX));
-		//  rotate -90
-		//addSequential(new DriveDrivetrainTurn(-90));
-		//  drive backward to mid-field line
-		//addSequential(new DriveDrivetrainStraight(-XX));
 	}
 }
