@@ -77,7 +77,7 @@ public class CommandBaseRobot extends IterativeRobot {
         autonomousCommand = (Command) autoChooser.getSelected();
         
     	// schedule the autonomous command (example)
-        autonomousCommand.start();
+        //autonomousCommand.start();
         
         
         //start dashboard
@@ -93,7 +93,16 @@ public class CommandBaseRobot extends IterativeRobot {
     }
 
     /**
+     * 
      * This method is called once, when the robot first enters teleop mode.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
      */
     public void teleopInit() {
     	Scheduler.getInstance().enable();
