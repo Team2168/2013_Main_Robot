@@ -11,6 +11,6 @@ public class Preset_ArmHorizontal extends CommandGroup {
 	
 	public Preset_ArmHorizontal(){
 		//Raise arm
-		addParallel(new RaiseArmSequence(RobotMap.ARM_HORIZONTAL_ANGLE));
+		addSequential(new RaiseArmSequence(RobotMap.ARM_HORIZONTAL_ANGLE));
 	}
 }
