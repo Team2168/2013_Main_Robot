@@ -1060,9 +1060,13 @@ public class PIDPositionArm implements TCPMessageInterface
 			// we stop integrating error
 			if (Math.abs(err) <= acceptErrorDiff)
 			{
-
+				
+				integ = coOld - prop - deriv;
+				co = coOld;
+				
 				errsum=olderrsum;	
 				olderrsum = olderrsum; //stop accumulating error
+				
 
 				System.out.println("three");
 

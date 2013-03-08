@@ -297,7 +297,7 @@ public class Drivetrain extends Subsystem {
 	 * @param negRateLimit the rate limit for decelerating
 	 * @return the new output speed (rate limited)
 	 */
-	public double rateLimit(double input, double speed,
+	public static double rateLimit(double input, double speed,
 			double posRateLimit, double negRateLimit) {
 		if (input > 0) {
 			if (input > (speed + posRateLimit)) {

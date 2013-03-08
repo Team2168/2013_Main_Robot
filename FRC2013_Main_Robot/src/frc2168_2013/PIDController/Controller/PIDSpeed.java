@@ -980,12 +980,12 @@ public class PIDSpeed implements TCPMessageInterface
 				if (i != 0)
 				{
 					// clamp to max values
-					if (co > maxPosOutput)
-					{
-						integ = maxPosOutput - prop - deriv;
-						System.out.println("one.one");
-					}
-					
+//					if (co > maxPosOutput)
+//					{
+//						integ = maxPosOutput - prop - deriv;
+//						System.out.println("one.one");
+//					}
+//					
 					if (co < maxNegOutput)
 					{
 						integ = maxNegOutput - prop - deriv;
@@ -993,11 +993,11 @@ public class PIDSpeed implements TCPMessageInterface
 					}
 					
 					// prevent integral windup
-					if (co > maxPosOutput)
-					{
-						errsum = integ / i;
-						System.out.println("one.three");
-					}
+//					if (co > maxPosOutput)
+//					{
+//						errsum = integ / i;
+//						System.out.println("one.three");
+//					}
 					
 					if (co < maxNegOutput)
 					{
@@ -1030,9 +1030,13 @@ public class PIDSpeed implements TCPMessageInterface
 				
 				if (Math.abs(err) <= acceptErrorDiff)
 				{
-
+					
+					integ = coOld - prop - deriv;
+					co = coOld;
+					
 					errsum=olderrsum;	
 					olderrsum = olderrsum; //stop accumulating error
+					
 
 					System.out.println("three");
 

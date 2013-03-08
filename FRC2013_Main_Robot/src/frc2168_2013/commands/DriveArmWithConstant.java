@@ -8,7 +8,7 @@ public class DriveArmWithConstant extends CommandBase {
 	
 	public DriveArmWithConstant(){
 		requires(arm);
-		setTimeout(.8);
+		setTimeout(1);
 	}
 
 	protected void end() {

@@ -11,7 +11,7 @@ import frc2168_2013.PIDController.Sensors.AverageEncoder;
  */
 public class RobotMap {
 	
-	public final static boolean USE_TALONS = True;
+	public final static boolean USE_TALONS = true;
 
 	/****************************************************************
 	 *                       CRIO MAP                               *
@@ -80,7 +80,8 @@ public class RobotMap {
 	public static final int shooterEncoderMinRate = 10; 
 	public static final int shooterEncoderMinPeriod = 10;
 	public static final boolean shooterEncoderReverse = false;
-	public static final int shooterAvgEncoderVal = 10;
+	public static final int shooterAvgEncoderVal = 5;
+	public static final int shooterAcceptError = 100; //degrees;
 
 	//PID Parameters //////////////////////////////////////////////////
 	public static final int shooterPIDArraySize = 50;
@@ -106,8 +107,8 @@ public class RobotMap {
 	
 	//arm voltage constant
 	public static final double hopperVoltage = 0.6;
-	public static final double armConstVoltage = 0.7; //voltage to overcome 
-	public static final double armConstVoltageHome = -0.4; //voltage to zero arm on startup
+	public static final double armConstVoltage = 0.35; //voltage to overcome 
+	public static final double armConstVoltageHome = -0.3; //voltage to zero arm on startup
 
 	//arm Encoder///////////////////////////////////////////////
 	//arm Radius
@@ -124,7 +125,8 @@ public class RobotMap {
 	public static final int armEncoderMinRate = 10;
 	public static final int armEncoderMinPeriod = 10;
 	public static final boolean armEncoderReverse = true;
-	public static final int armAvgEncoderVal = 1;
+	public static final int armAvgEncoderVal = 2;
+	public static final int armAcceptError = 2; //degrees;
 
 	//PID Parameters //////////////////////////////////////////////////
 	public static final int armPIDArraySize = 50;
@@ -134,13 +136,13 @@ public class RobotMap {
 
 	//PID Gains for Arm Position Controller
 
-	public static final double armPosP = 0.002;
-	public static final double armPosI = 0.00001412646174233; 
-	public static final double armPosD = 0.0074778888124088;
+	public static final double armPosP = 0.02;
+	public static final double armPosI = 0.0007912646174233;
+	public static final double armPosD = 0;
 	
-	public static final double armPosPDown = 0.002;
-	public static final double armPosIDown = 0.000001412646174233; 
-	public static final double armPosDDown = 0.0074778888124088;
+	public static final double armPosPDown = 0.02;
+	public static final double armPosIDown = 0.00000912646174233; 
+	public static final double armPosDDown = 0;
 	
 
 	/****************************************************************
