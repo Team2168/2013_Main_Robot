@@ -14,7 +14,7 @@ import frc2168_2013.commands.subSystems.Shooter.ShooterPIDPause;
  */
 public class RearOfPyramid_3pt_Side extends CommandGroup {
 	public RearOfPyramid_3pt_Side() {
-		addSequential(new Preset_RearOfPyramid_3pt());
+		addParallel(new Preset_RearOfPyramid_3pt());
 		
 		//Shoot three discs
 		addSequential(new ShootSingleFrisbee());

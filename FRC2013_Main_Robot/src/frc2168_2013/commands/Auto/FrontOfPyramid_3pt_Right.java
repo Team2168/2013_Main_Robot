@@ -15,7 +15,7 @@ import frc2168_2013.commands.subSystems.Shooter.ShooterPIDPause;
 public class FrontOfPyramid_3pt_Right extends CommandGroup {
 	public FrontOfPyramid_3pt_Right() {
 		//Get arm and shooter ready
-		addSequential(new Preset_FrontOfPyramid_3pt());
+		addParallel(new Preset_FrontOfPyramid_3pt());
 		
 		//Shoot two discs
 		addSequential(new ShootSingleFrisbee());
