@@ -74,10 +74,10 @@ public class CommandBaseRobot extends IterativeRobot {
     	Scheduler.getInstance().enable();
     	
     	// instantiate the command used for the autonomous period
-        autonomousCommand = (Command) autoChooser.getSelected();
-        
+        //autonomousCommand = (Command) autoChooser.getSelected();
+        autonomousCommand = new RearOfPyramid_3pt_Side();
     	// schedule the autonomous command (example)
-        //autonomousCommand.start();
+        autonomousCommand.start();
         
         
         //start dashboard

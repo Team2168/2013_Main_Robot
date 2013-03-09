@@ -32,7 +32,7 @@ public class StopHopperWhenFull extends CommandBase {
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
-    	if(hopper.getNumberOfDiscs() >= 3) {	//If Frisbees are present at all the sensors
+    	if(hopper.getNumberOfDiscs() >= 4) {	//If Frisbees are present at all the sensors
 			hopper.driveHopperPWM(0.0);	//Stop the hopper
 			
 		} else {											

@@ -59,13 +59,20 @@ public class RobotMap {
 	/****************************************************************
 	 *                       Shooter Parameters                     *
 	 ****************************************************************/
-	public static final double PRE_SPIN_SPEED          =  900;
-	public static final double WALL_3PT_SPEED          = 3000; //up against the goal
-	public static final double PYRAMID_5PT_SPEED       = 2300; //NOT tested
-	public static final double FRONT_PYRAMID_3PT_SPEED = 4100; //closer to the goal, tested
-	public static final double BACK_PYRAMID_3PT_SPEED  = 3650; //further from the goal, tested
-	public static final double HALF_COURT_3PT_SPEED    = 3000; //NOT tested
+//	public static final double PRE_SPIN_SPEED          =  900;
+//	public static final double WALL_3PT_SPEED          = 3000; //up against the goal
+//	public static final double PYRAMID_5PT_SPEED       = 2300; //NOT tested
+//	public static final double FRONT_PYRAMID_3PT_SPEED = 4100; //closer to the goal, tested
+//	public static final double BACK_PYRAMID_3PT_SPEED  = 3650; //further from the goal, tested
+//	public static final double HALF_COURT_3PT_SPEED    = 3000; //NOT tested
 	
+	
+	public static final double PRE_SPIN_SPEED          =  5000;
+	public static final double WALL_3PT_SPEED          = 5000; //up against the goal
+	public static final double PYRAMID_5PT_SPEED       = 5000; //NOT tested
+	public static final double FRONT_PYRAMID_3PT_SPEED = 5000; //closer to the goal, tested
+	public static final double BACK_PYRAMID_3PT_SPEED  = 5000; //further from the goal, tested
+	public static final double HALF_COURT_3PT_SPEED    = 5000; //NOT tested
 	//Shooter Wheel Encoder///////////////////////////////////////////////
 	//arm Radius
 	public static final int shooterWheelRadius = 3;//Colson wheel radius in inches
@@ -91,7 +98,7 @@ public class RobotMap {
 
 	//PID Gains for Shooter Wheel Speed Controller
 	public static final double shooterSpeedP =  0.0002;
-	public static final double shooterSpeedI =  0.000001412646174233; 
+	public static final double shooterSpeedI =  0.00001412646174233; 
 	public static final double shooterSpeedD = 0.0074778888124088;
 
 
@@ -100,14 +107,15 @@ public class RobotMap {
 	 ****************************************************************/
 	public static final double WALL_3PT_ANGLE          = 102; //up against the goal, NOT tested
 	public static final double PYRAMID_5PT_ANGLE       = 102; //NOT tested
-	public static final double FRONT_PYRAMID_3PT_ANGLE =  82; //closer to the goal, tested
-	public static final double BACK_PYRAMID_3PT_ANGLE  =  79; //further from the goal, tested
+	public static final double FRONT_PYRAMID_3PT_ANGLE =  88; //closer to the goal, tested
+	public static final double BACK_PYRAMID_3PT_ANGLE  =  76; //further from the goal, tested
+	public static final double IN_PYRAMID_3PT_ANGLE  =  75; //further fro
 	public static final double HALF_COURT_3PT_ANGLE    =  70; //NOT tested
 	public static final double ARM_HORIZONTAL_ANGLE    =  52;
 	
 	//arm voltage constant
-	public static final double hopperVoltage = 0.6;
-	public static final double armConstVoltage = 0.35; //voltage to overcome 
+	public static final double hopperVoltage = 0.65;
+	public static final double armConstVoltage = 0.7; //voltage to overcome 
 	public static final double armConstVoltageHome = -0.3; //voltage to zero arm on startup
 
 	//arm Encoder///////////////////////////////////////////////
@@ -137,7 +145,7 @@ public class RobotMap {
 	//PID Gains for Arm Position Controller
 
 	public static final double armPosP = 0.02;
-	public static final double armPosI = 0.0005912646174233;
+	public static final double armPosI = 0.0035912646174233;
 	public static final double armPosD = 0;
 	
 	public static final double armPosPDown = 0.02;

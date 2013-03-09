@@ -9,6 +9,7 @@ import frc2168_2013.commands.*;
 import frc2168_2013.commands.Presets.Preset_ArmHorizontal;
 import frc2168_2013.commands.Presets.Preset_Arm_Load;
 import frc2168_2013.commands.Presets.Preset_HalfCourt_3pt;
+import frc2168_2013.commands.Presets.Preset_InPyramid_3pt;
 import frc2168_2013.commands.Presets.Preset_Pyramid_5pt;
 import frc2168_2013.commands.Presets.Preset_RearOfPyramid_3pt;
 import frc2168_2013.commands.subSystems.Arm.ArmPIDPause;
@@ -220,7 +221,7 @@ public class OI {
 		operatorDPadR.whenPressed(new Preset_HalfCourt_3pt());
 		
 		//Shots from the side of the pyramid furthest from the goal (drive team calls this front)
-		operatorButtonA.whenPressed(new Preset_RearOfPyramid_3pt());
+		operatorButtonA.whenPressed(new Preset_InPyramid_3pt());
 		
 		//SHots from the side of the pyramid closest to the goal (drive team calls this rear)
 		//operatorButtonB.whenPressed(new Preset_FrontOfPyramid_3pt());
