@@ -20,11 +20,18 @@ import frc2168_2013.commands.subSystems.Stopper.StopperDisengage;
  * @author James
  *
  */
-public class RearOfPyramid_3pt_Side extends CommandGroup {
-	public RearOfPyramid_3pt_Side() {
+public class RearOfPyramid_3pt_Center extends CommandGroup {
+	public RearOfPyramid_3pt_Center() {
+		//Drive back 3 ft
+		addSequential(new DriveDrivetrainStraight(-((3*12)-8)));
+		//raise arm
 		addParallel(new ArmPnuematicExtend());
 		addParallel(new ShooterPIDSpeed(RobotMap.BACK_PYRAMID_3PT_SPEED));
-		addSequential(new Sleep(), 6 );
+		addSequential(new Sleep(), 6.5 );
+		
+		//drive forward 3ft - 11inches
+		addSequential(new DriveDrivetrainStraight(((3*12)-8-7.5)));
+		
 		//Shoot three discs
 		addSequential(new ShootSingleFrisbee());
 		addSequential(new Sleep(),0.5 );
@@ -35,10 +42,7 @@ public class RearOfPyramid_3pt_Side extends CommandGroup {
 		//addSequential(new ShootSingleFrisbee());
 		//                   //stop wheel
 		addSequential(new ShooterPIDPause());
-		//lower arm
-		addSequential(new ArmPnuematicStow());                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   addSequential(new Sleep(),1 );
-		addSequential(new DriveDrivetrainStraight(-((8*12)-8)));
-
+		
 
 		
 		

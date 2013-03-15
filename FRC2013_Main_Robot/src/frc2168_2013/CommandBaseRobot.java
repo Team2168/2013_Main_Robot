@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc2168_2013.commands.CommandBase;
 import frc2168_2013.commands.Auto.*;
 import frc2168_2013.commands.subSystems.Arm.DriveArmHome;
+import frc2168_2013.commands.subSystems.ArmPnumatic.ArmPnuematicStow;
 import frc2168_2013.dashboard.CompetitionDashboard;
 import frc2168_2013.utils.SerialCommunicator;
 
@@ -49,11 +50,11 @@ public class CommandBaseRobot extends IterativeRobot {
         CommandBase.init();
         
         // run command to zero arm automatically
-    	armPositionInit = new DriveArmHome();
+    	armPositionInit = new ArmPnuematicStow();
 
         //Start the compressor
         compressor = new Compressor(RobotMap.compressorPressureSwitch, RobotMap.compressorPower);
-        compressor.start();
+
         
         
         //Initialize auto mode chooser
@@ -74,8 +75,8 @@ public class CommandBaseRobot extends IterativeRobot {
     	Scheduler.getInstance().enable();
     	
     	// instantiate the command used for the autonomous period
-        //autonomousCommand = (Command) autoChooser.getSelected();
-        autonomousCommand = new RearOfPyramid_3pt_Side();
+        autonomousCommand = (Command) autoChooser.getSelected();
+        //autonomousCommand = new RearOfPyramid_3pt_Side();
     	// schedule the autonomous command (example)
         autonomousCommand.start();
         
@@ -112,8 +113,8 @@ public class CommandBaseRobot extends IterativeRobot {
     	if(autonomousCommand != null)
     		autonomousCommand.cancel();
     	
-    	armPositionInit.start();
-    	
+    	//armPositionInit.start();
+        compressor.start();
         //start dashboard
         dashboard = (Command) dashChooser.getSelected();
         dashboard.start();
@@ -160,10 +161,11 @@ public class CommandBaseRobot extends IterativeRobot {
     private void autoSelectInit() {
         autoChooser = new SendableChooser();
         
-        autoChooser.addDefault ("3 disc far Auto - Sides", new RearOfPyramid_3pt_Side());
-        autoChooser.addObject("2 disc close Auto - Center", new FrontOfPyramid_3pt_Center());
-        autoChooser.addObject ("2 disc close Auto - Right", new FrontOfPyramid_3pt_Right());
-        autoChooser.addObject ("2 disc close Auto - Left", new FrontOfPyramid_3pt_Left());
+        autoChooser.addDefault("3 disc far Auto - Sides", new RearOfPyramid_3pt_Side());
+        autoChooser.addObject("3disc far Auto - Center", new RearOfPyramid_3pt_Center());
+        //autoChooser.addObject("2 disc close Auto - Center", new FrontOfPyramid_3pt_Center());
+        //autoChooser.addObject ("2 disc close Auto - Right", new FrontOfPyramid_3pt_Right());
+        //autoChooser.addObject ("2 disc close Auto - Left", new FrontOfPyramid_3pt_Left());
         
         SmartDashboard.putData("Autonomous mode", autoChooser);
     }

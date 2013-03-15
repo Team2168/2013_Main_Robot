@@ -14,6 +14,8 @@ import frc2168_2013.commands.Presets.Preset_Pyramid_5pt;
 import frc2168_2013.commands.Presets.Preset_RearOfPyramid_3pt;
 import frc2168_2013.commands.subSystems.Arm.ArmPIDPause;
 import frc2168_2013.commands.subSystems.Arm.DriveArmWithConstant;
+import frc2168_2013.commands.subSystems.ArmPnumatic.ArmPnuematicExtend;
+import frc2168_2013.commands.subSystems.ArmPnumatic.ArmPnuematicStow;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainStraight;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainTurn;
 import frc2168_2013.commands.subSystems.Hanger.HangerDisengage;
@@ -201,12 +203,15 @@ public class OI {
 	
 	public OI() {
 		//DRIVER BUTTON MAP//
-		driveButtonLeftBumper.whileHeld(new HangerDisengage()); //disengage the hanger
-		driveButtonRightBumper.whileHeld(new HangerEngage()); //engage the hanger
+		driveButtonLeftBumper.whenPressed(new HangerDisengage()); //disengage the hanger
+		driveButtonRightBumper.whenPressed(new HangerEngage()); //engage the hanger
 		driveButtonA.whenPressed(new TeamDiscLightOn());
 		driveButtonA.whenReleased(new TeamDiscLightOff());
 		driveButtonX.whenPressed(new Preset_ArmHorizontal());
-
+		driveButtonY.whenPressed(new ArmPnuematicExtend());
+		driveButtonB.whenPressed(new ArmPnuematicStow());
+		
+		
 		//OPERATOR BUTTON MAP//
 		operatorTriggerR.whileHeld(new DriveHopperJoystick(-RobotMap.hopperVoltage));
 		operatorTriggerL.whileHeld(new DriveHopperJoystick(RobotMap.hopperVoltage));
@@ -226,6 +231,8 @@ public class OI {
 		//SHots from the side of the pyramid closest to the goal (drive team calls this rear)
 		//operatorButtonB.whenPressed(new Preset_FrontOfPyramid_3pt());
 		//operatorButtonY.whenPressed(new Preset_Wall_3pt());
+		operatorButtonY.whenPressed(new ArmPnuematicExtend());
+		operatorButtonB.whenPressed(new ArmPnuematicStow());
 		operatorButtonX.whenPressed(new Preset_Pyramid_5pt());
 		
 		operatorButtonB.whenPressed(new DriveArmWithConstant());
