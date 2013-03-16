@@ -46,12 +46,13 @@ public class RobotMap {
 	public static final int teamDiscLight   = 2;
 
 	//Solenoid Channels///////////////////////////////////////////////
-	public static final int hopperDiscStopperApply     = 1;
-	public static final int hopperDiscStopperRelease   = 2;
+	public static final int hopperExtend  			   = 1;
+	public static final int hopperRetract  			   = 2;
 	public static final int hangerEngage               = 3;
 	public static final int hangerDisengage            = 4;
 	public static final int armExtend				   = 5;
 	public static final int armRetract				   = 6;
+
 
 	//Analog Input Channels///////////////////////////////////////////
 	public static final int armLowStop  = 1;

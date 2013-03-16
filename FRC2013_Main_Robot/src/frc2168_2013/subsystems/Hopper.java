@@ -10,36 +10,28 @@ import frc2168_2013.RobotMap;
 import frc2168_2013.commands.subSystems.Hopper.DriveHopperJoystick;
 
 public class Hopper extends Subsystem {
-	double speed = 0.0;
-	
-	Talon hopperMotor;
+
+	DoubleSolenoid actuator;
 	DigitalInput disc1, disc2, disc3, disc4;
 	Relay teamDiscLight;
 	
 	public Hopper() {
-		hopperMotor = new Talon(RobotMap.hopperMotor);
+		
 		disc1 = new DigitalInput(RobotMap.hopperDisc1);
 		disc2 = new DigitalInput(RobotMap.hopperDisc2);
 		disc3 = new DigitalInput(RobotMap.hopperDisc3);
 		disc4 = new DigitalInput(RobotMap.hopperDisc4);
 		teamDiscLight = new Relay(RobotMap.teamDiscLight);
+		
+		actuator = new DoubleSolenoid(RobotMap.hopperExtend,
+                RobotMap.hopperRetract);
 	}
 	
 	protected void initDefaultCommand() {
 		//TODO: Add default command.
-		setDefaultCommand(new DriveHopperJoystick(0));
+
 	}
 
-	/**
-	 * Drives the hopper motor with a PWM input value (1.0 to -1.0).
-	 * 
-	 * @param speed the speed to drive the motor at (1.0 to -1.0)
-	 */
-	public void driveHopperPWM(double speed) {
-		if(OI.hInvert)
-			speed = -speed;
-		hopperMotor.set(-speed);
-	}
 
 	/**
 	 * Detects if disc1 is present. Disc1 is the disc closest to the shooter.
@@ -116,4 +108,30 @@ public class Hopper extends Subsystem {
 	 public void setDiscLightOff() {
 		 teamDiscLight.set(Relay.Value.kOff);
 	 }
+	 
+		/**
+		 * Engage the hanger / retract the actuators.
+		 */
+		public void Stow() {
+			//TODO: Verify that kForward engages the hanger
+			actuator.set(DoubleSolenoid.Value.kReverse);
+		}
+		
+		/**
+		 * Disengage the hanger / extend the actuators
+		 */
+		public void Extend(){
+			//TODO: Verify that kForward disengages the hanger
+			actuator.set(DoubleSolenoid.Value.kForward);
+		}
+		
+		public boolean isStowed(){
+			//TODO: Verify that kForward disengages the hanger
+			return actuator.get() == DoubleSolenoid.Value.kReverse;
+		}
+		
+		public boolean isExtended(){
+			//TODO: Verify that kForward disengages the hanger
+			return actuator.get() == DoubleSolenoid.Value.kForward;
+		}
 }
