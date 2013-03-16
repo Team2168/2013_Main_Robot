@@ -11,21 +11,16 @@ import frc2168_2013.commands.Presets.Preset_Arm_Load;
 import frc2168_2013.commands.Presets.Preset_HalfCourt_3pt;
 import frc2168_2013.commands.Presets.Preset_InPyramid_3pt;
 import frc2168_2013.commands.Presets.Preset_Pyramid_5pt;
-import frc2168_2013.commands.Presets.Preset_RearOfPyramid_3pt;
 import frc2168_2013.commands.subSystems.Arm.ArmPIDPause;
 import frc2168_2013.commands.subSystems.Arm.DriveArmWithConstant;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainStraight;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainTurn;
 import frc2168_2013.commands.subSystems.Hanger.HangerDisengage;
 import frc2168_2013.commands.subSystems.Hanger.HangerEngage;
-import frc2168_2013.commands.subSystems.Hopper.DriveHopperBackTimed;
-import frc2168_2013.commands.subSystems.Hopper.DriveHopperJoystick;
-import frc2168_2013.commands.subSystems.Hopper.StopHopperWhenFull;
 import frc2168_2013.commands.subSystems.Shooter.ShooterPIDPause;
 import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleExtend;
 import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleStow;
-import frc2168_2013.commands.subSystems.Stopper.StopperDisengage;
-import frc2168_2013.commands.subSystems.Stopper.StopperEngage;
+
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -39,9 +34,9 @@ public class OI {
 	public static final boolean      sAftInvert = true;  //for shooter
 	public static final boolean      hInvert = true;  //for hopper
 	
-	public static final int     rightJoyAxis = 5;
-	public static final int      leftJoyAxis = 2;
-	public static final int      triggerAxis = 3;
+	public static final int     	rightJoyAxis = 5;
+	public static final int      	leftJoyAxis = 2;
+	public static final int      	triggerAxis = 3;
 	
 	// minSpeed needs to be tweaked based on the particular drivetrain.
 	// It is the speed at which the drivetrain barely starts moving
@@ -214,10 +209,10 @@ public class OI {
 		
 		
 		//OPERATOR BUTTON MAP//
-		operatorTriggerR.whileHeld(new DriveHopperJoystick(-RobotMap.hopperVoltage));
-		operatorTriggerL.whileHeld(new DriveHopperJoystick(RobotMap.hopperVoltage));
-		operatorButtonLeftBumper.whenPressed(new StopperDisengage());
-		operatorButtonRightBumper.whenPressed(new StopperEngage());		
+		//operatorTriggerR.whileHeld(new DriveHopperJoystick(-RobotMap.hopperVoltage));
+		//operatorTriggerL.whileHeld(new DriveHopperJoystick(RobotMap.hopperVoltage));
+		//operatorButtonLeftBumper.whenPressed(new StopperDisengage());
+		//operatorButtonRightBumper.whenPressed(new StopperEngage());		
 		
 		operatorButtonRightStick.whenPressed(new ArmPIDPause());
 		operatorButtonLeftStick.whenPressed(new ShooterPIDPause());
@@ -239,8 +234,8 @@ public class OI {
 		operatorButtonB.whenPressed(new DriveArmWithConstant());
 		
 		operatorButtonStart.whenPressed(new ShootSingleFrisbee()); //shoot one frisbee at a time
-		operatorButtonReset.whileHeld(new StopHopperWhenFull());
-		operatorButtonReset.whenReleased(new DriveHopperBackTimed());
+		//operatorButtonReset.whileHeld(new StopHopperWhenFull());
+		//operatorButtonReset.whenReleased(new DriveHopperBackTimed());
 
 		
 		//Test Joystick Commands
