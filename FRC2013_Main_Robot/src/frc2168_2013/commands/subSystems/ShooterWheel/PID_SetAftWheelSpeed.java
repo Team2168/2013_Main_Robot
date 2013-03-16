@@ -25,13 +25,15 @@ public class PID_SetAftWheelSpeed extends CommandBase {
    }
 
     // Called just before this Command runs the first time
-    protected void initialize() {
+    
+	protected void initialize() {
     	shooterWheel.shooterWheelSpeedControllerAft.reset();
     	shooterWheel.shooterWheelSpeedControllerAft.Enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
+    
+	protected void execute() {
     	if (setPoint != 0)
     		shooterWheel.shooterWheelSpeedControllerAft.setSetPoint(setPoint);
     	shooterWheel.driveAftWheel(shooterWheel.shooterWheelSpeedControllerAft.getControlOutput());
@@ -39,19 +41,22 @@ public class PID_SetAftWheelSpeed extends CommandBase {
     }
 
     // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
+    
+	protected boolean isFinished() {
         return shooterWheel.shooterWheelSpeedControllerAft.isEnabled() == false;
     }
 
     // Called once after isFinished returns true
-    protected void end() {
+    
+	protected void end() {
     	shooterWheel.shooterWheelSpeedControllerAft.Pause();
     }
 
     //delete me
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
-    protected void interrupted() {
+    
+	protected void interrupted() {
     	end();
     }
 }

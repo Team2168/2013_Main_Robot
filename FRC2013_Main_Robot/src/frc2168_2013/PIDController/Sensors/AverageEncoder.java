@@ -95,13 +95,14 @@ public class AverageEncoder extends Encoder implements PIDSensorInterface{
 			arrayPos=0;	
 	}
 	
-	//@Override
+	//
+
 
 	public double getRate()
 	{
 		//getRate
 		timeNow = System.currentTimeMillis();
-		countNow = (double)super.get();
+		countNow = super.get();
 		rate=(countNow-countBefore)/(timeNow-oldTime); //counts per millisecond
 		oldTime=timeNow;
 		countBefore=countNow;
@@ -129,6 +130,7 @@ public class AverageEncoder extends Encoder implements PIDSensorInterface{
 		
 		return getAverage(); //ticks per minute... rpm
 	}
+	
 	
 	
 	

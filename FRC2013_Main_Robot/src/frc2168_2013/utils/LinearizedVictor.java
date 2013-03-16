@@ -165,6 +165,7 @@ public class LinearizedVictor extends Victor {
      * 
      * @param speed the desired % of output voltage from the victor.
      */
+	
 	public void set(double speed) {
 		double retVal;
 

@@ -3,7 +3,6 @@ package frc2168_2013.PIDController.Controller;
 
 import java.util.TimerTask;
 
-import edu.wpi.first.wpilibj.command.Command;
 import frc2168_2013.PIDController.Controller.PIDSpeed;
 import frc2168_2013.PIDController.Sensors.PIDSensorInterface;
 import frc2168_2013.PIDController.TCPStream.TCPMessageInterface;
@@ -738,6 +737,7 @@ public class PIDSpeed implements TCPMessageInterface
 	/**
 	 * This is used with a TCP Stream debugger to show the values of the PID loop.
 	 */
+	
 	public synchronized String sendJSON()
 	{
 		
@@ -775,6 +775,7 @@ public class PIDSpeed implements TCPMessageInterface
 		"}\n";		
 	}
 	
+	
 	public synchronized String JSONInit()
 	{
 		return "{" +
@@ -800,6 +801,7 @@ public class PIDSpeed implements TCPMessageInterface
 	/**
 	 * This is used with a TCP stream debugger to change values of this PId controller on the fly
 	 */
+	
 	public synchronized void receiveJSON(String[] message)
 	{
 		//System.out.println("receive command");
@@ -1122,6 +1124,7 @@ public class PIDSpeed implements TCPMessageInterface
 		/**
 		 * called periodically in its own thread
 		 */
+		
 		public void run()
 		{
 			speedController.calculate();

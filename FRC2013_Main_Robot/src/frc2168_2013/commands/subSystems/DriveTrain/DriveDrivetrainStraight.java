@@ -55,6 +55,7 @@ public class DriveDrivetrainStraight extends CommandBase {
 		this.runForever = runForever;  
 	}
 	
+	
 	protected void initialize() {
 		finished = false;
 		currentLeftSpeed = currentRightSpeed = OI.minDriveSpeed;
@@ -68,6 +69,7 @@ public class DriveDrivetrainStraight extends CommandBase {
 	 * Drive straight until we are at our destination.
 	 * This only travels forwards right now.
 	 */
+	
 	protected void execute() {
 		double newLeftSpeed = 0, newRightSpeed = 0, angle = 0;
 		double speedModifierL = 1, speedModifierR = 1;
@@ -120,16 +122,19 @@ public class DriveDrivetrainStraight extends CommandBase {
 	}
 
 	
+	
 	protected boolean isFinished() {
 		return finished;
 	}
 
+	
 	
 	protected void end() {
 		//make sure we are stopped for good measure
 		drivetrain.tankDrive(0, 0);
 	}
 
+	
 	
 	protected void interrupted() {
 		//Clear the current command to motor controllers if we're interrupted.

@@ -25,6 +25,7 @@ public class Hopper extends Subsystem {
                 RobotMap.hopperRetract);
 	}
 	
+	
 	protected void initDefaultCommand() {
 		//TODO: Add default command.
 

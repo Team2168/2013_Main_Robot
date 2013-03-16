@@ -14,9 +14,9 @@ public CompetitionDashboard()
         //Show what command your subsystem is running on the SmartDashboard
         SmartDashboard.putData(drivetrain);
         SmartDashboard.putData(shooterWheel);
+        SmartDashboard.putData(shooterAngle);
         SmartDashboard.putData(arm);
         SmartDashboard.putData(hopper);
-        SmartDashboard.putData(hardStop);
         SmartDashboard.putData(hanger);
         
 
@@ -33,6 +33,7 @@ SmartDashboard.putString("compTime", "");
 }
 
 
+
 protected void initialize()
 {
 // TODO Auto-generated method stub
@@ -40,21 +41,22 @@ protected void initialize()
 }
 
 
+
 protected void execute()
 {
 // TODO Auto-generated method stub
 //put Shooter data on screen
-SmartDashboard.putNumber("shooterEncoder", shooterWheel.shooterWheelSpeedController.getSensorRate());
-SmartDashboard.putNumber("shooter PID Output", shooterWheel.shooterWheelSpeedController.getControlOutput());
-SmartDashboard.putBoolean("shooterAtSpeed", shooterWheel.shooterWheelSpeedController.isFinished());
-SmartDashboard.putBoolean("enable", shooterWheel.shooterWheelSpeedController.isEnabled());
-SmartDashboard.putNumber("executionTime", shooterWheel.shooterWheelSpeedController.getExecutionTime());
-SmartDashboard.putNumber("shooterSetPoint", shooterWheel.shooterWheelSpeedController.getSetPoint());
+SmartDashboard.putNumber("shooterEncoder", shooterWheel.shooterWheelSpeedControllerAft.getSensorRate());
+SmartDashboard.putNumber("shooter PID Output", shooterWheel.shooterWheelSpeedControllerAft.getControlOutput());
+SmartDashboard.putBoolean("shooterAtSpeed", shooterWheel.shooterWheelSpeedControllerAft.isFinished());
+SmartDashboard.putBoolean("enable", shooterWheel.shooterWheelSpeedControllerAft.isEnabled());
+SmartDashboard.putNumber("executionTime", shooterWheel.shooterWheelSpeedControllerAft.getExecutionTime());
+SmartDashboard.putNumber("shooterSetPoint", shooterWheel.shooterWheelSpeedControllerAft.getSetPoint());
 
 
 
-SmartDashboard.putNumber("shooter Err", shooterWheel.shooterWheelSpeedController.getError());
-SmartDashboard.putNumber("shooter acceptErr", shooterWheel.shooterWheelSpeedController.getAcceptErrorDiff());
+SmartDashboard.putNumber("shooter Err", shooterWheel.shooterWheelSpeedControllerAft.getError());
+SmartDashboard.putNumber("shooter acceptErr", shooterWheel.shooterWheelSpeedControllerAft.getAcceptErrorDiff());
 
 
 
@@ -97,6 +99,7 @@ SmartDashboard.putNumber("arm acceptErr", arm.armPosController.getAcceptErrorDif
 }
 
 
+
 protected boolean isFinished()
 {
 // TODO Auto-generated method stub
@@ -104,11 +107,13 @@ return false;
 }
 
 
+
 protected void end()
 {
 // TODO Auto-generated method stub
 
 }
+
 
 
 protected void interrupted()

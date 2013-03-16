@@ -5,9 +5,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button; 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc2168_2013.utils.JoystickAnalogButton;
-import frc2168_2013.commands.*;
-import frc2168_2013.commands.Presets.Preset_ArmHorizontal;
-import frc2168_2013.commands.Presets.Preset_Arm_Load;
 import frc2168_2013.commands.Presets.Preset_HalfCourt_3pt;
 import frc2168_2013.commands.Presets.Preset_InPyramid_3pt;
 import frc2168_2013.commands.Presets.Preset_Pyramid_5pt;
@@ -205,7 +202,7 @@ public class OI {
 		driveButtonRightBumper.whenPressed(new HangerEngage()); //engage the hanger
 		driveButtonA.whenPressed(new TeamDiscLightOn());
 		driveButtonA.whenReleased(new TeamDiscLightOff());
-		driveButtonX.whenPressed(new Preset_ArmHorizontal());
+		//driveButtonX.whenPressed();
 		driveButtonY.whenPressed(new ShooterAngleExtend());
 		driveButtonB.whenPressed(new ShooterAngleStow());
 		
@@ -220,7 +217,7 @@ public class OI {
 		operatorButtonLeftStick.whenPressed(new PID_ShooterPause());
 		
 		
-		operatorDPadL.whenPressed(new Preset_Arm_Load());
+		//operatorDPadL.whenPressed();
 		operatorDPadR.whenPressed(new Preset_HalfCourt_3pt());
 		
 		//Shots from the side of the pyramid furthest from the goal (drive team calls this front)

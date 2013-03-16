@@ -1,8 +1,8 @@
 package frc2168_2013.commands.subSystems.DriveTrain;
 
 import frc2168_2013.OI;
-import frc2168_2013.RobotMap;
 import frc2168_2013.commands.CommandBase;
+import frc2168_2013.subsystems.Drivetrain;
 
 public class DriveDrivetrainTurn extends CommandBase {
 
@@ -48,6 +48,7 @@ public class DriveDrivetrainTurn extends CommandBase {
 		dimeTurning = dime;
 	}
 	
+	
 	protected void initialize() {
 		finished = false;
 		
@@ -62,6 +63,7 @@ public class DriveDrivetrainTurn extends CommandBase {
 	/**
 	 * Drive straight until we are at our destination
 	 */
+	
 	protected void execute() {
 		currentAngle = drivetrain.getAngle();
 		leftToGo = Math.abs(currentAngle - destinationAngle);
@@ -73,7 +75,7 @@ public class DriveDrivetrainTurn extends CommandBase {
 		} else {
 			//If we aren't turning on a dime, turn the reverse wheel at the
 			//  slow speed to keep the turning radius down
-			revRotationSpeed = drivetrain.rateLimit(-SLOW_SPEED, revRotationSpeed,
+			revRotationSpeed = Drivetrain.rateLimit(-SLOW_SPEED, revRotationSpeed,
 					ACCEL_RATE_LIMIT, DECEL_RATE_LIMIT);
 		}
 		System.out.println("Gyro: " + currentAngle + "  left: " + leftToGo +
@@ -94,16 +96,19 @@ public class DriveDrivetrainTurn extends CommandBase {
 	}
 
 	
+	
 	protected boolean isFinished() {
 		return finished;
 	}
 
+	
 	
 	protected void end() {
 		//make sure we are stopped for good measure
 		drivetrain.tankDrive(0, 0);
 	}
 
+	
 	
 	protected void interrupted() {
 		//Clear the current command to motor controllers if we're interrupted.
@@ -126,7 +131,7 @@ public class DriveDrivetrainTurn extends CommandBase {
 			speed = TOP_SPEED;
 		}
 		
-		speed = drivetrain.rateLimit(speed, currentSpeed, ACCEL_RATE_LIMIT, DECEL_RATE_LIMIT);
+		speed = Drivetrain.rateLimit(speed, currentSpeed, ACCEL_RATE_LIMIT, DECEL_RATE_LIMIT);
 		
 		//Cap the top speed
 		if(speed > TOP_SPEED) {

@@ -11,22 +11,27 @@ public class TeamDiscLightOff extends CommandBase {
 		//Doesn't require any subsystem.
 	}
 
+	
 	protected void initialize() {
 		//Nothing to do
 	}
 
+	
 	protected void execute() {
 		hopper.setDiscLightOff();
 	}
 
+	
 	protected boolean isFinished() {
 		return true;
 	}
+	
 	
 	protected void interrupted() {
 		//Nothing to do
 	}
 
+	
 	protected void end() {
 		//Nothing to do
 	}

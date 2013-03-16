@@ -10,8 +10,6 @@ import javax.microedition.io.ServerSocketConnection;
 
 import javax.microedition.io.StreamConnection;
 
-import com.sun.squawk.io.BufferedReader;
-
 import frc2168_2013.PIDController.TCPStream.SplitStrings;
 
 
@@ -90,6 +88,7 @@ public class TCPCameraSensor
 	{
 		t3 = new Thread(new Runnable()
 		{
+		
 			public void run()
 			{
 
@@ -123,6 +122,7 @@ public class TCPCameraSensor
 
 		t1 = new Thread(new Runnable()
 		{
+			
 			public void run()
 			{
 				try
@@ -168,6 +168,7 @@ public class TCPCameraSensor
 
 		t2 = new Thread(new Runnable()
 		{
+			
 			public void run()
 			{
 

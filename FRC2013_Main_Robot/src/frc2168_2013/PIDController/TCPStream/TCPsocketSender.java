@@ -10,8 +10,6 @@ import javax.microedition.io.ServerSocketConnection;
 
 import javax.microedition.io.StreamConnection;
 
-import com.sun.squawk.io.BufferedReader;
-
 
 
 public class TCPsocketSender
@@ -82,6 +80,7 @@ public class TCPsocketSender
 	{
 		t3 = new Thread(new Runnable()
 		{
+			
 			public void run()
 			{
 		
@@ -117,6 +116,7 @@ public class TCPsocketSender
 
 		t1 = new Thread(new Runnable()
 		{
+			
 			public void run()
 			{
 				try
@@ -180,6 +180,7 @@ private void sender()
 
 	t2 = new Thread(new Runnable()
 	{
+		
 		public void run()
 		{
 

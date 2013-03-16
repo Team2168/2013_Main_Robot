@@ -129,7 +129,8 @@ public class Drivetrain extends Subsystem {
     /**
      * Initialize the default command for the drivetrain subsystem.
      */
-    public void initDefaultCommand() {
+    
+	public void initDefaultCommand() {
 		setDefaultCommand(new DriveWithJoystick());
     }
 	

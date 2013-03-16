@@ -8,6 +8,7 @@ public class Intake extends Subsystem {
 	/**
 	 * Set the default command
 	 */
+	
 	public void initDefaultCommand() {
 		//Set the default command to stop the rollers
 		setDefaultCommand(new SetIntakeSpeedPWM(0.0, 0.0));

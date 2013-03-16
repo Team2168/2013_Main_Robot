@@ -1,6 +1,7 @@
 package frc2168_2013.commands.subSystems.DriveTrain;
 
 import frc2168_2013.commands.CommandBase;
+import frc2168_2013.subsystems.Drivetrain;
 
 public class DriveDrivetrainWithJoystick extends CommandBase {
 	
@@ -12,24 +13,28 @@ public class DriveDrivetrainWithJoystick extends CommandBase {
 		requires(drivetrain);
 	}
 	
+	
 	protected void initialize() {
 		leftSpeed = rightSpeed = 0.0;
 	}
 
+	
 	protected void execute() {
 		//It is possible to bring the battery to it's knees with the 6 motors
 		//  on the drivetrain. Play nice, slowly ramp up.
-		leftSpeed = drivetrain.rateLimit(oi.getbaseDriverLeftAxis(), leftSpeed,
+		leftSpeed = Drivetrain.rateLimit(oi.getbaseDriverLeftAxis(), leftSpeed,
 				ACCEL_RATE_LIMIT, DECEL_RATE_LIMIT);
-		rightSpeed = drivetrain.rateLimit(oi.getbaseDriverRightAxis(), rightSpeed,
+		rightSpeed = Drivetrain.rateLimit(oi.getbaseDriverRightAxis(), rightSpeed,
 				ACCEL_RATE_LIMIT, DECEL_RATE_LIMIT);
 		
 		drivetrain.tankDrive(rightSpeed, leftSpeed);
 	}
 
+	
 	protected boolean isFinished() {
 		return false;
 	}
+	
 	
 	protected void interrupted() {
 		//It's unlikely this will ever get called.
@@ -38,6 +43,7 @@ public class DriveDrivetrainWithJoystick extends CommandBase {
 		drivetrain.tankDrive(0.0, 0.0);
 	}
 
+	
 	protected void end() {
 		// nothing to do here
 	}

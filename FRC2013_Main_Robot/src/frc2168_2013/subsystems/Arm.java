@@ -65,6 +65,7 @@ public class Arm extends Subsystem {
 		highHardStop = new AnalogChannel(RobotMap.armHighStop);
 	}
 
+	
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
 		setDefaultCommand(new DriveArmWithJoystick());

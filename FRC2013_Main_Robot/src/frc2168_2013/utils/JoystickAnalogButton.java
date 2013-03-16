@@ -58,6 +58,7 @@ public class JoystickAnalogButton extends Button {
     	return THRESHOLD;
     }
     
+	
 	public boolean get() {
 		if(THRESHOLD < 0){
 			return m_joystick.getRawAxis(m_axisNumber) < THRESHOLD;		//Return true if axis value is less than negative threshold

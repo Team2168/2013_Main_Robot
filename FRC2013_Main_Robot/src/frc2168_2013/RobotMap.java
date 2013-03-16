@@ -38,6 +38,10 @@ public class RobotMap {
 	public static final int hopperDisc2 = 10;
 	public static final int hopperDisc3 = 11;
 	public static final int hopperDisc4 = 12;
+	
+	//dummies
+	public static final int armEncoderChannelA = 9;
+	public static final int armEncoderChannelB = 9;
 
 	public static final int compressorPressureSwitch = 14;
 

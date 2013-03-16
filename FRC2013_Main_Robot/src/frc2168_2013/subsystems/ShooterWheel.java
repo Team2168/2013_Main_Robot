@@ -64,7 +64,8 @@ public class ShooterWheel extends Subsystem {
 	/**
 	 * Set the default command for this subsystem.
 	 */
-    public void initDefaultCommand() {
+    
+	public void initDefaultCommand() {
     	//Set the shooter wheels to not spin.
     	setDefaultCommand(new DriveShooterWithJoystick());
     }

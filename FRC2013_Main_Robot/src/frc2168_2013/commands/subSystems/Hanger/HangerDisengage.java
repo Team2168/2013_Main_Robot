@@ -14,22 +14,27 @@ public class HangerDisengage extends CommandBase {
 		requires (hanger);
 	}
 
+	
 	protected void initialize() {
 		//Nothing to do here
 	}
 
+	
 	protected void execute() {
 		hanger.disengage();
 	}
 
+	
 	protected void interrupted() {
 		//Nothing to do here
 	}
 
+	
 	protected void end() {
 		//Nothing to do here
 	}
 
+	
 	protected boolean isFinished() {
 		//Keep disengaging the hanger until another command come along that
 		// requires the hanger.

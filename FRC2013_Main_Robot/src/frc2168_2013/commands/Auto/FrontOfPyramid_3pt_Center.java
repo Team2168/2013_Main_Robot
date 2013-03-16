@@ -1,11 +1,8 @@
 package frc2168_2013.commands.Auto;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc2168_2013.commands.*;
 import frc2168_2013.commands.Presets.Preset_FrontOfPyramid_3pt;
 import frc2168_2013.commands.subSystems.Arm.DriveArmHome;
-import frc2168_2013.commands.subSystems.Hopper.HopperExtend;
-import frc2168_2013.commands.subSystems.Hopper.HopperStow;
 import frc2168_2013.commands.subSystems.Hopper.ShootSingleDisc;
 import frc2168_2013.commands.subSystems.ShooterWheel.PID_ShooterPause;
 

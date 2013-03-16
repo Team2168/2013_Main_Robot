@@ -22,8 +22,7 @@ public abstract class CommandBase extends Command {
     public static Hopper         hopper = new Hopper();
     public static Arm               arm = new Arm();
     public static Hanger         hanger = new Hanger();
-    public static HardStop     hardStop = new HardStop();
-    public static ShooterAngle armPnuematic = new ShooterAngle();
+  
 
     public static void init() {
         // This MUST be here. If the OI creates Commands (which it very likely
@@ -39,7 +38,7 @@ public abstract class CommandBase extends Command {
         SmartDashboard.putData(shooterWheel);
         SmartDashboard.putData(hopper);
         SmartDashboard.putData(arm);
-        SmartDashboard.putData(armPnuematic);
+        SmartDashboard.putData(shooterAngle);
     }
 
     public CommandBase(String name) {

@@ -15,6 +15,7 @@ public class ShooterAngle extends Subsystem {
 	/**
 	 * Tells the Shooter Angle what to do when it starts
 	 */
+	
 	protected void initDefaultCommand() {
 		
 	}
