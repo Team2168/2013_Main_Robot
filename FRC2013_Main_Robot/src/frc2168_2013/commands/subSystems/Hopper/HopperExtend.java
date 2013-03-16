@@ -7,12 +7,12 @@ import frc2168_2013.commands.CommandBase;
  *
  * @author Shriji
  */
-public class HopperPneumaticExtend extends CommandBase {
+public class HopperExtend extends CommandBase {
 
 	/**
 	 * Default constructor.
 	 */
-    public HopperPneumaticExtend() {
+    public HopperExtend() {
     	requires(hopper);
     }
 

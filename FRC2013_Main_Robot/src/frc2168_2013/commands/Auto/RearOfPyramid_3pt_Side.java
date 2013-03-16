@@ -8,6 +8,7 @@ import frc2168_2013.commands.Presets.Preset_RearOfPyramid_3pt;
 import frc2168_2013.commands.subSystems.Arm.DriveArmHome;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainStraight;
 import frc2168_2013.commands.subSystems.Hopper.DriveHopperJoystick;
+import frc2168_2013.commands.subSystems.Hopper.ShootSingleDisc;
 import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleExtend;
 import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleStow;
 import frc2168_2013.commands.subSystems.ShooterWheel.PID_ShooterPause;
@@ -26,12 +27,12 @@ public class RearOfPyramid_3pt_Side extends CommandGroup {
 		addParallel(new PID_SetAftWheelSpeed(RobotMap.BACK_PYRAMID_3PT_SPEED));
 		addSequential(new Sleep(), 6 );
 		//Shoot three discs
-		addSequential(new ShootSingleFrisbee());
+		addSequential(new ShootSingleDisc());
 		addSequential(new Sleep(),0.5 );
-		addSequential(new ShootSingleFrisbee());
+		addSequential(new ShootSingleDisc());
 		addSequential(new Sleep(),0.5 );
-		addSequential(new StopperDisengage());
-		addSequential(new DriveHopperJoystick(RobotMap.hopperVoltage), 2.5);
+		addSequential(new ShootSingleDisc());
+		
 		//addSequential(new ShootSingleFrisbee());
 		//                   //stop wheel
 		addSequential(new PID_ShooterPause());

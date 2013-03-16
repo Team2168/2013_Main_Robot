@@ -7,9 +7,9 @@ import frc2168_2013.commands.CommandBase;
  *
  * @author Shriji
  */
-public class HopperPnuematicStow extends CommandBase {
+public class HopperStow extends CommandBase {
 
-    public HopperPnuematicStow() {
+    public HopperStow() {
     	requires(hopper);
     	
     }
