@@ -20,7 +20,7 @@ public class Preset_InPyramid_3pt extends CommandGroup {
 		// get through the pyramid. We're out of buttons...
 		
 		//Raise arm
-		addParallel(new RaiseArmSequence(RobotMap.IN_PYRAMID_3PT_ANGLE));
+		//addParallel(new RaiseArmSequence(RobotMap.IN_PYRAMID_3PT_ANGLE));
 		//Get wheel up to speed
 		addParallel(new PID_SetAftWheelSpeed(RobotMap.BACK_PYRAMID_3PT_SPEED));
 	}

@@ -12,7 +12,7 @@ public class Preset_HalfCourt_3pt extends CommandGroup {
 	
 	public Preset_HalfCourt_3pt(){
 		//Raise arm
-		addParallel(new RaiseArmSequence(RobotMap.HALF_COURT_3PT_ANGLE));
+		//addParallel(new RaiseArmSequence(RobotMap.HALF_COURT_3PT_ANGLE));
 		//Get wheel up to speed
 		addParallel(new PID_SetAftWheelSpeed(RobotMap.HALF_COURT_3PT_SPEED));
 	}

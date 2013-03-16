@@ -12,7 +12,7 @@ public class Preset_Pyramid_5pt extends CommandGroup {
 	
 	public Preset_Pyramid_5pt(){
 		//Raise arm
-		addParallel(new RaiseArmSequence(RobotMap.PYRAMID_5PT_ANGLE));
+		//addParallel(new RaiseArmSequence(RobotMap.PYRAMID_5PT_ANGLE));
 		//Get wheel up to speed
 		addParallel(new PID_SetAftWheelSpeed(RobotMap.PYRAMID_5PT_SPEED));
 	}
