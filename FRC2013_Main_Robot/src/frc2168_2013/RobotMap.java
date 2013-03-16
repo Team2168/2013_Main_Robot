@@ -95,7 +95,7 @@ public class RobotMap {
 	public static final int shooterEncoderMinPeriod = 10;
 	public static final boolean shooterEncoderReverse = false;
 	public static final int shooterAvgEncoderVal = 5;
-	public static final int shooterAcceptError = 100; //degrees;
+	public static final int shooterAcceptError = 10; //degrees;
 
 	//PID Parameters //////////////////////////////////////////////////
 	public static final int shooterPIDArraySize = 50;
