@@ -7,7 +7,7 @@ import frc2168_2013.RobotMap;
 import frc2168_2013.PIDController.Controller.PIDSpeed;
 import frc2168_2013.PIDController.Sensors.AverageEncoder;
 import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
-import frc2168_2013.commands.subSystems.Shooter.DriveShooterWithJoystick;
+import frc2168_2013.commands.subSystems.ShooterWheel.DriveShooterWithJoystick;
 
 public class ShooterWheel extends Subsystem {
 	Talon shooterMotorAft;

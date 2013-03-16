@@ -1,5 +1,5 @@
 
-package frc2168_2013.commands.subSystems.Shooter;
+package frc2168_2013.commands.subSystems.ShooterWheel;
 
 import frc2168_2013.commands.CommandBase;
 
@@ -7,18 +7,18 @@ import frc2168_2013.commands.CommandBase;
  *
  * @author shriji
  */
-public class ShooterPIDSpeed extends CommandBase {
+public class PID_SetAftWheelSpeed extends CommandBase {
 	
 	private double setPoint;
 
-    public ShooterPIDSpeed() {
+    public PID_SetAftWheelSpeed() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(shooterWheel);
-    	this.setPoint = shooterWheel.shooterWheelSpeedController.getSetPoint();
+    	this.setPoint = shooterWheel.shooterWheelSpeedControllerAft.getSetPoint();
     }
     
-   public ShooterPIDSpeed(double setPoint){
+   public PID_SetAftWheelSpeed(double setPoint){
 	   this();
 	   this.setPoint = setPoint;
 	   
@@ -26,26 +26,26 @@ public class ShooterPIDSpeed extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	shooterWheel.shooterWheelSpeedController.reset();
-    	shooterWheel.shooterWheelSpeedController.Enable();
+    	shooterWheel.shooterWheelSpeedControllerAft.reset();
+    	shooterWheel.shooterWheelSpeedControllerAft.Enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if (setPoint != 0)
-    		shooterWheel.shooterWheelSpeedController.setSetPoint(setPoint);
-    	shooterWheel.setShooterPWM(shooterWheel.shooterWheelSpeedController.getControlOutput());
+    		shooterWheel.shooterWheelSpeedControllerAft.setSetPoint(setPoint);
+    	shooterWheel.driveAftWheel(shooterWheel.shooterWheelSpeedControllerAft.getControlOutput());
     	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return shooterWheel.shooterWheelSpeedController.isEnabled() == false;
+        return shooterWheel.shooterWheelSpeedControllerAft.isEnabled() == false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	shooterWheel.shooterWheelSpeedController.Pause();
+    	shooterWheel.shooterWheelSpeedControllerAft.Pause();
     }
 
     //delete me

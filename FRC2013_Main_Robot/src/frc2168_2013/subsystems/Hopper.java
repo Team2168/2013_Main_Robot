@@ -4,10 +4,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.Talon;
-import frc2168_2013.OI;
 import frc2168_2013.RobotMap;
-import frc2168_2013.commands.subSystems.Hopper.DriveHopperJoystick;
+
 
 public class Hopper extends Subsystem {
 

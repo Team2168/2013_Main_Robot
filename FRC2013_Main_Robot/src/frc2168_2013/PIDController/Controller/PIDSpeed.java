@@ -8,8 +8,8 @@ import frc2168_2013.PIDController.Controller.PIDSpeed;
 import frc2168_2013.PIDController.Sensors.PIDSensorInterface;
 import frc2168_2013.PIDController.TCPStream.TCPMessageInterface;
 import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
-import frc2168_2013.commands.subSystems.Shooter.ShooterPIDPause;
-import frc2168_2013.commands.subSystems.Shooter.ShooterPIDSpeed;
+import frc2168_2013.commands.subSystems.ShooterWheel.PID_ShooterPause;
+import frc2168_2013.commands.subSystems.ShooterWheel.PID_SetAftWheelSpeed;
 
 
 /**
@@ -820,11 +820,11 @@ public class PIDSpeed implements TCPMessageInterface
 		if(TCPsocketSender.strToBool(message[4]))
 		{
 		//	Enable();
-		new ShooterPIDSpeed(Double.valueOf(message[3]).doubleValue()).start();
+		new PID_SetAftWheelSpeed(Double.valueOf(message[3]).doubleValue()).start();
 		
 		}//new PID_Drive(Double.valueOf(message[3]).doubleValue()).start();
 		else
-			new ShooterPIDPause().start();
+			new PID_ShooterPause().start();
 		}
 		catch (NumberFormatException e)
 		{

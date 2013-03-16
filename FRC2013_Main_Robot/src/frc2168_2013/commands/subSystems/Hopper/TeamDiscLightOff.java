@@ -1,11 +1,13 @@
-package frc2168_2013.commands;
+package frc2168_2013.commands.subSystems.Hopper;
+
+import frc2168_2013.commands.CommandBase;
 
 /**
  * A command to turn on the team disc light.
  */
-public class TeamDiscLightOn extends CommandBase {
+public class TeamDiscLightOff extends CommandBase {
 
-	public TeamDiscLightOn() {
+	public TeamDiscLightOff() {
 		//Doesn't require any subsystem.
 	}
 
@@ -14,7 +16,7 @@ public class TeamDiscLightOn extends CommandBase {
 	}
 
 	protected void execute() {
-		hopper.setDiscLightOn();
+		hopper.setDiscLightOff();
 	}
 
 	protected boolean isFinished() {

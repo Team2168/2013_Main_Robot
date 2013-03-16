@@ -1,5 +1,5 @@
 
-package frc2168_2013.commands.subSystems.Shooter;
+package frc2168_2013.commands.subSystems.ShooterWheel;
 
 import frc2168_2013.commands.CommandBase;
 
@@ -7,9 +7,9 @@ import frc2168_2013.commands.CommandBase;
  *
  * @author shriji
  */
-public class ShooterPIDPause extends CommandBase {
+public class PID_ShooterPause extends CommandBase {
 
-    public ShooterPIDPause() {
+    public PID_ShooterPause() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(shooterWheel);
@@ -17,18 +17,20 @@ public class ShooterPIDPause extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	shooterWheel.shooterWheelSpeedController.Pause();
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	shooterWheel.shooterWheelSpeedControllerAft.Pause();
+    	shooterWheel.shooterWheelSpeedControllerFwd.Pause();
     	
     }
 
     //delete me
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (shooterWheel.shooterWheelSpeedController.isEnabled() == false);
+        return (shooterWheel.shooterWheelSpeedControllerAft.isEnabled() == false && shooterWheel.shooterWheelSpeedControllerFwd.isEnabled() == false);
     }
 
     // Called once after isFinished returns true

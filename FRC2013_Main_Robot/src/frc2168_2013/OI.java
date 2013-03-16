@@ -17,9 +17,11 @@ import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainStraight;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainTurn;
 import frc2168_2013.commands.subSystems.Hanger.HangerDisengage;
 import frc2168_2013.commands.subSystems.Hanger.HangerEngage;
-import frc2168_2013.commands.subSystems.Shooter.ShooterPIDPause;
+import frc2168_2013.commands.subSystems.Hopper.TeamDiscLightOff;
+import frc2168_2013.commands.subSystems.Hopper.TeamDiscLightOn;
 import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleExtend;
 import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleStow;
+import frc2168_2013.commands.subSystems.ShooterWheel.PID_ShooterPause;
 
 
 /**
@@ -215,7 +217,7 @@ public class OI {
 		//operatorButtonRightBumper.whenPressed(new StopperEngage());		
 		
 		operatorButtonRightStick.whenPressed(new ArmPIDPause());
-		operatorButtonLeftStick.whenPressed(new ShooterPIDPause());
+		operatorButtonLeftStick.whenPressed(new PID_ShooterPause());
 		
 		
 		operatorDPadL.whenPressed(new Preset_Arm_Load());
@@ -233,7 +235,7 @@ public class OI {
 		
 		operatorButtonB.whenPressed(new DriveArmWithConstant());
 		
-		operatorButtonStart.whenPressed(new ShootSingleFrisbee()); //shoot one frisbee at a time
+//		operatorButtonStart.whenPressed(new ShootSingleFrisbee()); //shoot one frisbee at a time
 		//operatorButtonReset.whileHeld(new StopHopperWhenFull());
 		//operatorButtonReset.whenReleased(new DriveHopperBackTimed());
 

@@ -1,4 +1,4 @@
-package frc2168_2013.commands.subSystems.Shooter;
+package frc2168_2013.commands.subSystems.ShooterWheel;
 
 import frc2168_2013.OI;
 import frc2168_2013.commands.CommandBase;
@@ -16,7 +16,7 @@ public class DriveShooterWithJoystick extends CommandBase {
 
 	protected void execute() {
 		shooterWheel.tankDrive(oi.getoperatorDriveLeftStick(),oi.getoperatorDriveRightStick());
-		//shooter.setShooterPWM(oi.getTestAxis(3));		//For testing w/o PID
+		
 	}
 
 	protected void initialize() {

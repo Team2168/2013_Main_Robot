@@ -1,4 +1,4 @@
-package frc2168_2013.commands.subSystems.Shooter;
+package frc2168_2013.commands.subSystems.ShooterWheel;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc2168_2013.commands.CommandBase;
@@ -27,7 +27,7 @@ protected void execute()
 protected boolean isFinished()
 {
 // TODO Auto-generated method stub
-return shooterWheel.shooterWheelSpeedController.isFinished();
+return shooterWheel.shooterWheelSpeedControllerAft.isFinished()  && shooterWheel.shooterWheelSpeedControllerFwd.isFinished();
 }
 
 protected void end()
