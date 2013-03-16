@@ -12,7 +12,7 @@ public class StopShooterWheel extends CommandBase {
      * Default constructor.
      */
 	public StopShooterWheel() {
-    	requires(shooter);
+    	requires(shooterWheel);
     }
 
     /**
@@ -26,7 +26,7 @@ public class StopShooterWheel extends CommandBase {
      * Called repeatedly when this Command is scheduled to run.
      */
     protected void execute() {
-    	shooter.setShooterPWM(0.0);
+    	shooterWheel.tankDrive(0.0,0.0);
     }
 
     /**

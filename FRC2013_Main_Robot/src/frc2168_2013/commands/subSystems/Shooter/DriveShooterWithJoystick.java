@@ -7,7 +7,7 @@ import frc2168_2013.commands.CommandBase;
 public class DriveShooterWithJoystick extends CommandBase {
 	
 	public DriveShooterWithJoystick(){
-		requires(shooter);
+		requires(shooterWheel);
 	}
 
 	protected void end() {
@@ -15,7 +15,7 @@ public class DriveShooterWithJoystick extends CommandBase {
 	}
 
 	protected void execute() {
-		shooter.setShooterPWM(oi.getoperatorDriveLeftStick());
+		shooterWheel.tankDrive(oi.getoperatorDriveLeftStick(),oi.getoperatorDriveRightStick());
 		//shooter.setShooterPWM(oi.getTestAxis(3));		//For testing w/o PID
 	}
 

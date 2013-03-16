@@ -19,8 +19,8 @@ public class RobotMap {
 	//PWM Channels////////////////////////////////////////////////////
 	public static final int leftDriveMotor = 1;
 	public static final int rightDriveMotor = 2;
-	public static final int shooterMotor = 3;
-	public static final int hopperMotor = 4;
+	public static final int shooterMotorAft = 3;
+	public static final int shooterMotorFwd = 4;
 	public static final int leftArmMotor = 5;
 	public static final int rightArmMotor = 6;
 	
@@ -30,10 +30,10 @@ public class RobotMap {
 	public static final int leftDriveEncoderChannelB = 2;
 	public static final int rightDriveEncoderChannelA = 3;
 	public static final int rightDriveEncoderChannelB = 4;
-	public static final int shooterEncoderChannelA = 5;
-	public static final int shooterEncoderChannelB = 6;
-	public static final int armEncoderChannelA = 7;
-	public static final int armEncoderChannelB = 8;
+	public static final int shooterEncoderAftChannelA = 5;
+	public static final int shooterEncoderAftChannelB = 6;
+	public static final int shooterEncoderFwdChannelA = 7;
+	public static final int shooterEncoderFwdChannelB = 8;
 	public static final int hopperDisc1 = 9;
 	public static final int hopperDisc2 = 10;
 	public static final int hopperDisc3 = 11;
@@ -85,7 +85,7 @@ public class RobotMap {
 	public static final double shooterEncoderDistPerTick = (Math.PI*2*shooterWheelRadius)/shooterEncoderPulsePerRot;
 	public static final CounterBase.EncodingType shooterEncodingType = CounterBase.EncodingType.k1X; //count rising and falling edges on both channels
 	public static final AverageEncoder.PositionReturnType shooterPosReturnType = AverageEncoder.PositionReturnType.DEGREE;
-	public static final AverageEncoder.SpeedReturnType shooterSpeedReturnType = AverageEncoder.SpeedReturnType.RPM;
+	public static final AverageEncoder.SpeedReturnType shooterSpeedReturnType = AverageEncoder.SpeedReturnType.PERIOD;
 	public static final int shooterEncoderMinRate = 10; 
 	public static final int shooterEncoderMinPeriod = 10;
 	public static final boolean shooterEncoderReverse = false;
@@ -211,7 +211,8 @@ public class RobotMap {
 	public static final int TCPServerRightDrivetrainSpeed = 1181;
 	public static final int TCPServerLeftDrivetrainPos = 1182;
 	public static final int TCPServerLeftDrivetrainSpeed = 1183;
-	public static final int TCPServerShooterSpeed = 1184;
-	public static final int TCPServerArmPos = 1185;
+	public static final int TCPServerShooterSpeedAft = 1184;
+	public static final int TCPServerShooterSpeedFwd = 1185;
+	public static final int TCPServerArmPos = 1186;
 
 }

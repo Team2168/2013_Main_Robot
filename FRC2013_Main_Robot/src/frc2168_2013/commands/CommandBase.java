@@ -17,7 +17,7 @@ public abstract class CommandBase extends Command {
     // Create a single static instance of all of your subsystems
     public static Drivetrain drivetrain = new Drivetrain();
     public static Intake         intake = new Intake();
-    public static Shooter       shooter = new Shooter();
+    public static ShooterWheel       shooterWheel = new ShooterWheel();
     public static Hopper         hopper = new Hopper();
     public static Arm               arm = new Arm();
     public static Hanger         hanger = new Hanger();
@@ -35,7 +35,7 @@ public abstract class CommandBase extends Command {
         // Show what command your subsystem is running on the SmartDashboard
         SmartDashboard.putData(drivetrain);
         SmartDashboard.putData(intake);
-        SmartDashboard.putData(shooter);
+        SmartDashboard.putData(shooterWheel);
         SmartDashboard.putData(hopper);
         SmartDashboard.putData(arm);
         SmartDashboard.putData(armPnuematic);

@@ -35,7 +35,8 @@ public class OI {
 	public static final boolean      rInvert = true;  //for R driveTrain
 	public static final boolean      lInvert = false; //for L driveTrain
 	public static final boolean      ainvert = true;  //for arm left motor
-	public static final boolean      sInvert = true;  //for shooter
+	public static final boolean      sFwdInvert = true;  //for shooter
+	public static final boolean      sAftInvert = true;  //for shooter
 	public static final boolean      hInvert = true;  //for hopper
 	
 	public static final int     rightJoyAxis = 5;
@@ -255,6 +256,26 @@ public class OI {
 		
 		testButton6.whileHeld(new DriveDrivetrainStraight(true));
 	}
+	
+    /**
+     * A minimum threshold function. The command to the motor has to exceed a
+     * certain value for it to be sent.
+     * 
+     * @param speed The input value
+     * @return the adjusted speed value
+     */
+    public static double minJoystickThreshold(double speed) {
+    	double mySpeed = 0.0;
+    	
+    	//Need a voltage greater than the below value for a value to be sent
+    	//  out to the motor.
+    	//Empirically have seen 0.057 being sent out with stick centered.
+    	if(Math.abs(speed) > 0.06) {
+    		mySpeed = speed;
+    	}
+    
+    	return mySpeed;
+    }
 	
 	
 	//// CREATING BUTTONS

@@ -12,13 +12,13 @@ public class SetShooterSpeedPWM extends CommandBase {
 	 * @param speed the PWM speed for the shooter wheel.
 	 */
 	public SetShooterSpeedPWM (double speed) {
-		requires(shooter);
+		requires(shooterWheel);
 		this.speed = speed;
 	}
 	
 	protected void initialize() {
 		//Set the "speed" for the wheels as provided in the constructor
-		shooter.setShooterPWM(speed);
+		shooterWheel.setShooterPWM(speed);
 	}
 
 	protected void execute() {

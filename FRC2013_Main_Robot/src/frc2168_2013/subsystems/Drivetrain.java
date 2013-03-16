@@ -155,7 +155,7 @@ public class Drivetrain extends Subsystem {
     		rightSpeed = -rightSpeed;
     	}
 
-    	rightSpeed = minSpeedThreshold(rightSpeed);
+    	rightSpeed = OI.minJoystickThreshold(rightSpeed);
     	
     	this.rightSpeed = rightSpeed;
     	
@@ -176,7 +176,7 @@ public class Drivetrain extends Subsystem {
     		leftSpeed = -leftSpeed;
     	}
     	
-    	leftSpeed = minSpeedThreshold(leftSpeed);
+    	leftSpeed = OI.minJoystickThreshold(leftSpeed);
     	
     	this.leftSpeed = leftSpeed;
     	
@@ -186,56 +186,8 @@ public class Drivetrain extends Subsystem {
     		leftVictorDriveMotor.set(leftSpeed);
     	}
     }
+
     
-    /**
-     * Sets the speed for the drivetrain motors (ft/s)
-     * 
-     * @param rightSpeed speed for the right motors (ft/s)
-     * @param leftSpeed speed for the left motors (ft/s)
-     */
-    public void setSpeed(double rightSpeed, double leftSpeed) {
-    	//TODO: finish the code for this method
-    }
-    
-    /**
-     * Returns the speed for the right wheels on the drivetrain.
-     * 
-     * @return right drivetrain wheel speed in ft/s
-     */
-    public double getRightSpeed() {
-    	//TODO: write code for this method
-    	return 0.0;
-    }
-    
-    /**
-     * Returns the speed for the left wheels on the drivetrain.
-     * 
-     * @return left drivetrain wheel speed in ft/s
-     */
-    public double getLeftSpeed(){
-    	//TODO: write code for this method.
-    	return 0.0;
-    }
-    
-    /**
-     * A minimum threshold function. The command to the motor has to exceed a
-     * certain value for it to be sent.
-     * 
-     * @param speed The input value
-     * @return the adjusted speed value
-     */
-    private double minSpeedThreshold(double speed) {
-    	double mySpeed = 0.0;
-    	
-    	//Need a voltage greater than the below value for a value to be sent
-    	//  out to the motor.
-    	//Empirically have seen 0.057 being sent out with stick centered.
-    	if(Math.abs(speed) > 0.06) {
-    		mySpeed = speed;
-    	}
-    
-    	return mySpeed;
-    }
     
     /**
      * Zero the distance traveled by the drivetrain.

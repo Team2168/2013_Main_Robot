@@ -13,7 +13,7 @@ public CompetitionDashboard()
 {
         //Show what command your subsystem is running on the SmartDashboard
         SmartDashboard.putData(drivetrain);
-        SmartDashboard.putData(shooter);
+        SmartDashboard.putData(shooterWheel);
         SmartDashboard.putData(arm);
         SmartDashboard.putData(hopper);
         SmartDashboard.putData(hardStop);
@@ -44,17 +44,17 @@ protected void execute()
 {
 // TODO Auto-generated method stub
 //put Shooter data on screen
-SmartDashboard.putNumber("shooterEncoder", shooter.shooterWheelSpeedController.getSensorRate());
-SmartDashboard.putNumber("shooter PID Output", shooter.shooterWheelSpeedController.getControlOutput());
-SmartDashboard.putBoolean("shooterAtSpeed", shooter.shooterWheelSpeedController.isFinished());
-SmartDashboard.putBoolean("enable", shooter.shooterWheelSpeedController.isEnabled());
-SmartDashboard.putNumber("executionTime", shooter.shooterWheelSpeedController.getExecutionTime());
-SmartDashboard.putNumber("shooterSetPoint", shooter.shooterWheelSpeedController.getSetPoint());
+SmartDashboard.putNumber("shooterEncoder", shooterWheel.shooterWheelSpeedController.getSensorRate());
+SmartDashboard.putNumber("shooter PID Output", shooterWheel.shooterWheelSpeedController.getControlOutput());
+SmartDashboard.putBoolean("shooterAtSpeed", shooterWheel.shooterWheelSpeedController.isFinished());
+SmartDashboard.putBoolean("enable", shooterWheel.shooterWheelSpeedController.isEnabled());
+SmartDashboard.putNumber("executionTime", shooterWheel.shooterWheelSpeedController.getExecutionTime());
+SmartDashboard.putNumber("shooterSetPoint", shooterWheel.shooterWheelSpeedController.getSetPoint());
 
 
 
-SmartDashboard.putNumber("shooter Err", shooter.shooterWheelSpeedController.getError());
-SmartDashboard.putNumber("shooter acceptErr", shooter.shooterWheelSpeedController.getAcceptErrorDiff());
+SmartDashboard.putNumber("shooter Err", shooterWheel.shooterWheelSpeedController.getError());
+SmartDashboard.putNumber("shooter acceptErr", shooterWheel.shooterWheelSpeedController.getAcceptErrorDiff());
 
 
 

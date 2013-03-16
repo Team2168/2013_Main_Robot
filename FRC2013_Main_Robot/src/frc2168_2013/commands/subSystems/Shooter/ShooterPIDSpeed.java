@@ -14,8 +14,8 @@ public class ShooterPIDSpeed extends CommandBase {
     public ShooterPIDSpeed() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(shooter);
-    	this.setPoint = shooter.shooterWheelSpeedController.getSetPoint();
+    	requires(shooterWheel);
+    	this.setPoint = shooterWheel.shooterWheelSpeedController.getSetPoint();
     }
     
    public ShooterPIDSpeed(double setPoint){
@@ -26,26 +26,26 @@ public class ShooterPIDSpeed extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	shooter.shooterWheelSpeedController.reset();
-    	shooter.shooterWheelSpeedController.Enable();
+    	shooterWheel.shooterWheelSpeedController.reset();
+    	shooterWheel.shooterWheelSpeedController.Enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if (setPoint != 0)
-    		shooter.shooterWheelSpeedController.setSetPoint(setPoint);
-    	shooter.setShooterPWM(shooter.shooterWheelSpeedController.getControlOutput());
+    		shooterWheel.shooterWheelSpeedController.setSetPoint(setPoint);
+    	shooterWheel.setShooterPWM(shooterWheel.shooterWheelSpeedController.getControlOutput());
     	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return shooter.shooterWheelSpeedController.isEnabled() == false;
+        return shooterWheel.shooterWheelSpeedController.isEnabled() == false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	shooter.shooterWheelSpeedController.Pause();
+    	shooterWheel.shooterWheelSpeedController.Pause();
     }
 
     //delete me

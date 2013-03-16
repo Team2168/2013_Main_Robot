@@ -27,7 +27,7 @@ protected void execute()
 protected boolean isFinished()
 {
 // TODO Auto-generated method stub
-return shooter.shooterWheelSpeedController.isFinished();
+return shooterWheel.shooterWheelSpeedController.isFinished();
 }
 
 protected void end()

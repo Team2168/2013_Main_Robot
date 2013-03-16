@@ -12,12 +12,12 @@ public class ShooterPIDPause extends CommandBase {
     public ShooterPIDPause() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(shooter);
+    	requires(shooterWheel);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	shooter.shooterWheelSpeedController.Pause();
+    	shooterWheel.shooterWheelSpeedController.Pause();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -28,7 +28,7 @@ public class ShooterPIDPause extends CommandBase {
     //delete me
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (shooter.shooterWheelSpeedController.isEnabled() == false);
+        return (shooterWheel.shooterWheelSpeedController.isEnabled() == false);
     }
 
     // Called once after isFinished returns true
