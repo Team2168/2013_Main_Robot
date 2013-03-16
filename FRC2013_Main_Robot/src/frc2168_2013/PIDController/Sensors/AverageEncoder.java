@@ -117,6 +117,9 @@ public class AverageEncoder extends Encoder implements PIDSensorInterface{
 		case SpeedReturnType.RPM_val:
 			putData(rate*1000*60/PPR);  //ticks per minute... rpm
 			break;
+		case SpeedReturnType.PERIOD_val:
+			putData(super.getPeriod());  //ticks per minute... rpm
+			break;
 		default:
 			//should be unreachable
 			putData(0);	
@@ -160,6 +163,7 @@ public class AverageEncoder extends Encoder implements PIDSensorInterface{
 		static final int IPS_val = 0;
 		static final int RPM_val = 1;
 		static final int FPS_val = 2;
+		static final int PERIOD_val = 3;
 		final int value;
         /**
          * Count only the rising edge
@@ -173,6 +177,8 @@ public class AverageEncoder extends Encoder implements PIDSensorInterface{
          * Count rising and falling on both channels
          */
         public static final SpeedReturnType FPS = new SpeedReturnType(FPS_val);
+        
+        public static final SpeedReturnType PERIOD = new SpeedReturnType(PERIOD_val);
 
         private SpeedReturnType(int value) {
             this.value = value;
