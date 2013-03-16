@@ -1,6 +1,5 @@
 package frc2168_2013.subsystems;
 
-import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
@@ -102,23 +101,23 @@ public class Drivetrain extends Subsystem {
     	leftPosController.setSIZE(RobotMap.drivetrainPIDArraySize);    	
     	
     	//start controller threads
-    	//rightSpeedController.startThread();
+    	rightSpeedController.startThread();
     	rightPosController.startThread();
-    	//leftSpeedController.startThread();
+    	leftSpeedController.startThread();
     	leftPosController.startThread();
     	
     	//start TCP Servers for DEBUGING ONLY
     	TCPrightPosController = new TCPsocketSender(RobotMap.TCPServerRightDrivetrainPos, rightPosController);
     	TCPrightPosController.start();
-//    	
-//    	TCPrightSpeedController = new TCPsocketSender(RobotMap.TCPServerRightDrivetrainSpeed, rightSpeedController);
-//    	TCPrightSpeedController.start();
-//    	
+    	
+    	TCPrightSpeedController = new TCPsocketSender(RobotMap.TCPServerRightDrivetrainSpeed, rightSpeedController);
+    	TCPrightSpeedController.start();
+    	
     	TCPleftPosController = new TCPsocketSender(RobotMap.TCPServerLeftDrivetrainPos, leftPosController);
     	TCPleftPosController.start();
-//    	
-//    	TCPleftSpeedController = new TCPsocketSender(RobotMap.TCPServerLeftDrivetrainSpeed, leftSpeedController);
-//    	TCPleftSpeedController.start();
+    	
+    	TCPleftSpeedController = new TCPsocketSender(RobotMap.TCPServerLeftDrivetrainSpeed, leftSpeedController);
+    	TCPleftSpeedController.start();
     	
     	turnSense = new Gyro(RobotMap.gyroChannel);
     	turnSense.setSensitivity(0.0070);
