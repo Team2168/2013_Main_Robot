@@ -6,12 +6,12 @@ import frc2168_2013.commands.*;
 import frc2168_2013.commands.Presets.Preset_FrontOfPyramid_3pt;
 import frc2168_2013.commands.Presets.Preset_RearOfPyramid_3pt;
 import frc2168_2013.commands.subSystems.Arm.DriveArmHome;
-import frc2168_2013.commands.subSystems.ArmPnumatic.ArmPnuematicExtend;
-import frc2168_2013.commands.subSystems.ArmPnumatic.ArmPnuematicStow;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainStraight;
 import frc2168_2013.commands.subSystems.Hopper.DriveHopperJoystick;
 import frc2168_2013.commands.subSystems.Shooter.ShooterPIDPause;
 import frc2168_2013.commands.subSystems.Shooter.ShooterPIDSpeed;
+import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleExtend;
+import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleStow;
 import frc2168_2013.commands.subSystems.Stopper.StopperDisengage;
 
 /**
@@ -22,7 +22,7 @@ import frc2168_2013.commands.subSystems.Stopper.StopperDisengage;
  */
 public class RearOfPyramid_3pt_Side extends CommandGroup {
 	public RearOfPyramid_3pt_Side() {
-		addParallel(new ArmPnuematicExtend());
+		addParallel(new ShooterAngleExtend());
 		addParallel(new ShooterPIDSpeed(RobotMap.BACK_PYRAMID_3PT_SPEED));
 		addSequential(new Sleep(), 6 );
 		//Shoot three discs
@@ -36,7 +36,7 @@ public class RearOfPyramid_3pt_Side extends CommandGroup {
 		//                   //stop wheel
 		addSequential(new ShooterPIDPause());
 		//lower arm
-		addSequential(new ArmPnuematicStow());                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   addSequential(new Sleep(),1 );
+		addSequential(new ShooterAngleStow());                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   addSequential(new Sleep(),1 );
 		addSequential(new DriveDrivetrainStraight(-((8*12)-8)));
 
 

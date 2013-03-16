@@ -50,8 +50,8 @@ public class RobotMap {
 	public static final int hopperRetract  			   = 2;
 	public static final int hangerEngage               = 3;
 	public static final int hangerDisengage            = 4;
-	public static final int armExtend				   = 5;
-	public static final int armRetract				   = 6;
+	public static final int shooterAngleExtend		   = 5;
+	public static final int shooterAngleRetract		   = 6;
 
 
 	//Analog Input Channels///////////////////////////////////////////

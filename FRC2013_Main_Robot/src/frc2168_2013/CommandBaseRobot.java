@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc2168_2013.commands.CommandBase;
 import frc2168_2013.commands.Auto.*;
 import frc2168_2013.commands.subSystems.Arm.DriveArmHome;
-import frc2168_2013.commands.subSystems.ArmPnumatic.ArmPnuematicStow;
+import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleStow;
 import frc2168_2013.dashboard.CompetitionDashboard;
 import frc2168_2013.utils.SerialCommunicator;
 
@@ -50,7 +50,7 @@ public class CommandBaseRobot extends IterativeRobot {
         CommandBase.init();
         
         // run command to zero arm automatically
-    	armPositionInit = new ArmPnuematicStow();
+    	armPositionInit = new ShooterAngleStow();
 
         //Start the compressor
         compressor = new Compressor(RobotMap.compressorPressureSwitch, RobotMap.compressorPower);

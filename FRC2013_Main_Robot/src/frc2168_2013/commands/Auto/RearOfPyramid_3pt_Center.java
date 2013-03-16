@@ -6,12 +6,12 @@ import frc2168_2013.commands.*;
 import frc2168_2013.commands.Presets.Preset_FrontOfPyramid_3pt;
 import frc2168_2013.commands.Presets.Preset_RearOfPyramid_3pt;
 import frc2168_2013.commands.subSystems.Arm.DriveArmHome;
-import frc2168_2013.commands.subSystems.ArmPnumatic.ArmPnuematicExtend;
-import frc2168_2013.commands.subSystems.ArmPnumatic.ArmPnuematicStow;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainStraight;
 import frc2168_2013.commands.subSystems.Hopper.DriveHopperJoystick;
 import frc2168_2013.commands.subSystems.Shooter.ShooterPIDPause;
 import frc2168_2013.commands.subSystems.Shooter.ShooterPIDSpeed;
+import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleExtend;
+import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleStow;
 import frc2168_2013.commands.subSystems.Stopper.StopperDisengage;
 
 /**
@@ -25,7 +25,7 @@ public class RearOfPyramid_3pt_Center extends CommandGroup {
 		//Drive back 3 ft
 		addSequential(new DriveDrivetrainStraight(-((3*12)-8)));
 		//raise arm
-		addParallel(new ArmPnuematicExtend());
+		addParallel(new ShooterAngleExtend());
 		addParallel(new ShooterPIDSpeed(RobotMap.BACK_PYRAMID_3PT_SPEED));
 		addSequential(new Sleep(), 6.5 );
 		

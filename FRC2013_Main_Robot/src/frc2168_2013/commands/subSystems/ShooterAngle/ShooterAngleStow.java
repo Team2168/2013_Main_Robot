@@ -1,5 +1,5 @@
 
-package frc2168_2013.commands.subSystems.ArmPnumatic;
+package frc2168_2013.commands.subSystems.ShooterAngle;
 
 import frc2168_2013.commands.CommandBase;
 
@@ -7,12 +7,10 @@ import frc2168_2013.commands.CommandBase;
  *
  * @author Shriji
  */
-public class ArmPnuematicStow extends CommandBase {
+public class ShooterAngleStow extends CommandBase {
 
-    public ArmPnuematicStow() {
-    	requires(armPnuematic);
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+    public ShooterAngleStow() {
+    	requires(shooterAngle);
     	
     }
 
@@ -22,7 +20,7 @@ public class ArmPnuematicStow extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	armPnuematic.armStow();
+    	shooterAngle.Stow();
     }
 
     // Make this return true when this Command no longer needs to run execute()

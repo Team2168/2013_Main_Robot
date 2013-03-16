@@ -1,5 +1,5 @@
 
-package frc2168_2013.commands.subSystems.ArmPnumatic;
+package frc2168_2013.commands.subSystems.ShooterAngle;
 
 import frc2168_2013.commands.CommandBase;
 
@@ -7,13 +7,13 @@ import frc2168_2013.commands.CommandBase;
  *
  * @author Shriji
  */
-public class ArmPnuematicExtend extends CommandBase {
+public class ShooterAngleExtend extends CommandBase {
 
 	/**
 	 * Default constructor.
 	 */
-    public ArmPnuematicExtend() {
-    	requires(armPnuematic);
+    public ShooterAngleExtend() {
+    	requires(shooterAngle);
     }
 
     /**
@@ -26,7 +26,7 @@ public class ArmPnuematicExtend extends CommandBase {
      * Called repeatedly when this Command is scheduled to run.
      */
     protected void execute() {
-    	armPnuematic.armExtend();
+    	shooterAngle.Extend();
     }
 
     /**
