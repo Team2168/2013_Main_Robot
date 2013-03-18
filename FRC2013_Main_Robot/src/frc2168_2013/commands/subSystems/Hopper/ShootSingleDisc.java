@@ -5,7 +5,6 @@ import frc2168_2013.RobotMap;
 import frc2168_2013.commands.*;
 import frc2168_2013.commands.Presets.Preset_FrontOfPyramid_3pt;
 import frc2168_2013.commands.Presets.Preset_RearOfPyramid_3pt;
-import frc2168_2013.commands.subSystems.Arm.DriveArmHome;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainStraight;
 import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleExtend;
 import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleStow;
@@ -20,7 +19,10 @@ import frc2168_2013.commands.subSystems.ShooterWheel.PID_SetAftWheelSpeed;
  */
 public class ShootSingleDisc extends CommandGroup {
 	public ShootSingleDisc() {
-		addSequential(new HopperExtend());
+		addSequential(new Sleep(),0.15);
 		addSequential(new HopperStow());
+		addSequential(new Sleep(),0.15);
+		addSequential(new HopperExtend());
+		
 	}
 }

@@ -8,8 +8,6 @@ import frc2168_2013.utils.JoystickAnalogButton;
 import frc2168_2013.commands.Presets.Preset_HalfCourt_3pt;
 import frc2168_2013.commands.Presets.Preset_InPyramid_3pt;
 import frc2168_2013.commands.Presets.Preset_Pyramid_5pt;
-import frc2168_2013.commands.subSystems.Arm.ArmPIDPause;
-import frc2168_2013.commands.subSystems.Arm.DriveArmWithConstant;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainStraight;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainTurn;
 import frc2168_2013.commands.subSystems.Hanger.HangerDisengage;
@@ -216,7 +214,7 @@ public class OI {
 		operatorButtonLeftBumper.whenPressed(new HopperStow());
 		operatorButtonRightBumper.whenPressed(new HopperExtend());		
 		
-		operatorButtonRightStick.whenPressed(new ArmPIDPause());
+	//	operatorButtonRightStick.whenPressed(new ArmPIDPause());
 		operatorButtonLeftStick.whenPressed(new PID_ShooterPause());
 		
 		
@@ -233,7 +231,7 @@ public class OI {
 		operatorButtonB.whenPressed(new ShooterAngleStow());
 		operatorButtonX.whenPressed(new Preset_Pyramid_5pt());
 		
-		operatorButtonB.whenPressed(new DriveArmWithConstant());
+		//operatorButtonB.whenPressed(new DriveArmWithConstant());
 		
 		operatorButtonStart.whenPressed(new ShootSingleDisc()); //shoot one frisbee at a time
 		//operatorButtonReset.whileHeld(new StopHopperWhenFull());

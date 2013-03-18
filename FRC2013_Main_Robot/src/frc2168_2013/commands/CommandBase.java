@@ -20,7 +20,6 @@ public abstract class CommandBase extends Command {
     public static ShooterWheel       shooterWheel = new ShooterWheel();
     public static ShooterAngle       shooterAngle = new ShooterAngle();
     public static Hopper         hopper = new Hopper();
-    public static Arm               arm = new Arm();
     public static Hanger         hanger = new Hanger();
   
 
@@ -37,7 +36,6 @@ public abstract class CommandBase extends Command {
         SmartDashboard.putData(intake);
         SmartDashboard.putData(shooterWheel);
         SmartDashboard.putData(hopper);
-        SmartDashboard.putData(arm);
         SmartDashboard.putData(shooterAngle);
     }
 

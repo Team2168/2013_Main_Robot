@@ -9,8 +9,7 @@ import frc2168_2013.PIDController.Controller.PIDPosition;
 import frc2168_2013.PIDController.Sensors.PIDSensorInterface;
 import frc2168_2013.PIDController.TCPStream.TCPMessageInterface;
 import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
-import frc2168_2013.commands.subSystems.Arm.ArmPIDPause;
-import frc2168_2013.commands.subSystems.Arm.ArmPIDPosition;
+
 
 
 /**
@@ -899,10 +898,10 @@ public class PIDPositionArm implements TCPMessageInterface
 			this.acceptErrorDiff = Double.valueOf(message[10]).doubleValue();
 			//		setSIZE(Integer.valueOf(message[11]).intValue());
 			//		
-			if(TCPsocketSender.strToBool(message[4])) //enable PID boolean
-				new ArmPIDPosition(Double.valueOf(message[3]).doubleValue()).start();
-			else
-				new ArmPIDPause().start();
+//			if(TCPsocketSender.strToBool(message[4])) //enable PID boolean
+//				new ArmPIDPosition(Double.valueOf(message[3]).doubleValue()).start();
+//			else
+//				new ArmPIDPause().start();
 		}
 		catch (NumberFormatException e)
 		{

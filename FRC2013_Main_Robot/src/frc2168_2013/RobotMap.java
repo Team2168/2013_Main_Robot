@@ -11,7 +11,7 @@ import frc2168_2013.PIDController.Sensors.AverageEncoder;
  */
 public class RobotMap {
 	
-	public final static boolean USE_TALONS = true;
+	public final static boolean USE_TALONS = false;
 
 	/****************************************************************
 	 *                       CRIO MAP                               *
@@ -39,9 +39,6 @@ public class RobotMap {
 	public static final int hopperDisc3 = 11;
 	public static final int hopperDisc4 = 12;
 	
-	//dummies
-	public static final int armEncoderChannelA = 9;
-	public static final int armEncoderChannelB = 9;
 
 	public static final int compressorPressureSwitch = 14;
 

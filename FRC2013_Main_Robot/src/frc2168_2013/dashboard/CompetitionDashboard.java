@@ -15,7 +15,6 @@ public CompetitionDashboard()
         SmartDashboard.putData(drivetrain);
         SmartDashboard.putData(shooterWheel);
         SmartDashboard.putData(shooterAngle);
-        SmartDashboard.putData(arm);
         SmartDashboard.putData(hopper);
         SmartDashboard.putData(hanger);
         
@@ -58,21 +57,6 @@ SmartDashboard.putNumber("shooterSetPoint", shooterWheel.shooterWheelSpeedContro
 SmartDashboard.putNumber("shooter Err", shooterWheel.shooterWheelSpeedControllerAft.getError());
 SmartDashboard.putNumber("shooter acceptErr", shooterWheel.shooterWheelSpeedControllerAft.getAcceptErrorDiff());
 
-
-
-//TODO Auto-generated method stub
-//put Arm data on screen
-SmartDashboard.putNumber("armEncoder", arm.armPosController.getSensorRate());
-SmartDashboard.putNumber("arm PID Output", arm.armPosController.getControlOutput());
-SmartDashboard.putBoolean("ArmAtPos", arm.armPosController.isFinished());
-SmartDashboard.putBoolean("enable", arm.armPosController.isEnabled());
-SmartDashboard.putNumber("executionTime", arm.armPosController.getExecutionTime());
-SmartDashboard.putNumber("armSetPoint", arm.armPosController.getSetPoint());
-
-
-
-SmartDashboard.putNumber("arm Err", arm.armPosController.getError());
-SmartDashboard.putNumber("arm acceptErr", arm.armPosController.getAcceptErrorDiff());
 
 
 
