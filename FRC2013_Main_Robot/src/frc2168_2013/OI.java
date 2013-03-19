@@ -17,6 +17,8 @@ import frc2168_2013.commands.subSystems.Hopper.HopperStow;
 import frc2168_2013.commands.subSystems.Hopper.ShootSingleDisc;
 import frc2168_2013.commands.subSystems.Hopper.TeamDiscLightOff;
 import frc2168_2013.commands.subSystems.Hopper.TeamDiscLightOn;
+import frc2168_2013.commands.subSystems.LightSaber.LightSaberExtend;
+import frc2168_2013.commands.subSystems.LightSaber.LightSaberStow;
 import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleExtend;
 import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleStow;
 import frc2168_2013.commands.subSystems.ShooterWheel.PID_ShooterPause;
@@ -222,14 +224,14 @@ public class OI {
 		operatorDPadR.whenPressed(new Preset_HalfCourt_3pt());
 		
 		//Shots from the side of the pyramid furthest from the goal (drive team calls this front)
-		operatorButtonA.whenPressed(new Preset_InPyramid_3pt());
+		operatorButtonA.whenPressed(new LightSaberExtend());
 		
 		//SHots from the side of the pyramid closest to the goal (drive team calls this rear)
 		//operatorButtonB.whenPressed(new Preset_FrontOfPyramid_3pt());
 		//operatorButtonY.whenPressed(new Preset_Wall_3pt());
 		operatorButtonY.whenPressed(new ShooterAngleExtend());
 		operatorButtonB.whenPressed(new ShooterAngleStow());
-		operatorButtonX.whenPressed(new Preset_Pyramid_5pt());
+		operatorButtonX.whenPressed(new LightSaberStow());
 		
 		//operatorButtonB.whenPressed(new DriveArmWithConstant());
 		

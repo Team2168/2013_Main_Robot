@@ -1,9 +1,22 @@
 package frc2168_2013.subsystems;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc2168_2013.commands.SetIntakeSpeedPWM;
+import frc2168_2013.RobotMap;
+import frc2168_2013.commands.subSystems.Intake.SetIntakeSpeedPWM;
 
 public class Intake extends Subsystem {		
+	
+	DoubleSolenoid actuator;
+	
+	
+	public Intake()
+	{
+		actuator = new DoubleSolenoid(RobotMap.intakeExtend,
+                RobotMap.intakeRetract);
+		
+		
+	}
 
 	/**
 	 * Set the default command
@@ -37,16 +50,28 @@ public class Intake extends Subsystem {
     }
     
     /**
-     * Raise/stow the intake mechanism.
+     * Lower the intake mechanism.
      */
-    public void raise(){
-		//TODO: write the code for this method
-    }
+	public void Extend(){
+		//TODO: Verify that kForward disengages the hanger
+		actuator.set(DoubleSolenoid.Value.kForward);
+	}
     
     /**
      * Lower/deploy the intake mechanism.
      */
-    public void lower(){
-		//TODO: write the code for this method
-    }
+	public void Stow() {
+		//TODO: Verify that kForward engages the hanger
+		actuator.set(DoubleSolenoid.Value.kReverse);
+	}
+	
+	public boolean isStowed(){
+		//TODO: Verify that kForward disengages the hanger
+		return actuator.get() == DoubleSolenoid.Value.kReverse;
+	}
+	
+	public boolean isExtended(){
+		//TODO: Verify that kForward disengages the hanger
+		return actuator.get() == DoubleSolenoid.Value.kForward;
+	}
 }

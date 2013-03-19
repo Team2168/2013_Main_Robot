@@ -1,4 +1,6 @@
-package frc2168_2013.commands;
+package frc2168_2013.commands.subSystems.Intake;
+
+import frc2168_2013.commands.CommandBase;
 
 public class SetIntakeSpeedPWM extends CommandBase {
 	double lowerRollerSpeed, upperRollerSpeed;
