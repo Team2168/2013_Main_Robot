@@ -4,16 +4,16 @@
 // Identify the different areas within the strip by length and starting
 // pixel number.
 //
-int stripLength = 96; // Number of RGB LEDs in strand
-int shooterLeftPxZero = 0; // The first LED in the left LED set
-int shooterRightPxZero = 8; // The first LED in the right LED set
-int shooterLength = 2; // Number of LEDs along the shooter
+int stripLength        = 96; // Number of RGB LEDs in strand
+int shooterLeftPxZero  = 0;  // The first LED in the left LED set
+int shooterRightPxZero = 13;  // The first LED in the right LED set
+int shooterLength      = 12; // Number of LEDs along the shooter
 
 
 // For "classic" Arduinos (Uno, Duemilanove,
-// etc.), data = pin 11, clock = pin 13. For Arduino Mega, data = pin 51,
-// clock = pin 52. For 32u4 Breakout Board+ and Teensy, data = pin B2,
-// clock = pin B1. For Leonardo, this can ONLY be done on the ICSP pins.
+// etc.), data = pin 11, clock = pin 13.  For Arduino Mega, data = pin 51,
+// clock = pin 52.  For 32u4 Breakout Board+ and Teensy, data = pin B2,
+// clock = pin B1.  For Leonardo, this can ONLY be done on the ICSP pins.
 LPD8806 strip = LPD8806(stripLength);
 
 //Initialize colors
@@ -38,8 +38,8 @@ int inputValue = 0;
 boolean serialComplete = false;
 
 /**
-* Initialization code
-*/
+ * Initialization code
+ */
 void setup() {
   // Start up the LED strip
   strip.begin();
@@ -62,18 +62,18 @@ void setup() {
 }
 
 /**
-* Main loop
-*/
+ * Main loop
+ */
 void loop() {
   // COMMUNICATION PROTOCOL - BITMAP
-  // BIT(S) Meaning
+  // BIT(S)     Meaning
   // ------------------------------
-  // 0 - 2 # discs (0 - 4)
-  // 3 Shooter up to speed
-  // 4 Disc fired
-  // 5 Against bar
-  // 6 Endgame (last 30 sec)
-  // 7 Autonomous mode
+  // 0 - 2      # discs (0 - 4)
+  //   3        Shooter up to speed
+  //   4        Disc fired
+  //   5        Against bar
+  //   6        Endgame (last 30 sec)
+  //   7        Autonomous mode
   
   if (serialComplete) {
     inputState = inputValue;
@@ -123,11 +123,11 @@ void loop() {
   int intensity = fibonacci(i);
 
   //Ways to augment the shooter LEDs
-  if(shooterToSpeed) {
-    //Shooter up to speed- flashes between target color and white
-    //R_OUT = (targetR + intensity) % 127; //this isn't working for some reason. Doesn't seem like the modulus is operating right
-    //G_OUT = intensity;
-    //B_OUT = intensity;
+  if(shooterToSpeed && !discFired) {
+    //Shooter up to speed- flashes between target color and white 
+    R_OUT = cap(targetR + intensity, 127);
+    G_OUT = cap(targetG + intensity, 127);
+    B_OUT = cap(targetB + intensity, 127);
   } else if(numDiscs == 0) {
     //if we have no discs, throb on/off
     R_OUT = (int) targetR / intensity;
@@ -142,32 +142,31 @@ void loop() {
   
   //Write data out to the shooter pixels
   for(int j = 0; j < shooterLength; j++){
-    //one of these should be opposite the other depending on how it's wired
-    // so shots fire in the same direction
     strip.setPixelColor(j + shooterLeftPxZero, strip.Color(R_OUT, G_OUT, B_OUT));
-    strip.setPixelColor(j + shooterRightPxZero, strip.Color(R_OUT, G_OUT, B_OUT));
+    //Write Right side in the reverse order as the left, so patterns flow in the same direction (shots)
+    strip.setPixelColor((shooterLength - 1 + shooterRightPxZero) - j, strip.Color(R_OUT, G_OUT, B_OUT));
     strip.show();
   }
-  delay (50);
+  delay (7);
   
-  i=(i+1)%50;
+  i = (i + 1) % 50;
 }
 /**************************************************
-**************MAIN LOOP ENDS HERE*****************
-**************************************************/
+ **************MAIN LOOP ENDS HERE*****************
+ **************************************************/
 /**
-* SerialEvent occurs whenever a new data comes in the
-* hardware serial RX. This routine is run between each
-* time loop() runs, so using delay inside loop can delay
-* response. Multiple bytes of data may be available.
-* http://arduino.cc/en/Tutorial/SerialEvent
-*/
+ * SerialEvent occurs whenever a new data comes in the
+ * hardware serial RX.  This routine is run between each
+ * time loop() runs, so using delay inside loop can delay
+ * response.  Multiple bytes of data may be available.
+ * http://arduino.cc/en/Tutorial/SerialEvent
+ */
 void serialEvent() {
   //Don't run again until the main loop has processed the incoming string
   if (!serialComplete) {
     while (Serial.available()) {
       // get the new byte:
-      char inChar = (char)Serial.read();
+      char inChar = (char)Serial.read(); 
 
       // if the incoming character is a newline, we are done
       // set a flag so the main loop can do something about it
@@ -182,12 +181,21 @@ void serialEvent() {
   }
 }
 
+//Note, the number of elements in this array should be an even multiple of the loop itterations run in main
+// otherwise the pattern won't loop cleanly
 int seeds[] = {1, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 127, 89, 55, 34, 21, 13, 8, 5, 3, 2, 1, 1, 1};
 int fibonacci(int pos) {
   pos %= sizeof(seeds)/sizeof(int);
   return seeds[pos];
 }
 
+int cap(int number, int maximum) {
+  if(number > maximum) {
+    return maximum;
+  } else {
+    return number;
+  }
+}
 
 void printRGB(int r, int g, int b) {
   Serial.print(r);
