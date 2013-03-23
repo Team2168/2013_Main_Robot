@@ -5,10 +5,11 @@
 // pixel number.
 //
 int stripLength        = 96; // Number of RGB LEDs in strand
-int shooterLeftPxZero  = 0;  // The first LED in the left LED set
-int shooterRightPxZero = 13;  // The first LED in the right LED set
-int shooterLength      = 12; // Number of LEDs along the shooter
-
+int shooterLeftPxZero  =  0; // The first LED in the left LED set
+int shooterRightPxZero = 20; // The first LED in the right LED set
+int shooterLength      = 14; // Number of LEDs along the shooter
+int drivetrainLength   = 48; // Number of LEDs on drivetrain
+int drivetrainPxZero   = 45; //The first LED in the drivetrain strand
 
 // For "classic" Arduinos (Uno, Duemilanove,
 // etc.), data = pin 11, clock = pin 13.  For Arduino Mega, data = pin 51,
@@ -19,7 +20,10 @@ LPD8806 strip = LPD8806(stripLength);
 //Initialize colors
 int targetR = 0,
     targetG = 0,
-    targetB = 0;
+    targetB = 0,
+    driveTargetR = 0,
+    driveTargetG = 0,
+    driveTargetB = 0;
 int R_OUT = 0,
     G_OUT = 0,
     B_OUT = 0;
@@ -28,14 +32,18 @@ int inputState = 0;
 int numDiscs = 0;
 boolean shooterToSpeed = false,
         discFired = false,
+        lastDiscFired = false,
         againstBar = false,
         endgame = false,
         autonomousMode = false;
-
-int i = 0; //Loop position
+int shotFiredCount = -1,
+    i = 0, //Loop position
+    j = 0;
 
 int inputValue = 0;
 boolean serialComplete = false;
+
+int shots[] = {55, 89, 127};
 
 /**
  * Initialization code
@@ -86,48 +94,90 @@ void loop() {
 
     // Check the status of the bits in from the message:
     shooterToSpeed = inputState & 0x0008;
-    discFired = inputState & 0x0010;
-    againstBar = inputState & 0x0020;
-    endgame = inputState & 0x0040;
+    discFired      = inputState & 0x0010;
+    againstBar     = inputState & 0x0020;
+    endgame        = inputState & 0x0040;
     autonomousMode = inputState & 0x0080;
 
     numDiscs = inputState & 0x0007; //set target strip color based on number of discs
     numDiscs %= 5; //don't let more than 4 discs come through
     
+    
+    if(discFired && !lastDiscFired) {
+      //Reset the count the first time we see a shot fired
+      shotFiredCount = 0;
+    }
+    lastDiscFired = discFired;
+    
     switch (numDiscs) {
       case 2:
+        //yellow
         targetR = 127;
-        targetG = 30;
+        targetG = 60;
         targetB = 0;
         break;
       case 3:
-        targetR = 127;
-        targetG = 127;
+        //yellow green
+        targetR = 80;
+        targetG = 80;
         targetB = 0;
         break;
       case 4:
+        //green
         targetR = 0;
         targetG = 127;
         targetB = 0;
         break;
-      case 0:
       case 1:
+        //light orange
+        targetR = 120;
+        targetG = 20;
+        targetB = 0;
+        break;
+      case 0:
       default:
+        //red
         targetR = 127;
         targetG = 0;
         targetB = 0;
         break;
     }
+    
+    //Determine drivetrain color
+    if(againstBar) {
+      //hot pink
+      driveTargetR = 48;
+      driveTargetG = 128;
+      driveTargetB = 20;
+    } else if(endgame) {
+      //red
+      driveTargetR = 100;
+      driveTargetG = 0;
+      driveTargetB = 0;
+    } else if(autonomousMode) {
+      //light white
+      driveTargetR = 50;
+      driveTargetG = 50;
+      driveTargetB = 50;
+    } else {
+      //off
+      driveTargetR = 0;
+      driveTargetG = 0;
+      driveTargetB = 0;
+    }
   }
 
+  //get the latest value for brightness for patterns that change intensity
   int intensity = fibonacci(i);
-
-  //Ways to augment the shooter LEDs
+  
+  ////////////////////////////////////////
+  //Augment the shooter LEDs
+  ////////////////////////////////////////
   if(shooterToSpeed && !discFired) {
     //Shooter up to speed- flashes between target color and white 
-    R_OUT = cap(targetR + intensity, 127);
-    G_OUT = cap(targetG + intensity, 127);
-    B_OUT = cap(targetB + intensity, 127);
+    R_OUT = min(targetR + intensity, 127);
+    G_OUT = min(targetG + intensity, 127);
+    B_OUT = min(targetB + intensity, 127);
   } else if(numDiscs == 0) {
     //if we have no discs, throb on/off
     R_OUT = (int) targetR / intensity;
@@ -139,15 +189,38 @@ void loop() {
     G_OUT = targetG;
     B_OUT = targetB;
   }
-  
+ 
   //Write data out to the shooter pixels
-  for(int j = 0; j < shooterLength; j++){
-    strip.setPixelColor(j + shooterLeftPxZero, strip.Color(R_OUT, G_OUT, B_OUT));
-    //Write Right side in the reverse order as the left, so patterns flow in the same direction (shots)
-    strip.setPixelColor((shooterLength - 1 + shooterRightPxZero) - j, strip.Color(R_OUT, G_OUT, B_OUT));
+  for(j = 0; j < shooterLength; j++){
+    if(j == shotFiredCount) {
+      //light a pixel white, overriding the normal color
+      strip.setPixelColor(j + shooterLeftPxZero, strip.Color(127, 127, 127));
+      strip.setPixelColor((shooterLength - 1 + shooterRightPxZero) - j, strip.Color(127, 127, 127));
+    } else {
+      strip.setPixelColor(j + shooterLeftPxZero, strip.Color(R_OUT, G_OUT, B_OUT));
+      //Write Right side in the reverse order as the left, so patterns flow in the same direction (shots)
+      strip.setPixelColor((shooterLength - 1 + shooterRightPxZero) - j, strip.Color(R_OUT, G_OUT, B_OUT));
+    }
     strip.show();
   }
-  delay (7);
+  
+  if(shotFiredCount >= 0 && shotFiredCount <= shooterLength) {
+    shotFiredCount++;
+  }
+  
+  //////////////////////////////////////////////
+  //Augment target drivetrain colors
+  //////////////////////////////////////////////
+  R_OUT = driveTargetR;
+  G_OUT = driveTargetG;
+  B_OUT = driveTargetB;
+  
+  //Write data out to the drivetrain pixels
+  for(j = 0; j < drivetrainLength; j++) {
+    strip.setPixelColor(j + drivetrainPxZero, strip.Color(R_OUT, G_OUT, B_OUT));
+  }
+
+  //delay (5);
   
   i = (i + 1) % 50;
 }
@@ -187,14 +260,6 @@ int seeds[] = {1, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 127, 89, 55, 34, 21, 13,
 int fibonacci(int pos) {
   pos %= sizeof(seeds)/sizeof(int);
   return seeds[pos];
-}
-
-int cap(int number, int maximum) {
-  if(number > maximum) {
-    return maximum;
-  } else {
-    return number;
-  }
 }
 
 void printRGB(int r, int g, int b) {
