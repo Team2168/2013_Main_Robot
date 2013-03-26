@@ -17,7 +17,6 @@ public class DriveShooterWithJoystick extends CommandBase {
 	
 	protected void execute() {
 		shooterWheel.tankDrive(oi.getoperatorDriveLeftStick(),oi.getoperatorDriveRightStick());
-		
 	}
 
 	

@@ -20,9 +20,9 @@ import frc2168_2013.commands.subSystems.ShooterWheel.PID_SetAftWheelSpeed;
 public class ShootSingleDisc extends CommandGroup {
 	public ShootSingleDisc() {
 		addSequential(new Sleep(),0.15);
-		addSequential(new HopperStow());
+		addSequential(new HopperFire());
 		addSequential(new Sleep(),0.15);
-		addSequential(new HopperExtend());
+		addSequential(new HopperReload());
 		
 	}
 }

@@ -45,17 +45,17 @@ public class RobotMap {
 	//Relay Output Channels///////////////////////////////////////////
 	public static final int compressorPower = 1;
 	public static final int teamDiscLight   = 2;
-	public static final int lightSaber		= 3;
+	public static final int intake		= 3;
 
 	//Solenoid Channels///////////////////////////////////////////////
-	public static final int hopperExtend  			   = 1;
-	public static final int hopperRetract  			   = 2;
+	public static final int shooterRaise		       = 1;
+	public static final int shooterLower               = 2;
 	public static final int hangerEngage               = 3;
 	public static final int hangerDisengage            = 4;
-	public static final int shooterAngleExtend		   = 5;
-	public static final int shooterAngleRetract		   = 6;
-	public static final int intakeExtend			   = 7;
-	public static final int intakeRetract		   	   = 8;
+	public static final int hopperFire  			   = 5;
+	public static final int hopperReload  			   = 6;
+	public static final int lightSaberRaise            = 7;
+	public static final int lightSaberLower            = 8;
 
 	//Analog Input Channels///////////////////////////////////////////
 	public static final int armLowStop  = 1;

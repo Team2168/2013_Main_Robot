@@ -7,12 +7,12 @@ import frc2168_2013.commands.CommandBase;
  *
  * @author Shriji
  */
-public class HopperExtend extends CommandBase {
+public class HopperReload extends CommandBase {
 
 	/**
 	 * Default constructor.
 	 */
-    public HopperExtend() {
+    public HopperReload() {
     	requires(hopper);
     }
 
@@ -28,7 +28,7 @@ public class HopperExtend extends CommandBase {
      */
     
 	protected void execute() {
-    	hopper.Extend();
+    	hopper.reloadDisc();
     }
 
     /**

@@ -6,14 +6,12 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc2168_2013.utils.JoystickAnalogButton;
 import frc2168_2013.commands.Presets.Preset_HalfCourt_3pt;
-import frc2168_2013.commands.Presets.Preset_InPyramid_3pt;
-import frc2168_2013.commands.Presets.Preset_Pyramid_5pt;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainStraight;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainTurn;
 import frc2168_2013.commands.subSystems.Hanger.HangerDisengage;
 import frc2168_2013.commands.subSystems.Hanger.HangerEngage;
-import frc2168_2013.commands.subSystems.Hopper.HopperExtend;
-import frc2168_2013.commands.subSystems.Hopper.HopperStow;
+import frc2168_2013.commands.subSystems.Hopper.HopperReload;
+import frc2168_2013.commands.subSystems.Hopper.HopperFire;
 import frc2168_2013.commands.subSystems.Hopper.ShootSingleDisc;
 import frc2168_2013.commands.subSystems.Hopper.TeamDiscLightOff;
 import frc2168_2013.commands.subSystems.Hopper.TeamDiscLightOn;
@@ -203,35 +201,18 @@ public class OI {
 		//DRIVER BUTTON MAP//
 		driveButtonLeftBumper.whenPressed(new HangerDisengage()); //disengage the hanger
 		driveButtonRightBumper.whenPressed(new HangerEngage()); //engage the hanger
-		driveButtonA.whenPressed(new TeamDiscLightOn());
-		driveButtonA.whenReleased(new TeamDiscLightOff());
-		//driveButtonX.whenPressed();
-		driveButtonY.whenPressed(new ShooterAngleExtend());
-		driveButtonB.whenPressed(new ShooterAngleStow());
-		
+		driveButtonX.whenPressed(new TeamDiscLightOn());
+		driveButtonX.whenReleased(new TeamDiscLightOff());
+		operatorButtonB.whenPressed(new LightSaberExtend());
+		operatorButtonA.whenPressed(new LightSaberStow());
 		
 		//OPERATOR BUTTON MAP//
-		//operatorTriggerR.whileHeld(new DriveHopperJoystick(-RobotMap.hopperVoltage));
-		//operatorTriggerL.whileHeld(new DriveHopperJoystick(RobotMap.hopperVoltage));
-		operatorButtonLeftBumper.whenPressed(new HopperStow());
-		operatorButtonRightBumper.whenPressed(new HopperExtend());		
-		
-	//	operatorButtonRightStick.whenPressed(new ArmPIDPause());
+		operatorButtonLeftBumper.whenPressed(new HopperReload());
+		operatorButtonRightBumper.whenPressed(new HopperFire());		
 		operatorButtonLeftStick.whenPressed(new PID_ShooterPause());
-		
-		
-		//operatorDPadL.whenPressed();
 		operatorDPadR.whenPressed(new Preset_HalfCourt_3pt());
-		
-		//Shots from the side of the pyramid furthest from the goal (drive team calls this front)
-		operatorButtonA.whenPressed(new LightSaberExtend());
-		
-		//SHots from the side of the pyramid closest to the goal (drive team calls this rear)
-		//operatorButtonB.whenPressed(new Preset_FrontOfPyramid_3pt());
-		//operatorButtonY.whenPressed(new Preset_Wall_3pt());
 		operatorButtonY.whenPressed(new ShooterAngleExtend());
 		operatorButtonB.whenPressed(new ShooterAngleStow());
-		operatorButtonX.whenPressed(new LightSaberStow());
 		
 		//operatorButtonB.whenPressed(new DriveArmWithConstant());
 		

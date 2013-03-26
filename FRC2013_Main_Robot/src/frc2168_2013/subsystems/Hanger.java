@@ -16,9 +16,8 @@ public class Hanger extends Subsystem {
 	/**
 	 * Tells the hanger what to do when it starts
 	 */
-	
 	protected void initDefaultCommand() {
-		setDefaultCommand(new HangerDisengage());
+		//Hanger shouldn't move, no default command. stay where you are hanger!
 	}
 	
 	/**

@@ -7,9 +7,9 @@ import frc2168_2013.commands.CommandBase;
  *
  * @author Shriji
  */
-public class HopperStow extends CommandBase {
+public class HopperFire extends CommandBase {
 
-    public HopperStow() {
+    public HopperFire() {
     	requires(hopper);
     	
     }
@@ -22,7 +22,7 @@ public class HopperStow extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     
 	protected void execute() {
-    	hopper.Stow();
+    	hopper.fireDisc();
     }
 
     // Make this return true when this Command no longer needs to run execute()
