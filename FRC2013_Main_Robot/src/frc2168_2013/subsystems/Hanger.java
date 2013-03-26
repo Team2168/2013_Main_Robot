@@ -11,6 +11,8 @@ public class Hanger extends Subsystem {
 	public Hanger() {
 		actuator = new DoubleSolenoid(RobotMap.hangerDisengage,
 		                              RobotMap.hangerEngage);
+		//start with the hanger lowered
+		engage();
 	}
 	
 	/**

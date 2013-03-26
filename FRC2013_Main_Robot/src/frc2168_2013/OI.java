@@ -30,8 +30,8 @@ public class OI {
 	public static final boolean      rInvert = true;  //for R driveTrain
 	public static final boolean      lInvert = false; //for L driveTrain
 	public static final boolean      ainvert = true;  //for arm left motor
-	public static final boolean      sFwdInvert = true;  //for shooter
-	public static final boolean      sAftInvert = true;  //for shooter
+	public static final boolean      sFwdInvert = false;  //for shooter
+	public static final boolean      sAftInvert = false;  //for shooter
 	public static final boolean      hInvert = true;  //for hopper
 	
 	public static final int     	rightJoyAxis = 5;

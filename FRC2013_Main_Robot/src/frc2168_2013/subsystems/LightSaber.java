@@ -12,6 +12,8 @@ public class LightSaber extends Subsystem {
 	public LightSaber() {
 		actuator = new DoubleSolenoid(RobotMap.lightSaberRaise,
 				RobotMap.lightSaberLower);
+		//start with the light sabers lowered
+		stow();
 	}
 	
 	/**
@@ -22,12 +24,12 @@ public class LightSaber extends Subsystem {
 
 	}
 	
-	public void Extend(){
+	public void extend(){
 		//TODO: Verify that kForward disengages the hanger
 		actuator.set(DoubleSolenoid.Value.kForward);
 	}
     
-	public void Stow() {
+	public void stow() {
 		//TODO: Verify that kForward engages the hanger
 		actuator.set(DoubleSolenoid.Value.kReverse);
 	}
