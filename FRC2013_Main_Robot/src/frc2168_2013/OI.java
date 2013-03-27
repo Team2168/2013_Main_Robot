@@ -1,4 +1,3 @@
-
 package frc2168_2013;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -199,27 +198,22 @@ public class OI {
 	
 	public OI() {
 		//DRIVER BUTTON MAP//
-		driveButtonLeftBumper.whenPressed(new HangerDisengage()); //disengage the hanger
-		driveButtonRightBumper.whenPressed(new HangerEngage()); //engage the hanger
+		driveButtonB.whenPressed(new HangerDisengage()); //disengage the hanger
+		driveButtonA.whenPressed(new HangerEngage()); //engage the hanger
 		driveButtonX.whenPressed(new TeamDiscLightOn());
 		driveButtonX.whenReleased(new TeamDiscLightOff());
-		operatorButtonB.whenPressed(new LightSaberExtend());
-		operatorButtonA.whenPressed(new LightSaberStow());
+		driveButtonRightBumper.whenPressed(new LightSaberExtend());
+		driveButtonLeftBumper.whenPressed(new LightSaberStow());
 		
 		//OPERATOR BUTTON MAP//
-		operatorButtonLeftBumper.whenPressed(new HopperReload());
-		operatorButtonRightBumper.whenPressed(new HopperFire());		
+		operatorButtonLeftBumper.whenPressed(new ShooterAngleStow());
+		operatorButtonRightBumper.whenPressed(new ShooterAngleExtend());		
+		operatorButtonX.whenPressed(new HopperReload());
+		operatorButtonB.whenPressed(new HopperFire());
+		operatorButtonA.whenPressed(new ShootSingleDisc()); //shoot one frisbee at a time
 		operatorButtonLeftStick.whenPressed(new PID_ShooterPause());
-		operatorDPadR.whenPressed(new Preset_HalfCourt_3pt());
-		operatorButtonY.whenPressed(new ShooterAngleExtend());
-		operatorButtonB.whenPressed(new ShooterAngleStow());
-		
-		//operatorButtonB.whenPressed(new DriveArmWithConstant());
-		
-		operatorButtonStart.whenPressed(new ShootSingleDisc()); //shoot one frisbee at a time
-		//operatorButtonReset.whileHeld(new StopHopperWhenFull());
-		//operatorButtonReset.whenReleased(new DriveHopperBackTimed());
-
+		//operatorDPadR.whenPressed(); // set the shooter speed and angle for "back" of the pyramid shots (closer to the wall)
+		//operatorDPadL.whenPressed(); // set the shooter speed and angle for "front" of the pyramid shots (farther from the wall)
 		
 		//Test Joystick Commands
 		//TODO: Remove this for competition!
