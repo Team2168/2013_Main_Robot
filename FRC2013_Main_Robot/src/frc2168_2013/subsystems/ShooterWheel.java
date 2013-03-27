@@ -81,7 +81,7 @@ public class ShooterWheel extends Subsystem {
      * @param fwdWheelSpeed between -1 and 1
      */
     public void driveFwdWheel(double fwdWheelSpeed) {
-    	//RobotMap defines which motors are inverted on drivetrain.
+    	//RobotMap defines which motors are inverted.
     	if(OI.sFwdInvert)
     		fwdWheelSpeed = -fwdWheelSpeed;
 
@@ -95,7 +95,7 @@ public class ShooterWheel extends Subsystem {
      * @param aftWheelSpeed between -1 and 1
      */
     public void driveAftWheel(double aftWheelSpeed) {
-    	//RobotMap defines which motors are inverted on drivetrain.
+    	//RobotMap defines which motors are inverted.
     	if(OI.sAftInvert)
     		aftWheelSpeed = -aftWheelSpeed;
     	

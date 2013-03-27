@@ -11,14 +11,15 @@ public class Hanger extends Subsystem {
 	public Hanger() {
 		actuator = new DoubleSolenoid(RobotMap.hangerDisengage,
 		                              RobotMap.hangerEngage);
+		//start with the hanger lowered
+		engage();
 	}
 	
 	/**
 	 * Tells the hanger what to do when it starts
 	 */
-	
 	protected void initDefaultCommand() {
-		setDefaultCommand(new HangerDisengage());
+		//Hanger shouldn't move, no default command. stay where you are hanger!
 	}
 	
 	/**
