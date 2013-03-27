@@ -1,16 +1,19 @@
 package frc2168_2013.subsystems;
 
 
-import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc2168_2013.RobotMap;
 
 
 public class LightSaber extends Subsystem {
-	Relay actuator;
+	DoubleSolenoid actuator;
 	
 	public LightSaber() {
-		actuator = new Relay(RobotMap.lightSaber);
+		actuator = new DoubleSolenoid(RobotMap.lightSaberRaise,
+				RobotMap.lightSaberLower);
+		//start with the light sabers lowered
+		stow();
 	}
 	
 	/**
@@ -21,26 +24,13 @@ public class LightSaber extends Subsystem {
 
 	}
 	
-	public void Extend(){
+	public void extend(){
 		//TODO: Verify that kForward disengages the hanger
-		actuator.set(Relay.Value.kForward);
+		actuator.set(DoubleSolenoid.Value.kForward);
 	}
     
-    /**
-     * Lower/deploy the intake mechanism.
-     */
-	public void Stow() {
+	public void stow() {
 		//TODO: Verify that kForward engages the hanger
-		actuator.set(Relay.Value.kReverse);
-	}
-	
-	public boolean isStowed(){
-		//TODO: Verify that kForward disengages the hanger
-		return actuator.get() == Relay.Value.kReverse;
-	}
-	
-	public boolean isExtended(){
-		//TODO: Verify that kForward disengages the hanger
-		return actuator.get() == Relay.Value.kForward;
+		actuator.set(DoubleSolenoid.Value.kReverse);
 	}
 }

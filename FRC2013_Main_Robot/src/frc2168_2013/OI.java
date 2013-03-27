@@ -1,4 +1,3 @@
-
 package frc2168_2013;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -6,14 +5,12 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc2168_2013.utils.JoystickAnalogButton;
 import frc2168_2013.commands.Presets.Preset_HalfCourt_3pt;
-import frc2168_2013.commands.Presets.Preset_InPyramid_3pt;
-import frc2168_2013.commands.Presets.Preset_Pyramid_5pt;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainStraight;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainTurn;
 import frc2168_2013.commands.subSystems.Hanger.HangerDisengage;
 import frc2168_2013.commands.subSystems.Hanger.HangerEngage;
-import frc2168_2013.commands.subSystems.Hopper.HopperExtend;
-import frc2168_2013.commands.subSystems.Hopper.HopperStow;
+import frc2168_2013.commands.subSystems.Hopper.HopperReload;
+import frc2168_2013.commands.subSystems.Hopper.HopperFire;
 import frc2168_2013.commands.subSystems.Hopper.ShootSingleDisc;
 import frc2168_2013.commands.subSystems.Hopper.TeamDiscLightOff;
 import frc2168_2013.commands.subSystems.Hopper.TeamDiscLightOn;
@@ -32,8 +29,8 @@ public class OI {
 	public static final boolean      rInvert = true;  //for R driveTrain
 	public static final boolean      lInvert = false; //for L driveTrain
 	public static final boolean      ainvert = true;  //for arm left motor
-	public static final boolean      sFwdInvert = true;  //for shooter
-	public static final boolean      sAftInvert = true;  //for shooter
+	public static final boolean      sFwdInvert = false;  //for shooter
+	public static final boolean      sAftInvert = false;  //for shooter
 	public static final boolean      hInvert = true;  //for hopper
 	
 	public static final int     	rightJoyAxis = 5;
@@ -201,44 +198,22 @@ public class OI {
 	
 	public OI() {
 		//DRIVER BUTTON MAP//
-		driveButtonLeftBumper.whenPressed(new HangerDisengage()); //disengage the hanger
-		driveButtonRightBumper.whenPressed(new HangerEngage()); //engage the hanger
-		driveButtonA.whenPressed(new TeamDiscLightOn());
-		driveButtonA.whenReleased(new TeamDiscLightOff());
-		//driveButtonX.whenPressed();
-		driveButtonY.whenPressed(new ShooterAngleExtend());
-		driveButtonB.whenPressed(new ShooterAngleStow());
-		
+		driveButtonB.whenPressed(new HangerDisengage()); //disengage the hanger
+		driveButtonA.whenPressed(new HangerEngage()); //engage the hanger
+		driveButtonX.whenPressed(new TeamDiscLightOn());
+		driveButtonX.whenReleased(new TeamDiscLightOff());
+		driveButtonRightBumper.whenPressed(new LightSaberExtend());
+		driveButtonLeftBumper.whenPressed(new LightSaberStow());
 		
 		//OPERATOR BUTTON MAP//
-		//operatorTriggerR.whileHeld(new DriveHopperJoystick(-RobotMap.hopperVoltage));
-		//operatorTriggerL.whileHeld(new DriveHopperJoystick(RobotMap.hopperVoltage));
-		operatorButtonLeftBumper.whenPressed(new HopperStow());
-		operatorButtonRightBumper.whenPressed(new HopperExtend());		
-		
-	//	operatorButtonRightStick.whenPressed(new ArmPIDPause());
+		operatorButtonLeftBumper.whenPressed(new ShooterAngleStow());
+		operatorButtonRightBumper.whenPressed(new ShooterAngleExtend());		
+		operatorButtonX.whenPressed(new HopperReload());
+		operatorButtonB.whenPressed(new HopperFire());
+		operatorButtonA.whenPressed(new ShootSingleDisc()); //shoot one frisbee at a time
 		operatorButtonLeftStick.whenPressed(new PID_ShooterPause());
-		
-		
-		//operatorDPadL.whenPressed();
-		operatorDPadR.whenPressed(new Preset_HalfCourt_3pt());
-		
-		//Shots from the side of the pyramid furthest from the goal (drive team calls this front)
-		operatorButtonA.whenPressed(new LightSaberExtend());
-		
-		//SHots from the side of the pyramid closest to the goal (drive team calls this rear)
-		//operatorButtonB.whenPressed(new Preset_FrontOfPyramid_3pt());
-		//operatorButtonY.whenPressed(new Preset_Wall_3pt());
-		operatorButtonY.whenPressed(new ShooterAngleExtend());
-		operatorButtonB.whenPressed(new ShooterAngleStow());
-		operatorButtonX.whenPressed(new LightSaberStow());
-		
-		//operatorButtonB.whenPressed(new DriveArmWithConstant());
-		
-		operatorButtonStart.whenPressed(new ShootSingleDisc()); //shoot one frisbee at a time
-		//operatorButtonReset.whileHeld(new StopHopperWhenFull());
-		//operatorButtonReset.whenReleased(new DriveHopperBackTimed());
-
+		//operatorDPadR.whenPressed(); // set the shooter speed and angle for "back" of the pyramid shots (closer to the wall)
+		//operatorDPadL.whenPressed(); // set the shooter speed and angle for "front" of the pyramid shots (farther from the wall)
 		
 		//Test Joystick Commands
 		//TODO: Remove this for competition!

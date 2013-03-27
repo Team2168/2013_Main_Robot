@@ -8,20 +8,19 @@ public class ShooterAngle extends Subsystem {
 	DoubleSolenoid actuator;
 	
 	public ShooterAngle() {
-		actuator = new DoubleSolenoid(RobotMap.shooterAngleExtend,
-		                              RobotMap.shooterAngleRetract);
+		actuator = new DoubleSolenoid(RobotMap.shooterRaise,
+		                              RobotMap.shooterLower);
 	}
 	
 	/**
 	 * Tells the Shooter Angle what to do when it starts
 	 */
-	
 	protected void initDefaultCommand() {
 		
 	}
 	
 	/**
-	 * Engage the Shooter Angle / retract the actuators.
+	 * Lower the shooter, for further shots
 	 */
 	public void Stow() {
 		//TODO: Verify that kForward engages the Shooter Angle
@@ -29,20 +28,10 @@ public class ShooterAngle extends Subsystem {
 	}
 	
 	/**
-	 * Disengage the Shooter Angle / extend the actuators
+	 * Raise the shooter, for closer shots
 	 */
 	public void Extend(){
 		//TODO: Verify that kForward disengages the Shooter Angle
 		actuator.set(DoubleSolenoid.Value.kForward);
-	}
-	
-	public boolean isStowed(){
-		//TODO: Verify that kForward disengages the Shooter Angle
-		return actuator.get() == DoubleSolenoid.Value.kReverse;
-	}
-	
-	public boolean isExtended(){
-		//TODO: Verify that kForward disengages the Shooter Angle
-		return actuator.get() == DoubleSolenoid.Value.kForward;
 	}
 }

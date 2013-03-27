@@ -28,7 +28,7 @@ public class LightSaberExtend extends CommandBase {
      */
     
 	protected void execute() {
-		lightSaber.Extend();
+		lightSaber.extend();
     }
 
     /**
