@@ -27,6 +27,7 @@ public class Hanger extends Subsystem {
 	 */
 	public void engage() {
 		//TODO: Verify that kForward engages the hanger
+		//pull the hanger down to lift off the ground
 		actuator.set(DoubleSolenoid.Value.kReverse);
 	}
 	
@@ -35,6 +36,7 @@ public class Hanger extends Subsystem {
 	 */
 	public void disengage(){
 		//TODO: Verify that kForward disengages the hanger
+		//puts the hanger up to grab the bar
 		actuator.set(DoubleSolenoid.Value.kForward);
 	}
 }

@@ -20,11 +20,6 @@ public CompetitionDashboard()
         
 
 
-//show shooter gains
-//SmartDashboard.putNumber("P", RobotMap.shooterP);
-//SmartDashboard.putNumber("I", RobotMap.shooterI);
-//SmartDashboard.putNumber("D", RobotMap.shooterD);
-
 //add clock
 SmartDashboard.putString("compTime", "");
 
@@ -51,33 +46,10 @@ SmartDashboard.putBoolean("shooterAtSpeed", shooterWheel.shooterWheelSpeedContro
 SmartDashboard.putBoolean("enable", shooterWheel.shooterWheelSpeedControllerAft.isEnabled());
 SmartDashboard.putNumber("executionTime", shooterWheel.shooterWheelSpeedControllerAft.getExecutionTime());
 SmartDashboard.putNumber("shooterSetPoint", shooterWheel.shooterWheelSpeedControllerAft.getSetPoint());
-
-
-
 SmartDashboard.putNumber("shooter Err", shooterWheel.shooterWheelSpeedControllerAft.getError());
 SmartDashboard.putNumber("shooter acceptErr", shooterWheel.shooterWheelSpeedControllerAft.getAcceptErrorDiff());
 
 
-
-
-//drive shooter wheel
-//try
-//{
-//
-//
-////hood.shooterWheelController.setSp(SmartDashboard.getDouble("shooterSetPoint"));
-////System.out.println(SmartDashboard.getString("compTime"));
-//
-////get shooter gains from dashboard
-//hood.shooterWheelController.setpGain(SmartDashboard.putNumber("P"));
-//hood.shooterWheelController.setiGain(SmartDashboard.putNumber("I"));
-//hood.shooterWheelController.setdGain(SmartDashboard.putNumber("D"));
-//
-//} catch (NetworkTableKeyNotDefined e)
-//{
-//// TODO Auto-generated catch block
-//e.printStackTrace();
-//}
 
 
 }

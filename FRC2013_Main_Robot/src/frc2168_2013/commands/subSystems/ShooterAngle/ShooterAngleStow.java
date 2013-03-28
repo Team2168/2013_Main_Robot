@@ -22,7 +22,8 @@ public class ShooterAngleStow extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     
 	protected void execute() {
-    	shooterAngle.Stow();
+    	shooterAngle.stow();
+    	//sets the shooter angle to stow position
     }
 
     // Make this return true when this Command no longer needs to run execute()

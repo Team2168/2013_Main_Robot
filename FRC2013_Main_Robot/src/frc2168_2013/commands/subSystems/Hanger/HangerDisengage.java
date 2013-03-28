@@ -22,6 +22,7 @@ public class HangerDisengage extends CommandBase {
 	
 	protected void execute() {
 		hanger.disengage();
+		//pulls the hanger up to grab the bar
 	}
 
 	

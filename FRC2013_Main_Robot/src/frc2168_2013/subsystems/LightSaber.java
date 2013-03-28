@@ -25,12 +25,10 @@ public class LightSaber extends Subsystem {
 	}
 	
 	public void extend(){
-		//TODO: Verify that kForward disengages the hanger
 		actuator.set(DoubleSolenoid.Value.kForward);
 	}
     
 	public void stow() {
-		//TODO: Verify that kForward engages the hanger
 		actuator.set(DoubleSolenoid.Value.kReverse);
 	}
 }

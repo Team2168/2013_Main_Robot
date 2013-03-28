@@ -22,6 +22,7 @@ public class HangerEngage extends CommandBase {
 	
 	protected void execute() {
 		hanger.engage();
+		//pulls the hanger down to lift off the ground
 	}
 
 	

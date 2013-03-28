@@ -29,6 +29,7 @@ public class LightSaberExtend extends CommandBase {
     
 	protected void execute() {
 		lightSaber.extend();
+		//extends the light sabers to assist with the approach
     }
 
     /**

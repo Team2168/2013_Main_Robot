@@ -22,18 +22,18 @@ import frc2168_2013.commands.subSystems.ShooterWheel.PID_SetAftWheelSpeed;
 public class RearOfPyramid_3pt_Center extends CommandGroup {
 	public RearOfPyramid_3pt_Center() {
 		
-		addParallel(new ShooterAngleStow());
 		//set shooter angle to stow position
+		addParallel(new ShooterAngleStow());
 		
 //		addParallel(new PID_SetAftWheelSpeed(RobotMap.AFT_SHOOTERWHEEL_BACK_PYRAMID_3PT_SPEED));
 //		addParallel(new PID_SetFwdWheelSpeed(RobotMap.FWD_SHOOTERWHEEL_BACK_PYRAMID_3PT_SPEED));
 //		//set shooterwheel speeds
 		
-		addParallel(new DriveShooterWithConstant(1.0, 1.0));
 		//driver both shooterwheels at full speed
+		addParallel(new DriveShooterWithConstant(1.0, 1.0));
 		
-		addSequential(new Sleep(),3.0);
 		//wait for the shooterwheels to get up to speed
+		addSequential(new Sleep(),3.0);
 		
 		//Shoot three discs
 		addSequential(new ShootSingleDisc());

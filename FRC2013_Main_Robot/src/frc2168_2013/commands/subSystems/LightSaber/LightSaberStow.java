@@ -23,6 +23,7 @@ public class LightSaberStow extends CommandBase {
     
 	protected void execute() {
 		lightSaber.stow();
+		//retracts the light sabers to maneuver under the pyramid
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -23,6 +23,7 @@ public class HopperFire extends CommandBase {
     
 	protected void execute() {
     	hopper.fireDisc();
+    	//actuate the piston to fire which feeds a frisbee into the shooterwheels
     }
 
     // Make this return true when this Command no longer needs to run execute()

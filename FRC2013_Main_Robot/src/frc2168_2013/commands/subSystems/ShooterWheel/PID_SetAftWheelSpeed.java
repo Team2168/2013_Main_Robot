@@ -12,8 +12,6 @@ public class PID_SetAftWheelSpeed extends CommandBase {
 	private double setPoint;
 
     public PID_SetAftWheelSpeed() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     	requires(shooterWheel);
     	this.setPoint = shooterWheel.shooterWheelSpeedControllerAft.getSetPoint();
     }
@@ -52,7 +50,6 @@ public class PID_SetAftWheelSpeed extends CommandBase {
     	shooterWheel.shooterWheelSpeedControllerAft.Pause();
     }
 
-    //delete me
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     
