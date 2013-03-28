@@ -10,6 +10,9 @@ public class DriveShooterWithConstant extends CommandBase {
 	private double aftWheelSpeed;
 	private double fwdWheelSpeed;
 	
+	/*
+	 * Method allows you to drive shooter with constant speed
+	 */
 	public DriveShooterWithConstant(double aftWheelSpeed, double fwdWheelSpeed){
 		requires(shooterWheel);
 		

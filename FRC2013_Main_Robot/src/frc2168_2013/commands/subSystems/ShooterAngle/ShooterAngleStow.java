@@ -23,6 +23,7 @@ public class ShooterAngleStow extends CommandBase {
     
 	protected void execute() {
     	shooterAngle.stow();
+    	//sets the shooter angle to stow position
     }
 
     // Make this return true when this Command no longer needs to run execute()

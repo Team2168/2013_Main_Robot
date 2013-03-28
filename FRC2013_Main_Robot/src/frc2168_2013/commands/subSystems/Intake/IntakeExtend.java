@@ -3,7 +3,7 @@ package frc2168_2013.commands.subSystems.Intake;
 import frc2168_2013.commands.CommandBase;
 
 /**
- * A command to engage the hanger mechanism.
+ * A command to actuate the intake to the extended position
  * 
  * @author ICW
  *
@@ -11,7 +11,7 @@ import frc2168_2013.commands.CommandBase;
 public class IntakeExtend extends CommandBase {
 
 	public IntakeExtend() {
-		requires (hanger);
+		requires(intake);
 	}
 
 	
@@ -21,7 +21,7 @@ public class IntakeExtend extends CommandBase {
 
 	
 	protected void execute() {
-		hanger.engage();
+		intake.Extend();
 	}
 
 	
@@ -36,8 +36,6 @@ public class IntakeExtend extends CommandBase {
 
 	
 	protected boolean isFinished() {
-		//Keep engaging the hanger until another command come along that
-		// requires the hanger.
 		return false;
 	}
 }

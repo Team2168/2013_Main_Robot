@@ -29,6 +29,7 @@ public class ShooterAngleExtend extends CommandBase {
     
 	protected void execute() {
     	shooterAngle.extend();
+    	//extends the shooter solenoid 
     }
 
     /**
