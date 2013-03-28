@@ -27,15 +27,15 @@ public class Intake extends Subsystem {
     /**
      * Lower the intake mechanism.
      */
-	public void Extend(){
+	public void lower(){
 		//TODO: Verify that kForward disengages the hanger
 		//actuator.set(DoubleSolenoid.Value.kForward);
 	}
     
     /**
-     * Lower/deploy the intake mechanism.
+     * Raise the intake mechanism.
      */
-	public void Stow() {
+	public void raise() {
 		//TODO: Verify that kForward engages the hanger
 		//actuator.set(DoubleSolenoid.Value.kReverse);
 	}
