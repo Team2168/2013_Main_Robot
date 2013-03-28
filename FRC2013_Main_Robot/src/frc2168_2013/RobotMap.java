@@ -17,35 +17,28 @@ public class RobotMap {
 	 *                       CRIO MAP                               *
 	 ****************************************************************/	
 	//PWM Channels////////////////////////////////////////////////////
-	public static final int leftDriveMotor = 1;
+	public static final int leftDriveMotor  = 1;
 	public static final int rightDriveMotor = 2;
 	public static final int shooterMotorAft = 3;
 	public static final int shooterMotorFwd = 4;
-	public static final int leftArmMotor = 5;
-	public static final int rightArmMotor = 6;
 	
 
 	//DIO Channels////////////////////////////////////////////////////
-	public static final int leftDriveEncoderChannelA = 1;
-	public static final int leftDriveEncoderChannelB = 2;
+	public static final int leftDriveEncoderChannelA  = 1;
+	public static final int leftDriveEncoderChannelB  = 2;
 	public static final int rightDriveEncoderChannelA = 3;
 	public static final int rightDriveEncoderChannelB = 4;
 	public static final int shooterEncoderAftChannelA = 5;
 	public static final int shooterEncoderAftChannelB = 6;
 	public static final int shooterEncoderFwdChannelA = 7;
 	public static final int shooterEncoderFwdChannelB = 8;
-	public static final int hopperDisc1 = 9;
-	public static final int hopperDisc2 = 10;
-	public static final int hopperDisc3 = 11;
-	public static final int hopperDisc4 = 12;
 	
-
 	public static final int compressorPressureSwitch = 14;
 
 	//Relay Output Channels///////////////////////////////////////////
 	public static final int compressorPower = 1;
 	public static final int teamDiscLight   = 2;
-	public static final int intake		= 3;
+	public static final int intake          = 3;
 
 	//Solenoid Channels///////////////////////////////////////////////
 	public static final int shooterRaise		       = 1;
@@ -58,9 +51,7 @@ public class RobotMap {
 	public static final int lightSaberLower            = 8;
 
 	//Analog Input Channels///////////////////////////////////////////
-	public static final int armLowStop  = 1;
 	public static final int gyroChannel = 2;
-	public static final int armHighStop = 3;
 
 	/****************************************************************
 	 *                       Shooter Parameters                     *
@@ -73,14 +64,14 @@ public class RobotMap {
 //	public static final double HALF_COURT_3PT_SPEED    = 3000; //NOT tested
 	
 	
-	public static final double AFT_SHOOTERWHEEL_PRE_SPIN_SPEED          =  5000;
+	public static final double AFT_SHOOTERWHEEL_PRE_SPIN_SPEED          = 5000;
 	public static final double AFT_SHOOTERWHEEL_WALL_3PT_SPEED          = 5000; //up against the goal
 	public static final double AFT_SHOOTERWHEEL_PYRAMID_5PT_SPEED       = 5000; //NOT tested
 	public static final double AFT_SHOOTERWHEEL_FRONT_PYRAMID_3PT_SPEED = 5000; //closer to the goal, tested
 	public static final double AFT_SHOOTERWHEEL_BACK_PYRAMID_3PT_SPEED  = 5000; //further from the goal, tested
 	public static final double AFT_SHOOTERWHEEL_HALF_COURT_3PT_SPEED    = 5000; //NOT tested
 	
-	public static final double FWD_SHOOTERWHEEL_PRE_SPIN_SPEED          =  5000;
+	public static final double FWD_SHOOTERWHEEL_PRE_SPIN_SPEED          = 5000;
 	public static final double FWD_SHOOTERWHEEL_WALL_3PT_SPEED          = 5000; //up against the goal
 	public static final double FWD_SHOOTERWHEEL_PYRAMID_5PT_SPEED       = 5000; //NOT tested
 	public static final double FWD_SHOOTERWHEEL_FRONT_PYRAMID_3PT_SPEED = 5000; //closer to the goal, tested
@@ -111,8 +102,8 @@ public class RobotMap {
 	public static final long shooterPIDPeriod = 100;//100ms loop
 
 	//PID Gains for Shooter Wheel Speed Controller
-	public static final double shooterSpeedP =  0.0002;
-	public static final double shooterSpeedI =  0.00001412646174233; 
+	public static final double shooterSpeedP = 0.0002;
+	public static final double shooterSpeedI = 0.00001412646174233; 
 	public static final double shooterSpeedD = 0.0074778888124088;
 
 
@@ -123,13 +114,13 @@ public class RobotMap {
 	public static final double PYRAMID_5PT_ANGLE       = 102; //NOT tested
 	public static final double FRONT_PYRAMID_3PT_ANGLE =  88; //closer to the goal, tested
 	public static final double BACK_PYRAMID_3PT_ANGLE  =  76; //further from the goal, tested
-	public static final double IN_PYRAMID_3PT_ANGLE  =  75; //further fro
+	public static final double IN_PYRAMID_3PT_ANGLE    =  75; //further fro
 	public static final double HALF_COURT_3PT_ANGLE    =  70; //NOT tested
 	public static final double ARM_HORIZONTAL_ANGLE    =  52;
 	
 	//arm voltage constant
-	public static final double hopperVoltage = 0.65;
-	public static final double armConstVoltage = 0.7; //voltage to overcome 
+	public static final double hopperVoltage       = 0.65;
+	public static final double armConstVoltage     = 0.7; //voltage to overcome 
 	public static final double armConstVoltageHome = -0.3; //voltage to zero arm on startup
 
 	//arm Encoder///////////////////////////////////////////////
@@ -208,8 +199,8 @@ public class RobotMap {
 	public static final double driveTrainLeftPositionI = 0.0001412646174233;  
 	public static final double driveTrainLeftPositionD = 0.0074778888124088;
 
-	public static final double driveTrainRightPositionP =  0.002;
-	public static final double driveTrainRightPositionI =  0.0001412646174233; 
+	public static final double driveTrainRightPositionP = 0.002;
+	public static final double driveTrainRightPositionI = 0.0001412646174233; 
 	public static final double driveTrainRightPositionD = 0.0074778888124088;
 	
 	//autonomous gyro angle error.

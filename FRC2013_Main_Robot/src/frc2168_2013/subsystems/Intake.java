@@ -10,6 +10,7 @@ public class Intake extends Subsystem {
 	Relay actuator;
 	
 	public Intake() {
+		//TODO: If an intake is added, flesh this stuff out.
 		//actuator = new DoubleSolenoid(RobotMap.intakeExtend,
         //       RobotMap.intakeRetract);
 	}

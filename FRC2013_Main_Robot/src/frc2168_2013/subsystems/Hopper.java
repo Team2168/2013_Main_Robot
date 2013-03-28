@@ -17,6 +17,9 @@ public class Hopper extends Subsystem {
 		
 		actuator = new DoubleSolenoid(RobotMap.hopperReload,
                 RobotMap.hopperFire);
+		
+		//Start with actuator ready to fire a disc (reloaded)
+		reloadDisc();
 	}
 	
 	/**
