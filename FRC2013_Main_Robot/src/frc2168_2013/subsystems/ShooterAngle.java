@@ -22,16 +22,14 @@ public class ShooterAngle extends Subsystem {
 	/**
 	 * Lower the shooter, for further shots
 	 */
-	public void Stow() {
-		//TODO: Verify that kForward engages the Shooter Angle
+	public void stow() {
 		actuator.set(DoubleSolenoid.Value.kReverse);
 	}
 	
 	/**
 	 * Raise the shooter, for closer shots
 	 */
-	public void Extend(){
-		//TODO: Verify that kForward disengages the Shooter Angle
+	public void extend() {
 		actuator.set(DoubleSolenoid.Value.kForward);
 	}
 }

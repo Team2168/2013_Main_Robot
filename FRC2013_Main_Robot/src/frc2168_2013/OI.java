@@ -27,16 +27,16 @@ import frc2168_2013.commands.subSystems.ShooterWheel.PID_ShooterPause;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	public static final boolean      rInvert = true;  //for R driveTrain
-	public static final boolean      lInvert = false; //for L driveTrain
-	public static final boolean      ainvert = true;  //for arm left motor
-	public static final boolean      sFwdInvert = false;  //for shooter
-	public static final boolean      sAftInvert = false;  //for shooter
-	public static final boolean      hInvert = true;  //for hopper
+	public static final boolean rInvert =    true;  //for R driveTrain
+	public static final boolean lInvert =    false; //for L driveTrain
+	public static final boolean ainvert =    true;  //for arm left motor
+	public static final boolean sFwdInvert = false; //for shooter
+	public static final boolean sAftInvert = false; //for shooter
+	public static final boolean hInvert =    true;  //for hopper
 	
-	public static final int     	rightJoyAxis = 5;
-	public static final int      	leftJoyAxis = 2;
-	public static final int      	triggerAxis = 3;
+	public static final int     rightJoyAxis = 5;
+	public static final int     leftJoyAxis  = 2;
+	public static final int     triggerAxis  = 3;
 	
 	// minSpeed needs to be tweaked based on the particular drivetrain.
 	// It is the speed at which the drivetrain barely starts moving
@@ -200,7 +200,7 @@ public class OI {
 	public OI() {
 		//DRIVER BUTTON MAP//
 		driveButtonB.whenPressed(new HangerDisengage()); //disengage the hanger
-		driveButtonA.whenPressed(new HangerEngage()); //engage the hanger
+		driveButtonA.whenPressed(new HangerEngage());    //engage the hanger
 		driveButtonX.whenPressed(new TeamDiscLightOn());
 		driveButtonX.whenReleased(new TeamDiscLightOff());
 		driveButtonRightBumper.whenPressed(new LightSaberExtend());
@@ -213,8 +213,10 @@ public class OI {
 		operatorButtonB.whenPressed(new HopperFire());
 		operatorButtonA.whenPressed(new ShootSingleDisc()); //shoot one frisbee at a time
 		operatorButtonLeftStick.whenPressed(new PID_ShooterPause());
-		operatorDPadR.whenPressed(new Preset_RearOfPyramid_3pt()); // set the shooter speed and angle for "back" of the pyramid shots (closer to the wall)
-		operatorDPadL.whenPressed(new Preset_FrontOfPyramid_3pt()); // set the shooter speed and angle for "front" of the pyramid shots (farther from the wall)
+		// set the shooter speed and angle for "back" of the pyramid shots (closer to the wall)
+		operatorDPadR.whenPressed(new Preset_RearOfPyramid_3pt());
+		// set the shooter speed and angle for "front" of the pyramid shots (farther from the wall)
+		operatorDPadL.whenPressed(new Preset_FrontOfPyramid_3pt());
 		
 		//Test Joystick Commands
 		//TODO: Remove this for competition!

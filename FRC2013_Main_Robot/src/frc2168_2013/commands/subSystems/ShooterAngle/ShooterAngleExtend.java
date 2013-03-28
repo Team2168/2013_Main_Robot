@@ -28,7 +28,8 @@ public class ShooterAngleExtend extends CommandBase {
      */
     
 	protected void execute() {
-    	shooterAngle.Extend();
+    	shooterAngle.extend();
+    	//extends the shooter solenoid 
     }
 
     /**

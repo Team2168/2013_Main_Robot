@@ -29,6 +29,7 @@ public class HopperReload extends CommandBase {
     
 	protected void execute() {
     	hopper.reloadDisc();
+    	//actuate the piston back to grab another frisbee
     }
 
     /**

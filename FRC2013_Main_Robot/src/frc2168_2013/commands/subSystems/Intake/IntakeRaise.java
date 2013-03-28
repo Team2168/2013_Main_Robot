@@ -3,15 +3,15 @@ package frc2168_2013.commands.subSystems.Intake;
 import frc2168_2013.commands.CommandBase;
 
 /**
- * A command to disengage the hanger mechanism.
+ * A command to actuate the intake to stow position.
  * 
  * @author ICW
  *
  */
-public class IntakeStow extends CommandBase {
+public class IntakeRaise extends CommandBase {
 
-	public IntakeStow() {
-		requires (hanger);
+	public IntakeRaise() {
+		requires (intake);
 	}
 
 	
@@ -19,9 +19,11 @@ public class IntakeStow extends CommandBase {
 		//Nothing to do here
 	}
 
-	
+	/**
+	 * Sets the intake to the stow position
+	 */
 	protected void execute() {
-		hanger.disengage();
+		intake.raise();
 	}
 
 	
@@ -36,8 +38,6 @@ public class IntakeStow extends CommandBase {
 
 	
 	protected boolean isFinished() {
-		//Keep disengaging the hanger until another command come along that
-		// requires the hanger.
 		return false;
 	}
 }

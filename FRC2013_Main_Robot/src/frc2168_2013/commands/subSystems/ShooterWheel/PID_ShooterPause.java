@@ -10,8 +10,6 @@ import frc2168_2013.commands.CommandBase;
 public class PID_ShooterPause extends CommandBase {
 
     public PID_ShooterPause() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     	requires(shooterWheel);
     }
 
@@ -29,7 +27,6 @@ public class PID_ShooterPause extends CommandBase {
     	
     }
 
-    //delete me
     // Make this return true when this Command no longer needs to run execute()
     
 	protected boolean isFinished() {
