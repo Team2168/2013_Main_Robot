@@ -73,12 +73,20 @@ public class RobotMap {
 //	public static final double HALF_COURT_3PT_SPEED    = 3000; //NOT tested
 	
 	
-	public static final double PRE_SPIN_SPEED          =  5000;
-	public static final double WALL_3PT_SPEED          = 5000; //up against the goal
-	public static final double PYRAMID_5PT_SPEED       = 5000; //NOT tested
-	public static final double FRONT_PYRAMID_3PT_SPEED = 5000; //closer to the goal, tested
-	public static final double BACK_PYRAMID_3PT_SPEED  = 5000; //further from the goal, tested
-	public static final double HALF_COURT_3PT_SPEED    = 5000; //NOT tested
+	public static final double AFT_SHOOTERWHEEL_PRE_SPIN_SPEED          =  5000;
+	public static final double AFT_SHOOTERWHEEL_WALL_3PT_SPEED          = 5000; //up against the goal
+	public static final double AFT_SHOOTERWHEEL_PYRAMID_5PT_SPEED       = 5000; //NOT tested
+	public static final double AFT_SHOOTERWHEEL_FRONT_PYRAMID_3PT_SPEED = 5000; //closer to the goal, tested
+	public static final double AFT_SHOOTERWHEEL_BACK_PYRAMID_3PT_SPEED  = 5000; //further from the goal, tested
+	public static final double AFT_SHOOTERWHEEL_HALF_COURT_3PT_SPEED    = 5000; //NOT tested
+	
+	public static final double FWD_SHOOTERWHEEL_PRE_SPIN_SPEED          =  5000;
+	public static final double FWD_SHOOTERWHEEL_WALL_3PT_SPEED          = 5000; //up against the goal
+	public static final double FWD_SHOOTERWHEEL_PYRAMID_5PT_SPEED       = 5000; //NOT tested
+	public static final double FWD_SHOOTERWHEEL_FRONT_PYRAMID_3PT_SPEED = 5000; //closer to the goal, tested
+	public static final double FWD_SHOOTERWHEEL_BACK_PYRAMID_3PT_SPEED  = 5000; //further from the goal, tested
+	public static final double FWD_SHOOTERWHEEL_HALF_COURT_3PT_SPEED    = 5000; //NOT tested
+	
 	//Shooter Wheel Encoder///////////////////////////////////////////////
 	//arm Radius
 	public static final int shooterWheelRadius = 3;//Colson wheel radius in inches
