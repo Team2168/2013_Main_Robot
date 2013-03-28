@@ -71,7 +71,7 @@ public class ShooterWheel extends Subsystem {
     }
    
 
-    public void tankDrive(double aftWheelSpeed, double fwdWheelSpeed) {    	
+    public void driveShooterWheels(double aftWheelSpeed, double fwdWheelSpeed) {    	
     	driveFwdWheel(fwdWheelSpeed);
     	driveAftWheel(aftWheelSpeed);
     }
