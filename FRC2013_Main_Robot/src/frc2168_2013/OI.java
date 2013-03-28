@@ -4,7 +4,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button; 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc2168_2013.utils.JoystickAnalogButton;
-import frc2168_2013.commands.Presets.Preset_HalfCourt_3pt;
+import frc2168_2013.commands.Presets.Preset_FrontOfPyramid_3pt;
+import frc2168_2013.commands.Presets.Preset_RearOfPyramid_3pt;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainStraight;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainTurn;
 import frc2168_2013.commands.subSystems.Hanger.HangerDisengage;
@@ -212,8 +213,8 @@ public class OI {
 		operatorButtonB.whenPressed(new HopperFire());
 		operatorButtonA.whenPressed(new ShootSingleDisc()); //shoot one frisbee at a time
 		operatorButtonLeftStick.whenPressed(new PID_ShooterPause());
-		//operatorDPadR.whenPressed(); // set the shooter speed and angle for "back" of the pyramid shots (closer to the wall)
-		//operatorDPadL.whenPressed(); // set the shooter speed and angle for "front" of the pyramid shots (farther from the wall)
+		operatorDPadR.whenPressed(new Preset_RearOfPyramid_3pt()); // set the shooter speed and angle for "back" of the pyramid shots (closer to the wall)
+		operatorDPadL.whenPressed(new Preset_FrontOfPyramid_3pt()); // set the shooter speed and angle for "front" of the pyramid shots (farther from the wall)
 		
 		//Test Joystick Commands
 		//TODO: Remove this for competition!

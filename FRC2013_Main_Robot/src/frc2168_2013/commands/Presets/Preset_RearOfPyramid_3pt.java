@@ -5,6 +5,7 @@ import frc2168_2013.RobotMap;
 import frc2168_2013.commands.Sleep;
 import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleExtend;
 import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleStow;
+import frc2168_2013.commands.subSystems.ShooterWheel.DriveShooterWithConstant;
 import frc2168_2013.commands.subSystems.ShooterWheel.PID_SetAftWheelSpeed;
 import frc2168_2013.commands.subSystems.ShooterWheel.PID_SetFwdWheelSpeed;
 
@@ -22,10 +23,17 @@ public class Preset_RearOfPyramid_3pt extends CommandGroup {
 		// half court? position. One of them will hopefully be low enough to
 		// get through the pyramid. We're out of buttons...
 		
-		//Raise arm
-		addParallel(new ShooterAngleExtend());
-		//Get wheel up to speed
-		addParallel(new PID_SetAftWheelSpeed(RobotMap.BACK_PYRAMID_3PT_SPEED));
-		addParallel(new PID_SetFwdWheelSpeed(RobotMap.BACK_PYRAMID_3PT_SPEED));	
+		//turn shooter wheels on
+		addParallel(new DriveShooterWithConstant(1.0, 1.0));
+		
+		//lower shooter angle to stow position
+		addSequential(new ShooterAngleStow());
+		
+		
+//		//Get wheel up to speed
+//		addParallel(new PID_SetAftWheelSpeed(RobotMap.BACK_PYRAMID_3PT_SPEED));
+//		addParallel(new PID_SetFwdWheelSpeed(RobotMap.BACK_PYRAMID_3PT_SPEED));
+		
+		
 	}
 }

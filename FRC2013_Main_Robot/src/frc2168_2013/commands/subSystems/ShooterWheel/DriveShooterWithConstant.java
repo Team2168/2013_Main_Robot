@@ -24,7 +24,7 @@ public class DriveShooterWithConstant extends CommandBase {
 
 	
 	protected void execute() {
-		shooterWheel.tankDrive(aftWheelSpeed,fwdWheelSpeed);
+		shooterWheel.driveShooterWheels(aftWheelSpeed,fwdWheelSpeed);
 		
 	}
 
