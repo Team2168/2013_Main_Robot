@@ -24,7 +24,7 @@ public class Preset_RearOfPyramid_3pt extends CommandGroup {
 		// get through the pyramid. We're out of buttons...
 		
 		//turn shooter wheels on
-		addParallel(new DriveShooterWithConstant(1.0, 1.0));
+		addParallel(new DriveShooterWithConstant(1, 1));
 		
 		//lower shooter angle to stow position
 		addSequential(new ShooterAngleStow());

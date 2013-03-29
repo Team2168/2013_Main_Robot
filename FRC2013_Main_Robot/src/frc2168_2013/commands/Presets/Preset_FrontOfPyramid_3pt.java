@@ -15,7 +15,7 @@ public class Preset_FrontOfPyramid_3pt extends CommandGroup {
 	
 	public Preset_FrontOfPyramid_3pt(){
 		//turn shooter wheels on
-		addParallel(new DriveShooterWithConstant(1.0, 1.0));
+		addParallel(new DriveShooterWithConstant(1, 1));
 				
 		//lower shooter angle to stow position
 		addSequential(new ShooterAngleExtend());

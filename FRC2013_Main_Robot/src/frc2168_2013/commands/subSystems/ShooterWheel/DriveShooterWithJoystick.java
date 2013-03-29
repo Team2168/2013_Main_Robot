@@ -17,6 +17,7 @@ public class DriveShooterWithJoystick extends CommandBase {
 	
 	protected void execute() {
 		//drive both shooterwheels using the left axis on operator joystick
+		
 		shooterWheel.driveShooterWheels(oi.getoperatorDriveLeftStick(),oi.getoperatorDriveLeftStick());
 	}
 

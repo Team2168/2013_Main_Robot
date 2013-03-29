@@ -47,12 +47,11 @@ public class CommandBaseRobot extends IterativeRobot {
         // Initialize all subsystems
         CommandBase.init();
         
-        // run command to zero arm automatically
-    	armPositionInit = new ShooterAngleStow();
-
         //Start the compressor
         compressor = new Compressor(RobotMap.compressorPressureSwitch, RobotMap.compressorPower);
 
+    	//armPositionInit.start();
+        compressor.start();
         
         
         //Initialize auto mode chooser
@@ -96,14 +95,6 @@ public class CommandBaseRobot extends IterativeRobot {
     /**
      * 
      * This method is called once, when the robot first enters teleop mode.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
      */
     
 	public void teleopInit() {
@@ -114,8 +105,7 @@ public class CommandBaseRobot extends IterativeRobot {
     	if(autonomousCommand != null)
     		autonomousCommand.cancel();
     	
-    	//armPositionInit.start();
-        compressor.start();
+
         //start dashboard
         dashboard = (Command) dashChooser.getSelected();
         dashboard.start();
@@ -166,8 +156,8 @@ public class CommandBaseRobot extends IterativeRobot {
     private void autoSelectInit() {
         autoChooser = new SendableChooser();
         
-        autoChooser.addDefault("3 disc far Auto - Sides", new RearOfPyramid_3pt_Side());
-        autoChooser.addObject("3disc far Auto - Center", new RearOfPyramid_3pt_Center());
+        autoChooser.addDefault("3 disc far Auto - Sides", new RearOfPyramid_3pt_Side(5,0.5,0.5));
+        autoChooser.addObject("3 disc far Auto - Center", new RearOfPyramid_3pt_Center(5,0.5,0.5));
         //autoChooser.addObject("2 disc close Auto - Center", new FrontOfPyramid_3pt_Center());
         //autoChooser.addObject ("2 disc close Auto - Right", new FrontOfPyramid_3pt_Right());
         //autoChooser.addObject ("2 disc close Auto - Left", new FrontOfPyramid_3pt_Left());

@@ -11,7 +11,7 @@ import frc2168_2013.PIDController.Sensors.AverageEncoder;
  */
 public class RobotMap {
 	
-	public final static boolean USE_TALONS = false;
+	public final static boolean USE_TALONS = true;
 
 	/****************************************************************
 	 *                       CRIO MAP                               *
@@ -28,10 +28,10 @@ public class RobotMap {
 	public static final int leftDriveEncoderChannelB  = 2;
 	public static final int rightDriveEncoderChannelA = 3;
 	public static final int rightDriveEncoderChannelB = 4;
-	public static final int shooterEncoderAftChannelA = 5;
-	public static final int shooterEncoderAftChannelB = 6;
-	public static final int shooterEncoderFwdChannelA = 7;
-	public static final int shooterEncoderFwdChannelB = 8;
+	public static final int shooterEncoderAftChannelA = 7;
+	public static final int shooterEncoderAftChannelB = 8;
+	public static final int shooterEncoderFwdChannelA = 5;
+	public static final int shooterEncoderFwdChannelB = 6;
 	
 	public static final int compressorPressureSwitch = 14;
 
@@ -83,15 +83,15 @@ public class RobotMap {
 	public static final int shooterWheelRadius = 3;//Colson wheel radius in inches
 
 	private static final int shooterPulsePerRotation = 256; //encoder ticks per rotation (LEAVE PRIVATE)
-	private static final double shooterGearRatio = 14.0/60.0; //ratio between wheel over encoder (LEAVE PRIVATE)
+	private static final double shooterGearRatio = 12.0/60.0; //ratio between wheel over encoder (LEAVE PRIVATE)
 	public static final int shooterEncoderPulsePerRot = (int) (shooterPulsePerRotation*shooterGearRatio); //pulse per rotation * gear ratio
 	public static final double shooterEncoderDistPerTick = (Math.PI*2*shooterWheelRadius)/shooterEncoderPulsePerRot;
 	public static final CounterBase.EncodingType shooterEncodingType = CounterBase.EncodingType.k1X; //count rising and falling edges on both channels
 	public static final AverageEncoder.PositionReturnType shooterPosReturnType = AverageEncoder.PositionReturnType.DEGREE;
-	public static final AverageEncoder.SpeedReturnType shooterSpeedReturnType = AverageEncoder.SpeedReturnType.PERIOD;
+	public static final AverageEncoder.SpeedReturnType shooterSpeedReturnType = AverageEncoder.SpeedReturnType.RPM;
 	public static final int shooterEncoderMinRate = 10; 
 	public static final int shooterEncoderMinPeriod = 10;
-	public static final boolean shooterEncoderReverse = false;
+	public static final boolean shooterEncoderReverse = true;
 	public static final int shooterAvgEncoderVal = 5;
 	public static final int shooterAcceptError = 10; //degrees;
 

@@ -20,7 +20,16 @@ import frc2168_2013.commands.subSystems.ShooterWheel.PID_SetAftWheelSpeed;
  *
  */
 public class RearOfPyramid_3pt_Center extends CommandGroup {
-	public RearOfPyramid_3pt_Center() {
+	
+	private double firstDiscTime;
+	private double secondDiscTime;
+	private double thirdDiscTime;
+	
+	public RearOfPyramid_3pt_Center(double firstDiscTime, double secondDiscTime, double thirdDiscTime) {
+		
+		this.firstDiscTime = firstDiscTime;
+		this.secondDiscTime = secondDiscTime;
+		this.thirdDiscTime = thirdDiscTime;
 		
 		//set shooter angle to stow position
 		addParallel(new ShooterAngleStow());
@@ -30,21 +39,31 @@ public class RearOfPyramid_3pt_Center extends CommandGroup {
 //		//set shooterwheel speeds
 		
 		//driver both shooterwheels at full speed
-		addParallel(new DriveShooterWithConstant(1.0, 1.0));
-		
-		//wait for the shooterwheels to get up to speed
-		addSequential(new Sleep(),3.0);
+		addParallel(new DriveShooterWithConstant(1, 1));
 		
 		//Shoot three discs
+		addSequential(new Sleep(), firstDiscTime);
 		addSequential(new ShootSingleDisc());
-		addSequential(new Sleep(),0.5 );
+		addSequential(new Sleep(), secondDiscTime);
 		addSequential(new ShootSingleDisc());
-		addSequential(new Sleep(), 2.0);
+		addSequential(new Sleep(), thirdDiscTime);
+		//wait longer for the last disk to drop into place before shooting
+		addSequential(new ShootSingleDisc());
+		
+		addSequential(new Sleep(), secondDiscTime);
+		addSequential(new ShootSingleDisc());
+		addSequential(new Sleep(), thirdDiscTime);
+		//wait longer for the last disk to drop into place before shooting
+		addSequential(new ShootSingleDisc());
+		
+		addSequential(new Sleep(), secondDiscTime);
+		addSequential(new ShootSingleDisc());
+		addSequential(new Sleep(), thirdDiscTime);
 		//wait longer for the last disk to drop into place before shooting
 		addSequential(new ShootSingleDisc());
 	
-		//drive back 3ft - 11inches
-		addSequential(new DriveDrivetrainStraight(-((3*12)-8-7.5)));
+		//drive back 3ft 
+		//addSequential(new DriveDrivetrainStraight(-((3*12)-8-7.5)));
 
 	}
 }

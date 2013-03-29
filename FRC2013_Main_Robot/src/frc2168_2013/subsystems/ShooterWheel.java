@@ -31,12 +31,14 @@ public class ShooterWheel extends Subsystem {
 		shooterWheelEncoderAft = new AverageEncoder(RobotMap.shooterEncoderAftChannelA, RobotMap.shooterEncoderAftChannelB, RobotMap.shooterEncoderPulsePerRot,RobotMap.shooterEncoderDistPerTick,RobotMap.shooterEncoderReverse, RobotMap.shooterEncodingType, RobotMap.shooterSpeedReturnType, RobotMap.shooterPosReturnType,RobotMap.shooterAvgEncoderVal);
 		shooterWheelEncoderAft.setMinRate(RobotMap.shooterEncoderMinRate);
 		shooterWheelEncoderAft.setMaxPeriod(RobotMap.shooterEncoderMinPeriod);
+
 		shooterWheelEncoderAft.start();
 
 		//Set Encoder Parameters
 		shooterWheelEncoderFwd = new AverageEncoder(RobotMap.shooterEncoderFwdChannelA, RobotMap.shooterEncoderFwdChannelB, RobotMap.shooterEncoderPulsePerRot,RobotMap.shooterEncoderDistPerTick,RobotMap.shooterEncoderReverse, RobotMap.shooterEncodingType, RobotMap.shooterSpeedReturnType, RobotMap.shooterPosReturnType,RobotMap.shooterAvgEncoderVal);
 		shooterWheelEncoderFwd.setMinRate(RobotMap.shooterEncoderMinRate);
 		shooterWheelEncoderFwd.setMaxPeriod(RobotMap.shooterEncoderMinPeriod);
+	
 		shooterWheelEncoderFwd.start();
 		
 		//set controllers		
@@ -74,6 +76,7 @@ public class ShooterWheel extends Subsystem {
     public void driveShooterWheels(double aftWheelSpeed, double fwdWheelSpeed) {    	
     	driveFwdWheel(fwdWheelSpeed);
     	driveAftWheel(aftWheelSpeed);
+    	System.out.println(shooterWheelEncoderAft.getRate() + "\t" + shooterWheelEncoderFwd.getRate());
     }
     
     /**
