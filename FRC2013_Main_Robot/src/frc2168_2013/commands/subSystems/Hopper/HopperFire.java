@@ -2,6 +2,7 @@
 package frc2168_2013.commands.subSystems.Hopper;
 
 import frc2168_2013.commands.CommandBase;
+import frc2168_2013.CommandBaseRobot;
 
 /**
  *
@@ -17,6 +18,7 @@ public class HopperFire extends CommandBase {
     // Called just before this Command runs the first time
     
 	protected void initialize() {
+		CommandBaseRobot.setDiscFired(true);
     }
 
     // Called repeatedly when this Command is scheduled to run

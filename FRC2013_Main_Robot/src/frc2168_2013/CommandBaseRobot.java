@@ -8,7 +8,9 @@
 package frc2168_2013;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -38,11 +40,19 @@ public class CommandBaseRobot extends IterativeRobot {
     SendableChooser autoChooser;
     SendableChooser dashChooser;
     
+    //These variables are for the serial communication with the arduino.
+    private static boolean shooterAtSpeed = false,
+                   discFired = false,
+                   againstBar = false,
+                   endGame = false,
+                   autoMode = false;
+    
+    private static int numberOfDiscs = 4;    //TODO: change this to actually use a sensor
+    
     /**
      * This method is run when the robot is first started up and should be
      * used for any initialization code.
      */
-
 	public void robotInit() {
         // Initialize all subsystems
         CommandBase.init();
@@ -60,6 +70,8 @@ public class CommandBaseRobot extends IterativeRobot {
         //Initialize dashboard
         dashSelectInit();
         
+        //Initialize serial communication for arduino
+        SerialCommunicator.init(57600, 8, SerialPort.Parity.kNone, SerialPort.StopBits.kOne);
         
         //End of Robot Init
     	System.out.println("ROBOT FINISHED LOADING!");
@@ -82,6 +94,10 @@ public class CommandBaseRobot extends IterativeRobot {
         //start dashboard
         dashboard = (Command) dashChooser.getSelected();
         dashboard.start();
+        
+        //send auto mode bit for arduino
+        setAutoMode(true);
+        sendIfNew();
     }
 
     /**
@@ -90,6 +106,8 @@ public class CommandBaseRobot extends IterativeRobot {
     
 	public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        
+        sendIfNew();
     }
 
     /**
@@ -105,14 +123,12 @@ public class CommandBaseRobot extends IterativeRobot {
     	if(autonomousCommand != null)
     		autonomousCommand.cancel();
     	
-
         //start dashboard
         dashboard = (Command) dashChooser.getSelected();
         dashboard.start();
         
-        //Initialize the serial port for LEDs
-        //SerialCommunicator.init(9600, 8, SerialPort.Parity.kNone, SerialPort.StopBits.kOne);
-        //SerialCommunicator.putData("abcdefghijklmnopqrstuvwxyz");
+        setAutoMode(false);
+        sendIfNew();
     }
 
     /**
@@ -121,6 +137,10 @@ public class CommandBaseRobot extends IterativeRobot {
     
 	public void teleopPeriodic() {
     	Scheduler.getInstance().run();
+    	
+    	if(DriverStation.getInstance().getMatchTime() >= 115){
+    		setEndGame(true);
+    	}
     }
     
     /**
@@ -165,11 +185,101 @@ public class CommandBaseRobot extends IterativeRobot {
         SmartDashboard.putData("Autonomous mode", autoChooser);
     }
     
-    private void dashSelectInit()
-    {
+    private void dashSelectInit() {
         dashChooser = new SendableChooser();
         dashChooser.addDefault("Competition Dash", new CompetitionDashboard());
         //dashChooser.addObject("PID Debug Dash", new ShooterWheelPIDDashboard());
         SmartDashboard.putData("Dashboard Chooser", dashChooser);
     }
+    
+    String lastMessage = "";
+    private void sendIfNew() {
+    	String message = arduinoMessage();
+    	if(message == lastMessage) {
+    		SerialCommunicator.putData(message);
+    		lastMessage = message;
+    	}
+    }
+    
+    /**
+     * Build a message to send to the arduino.
+     * 
+     * @return the string to send to the arduino
+     */
+    private String arduinoMessage() {
+    	int message = numberOfDiscs;
+    	
+    	/*
+    	 * COMMUNICATION PROTOCOL
+    	 * 
+    	 * BIT(S)	ELEMENT
+    	 * ------------------------
+    	 * 0 - 2	# discs (0 - 4)
+    	 *   3		shooter at speed
+    	 *   4		disc fired
+    	 *   5		against bar
+    	 *   6		end game
+    	 *   7		auto mode
+    	 */
+    	if(shooterAtSpeed) {
+    		message += 8;
+    	}
+    	if(discFired) {
+    		message += 16;
+    		setDiscFired(false);
+    	}
+    	if(againstBar) {
+    		message += 32;
+    	}
+    	if(endGame) {
+    		message += 64;
+    	}
+    	if(autoMode) {
+    		message += 128;
+    	}
+    	
+    	return Integer.toString(message);
+    }
+
+	/**
+	 * @param shooterAtSpeed the shooterAtSpeed to set
+	 */
+	public static void setShooterAtSpeed(boolean value) {
+		shooterAtSpeed = value;
+	}
+
+	/**
+	 * @param discFired the discFired to set
+	 */
+	public static void setDiscFired(boolean value) {
+		discFired = value;
+	}
+
+	/**
+	 * @param againstBar the againstBar to set
+	 */
+	public static void setAgainstBar(boolean value) {
+		againstBar = value;
+	}
+
+	/**
+	 * @param endGame the endGame to set
+	 */
+	public static void setEndGame(boolean value) {
+		endGame = value;
+	}
+
+	/**
+	 * @param autoMode the autoMode to set
+	 */
+	public void setAutoMode(boolean value) {
+		autoMode = value;
+	}
+
+	/**
+	 * @param numberOfDiscs the numberOfDiscs to set
+	 */
+	public void setNumberOfDiscs(int discs) {
+		numberOfDiscs = discs;
+	}
 }
