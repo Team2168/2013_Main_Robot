@@ -39,7 +39,11 @@ public class RobotMap {
 	public static final int compressorPower = 1;
 	public static final int teamDiscLight   = 2;
 	public static final int intake          = 3;
-
+	public static final int arduinoRelay1   = 5;
+	public static final int arduinoRelay2   = 6;
+	public static final int arduinoRelay3   = 7;
+	public static final int arduinoRelay4   = 8;
+	
 	//Solenoid Channels///////////////////////////////////////////////
 	public static final int shooterRaise		       = 1;
 	public static final int shooterLower               = 2;

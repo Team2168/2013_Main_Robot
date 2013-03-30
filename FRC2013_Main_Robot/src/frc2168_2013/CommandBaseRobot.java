@@ -10,7 +10,7 @@ package frc2168_2013;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -18,9 +18,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc2168_2013.commands.CommandBase;
 import frc2168_2013.commands.Auto.*;
-import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleStow;
 import frc2168_2013.dashboard.CompetitionDashboard;
-import frc2168_2013.utils.SerialCommunicator;
+import frc2168_2013.utils.BitRelay;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -47,7 +46,12 @@ public class CommandBaseRobot extends IterativeRobot {
                    endGame = false,
                    autoMode = false;
     
-    private static int numberOfDiscs = 4;    //TODO: change this to actually use a sensor
+    private static int numberOfDiscs = 3;    //TODO: change this to actually use a sensor
+    
+    BitRelay lightsRelay1,
+          lightsRelay2,
+          lightsRelay3,
+          lightsRelay4;
     
     /**
      * This method is run when the robot is first started up and should be
@@ -71,7 +75,13 @@ public class CommandBaseRobot extends IterativeRobot {
         dashSelectInit();
         
         //Initialize serial communication for arduino
-        SerialCommunicator.init(57600, 8, SerialPort.Parity.kNone, SerialPort.StopBits.kOne);
+        //SerialCommunicator.init(57600, 8, SerialPort.Parity.kNone, SerialPort.StopBits.kOne);
+        
+        //Initialize relay ports for light strip states
+        lightsRelay1 = new BitRelay(RobotMap.arduinoRelay1);
+        lightsRelay2 = new BitRelay(RobotMap.arduinoRelay2);
+        lightsRelay3 = new BitRelay(RobotMap.arduinoRelay3);
+        lightsRelay4 = new BitRelay(RobotMap.arduinoRelay4);
         
         //End of Robot Init
     	System.out.println("ROBOT FINISHED LOADING!");
@@ -97,7 +107,7 @@ public class CommandBaseRobot extends IterativeRobot {
         
         //send auto mode bit for arduino
         setAutoMode(true);
-        sendIfNew();
+        setArduinoStatus();
     }
 
     /**
@@ -107,7 +117,7 @@ public class CommandBaseRobot extends IterativeRobot {
 	public void autonomousPeriodic() {
         Scheduler.getInstance().run();
         
-        sendIfNew();
+        setArduinoStatus();
     }
 
     /**
@@ -128,7 +138,7 @@ public class CommandBaseRobot extends IterativeRobot {
         dashboard.start();
         
         setAutoMode(false);
-        sendIfNew();
+        setArduinoStatus();
     }
 
     /**
@@ -162,7 +172,7 @@ public class CommandBaseRobot extends IterativeRobot {
     	Scheduler.getInstance().removeAll();
     	Scheduler.getInstance().disable();
     	
-    	SerialCommunicator.free();
+    	//SerialCommunicator.free();
     }
     
     /**
@@ -170,7 +180,6 @@ public class CommandBaseRobot extends IterativeRobot {
      */
     
 	public void disabledPeriodic() {
-    	
     }
     
     private void autoSelectInit() {
@@ -192,53 +201,49 @@ public class CommandBaseRobot extends IterativeRobot {
         SmartDashboard.putData("Dashboard Chooser", dashChooser);
     }
     
-    String lastMessage = "";
-    private void sendIfNew() {
-    	String message = arduinoMessage();
-    	if(message == lastMessage) {
-    		SerialCommunicator.putData(message);
-    		lastMessage = message;
-    	}
-    }
-    
     /**
-     * Build a message to send to the arduino.
-     * 
-     * @return the string to send to the arduino
+     * This method handles outputting the data to the arduino for lighting
      */
-    private String arduinoMessage() {
-    	int message = numberOfDiscs;
+    void setArduinoStatus() {
+    	// COMMUNICATION PROTOCOL - BITMAP
+    	// BIT(S)     Meaning
+    	// ------------------------------
+    	// 0 - 2      # discs (0 - 4)
+    	//   3        Shooter up to speed
+    	//   4        Disc fired
+    	//   5        Against bar
+    	//   6        Endgame (last 30 sec)
+    	//   7        Autonomous mode
     	
-    	/*
-    	 * COMMUNICATION PROTOCOL
-    	 * 
-    	 * BIT(S)	ELEMENT
-    	 * ------------------------
-    	 * 0 - 2	# discs (0 - 4)
-    	 *   3		shooter at speed
-    	 *   4		disc fired
-    	 *   5		against bar
-    	 *   6		end game
-    	 *   7		auto mode
-    	 */
-    	if(shooterAtSpeed) {
-    		message += 8;
-    	}
-    	if(discFired) {
-    		message += 16;
-    		setDiscFired(false);
-    	}
-    	if(againstBar) {
-    		message += 32;
-    	}
-    	if(endGame) {
-    		message += 64;
-    	}
-    	if(autoMode) {
-    		message += 128;
+    	//Set the number of discs
+    	switch(numberOfDiscs) {
+    		case 0:
+    			lightsRelay1.set(Relay.Value.kOff);
+    			lightsRelay2.setForward(false);
+    			break;
+    		case 1:
+    			lightsRelay1.set(Relay.Value.kForward);
+    			lightsRelay2.setForward(false);
+    			break;
+    		case 2:
+    			lightsRelay1.set(Relay.Value.kReverse);
+    			lightsRelay2.setForward(false);
+    			break;
+    		case 3:
+    			lightsRelay1.set(Relay.Value.kOn);
+    			lightsRelay2.setForward(false);
+    			break;
+    		default:
+    			lightsRelay1.set(Relay.Value.kOff);
+    			lightsRelay2.setForward(true);
     	}
     	
-    	return Integer.toString(message);
+    	//Set remaining flag for lights
+    	lightsRelay2.setReverse(shooterAtSpeed);
+    	lightsRelay3.setForward(discFired);
+    	lightsRelay3.setReverse(againstBar);
+    	lightsRelay4.setForward(endGame);
+    	lightsRelay4.setReverse(autoMode);
     }
 
 	/**
