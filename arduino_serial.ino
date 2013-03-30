@@ -5,12 +5,14 @@
 // pixel number.
 //
 int stripLength        = 96; // Number of RGB LEDs in strand
-int shooterLeftPxZero  =  0; // The first LED in the left LED set
-int shooterRightPxZero = 20; // The first LED in the right LED set
-int shooterLength      = 14; // Number of LEDs along the shooter
-int drivetrainLength   = 48; // Number of LEDs on drivetrain
-int drivetrainPxZero   = 45; //The first LED in the drivetrain strand
-
+int shooterLeftPxZero  = 15; // The first LED in the left LED set
+int shooterRightPxZero = 60; // The first LED in the right LED set
+int shooterLength      = 12; // Number of LEDs along the shooter
+int drivetrainLength   = 10; // Number of LEDs on drivetrain
+int drivetrainPxZero   = 71; //The first LED in the drivetrain strand
+int hangerLength       = 14; //ALSO CHANGE ARRAY BELOW. Number of LEDs on the bar under the hanger
+int hangerPxZero       = 0; //First LED in the hanger strand
+int hangerState[14];           //For Knight Rider animation
 // For "classic" Arduinos (Uno, Duemilanove,
 // etc.), data = pin 11, clock = pin 13.  For Arduino Mega, data = pin 51,
 // clock = pin 52.  For 32u4 Breakout Board+ and Teensy, data = pin B2,
@@ -28,7 +30,6 @@ int R_OUT = 0,
     G_OUT = 0,
     B_OUT = 0;
 
-int inputState = 0;
 int numDiscs = 0;
 boolean shooterToSpeed = false,
         discFired = false,
@@ -38,10 +39,12 @@ boolean shooterToSpeed = false,
         autonomousMode = false;
 int shotFiredCount = -1,
     i = 0, //Loop position
-    j = 0;
+    j = 0,
+    k = 0, //Hanger strip loop position
+    s = 0; //Hanger only runs every other loop
 
-int inputValue = 0;
-boolean serialComplete = false;
+int inputValue = 0,
+    lastInputValue = 0;
 
 int shots[] = {55, 89, 127};
 
@@ -65,7 +68,21 @@ void setup() {
   }
   strip.show();
   
-  //Start serial communications
+  //Initialize Knight Rider array
+  for(int q = 0; q < hangerLength; q++){
+    hangerState[q] = 0;
+  }
+  
+  //Set port D (digital pins 3-10) as inputs
+  pinMode(3, INPUT);
+  pinMode(4, INPUT);
+  pinMode(5, INPUT);
+  pinMode(6, INPUT);
+  pinMode(7, INPUT);
+  pinMode(8, INPUT);
+  pinMode(9, INPUT);
+//  pinMode(10, INPUT); //why pin 10 no work?!@?@!?
+
   Serial.begin(57600);
 }
 
@@ -83,26 +100,51 @@ void loop() {
   //   6        Endgame (last 30 sec)
   //   7        Autonomous mode
   
-  if (serialComplete) {
-    inputState = inputValue;
-
-    //cleanup so the serial event method can start again when new data arrives
-    inputValue = 0;
-    serialComplete = false;
+  lastInputValue = inputValue;
+  inputValue = 0;
+  //calculate number of discs
+  if(digitalRead(3) == HIGH) {
+    inputValue += 1;
+  }
+  if(digitalRead(4) == HIGH) {
+    inputValue += 2;
+  }
+  if(digitalRead(5) == HIGH) {
+    inputValue += 4;
+  }
+  
+  //check the remaining fields in the message
+  if(digitalRead(6) == HIGH) {
+    inputValue += 8;
+  }
+  if(digitalRead(7) == HIGH) {
+    inputValue += 16;
+  }
+  if(digitalRead(8) == HIGH) {
+    inputValue += 32;
+  }
+  if(digitalRead(9) == HIGH) {
+    inputValue += 64;
+  }
+  if(digitalRead(10) == HIGH) {
+    inputValue += 128;
+  }
+  
+  //Serial.println(inputValue);
+  
+  if (inputValue != lastInputValue) {
     i = 0;//If new data, restart the loop
 
-
     // Check the status of the bits in from the message:
-    shooterToSpeed = inputState & 0x0008;
-    discFired      = inputState & 0x0010;
-    againstBar     = inputState & 0x0020;
-    endgame        = inputState & 0x0040;
-    autonomousMode = inputState & 0x0080;
+    shooterToSpeed = inputValue & 0x0008;
+    discFired      = inputValue & 0x0010;
+    againstBar     = inputValue & 0x0020;
+    endgame        = inputValue & 0x0040;
+    autonomousMode = inputValue & 0x0080;
 
-    numDiscs = inputState & 0x0007; //set target strip color based on number of discs
+    numDiscs = inputValue & 0x0007; //set target strip color based on number of discs
     numDiscs %= 5; //don't let more than 4 discs come through
-    
-    
+
     if(discFired && !lastDiscFired) {
       //Reset the count the first time we see a shot fired
       shotFiredCount = 0;
@@ -178,6 +220,9 @@ void loop() {
     R_OUT = min(targetR + intensity, 127);
     G_OUT = min(targetG + intensity, 127);
     B_OUT = min(targetB + intensity, 127);
+    for(j = 0; j < hangerLength; j++) {
+      strip.setPixelColor(j + hangerPxZero, strip.Color(min(targetR + intensity, 127), min(targetG + intensity, 127), min(targetB + intensity, 127)));
+    }
   } else if(numDiscs == 0) {
     //if we have no discs, throb on/off
     R_OUT = (int) targetR / intensity;
@@ -208,6 +253,7 @@ void loop() {
     shotFiredCount++;
   }
   
+  
   //////////////////////////////////////////////
   //Augment target drivetrain colors
   //////////////////////////////////////////////
@@ -222,37 +268,37 @@ void loop() {
 
   //delay (5);
   
-  i = (i + 1) % 50;
+  //////////////////////////////////////////////
+  //Knight Rider animation
+  //////////////////////////////////////////////
+  
+  //Decrement every value by 16, but don't go negative. Gives us 8 pixels decreasing in intensity
+  int m;
+  for(m = 0; m < hangerLength; m++){ 
+    hangerState[m] = max(0, (hangerState[m]-8)); //Decrement every pixel's brightness
+  }
+  
+  int currentPixel = -abs(hangerLength - k) + hangerLength; //This swings back and forth between the two sides
+  hangerState[currentPixel] = 127; //Set most recent pixel to be bright
+  if (!shooterToSpeed){
+    //Send out pixel values. Stick with red for now
+    for(j = 0; j < hangerLength; j++) {
+      strip.setPixelColor(j + hangerPxZero, strip.Color(hangerState[j], 0, 0));
+    }
+  }
+  strip.show();
+          
+  i = (i + 1) % 50; //This value needs to be a multiple of the array used by the fibonacci function below
+  
+  s++;
+  if (s == 2){ 
+    k = (k + 1) % (2*hangerLength); // For Knight Rider
+    s = 0;
+  }
 }
 /**************************************************
  **************MAIN LOOP ENDS HERE*****************
  **************************************************/
-/**
- * SerialEvent occurs whenever a new data comes in the
- * hardware serial RX.  This routine is run between each
- * time loop() runs, so using delay inside loop can delay
- * response.  Multiple bytes of data may be available.
- * http://arduino.cc/en/Tutorial/SerialEvent
- */
-void serialEvent() {
-  //Don't run again until the main loop has processed the incoming string
-  if (!serialComplete) {
-    while (Serial.available()) {
-      // get the new byte:
-      char inChar = (char)Serial.read(); 
-
-      // if the incoming character is a newline, we are done
-      // set a flag so the main loop can do something about it
-      // and convert the string to an integer
-      if (inChar == '\n') {
-        serialComplete = true;
-      } else {
-        //otherwise add the number to the running sum
-        inputValue = (inputValue * 10) + atoi(&inChar);
-      }
-    }
-  }
-}
 
 //Note, the number of elements in this array should be an even multiple of the loop itterations run in main
 // otherwise the pattern won't loop cleanly
@@ -260,12 +306,4 @@ int seeds[] = {1, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 127, 89, 55, 34, 21, 13,
 int fibonacci(int pos) {
   pos %= sizeof(seeds)/sizeof(int);
   return seeds[pos];
-}
-
-void printRGB(int r, int g, int b) {
-  Serial.print(r);
-  Serial.write(", ");
-  Serial.print(g);
-  Serial.write(", ");
-  Serial.println(b);
 }
