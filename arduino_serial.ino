@@ -73,7 +73,9 @@ void setup() {
     hangerState[q] = 0;
   }
   
-  //Set port D (digital pins 3-10) as inputs
+  //Note, pins 10 - 13 are in use by the SPI library.
+  //  http://arduino.cc/en/Reference/SPI
+  //Set digital pins 3-10 as inputs
   pinMode(3, INPUT);
   pinMode(4, INPUT);
   pinMode(5, INPUT);
