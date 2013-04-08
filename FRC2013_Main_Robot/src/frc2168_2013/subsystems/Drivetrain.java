@@ -51,7 +51,7 @@ public class Drivetrain extends Subsystem {
     
     	//declare drivetrain motor controllers
     	//intializing motor controller using PWM. Refer to RobotMap
-    	if(RobotMap.USE_TALONS) {
+    	if(RobotMap.USE_TALONS_DRIVETRAIN) {
         	rightTalonDriveMotor = new Talon (RobotMap.rightDriveMotor);
         	leftTalonDriveMotor = new Talon (RobotMap.leftDriveMotor);	
     	} else {
@@ -159,7 +159,7 @@ public class Drivetrain extends Subsystem {
     	
     	this.rightSpeed = rightSpeed;
     	
-    	if(RobotMap.USE_TALONS) {
+    	if(RobotMap.USE_TALONS_DRIVETRAIN) {
     		rightTalonDriveMotor.set(rightSpeed);
     	} else {
     		rightVictorDriveMotor.set(rightSpeed);
@@ -180,7 +180,7 @@ public class Drivetrain extends Subsystem {
     	
     	this.leftSpeed = leftSpeed;
     	
-    	if(RobotMap.USE_TALONS) {
+    	if(RobotMap.USE_TALONS_DRIVETRAIN) {
     		leftTalonDriveMotor.set(leftSpeed);
     	} else {
     		leftVictorDriveMotor.set(leftSpeed);
