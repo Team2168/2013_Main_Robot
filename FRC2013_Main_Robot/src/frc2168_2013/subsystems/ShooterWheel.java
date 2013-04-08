@@ -1,6 +1,7 @@
 package frc2168_2013.subsystems;
 
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc2168_2013.OI;
 import frc2168_2013.RobotMap;
@@ -10,8 +11,10 @@ import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
 import frc2168_2013.commands.subSystems.ShooterWheel.DriveShooterWithJoystick;
 
 public class ShooterWheel extends Subsystem {
-	Talon shooterMotorAft;
-	Talon shooterMotorFwd;
+	Talon shooterTalonAft;
+	Talon shooterTalonFwd;
+	Victor shooterVictorAft;
+	Victor shooterVictorFwd;
 	
 	AverageEncoder shooterWheelEncoderAft;
 	AverageEncoder shooterWheelEncoderFwd;
@@ -24,9 +27,13 @@ public class ShooterWheel extends Subsystem {
 
 	
 	public ShooterWheel() {
-		shooterMotorAft = new Talon(RobotMap.shooterMotorAft);
-		shooterMotorFwd = new Talon(RobotMap.shooterMotorFwd);
-		
+		if(RobotMap.USE_TALONS_SHOOTER) {
+			shooterTalonAft = new Talon(RobotMap.shooterMotorAft);
+			shooterTalonFwd = new Talon(RobotMap.shooterMotorFwd);
+		} else {
+			shooterVictorAft = new Victor(RobotMap.shooterMotorAft);
+			shooterVictorFwd = new Victor(RobotMap.shooterMotorFwd);
+		}
 		//Set Encoder Parameters
 		shooterWheelEncoderAft = new AverageEncoder(RobotMap.shooterEncoderAftChannelA, RobotMap.shooterEncoderAftChannelB, RobotMap.shooterEncoderPulsePerRot,RobotMap.shooterEncoderDistPerTick,RobotMap.shooterEncoderReverse, RobotMap.shooterEncodingType, RobotMap.shooterSpeedReturnType, RobotMap.shooterPosReturnType,RobotMap.shooterAvgEncoderVal);
 		shooterWheelEncoderAft.setMinRate(RobotMap.shooterEncoderMinRate);
@@ -89,8 +96,11 @@ public class ShooterWheel extends Subsystem {
     		fwdWheelSpeed = -fwdWheelSpeed;
 
     	fwdWheelSpeed = OI.minJoystickThreshold(fwdWheelSpeed);
-    	shooterMotorFwd.set(fwdWheelSpeed);
-
+    	if(RobotMap.USE_TALONS_SHOOTER) {
+    		shooterTalonFwd.set(fwdWheelSpeed);
+    	} else {
+    		shooterVictorFwd.set(fwdWheelSpeed);
+    	}
     }
     
     /**
@@ -103,8 +113,12 @@ public class ShooterWheel extends Subsystem {
     		aftWheelSpeed = -aftWheelSpeed;
     	
     	aftWheelSpeed = OI.minJoystickThreshold(aftWheelSpeed);
-    	shooterMotorAft.set(aftWheelSpeed);
-
+    	
+    	if(RobotMap.USE_TALONS_SHOOTER) {
+    		shooterTalonAft.set(aftWheelSpeed);
+    	} else {
+    		shooterVictorAft.set(aftWheelSpeed);
+    	}
     }
 }
 
