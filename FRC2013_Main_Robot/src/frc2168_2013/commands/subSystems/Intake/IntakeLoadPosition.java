@@ -3,14 +3,14 @@ package frc2168_2013.commands.subSystems.Intake;
 import frc2168_2013.commands.CommandBase;
 
 /**
- * A command to actuate the intake to the extended position
+ * A command to actuate the intake to the load position
  * 
- * @author ICW
+ * @author Shriji
  *
  */
-public class IntakeLower extends CommandBase {
+public class IntakeLoadPosition extends CommandBase {
 
-	public IntakeLower() {
+	public IntakeLoadPosition() {
 		requires(intake);
 	}
 
@@ -21,7 +21,7 @@ public class IntakeLower extends CommandBase {
 
 	
 	protected void execute() {
-		intake.lower();
+		intake.HopperToLoad();
 	}
 
 	

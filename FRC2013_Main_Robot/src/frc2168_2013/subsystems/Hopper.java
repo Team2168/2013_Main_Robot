@@ -13,7 +13,6 @@ public class Hopper extends Subsystem {
 	Relay teamDiscLight;
 	
 	public Hopper() {
-		teamDiscLight = new Relay(RobotMap.teamDiscLight);
 		
 		actuator = new DoubleSolenoid(RobotMap.hopperReload,
                 RobotMap.hopperFire);

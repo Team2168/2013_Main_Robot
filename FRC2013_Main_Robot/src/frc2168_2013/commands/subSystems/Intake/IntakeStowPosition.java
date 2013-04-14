@@ -3,37 +3,35 @@ package frc2168_2013.commands.subSystems.Intake;
 import frc2168_2013.commands.CommandBase;
 
 /**
- * A command to actuate the intake to stow position.
+ * A command to actuate the intake to stow
  * 
- * @author ICW
+ * @author Shriji
  *
  */
-public class IntakeRaise extends CommandBase {
+public class IntakeStowPosition extends CommandBase {
 
-	public IntakeRaise() {
-		requires (intake);
+	public IntakeStowPosition() {
+		requires(intake);
 	}
 
 	
 	protected void initialize() {
-		//Nothing to do here
+		//Nothing to do
 	}
 
-	/**
-	 * Sets the intake to the stow position
-	 */
+	
 	protected void execute() {
-		intake.raise();
+		intake.HopperToStow();
 	}
 
 	
 	protected void interrupted() {
-		//Nothing to do here
+		//Nothing to do
 	}
 
 	
 	protected void end() {
-		//Nothing to do here
+		//Nothing to do
 	}
 
 	
