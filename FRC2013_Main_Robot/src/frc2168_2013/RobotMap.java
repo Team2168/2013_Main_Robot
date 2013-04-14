@@ -38,8 +38,8 @@ public class RobotMap {
 
 	//Relay Output Channels///////////////////////////////////////////
 	public static final int compressorPower = 1;
-	public static final int teamDiscLight   = 2;
-	public static final int intake          = 3;
+	public static final int intakeL		    = 2;
+	public static final int intakeS         = 3;
 	public static final int arduinoRelay1   = 5;
 	public static final int arduinoRelay2   = 6;
 	public static final int arduinoRelay3   = 7;

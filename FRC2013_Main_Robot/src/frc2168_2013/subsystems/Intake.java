@@ -6,12 +6,13 @@ import frc2168_2013.RobotMap;
 
 public class Intake extends Subsystem {		
 	
-	Relay actuator;
+	Relay actuatorS; //short actuator
+	Relay actuatorL; //long actuator
 	
 	public Intake() {
 		//TODO: If an intake is added, flesh this stuff out.
-		//actuator = new DoubleSolenoid(RobotMap.intakeExtend,
-        //       RobotMap.intakeRetract);
+		actuatorS = new Relay(RobotMap.intakeS);
+		actuatorL = new Relay(RobotMap.intakeL);
 	}
 
 	/**
@@ -27,16 +28,29 @@ public class Intake extends Subsystem {
     /**
      * Lower the intake mechanism.
      */
-	public void lower(){
+	public void StowToHopper(){
 		//TODO: Verify that kForward disengages the hanger
-		//actuator.set(DoubleSolenoid.Value.kForward);
+		actuatorS.set(Relay.Value.kReverse);
+		actuatorL.set(Relay.Value.kForward);
 	}
     
     /**
      * Raise the intake mechanism.
      */
-	public void raise() {
+	public void HopperToLoad() {
 		//TODO: Verify that kForward engages the hanger
-		//actuator.set(DoubleSolenoid.Value.kReverse);
+		actuatorS.set(Relay.Value.kReverse);
+		actuatorL.set(Relay.Value.kReverse);
+	}
+	
+	public void LoadToHopper(){
+		actuatorS.set(Relay.Value.kReverse);
+		actuatorL.set(Relay.Value.kForward);		
+	}
+	
+	public void HopperToStow(){
+		actuatorS.set(Relay.Value.kForward);
+		actuatorL.set(Relay.Value.kForward);
+		
 	}
 }
