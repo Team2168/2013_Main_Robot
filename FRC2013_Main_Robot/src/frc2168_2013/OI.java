@@ -33,6 +33,8 @@ public class OI {
 	public static final boolean sFwdInvert = false; //for shooter
 	public static final boolean sAftInvert = false; //for shooter
 	public static final boolean hInvert =    true;  //for hopper
+	public static final boolean iRInvert = true; //for right intake roller
+	public static final boolean iLInvert = true; //for left intake roller
 	
 	public static final int     rightJoyAxis = 5;
 	public static final int     leftJoyAxis  = 2;

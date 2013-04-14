@@ -13,6 +13,7 @@ public class RobotMap {
 	
 	public final static boolean USE_TALONS_DRIVETRAIN = true;
 	public final static boolean USE_TALONS_SHOOTER = true;
+	public final static boolean USE_TALONS_INTAKE = true;
 
 	/****************************************************************
 	 *                       CRIO MAP                               *
@@ -22,6 +23,8 @@ public class RobotMap {
 	public static final int rightDriveMotor = 2;
 	public static final int shooterMotorAft = 3;
 	public static final int shooterMotorFwd = 4;
+	public static final int intakeRollerR   = 5;
+	public static final int intakeRollerL   = 6;
 	
 
 	//DIO Channels////////////////////////////////////////////////////
