@@ -207,7 +207,9 @@ public class Drivetrain extends Subsystem {
     	System.out.println("LeftEncoder = " + leftEncoder.getPos());
     	System.out.println("Gyro = " + getAngle());
     	
-    	return ((rightEncoder.getPos() + leftEncoder.getPos())/2);
+    	//The practice chassis only has the right encoder wired
+    	//return ((rightEncoder.getPos() + leftEncoder.getPos())/2);
+    	return rightEncoder.getPos();
     }
     
     /**
@@ -235,7 +237,7 @@ public class Drivetrain extends Subsystem {
 	 * @param limit the rate limit
 	 * @return the new output speed (rate limited)
      */
-    public double rateLimit(double input, double speed, double limit) {
+    public static double rateLimit(double input, double speed, double limit) {
     	return rateLimit(input, speed, limit, limit);
     }
     

@@ -61,9 +61,9 @@ public class DriveDrivetrainTurn extends CommandBase {
 
 
 	/**
-	 * Drive straight until we are at our destination
+	 * Rotate until we are at the desired angle, within some tolerance.
+	 * If we overshoot, drive backwards.
 	 */
-	
 	protected void execute() {
 		currentAngle = drivetrain.getAngle();
 		leftToGo = Math.abs(currentAngle - destinationAngle);
@@ -71,6 +71,7 @@ public class DriveDrivetrainTurn extends CommandBase {
 		fwdRotationSpeed = rampDown(leftToGo, fwdRotationSpeed);
 		if(dimeTurning) {
 			//Turn on a dime
+			//TODO: is this right? Shouldn't one be the negative of the other to cause turning?
 			revRotationSpeed = fwdRotationSpeed;
 		} else {
 			//If we aren't turning on a dime, turn the reverse wheel at the
@@ -116,7 +117,7 @@ public class DriveDrivetrainTurn extends CommandBase {
 	}
 	
 	/**
-	 * A funciton to ramp down the turning speed as we approach the destination angle;
+	 * A function to ramp down the turning speed as we approach the destination angle;
 	 * @param angleLeft how many degrees left till we get to the destination.
 	 * @param currentSpeed the speed the motor is currently being commanded to.
 	 * @return the motor drive speed as controlled by the constants in this class.
