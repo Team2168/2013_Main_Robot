@@ -20,6 +20,7 @@ import frc2168_2013.commands.CommandBase;
 import frc2168_2013.commands.Auto.*;
 import frc2168_2013.dashboard.CompetitionDashboard;
 import frc2168_2013.utils.BitRelay;
+import frc2168_2013.utils.Enum;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -36,8 +37,17 @@ public class CommandBaseRobot extends IterativeRobot {
 
     Compressor compressor;
     
-    SendableChooser autoChooser;
     SendableChooser dashChooser;
+	static SendableChooser initialPositionChooser;
+	static SendableChooser afterShotChooser;
+	
+	//Delays (seconds) for shots in auto. These get set by the dashboard.
+	private static double disc1Delay = 5.0,
+                          disc2Delay = 0.5,
+                          disc3Delay = 0.5;
+	private static final String TIME_1_DELAY_KEY = "Delay before shot 1",
+                                TIME_2_DELAY_KEY = "Delay before shot 2",
+                                TIME_3_DELAY_KEY = "Delay before shot 3";
     
     //These variables are for the serial communication with the arduino.
     private static boolean shooterAtSpeed = false,
@@ -63,20 +73,31 @@ public class CommandBaseRobot extends IterativeRobot {
         
         //Start the compressor
         compressor = new Compressor(RobotMap.compressorPressureSwitch, RobotMap.compressorPower);
-
-    	//armPositionInit.start();
         compressor.start();
-        
-        
-        //Initialize auto mode chooser
-        autoSelectInit();
         
         //Initialize dashboard
         dashSelectInit();
         
-        //Initialize serial communication for arduino
-        //SerialCommunicator.init(57600, 8, SerialPort.Parity.kNone, SerialPort.StopBits.kOne);
-        
+        //Input where we start on the field - for use by auto modes
+    	initialPositionChooser = new SendableChooser();
+    	initialPositionChooser.addDefault("Center", new Integer(CENTER));
+    	initialPositionChooser.addObject("Left", new Integer(LEFT));
+    	initialPositionChooser.addObject("Right", new Integer(RIGHT));
+    	SmartDashboard.putData("Auto mode starting Position", initialPositionChooser);
+
+    	//Add a radio button list to the dashboard to allow the operator to
+    	//  choose what happens after our three discs are shot.
+    	afterShotChooser = new SendableChooser();
+    	afterShotChooser.addDefault("Sit Still", new Integer(SIT_STILL));
+    	afterShotChooser.addDefault("Defend center discs", new Integer(DEFEND_CENTER));
+    	afterShotChooser.addDefault("Move to protected loader", new Integer(TO_PROTECTED_LOADER));
+    	afterShotChooser.addDefault("Move to un-protected loader", new Integer(TO_UNPROTECTED_LOADER));
+    	SmartDashboard.putData("Auto mode destination position", afterShotChooser);
+    	
+    	SmartDashboard.putNumber(TIME_1_DELAY_KEY, disc1Delay);
+    	SmartDashboard.putNumber(TIME_2_DELAY_KEY, disc2Delay);
+    	SmartDashboard.putNumber(TIME_3_DELAY_KEY, disc3Delay);
+    	
         //Initialize relay ports for light strip states
         lightsRelay1 = new BitRelay(RobotMap.arduinoRelay1);
         lightsRelay2 = new BitRelay(RobotMap.arduinoRelay2);
@@ -93,13 +114,15 @@ public class CommandBaseRobot extends IterativeRobot {
     
 	public void autonomousInit() {
     	Scheduler.getInstance().enable();
+
+    	//Get delays for disc shots
+    	disc1Delay = SmartDashboard.getNumber(TIME_1_DELAY_KEY, disc1Delay);
+    	disc2Delay = SmartDashboard.getNumber(TIME_2_DELAY_KEY, disc2Delay);
+    	disc3Delay = SmartDashboard.getNumber(TIME_3_DELAY_KEY, disc3Delay);
     	
-    	// instantiate the command used for the autonomous period
-        autonomousCommand = (Command) autoChooser.getSelected();
-        //autonomousCommand = new RearOfPyramid_3pt_Side();
-    	// schedule the autonomous command (example)
+    	// instantiate and schedule the command used for the autonomous period
+        autonomousCommand = new AutoSequencer();
         autonomousCommand.start();
-        
         
         //start dashboard
         dashboard = (Command) dashChooser.getSelected();
@@ -179,20 +202,7 @@ public class CommandBaseRobot extends IterativeRobot {
     /**
      * This method gets called repeatedly while the robot is disabled.
      */
-    
 	public void disabledPeriodic() {
-    }
-    
-    private void autoSelectInit() {
-        autoChooser = new SendableChooser();
-        
-        autoChooser.addDefault("3 disc far Auto - Sides", new RearOfPyramid_3pt_Side(5,0.5,0.5));
-        autoChooser.addObject("3 disc far Auto - Center", new RearOfPyramid_3pt_Center(5,0.5,0.5));
-        //autoChooser.addObject("2 disc close Auto - Center", new FrontOfPyramid_3pt_Center());
-        //autoChooser.addObject ("2 disc close Auto - Right", new FrontOfPyramid_3pt_Right());
-        //autoChooser.addObject ("2 disc close Auto - Left", new FrontOfPyramid_3pt_Left());
-        
-        SmartDashboard.putData("Autonomous mode", autoChooser);
     }
     
     private void dashSelectInit() {
@@ -200,6 +210,46 @@ public class CommandBaseRobot extends IterativeRobot {
         dashChooser.addDefault("Competition Dash", new CompetitionDashboard());
         //dashChooser.addObject("PID Debug Dash", new ShooterWheelPIDDashboard());
         SmartDashboard.putData("Dashboard Chooser", dashChooser);
+    }
+    
+    /**
+     * Get the initial position of the robot as selected on the dashboard
+     * @return the initial position
+     */
+    public static int getInitialPosition() {
+    	return ((Integer) initialPositionChooser.getSelected()).intValue();
+    }
+    
+    /**
+     * The action the robot should take after it shoots its discs in auto mode
+     * @return the action to perform
+     */
+    public static int getAutoModeAfterShots() {
+    	return ((Integer) afterShotChooser.getSelected()).intValue();
+    }
+    
+    /**
+     * The time to delay before shooting the first disc in auto
+     * @return time in seconds
+     */
+    public static double getDisc1Delay() {
+    	return disc1Delay;
+    }
+    
+    /**
+     * The time to delay before shooting the second disc in auto
+     * @return time in seconds
+     */
+    public static double getDisc2Delay() {
+    	return disc2Delay;
+    }
+    
+    /**
+     * Time to delay before shooting the third disc in auto
+     * @return time in seconds
+     */
+    public static double getDisc3Delay() {
+    	return disc3Delay;
     }
     
     /**
@@ -291,4 +341,16 @@ public class CommandBaseRobot extends IterativeRobot {
 	public static void setNumberOfDiscs(int discs) {
 		numberOfDiscs = discs;
 	}
+	
+
+    public static final int LEFT   = 1;
+    public static final int CENTER = 2;
+    public static final int RIGHT  = 3;
+	
+	//What to do in auto after the discs are shot
+	public static final int SIT_STILL             = 1; //Don't move after shooting
+	public static final int DEFEND_CENTER         = 2; //Move to the center of the field and defend discs
+	public static final int TO_PROTECTED_LOADER   = 3; //Move to the protected human load station
+	public static final int TO_UNPROTECTED_LOADER = 4; //Move to the unprotected human load station
+
 }
