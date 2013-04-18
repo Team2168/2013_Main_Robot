@@ -2,7 +2,6 @@ package frc2168_2013.commands.Auto;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc2168_2013.CommandBaseRobot;
-import frc2168_2013.CommandBaseRobot.InitialPosition;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainStraight;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainTurn_Simple;
 
@@ -24,27 +23,27 @@ public class DriveToFieldCenter extends CommandGroup {
 	 * Drive to the center of the field.
 	 */
 	public DriveToFieldCenter() {
-		InitialPosition position = CommandBaseRobot.getInitialPosition();
+		int position = CommandBaseRobot.getInitialPosition();
 		
 		//Do different things depending on where we started from
-		switch(position.Value()) {
-			case InitialPosition.RIGHT:
+		switch(position) {
+			case CommandBaseRobot.RIGHT:
 				driveDistance1 =  -1.0; //Drive backwards (ft)
-				rotateAngle1   =  60.0; //Rotate clockwise (deg.)
-				driveDistance2 =  -7.0; //Drive backwards (ft)
-				rotateAngle2   =  25.0; //rotate clockwise (deg.)
+				rotateAngle1   =  50.0; //Rotate clockwise (deg.)
+				driveDistance2 =  -6.0; //Drive backwards (ft)
+				rotateAngle2   =   0.0; //rotate clockwise (deg.)
 				break;
-			case InitialPosition.CENTER:
-				driveDistance1 =  -8.0; //Drive backwards (ft)
-				rotateAngle1   =  90.0; //Rotate clockwise (deg.)
+			case CommandBaseRobot.CENTER:
+				driveDistance1 =  -6.5; //Drive backwards (ft)
+				rotateAngle1   =   0.0; //Rotate clockwise (deg.)
 				driveDistance2 =   0.0; //Drive backwards (ft)
 				rotateAngle2   =   0.0; //rotate clockwise (deg.)
 				break;
-			case InitialPosition.LEFT:
+			case CommandBaseRobot.LEFT:
 				driveDistance1 =  -1.0; //Drive backwards (ft)
-				rotateAngle1   = -60.0; //Rotate counter-clockwise (deg.)
-				driveDistance2 =  -7.0; //Drive backwards (ft)
-				rotateAngle2   = -25.0; //rotate counter-clockwise (deg.)
+				rotateAngle1   = -45.0; //Rotate counter-clockwise (deg.)
+				driveDistance2 =  -7.2; //Drive backwards (ft)
+				rotateAngle2   =   0.0; //rotate counter-clockwise (deg.)
 				break;
 			default: //just in case
 				break;
@@ -67,6 +66,10 @@ public class DriveToFieldCenter extends CommandGroup {
 	 * @return the converted value in inches
 	 */
 	private double convertDistance (double in) {
-		return ((in * 12) - 8);
+		if (in == 0.0) {
+			return 0.0;
+		} else {
+			return ((in * 12) - 8);
+		}
 	}
 }

@@ -5,7 +5,7 @@ import frc2168_2013.commands.CommandBase;
 import frc2168_2013.subsystems.Drivetrain;
 
 public class DriveDrivetrainStraight extends CommandBase {
-	private static final double TARGET_SPEED             = 0.60;
+	private static final double TARGET_SPEED             = 0.80;
 	private static final double TURN_SCALER              = 1.10;
 	private static final double STRAIGHT_ANGLE_TOLERANCE =  1.0; //acceptable angular error in degrees
 	
@@ -72,6 +72,8 @@ public class DriveDrivetrainStraight extends CommandBase {
 	 * This only travels forwards right now.
 	 */	
 	protected void execute() {
+		System.out.println("Drive drivetain");
+		
 		double newLeftSpeed = 0, newRightSpeed = 0, angle = 0;
 		double speedModifierL = 1, speedModifierR = 1;
 

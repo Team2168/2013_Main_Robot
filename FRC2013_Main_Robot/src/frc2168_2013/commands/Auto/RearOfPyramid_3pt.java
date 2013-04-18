@@ -6,6 +6,7 @@ import frc2168_2013.commands.Sleep;
 import frc2168_2013.commands.subSystems.Hopper.ShootSingleDisc;
 import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleStow;
 import frc2168_2013.commands.subSystems.ShooterWheel.DriveShooterWithConstant;
+import frc2168_2013.commands.subSystems.ShooterWheel.PID_ShooterPause;
 
 /**
  * Auto command. Sits still and shoots discs from close range at the three point goal.
@@ -39,10 +40,10 @@ public class RearOfPyramid_3pt extends CommandGroup {
 		//Shoot a few more times in case the disc wasn't shot
 		addSequential(new Sleep(), 0.1);
 		addSequential(new ShootSingleDisc());
-		addSequential(new Sleep(), 0.1);
-		addSequential(new ShootSingleDisc());
+		//addSequential(new Sleep(), 0.1);
+		//addSequential(new ShootSingleDisc());
 		
 		//Stop the shooter
-		addParallel(new DriveShooterWithConstant(0, 0));
+		addParallel(new PID_ShooterPause());
 	}
 }

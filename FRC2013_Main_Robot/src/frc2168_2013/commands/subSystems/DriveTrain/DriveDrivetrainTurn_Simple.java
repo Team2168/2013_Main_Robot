@@ -65,13 +65,16 @@ public class DriveDrivetrainTurn_Simple extends CommandBase {
 	 * above our commanded destination angle.
 	 */
 	protected void execute() {
+		
+		System.out.println("Turn drivetrain");
 		//Rate limit the drivetrain
 		fwdRotationSpeed = Drivetrain.rateLimit(FAST_SPEED, fwdRotationSpeed, RATE_LIMIT);
-		if(dimeTurning) {
-			revRotationSpeed = -fwdRotationSpeed;
-		} else {
-			revRotationSpeed = Drivetrain.rateLimit(SLOW_SPEED, revRotationSpeed, RATE_LIMIT);
-		}
+		revRotationSpeed = Drivetrain.rateLimit(-SLOW_SPEED, revRotationSpeed, RATE_LIMIT);
+//		if(dimeTurning) {
+//			revRotationSpeed = -fwdRotationSpeed;
+//		} else {
+//			revRotationSpeed = Drivetrain.rateLimit(SLOW_SPEED, revRotationSpeed, RATE_LIMIT);
+//		}
 		
 		currentAngle = drivetrain.getAngle();
 		System.out.println("Gyro: " + currentAngle + "   fwdSpeed: " + fwdRotationSpeed

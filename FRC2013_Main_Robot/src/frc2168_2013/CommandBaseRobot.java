@@ -80,19 +80,23 @@ public class CommandBaseRobot extends IterativeRobot {
         
         //Input where we start on the field - for use by auto modes
     	initialPositionChooser = new SendableChooser();
-    	initialPositionChooser.addDefault("Center", new Integer(InitialPosition.CENTER));
-    	initialPositionChooser.addObject("Left", new Integer(InitialPosition.LEFT));
-    	initialPositionChooser.addObject("Right", new Integer(InitialPosition.RIGHT));
+    	initialPositionChooser.addDefault("Center", new Integer(CENTER));
+    	initialPositionChooser.addObject("Left", new Integer(LEFT));
+    	initialPositionChooser.addObject("Right", new Integer(RIGHT));
     	SmartDashboard.putData("Auto mode starting Position", initialPositionChooser);
 
     	//Add a radio button list to the dashboard to allow the operator to
     	//  choose what happens after our three discs are shot.
     	afterShotChooser = new SendableChooser();
-    	afterShotChooser.addDefault("Sit Still", new Integer(AutoAfterShots.SIT_STILL));
-    	afterShotChooser.addDefault("Defend center discs", new Integer(AutoAfterShots.DEFEND_CENTER));
-    	afterShotChooser.addDefault("Move to protected loader", new Integer(AutoAfterShots.TO_PROTECTED_LOADER));
-    	afterShotChooser.addDefault("Move to un-protected loader", new Integer(AutoAfterShots.TO_UNPROTECTED_LOADER));
+    	afterShotChooser.addDefault("Sit Still", new Integer(SIT_STILL));
+    	afterShotChooser.addDefault("Defend center discs", new Integer(DEFEND_CENTER));
+    	afterShotChooser.addDefault("Move to protected loader", new Integer(TO_PROTECTED_LOADER));
+    	afterShotChooser.addDefault("Move to un-protected loader", new Integer(TO_UNPROTECTED_LOADER));
     	SmartDashboard.putData("Auto mode destination position", afterShotChooser);
+    	
+    	SmartDashboard.putNumber(TIME_1_DELAY_KEY, disc1Delay);
+    	SmartDashboard.putNumber(TIME_2_DELAY_KEY, disc2Delay);
+    	SmartDashboard.putNumber(TIME_3_DELAY_KEY, disc3Delay);
     	
         //Initialize relay ports for light strip states
         lightsRelay1 = new BitRelay(RobotMap.arduinoRelay1);
@@ -112,9 +116,9 @@ public class CommandBaseRobot extends IterativeRobot {
     	Scheduler.getInstance().enable();
 
     	//Get delays for disc shots
-    	disc1Delay = SmartDashboard.getNumber(TIME_1_DELAY_KEY, 5.0);
-    	disc2Delay = SmartDashboard.getNumber(TIME_2_DELAY_KEY, 0.5);
-    	disc3Delay = SmartDashboard.getNumber(TIME_3_DELAY_KEY, 0.5);
+    	disc1Delay = SmartDashboard.getNumber(TIME_1_DELAY_KEY, disc1Delay);
+    	disc2Delay = SmartDashboard.getNumber(TIME_2_DELAY_KEY, disc2Delay);
+    	disc3Delay = SmartDashboard.getNumber(TIME_3_DELAY_KEY, disc3Delay);
     	
     	// instantiate and schedule the command used for the autonomous period
         autonomousCommand = new AutoSequencer();
@@ -212,16 +216,16 @@ public class CommandBaseRobot extends IterativeRobot {
      * Get the initial position of the robot as selected on the dashboard
      * @return the initial position
      */
-    public static InitialPosition getInitialPosition() {
-    	return (InitialPosition) initialPositionChooser.getSelected();
+    public static int getInitialPosition() {
+    	return ((Integer) initialPositionChooser.getSelected()).intValue();
     }
     
     /**
      * The action the robot should take after it shoots its discs in auto mode
      * @return the action to perform
      */
-    public static AutoAfterShots getAutoModeAfterShots() {
-    	return (AutoAfterShots) afterShotChooser.getSelected();
+    public static int getAutoModeAfterShots() {
+    	return ((Integer) afterShotChooser.getSelected()).intValue();
     }
     
     /**
@@ -338,25 +342,15 @@ public class CommandBaseRobot extends IterativeRobot {
 		numberOfDiscs = discs;
 	}
 	
-	public class InitialPosition extends Enum {
-	    public static final int LEFT   = 1;
-	    public static final int CENTER = 2;
-	    public static final int RIGHT  = 3;
 
-	    public InitialPosition(int enumValue) {
-	        super(enumValue);
-	    }
-	}
+    public static final int LEFT   = 1;
+    public static final int CENTER = 2;
+    public static final int RIGHT  = 3;
 	
 	//What to do in auto after the discs are shot
-	public class AutoAfterShots extends Enum {
-		public static final int SIT_STILL             = 1; //Don't move after shooting
-		public static final int DEFEND_CENTER         = 2; //Move to the center of the field and defend discs
-		public static final int TO_PROTECTED_LOADER   = 3; //Move to the protected human load station
-		public static final int TO_UNPROTECTED_LOADER = 4; //Move to the unprotected human load station
-		
-		public AutoAfterShots(int enumValue) {
-			super(enumValue);
-		}
-	}
+	public static final int SIT_STILL             = 1; //Don't move after shooting
+	public static final int DEFEND_CENTER         = 2; //Move to the center of the field and defend discs
+	public static final int TO_PROTECTED_LOADER   = 3; //Move to the protected human load station
+	public static final int TO_UNPROTECTED_LOADER = 4; //Move to the unprotected human load station
+
 }
