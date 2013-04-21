@@ -11,9 +11,9 @@ import frc2168_2013.PIDController.Sensors.AverageEncoder;
  */
 public class RobotMap {
 	
-	public final static boolean USE_TALONS_DRIVETRAIN = true;
-	public final static boolean USE_TALONS_SHOOTER = true;
-
+	public final static boolean USE_TALONS_DRIVETRAIN = false;
+	public final static boolean USE_TALONS_SHOOTER = false;
+	
 	/****************************************************************
 	 *                       CRIO MAP                               *
 	 ****************************************************************/	

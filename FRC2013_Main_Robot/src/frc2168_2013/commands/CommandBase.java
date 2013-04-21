@@ -47,4 +47,8 @@ public abstract class CommandBase extends Command {
     public CommandBase() {
         super();
     }
+    
+    public static Drivetrain getDrivetrainInstance() {
+    	return drivetrain;
+    }
 }

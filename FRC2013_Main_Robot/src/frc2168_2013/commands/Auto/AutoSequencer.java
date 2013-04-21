@@ -14,8 +14,12 @@ import frc2168_2013.CommandBaseRobot;
 public class AutoSequencer extends CommandGroup {
 	
 	public AutoSequencer() {
-		//Sit still and shoot the discs we started with
-		addSequential(new RearOfPyramid_3pt());
+		
+		//Fast defend
+		if(CommandBaseRobot.getShootInAuto()){
+			//Sit still and shoot the discs we started with
+			addSequential(new RearOfPyramid_3pt());
+		}
 		
 		System.out.println("Auto mode after shots:" + CommandBaseRobot.getAutoModeAfterShots());
 		//Then drive to the selected destination position

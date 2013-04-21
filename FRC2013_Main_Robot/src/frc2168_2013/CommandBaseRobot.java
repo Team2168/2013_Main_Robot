@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc2168_2013.commands.CommandBase;
 import frc2168_2013.commands.Auto.*;
+import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainTurn_Simple;
 import frc2168_2013.dashboard.CompetitionDashboard;
 import frc2168_2013.utils.BitRelay;
 import frc2168_2013.utils.Enum;
@@ -42,12 +43,17 @@ public class CommandBaseRobot extends IterativeRobot {
 	static SendableChooser afterShotChooser;
 	
 	//Delays (seconds) for shots in auto. These get set by the dashboard.
-	private static double disc1Delay = 5.0,
-                          disc2Delay = 0.5,
-                          disc3Delay = 0.5;
+	private static double disc1Delay = 3.5,
+                          disc2Delay = 0.7,
+                          disc3Delay = 0.7;
 	private static final String TIME_1_DELAY_KEY = "Delay before shot 1",
                                 TIME_2_DELAY_KEY = "Delay before shot 2",
-                                TIME_3_DELAY_KEY = "Delay before shot 3";
+                                TIME_3_DELAY_KEY = "Delay before shot 3",
+                                DRIVETRAIN_RIGHT_ENCODER_KEY = "Right drive encoder",
+                                DRIVETRAIN_LEFT_ENCODER_KEY  = "Left drive encoder",
+                                DRIVETRAIN_GYRO_ANGLE_KEY    = "Gyro angle",
+                                SHOOT_IN_AUTO_KEY            = "Shoot in auto";
+	
     
     //These variables are for the serial communication with the arduino.
     private static boolean shooterAtSpeed = false,
@@ -57,7 +63,7 @@ public class CommandBaseRobot extends IterativeRobot {
                    autoMode = false;
     
     private static int numberOfDiscs = 3;    //TODO: change this to actually use a sensor
-    
+    private static boolean shootInAuto = true;
     BitRelay lightsRelay1,
           lightsRelay2,
           lightsRelay3,
@@ -78,13 +84,8 @@ public class CommandBaseRobot extends IterativeRobot {
         //Initialize dashboard
         dashSelectInit();
         
-        //Input where we start on the field - for use by auto modes
-    	initialPositionChooser = new SendableChooser();
-    	initialPositionChooser.addDefault("Center", new Integer(CENTER));
-    	initialPositionChooser.addObject("Left", new Integer(LEFT));
-    	initialPositionChooser.addObject("Right", new Integer(RIGHT));
-    	SmartDashboard.putData("Auto mode starting Position", initialPositionChooser);
-
+        SmartDashboard.putBoolean("Shoot in auto", shootInAuto);
+        
     	//Add a radio button list to the dashboard to allow the operator to
     	//  choose what happens after our three discs are shot.
     	afterShotChooser = new SendableChooser();
@@ -97,6 +98,16 @@ public class CommandBaseRobot extends IterativeRobot {
     	SmartDashboard.putNumber(TIME_1_DELAY_KEY, disc1Delay);
     	SmartDashboard.putNumber(TIME_2_DELAY_KEY, disc2Delay);
     	SmartDashboard.putNumber(TIME_3_DELAY_KEY, disc3Delay);
+    	
+    	SmartDashboard.putNumber("Auto. turn fast speed", DriveDrivetrainTurn_Simple.getFastSpeed());
+    	SmartDashboard.putNumber("Auto. turn slow speed", DriveDrivetrainTurn_Simple.getSlowSpeed());
+    	
+    	//Input where we start on the field - for use by auto modes
+    	initialPositionChooser = new SendableChooser();
+    	initialPositionChooser.addDefault("Center", new Integer(CENTER));
+    	initialPositionChooser.addObject("Left", new Integer(LEFT));
+    	initialPositionChooser.addObject("Right", new Integer(RIGHT));
+    	SmartDashboard.putData("Auto mode starting Position", initialPositionChooser);
     	
         //Initialize relay ports for light strip states
         lightsRelay1 = new BitRelay(RobotMap.arduinoRelay1);
@@ -119,6 +130,12 @@ public class CommandBaseRobot extends IterativeRobot {
     	disc1Delay = SmartDashboard.getNumber(TIME_1_DELAY_KEY, disc1Delay);
     	disc2Delay = SmartDashboard.getNumber(TIME_2_DELAY_KEY, disc2Delay);
     	disc3Delay = SmartDashboard.getNumber(TIME_3_DELAY_KEY, disc3Delay);
+
+    	shootInAuto = SmartDashboard.getBoolean(SHOOT_IN_AUTO_KEY, shootInAuto);
+    	
+    	//Get parameters from dashboard for auto mode turning.
+    	DriveDrivetrainTurn_Simple.setFastSpeed(SmartDashboard.getNumber("Auto. turn fast speed", DriveDrivetrainTurn_Simple.getFastSpeed()));
+    	DriveDrivetrainTurn_Simple.setSlowSpeed(SmartDashboard.getNumber("Auto. turn slow speed", DriveDrivetrainTurn_Simple.getSlowSpeed()));
     	
     	// instantiate and schedule the command used for the autonomous period
         autonomousCommand = new AutoSequencer();
@@ -139,6 +156,11 @@ public class CommandBaseRobot extends IterativeRobot {
     
 	public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        
+        //Update drivetrain position fields on dashboard
+        SmartDashboard.putNumber(DRIVETRAIN_RIGHT_ENCODER_KEY, CommandBase.getDrivetrainInstance().getRightDistance());
+        SmartDashboard.putNumber(DRIVETRAIN_LEFT_ENCODER_KEY, CommandBase.getDrivetrainInstance().getLeftDistance());
+        SmartDashboard.putNumber(DRIVETRAIN_GYRO_ANGLE_KEY, CommandBase.getDrivetrainInstance().getAngle());
         
         setArduinoStatus();
     }
@@ -174,6 +196,12 @@ public class CommandBaseRobot extends IterativeRobot {
     	if(DriverStation.getInstance().getMatchTime() >= 115){
     		setEndGame(true);
     	}
+    	
+        //Update drivetrain position fields on dashboard
+        SmartDashboard.putNumber(DRIVETRAIN_RIGHT_ENCODER_KEY, CommandBase.getDrivetrainInstance().getRightDistance());
+        SmartDashboard.putNumber(DRIVETRAIN_LEFT_ENCODER_KEY, CommandBase.getDrivetrainInstance().getLeftDistance());
+        SmartDashboard.putNumber(DRIVETRAIN_GYRO_ANGLE_KEY, CommandBase.getDrivetrainInstance().getAngle());
+    	
     	setArduinoStatus();
     }
     
@@ -250,6 +278,10 @@ public class CommandBaseRobot extends IterativeRobot {
      */
     public static double getDisc3Delay() {
     	return disc3Delay;
+    }
+    
+    public static boolean getShootInAuto() {
+    	return shootInAuto;
     }
     
     /**
