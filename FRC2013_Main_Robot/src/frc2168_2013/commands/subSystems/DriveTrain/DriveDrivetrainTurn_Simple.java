@@ -21,9 +21,9 @@ public class DriveDrivetrainTurn_Simple extends CommandBase {
 	private boolean finished,
 	                dimeTurning;
 	
-	private static final double SLOW_SPEED     = 0.3, //speed to turn the slower wheel at
-                                FAST_SPEED     = 0.4, //speed to turn the faster wheel at
-                                RATE_LIMIT     = 0.05;
+	private static double       slowSpeed     = 0.8, //speed to turn the slower wheel at
+                                fastSpeed     = 0.9; //speed to turn the faster wheel at
+    private static final double RATE_LIMIT     = 0.05;
 	
 	/**
 	 * Turn the drivetrain.
@@ -65,32 +65,35 @@ public class DriveDrivetrainTurn_Simple extends CommandBase {
 	 * above our commanded destination angle.
 	 */
 	protected void execute() {
-		
-		System.out.println("Turn drivetrain");
-		//Rate limit the drivetrain
-		fwdRotationSpeed = Drivetrain.rateLimit(FAST_SPEED, fwdRotationSpeed, RATE_LIMIT);
-		revRotationSpeed = Drivetrain.rateLimit(-SLOW_SPEED, revRotationSpeed, RATE_LIMIT);
-//		if(dimeTurning) {
-//			revRotationSpeed = -fwdRotationSpeed;
-//		} else {
-//			revRotationSpeed = Drivetrain.rateLimit(SLOW_SPEED, revRotationSpeed, RATE_LIMIT);
-//		}
-		
-		currentAngle = drivetrain.getAngle();
-		System.out.println("Gyro: " + currentAngle + "   fwdSpeed: " + fwdRotationSpeed
-				+ "  revSpeed: " + revRotationSpeed);
-		
-		//Positive angle is rotation clockwise, negative is counter-clockwise
-		if (Math.abs(currentAngle) >= Math.abs(destinationAngle)) {
-			//We're there
-			drivetrain.tankDrive(0, 0);
+		if(destinationAngle == 0.0) {
 			finished = true;
-		} else if (destinationAngle > currentAngle) {
-			//rotate clockwise
-			drivetrain.tankDrive(revRotationSpeed, fwdRotationSpeed);
 		} else {
-			//rotate counterclockwise
-			drivetrain.tankDrive(fwdRotationSpeed, revRotationSpeed);
+			System.out.println("Turn drivetrain");
+			//Rate limit the drivetrain
+			fwdRotationSpeed = Drivetrain.rateLimit(fastSpeed, fwdRotationSpeed, RATE_LIMIT);
+			revRotationSpeed = Drivetrain.rateLimit(-slowSpeed, revRotationSpeed, RATE_LIMIT);
+	//		if(dimeTurning) {
+	//			revRotationSpeed = -fwdRotationSpeed;
+	//		} else {
+	//			revRotationSpeed = Drivetrain.rateLimit(SLOW_SPEED, revRotationSpeed, RATE_LIMIT);
+	//		}
+			
+			currentAngle = drivetrain.getAngle();
+			System.out.println("Gyro: " + currentAngle + "   fwdSpeed: " + fwdRotationSpeed
+					+ "  revSpeed: " + revRotationSpeed);
+			
+			//Positive angle is rotation clockwise, negative is counter-clockwise
+			if (Math.abs(currentAngle) >= Math.abs(destinationAngle)) {
+				//We're there
+				drivetrain.tankDrive(0, 0);
+				finished = true;
+			} else if (destinationAngle > currentAngle) {
+				//rotate clockwise
+				drivetrain.tankDrive(revRotationSpeed, fwdRotationSpeed);
+			} else {
+				//rotate counterclockwise
+				drivetrain.tankDrive(fwdRotationSpeed, revRotationSpeed);
+			}
 		}
 	}
 
@@ -108,5 +111,21 @@ public class DriveDrivetrainTurn_Simple extends CommandBase {
 	protected void interrupted() {
 		//Clear the current command to motor controllers if we're interrupted.
 		drivetrain.tankDrive(0, 0);
+	}
+	
+	public static void setFastSpeed(double input) {
+		fastSpeed = input;
+	}
+	
+	public static double getFastSpeed() {
+		return fastSpeed;
+	}
+	
+	public static void setSlowSpeed(double input) {
+		slowSpeed = input;
+	}
+	
+	public static double getSlowSpeed() {
+		return slowSpeed;
 	}
 }

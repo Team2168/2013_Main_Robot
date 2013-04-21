@@ -17,7 +17,9 @@ public class DriveToUnprotectedLoader extends CommandGroup {
 	private double driveDistance1, //in feet
                    rotateAngle1,   //in degrees
                    driveDistance2, //in feet
-                   rotateAngle2;   //in degrees
+                   rotateAngle2,   //in degrees
+                   driveDistance3, //in feet
+                   rotateAngle3;   //in degrees
 	
 	/**
 	 * Drive to the position robot near the unprotected loading station.
@@ -28,22 +30,28 @@ public class DriveToUnprotectedLoader extends CommandGroup {
 		//Do different things depending on where we started from
 		switch(position) {
 			case CommandBaseRobot.RIGHT:
-				driveDistance1 =  -3.5; //Drive backwards (ft)
-				rotateAngle1   = -43.0; //Rotate to face wall on loader side
-				driveDistance2 =  14.0; //Drive forwards across field
-				rotateAngle2   = -45.0; //rotate to face loader(deg.)
+				driveDistance1 =  -3.9; //Drive backwards (ft)
+				rotateAngle1   = -44.0; //Rotate to face wall on loader side
+				driveDistance2 =  15.0; //Drive forwards across field
+				rotateAngle2   = -50.0; //rotate to face loader(deg.)
+				driveDistance3 =   2.0;
+				rotateAngle3   =   0.0;
 				break;
 			case CommandBaseRobot.CENTER:
-				driveDistance1 =  -4.0; //Drive backwards (ft)
+				driveDistance1 =  -5.0; //Drive backwards (ft)
 				rotateAngle1   = -60.0; //Rotate to face loader wall 
 				driveDistance2 =   7.0; //Drive forwards across field (ft)
 				rotateAngle2   = -55.0; //rotate to face human loader station
+				driveDistance3 =   2.0;
+				rotateAngle3   =   0.0;
 				break;
 			case CommandBaseRobot.LEFT:
-				driveDistance1 =  -5.0; //Drive straight backwards to line (ft)
-				rotateAngle1   = 170.0; //Rotate clockwise to face loading station(deg.)
+				driveDistance1 =  -6.0; //Drive straight backwards to line (ft)
+				rotateAngle1   = 180.0; //Rotate clockwise to face loading station(deg.)
 				driveDistance2 =   0.0; //done
 				rotateAngle2   =   0.0; //done
+				driveDistance3 =   0.0;
+				rotateAngle3   =   0.0;
 				break;
 			default: //just in case
 				break;
@@ -56,6 +64,10 @@ public class DriveToUnprotectedLoader extends CommandGroup {
 		addSequential(new DriveDrivetrainStraight(convertDistance(driveDistance2)));
 		//rotate the chassis
 		addSequential(new DriveDrivetrainTurn_Simple(rotateAngle2));
+		//drive
+		addSequential(new DriveDrivetrainStraight(convertDistance(driveDistance3)));
+		//rotate
+		addSequential(new DriveDrivetrainTurn_Simple(rotateAngle3));
 	}
 	
 	/**

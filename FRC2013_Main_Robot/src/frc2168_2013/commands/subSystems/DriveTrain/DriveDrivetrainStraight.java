@@ -5,12 +5,12 @@ import frc2168_2013.commands.CommandBase;
 import frc2168_2013.subsystems.Drivetrain;
 
 public class DriveDrivetrainStraight extends CommandBase {
-	private static final double TARGET_SPEED             = 0.80;
+	private static final double TARGET_SPEED             = 0.85;
 	private static final double TURN_SCALER              = 1.10;
 	private static final double STRAIGHT_ANGLE_TOLERANCE =  1.0; //acceptable angular error in degrees
 	
 	private double destDistance; //The goal distance in inches
-	private static final double rateLimit = 0.01;
+	private static final double rateLimit = 0.15;
 	private double currentLeftSpeed, currentRightSpeed;
 	private boolean finished;
 	private double direction = 1.0;
@@ -48,7 +48,9 @@ public class DriveDrivetrainStraight extends CommandBase {
 	 */
 	public DriveDrivetrainStraight(double distance, boolean runForever) {
 		requires(drivetrain);
-		if(distance < 0) {
+		if (distance == 0.0) {
+			finished = true;
+		}else if(distance < 0) {
 			//Driving reverse
 			direction = -1.0;
 		} else {
@@ -78,8 +80,8 @@ public class DriveDrivetrainStraight extends CommandBase {
 		double speedModifierL = 1, speedModifierR = 1;
 
 		//if we aren't there yet, set speed
-		if(((direction >= 0) && drivetrain.getDistance() < destDistance)
-				|| ((direction < 0)&& drivetrain.getDistance() > destDistance)) {
+		if(!finished && (((direction >= 0) && drivetrain.getDistance() < destDistance)
+				|| ((direction < 0)&& drivetrain.getDistance() > destDistance))) {
 			newLeftSpeed = newRightSpeed = TARGET_SPEED;
 			
 			//TODO: Replace with speed controller
