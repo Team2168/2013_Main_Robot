@@ -207,9 +207,18 @@ public class Drivetrain extends Subsystem {
     	System.out.println("LeftEncoder = " + leftEncoder.getPos());
     	System.out.println("Gyro = " + getAngle());
     	
+    	//TODO: change back to use both encoders
     	//The practice chassis only has the right encoder wired
     	return ((rightEncoder.getPos() + leftEncoder.getPos())/2);
     	//return rightEncoder.getPos();
+    }
+    
+    public double getRightDistance() {
+    	return rightEncoder.getPos();
+    }
+    
+    public double getLeftDistance() {
+    	return leftEncoder.getPos();
     }
     
     /**

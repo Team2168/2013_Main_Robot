@@ -28,34 +28,43 @@ public class DriveToFieldCenter extends CommandGroup {
 		//Do different things depending on where we started from
 		switch(position) {
 			case CommandBaseRobot.RIGHT:
-				driveDistance1 =  -1.0; //Drive backwards (ft)
+				driveDistance1 =  -2.0; //Drive backwards (ft)
 				rotateAngle1   =  50.0; //Rotate clockwise (deg.)
-				driveDistance2 =  -6.0; //Drive backwards (ft)
+				driveDistance2 =  -6.5; //Drive backwards (ft)
 				rotateAngle2   =   0.0; //rotate clockwise (deg.)
 				break;
 			case CommandBaseRobot.CENTER:
-				driveDistance1 =  -6.5; //Drive backwards (ft)
+				driveDistance1 =  -8.0; //Drive backwards (ft)
 				rotateAngle1   =   0.0; //Rotate clockwise (deg.)
 				driveDistance2 =   0.0; //Drive backwards (ft)
 				rotateAngle2   =   0.0; //rotate clockwise (deg.)
 				break;
 			case CommandBaseRobot.LEFT:
-				driveDistance1 =  -1.0; //Drive backwards (ft)
+				driveDistance1 =  -2.0; //Drive backwards (ft)
 				rotateAngle1   = -45.0; //Rotate counter-clockwise (deg.)
-				driveDistance2 =  -7.2; //Drive backwards (ft)
+				driveDistance2 =  -8.0; //Drive backwards (ft)
 				rotateAngle2   =   0.0; //rotate counter-clockwise (deg.)
 				break;
 			default: //just in case
 				break;
 		}
 		//drive backwards
-		addSequential(new DriveDrivetrainStraight(convertDistance(driveDistance1)));
+		if(driveDistance1 != 0.0) {
+			addSequential(new DriveDrivetrainStraight(convertDistance(driveDistance1)));
+		}
 		//rotate the chassis
-		addSequential(new DriveDrivetrainTurn_Simple(rotateAngle1));
+		if(rotateAngle1 != 0.0) {
+			addSequential(new DriveDrivetrainTurn_Simple(rotateAngle1));
+		}
 		//drive backwards
-		addSequential(new DriveDrivetrainStraight(convertDistance(driveDistance2)));
+		if(driveDistance2 != 0.0) {
+			addSequential(new DriveDrivetrainStraight(convertDistance(driveDistance2)));
+		}
 		//rotate the chassis
-		addSequential(new DriveDrivetrainTurn_Simple(rotateAngle2));
+		if(rotateAngle2 != 0.0) {
+			addSequential(new DriveDrivetrainTurn_Simple(rotateAngle2));	
+		}
+		
 	}
 	
 	/**

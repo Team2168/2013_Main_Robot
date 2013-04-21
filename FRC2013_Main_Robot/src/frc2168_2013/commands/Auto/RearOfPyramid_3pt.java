@@ -44,6 +44,7 @@ public class RearOfPyramid_3pt extends CommandGroup {
 		//addSequential(new ShootSingleDisc());
 		
 		//Stop the shooter
+		addParallel(new DriveShooterWithConstant(0, 0));
 		addParallel(new PID_ShooterPause());
 	}
 }
