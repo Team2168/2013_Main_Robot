@@ -90,10 +90,10 @@ public class CommandBaseRobot extends IterativeRobot {
     	//  choose what happens after our three discs are shot.
     	afterShotChooser = new SendableChooser();
     	afterShotChooser.addDefault("Sit Still", new Integer(SIT_STILL));
-    	afterShotChooser.addDefault("Defend center discs", new Integer(DEFEND_CENTER));
-    	afterShotChooser.addDefault("Move to protected loader", new Integer(TO_PROTECTED_LOADER));
-    	afterShotChooser.addDefault("Move to un-protected loader", new Integer(TO_UNPROTECTED_LOADER));
-    	SmartDashboard.putData("Auto mode destination position", afterShotChooser);
+    	afterShotChooser.addObject("Defend center discs", new Integer(DEFEND_CENTER));
+    	afterShotChooser.addObject("Move to protected loader", new Integer(TO_PROTECTED_LOADER));
+    	afterShotChooser.addObject("Move to un-protected loader", new Integer(TO_UNPROTECTED_LOADER));
+    	SmartDashboard.putData("Dest_Position", afterShotChooser);
     	
     	SmartDashboard.putNumber(TIME_1_DELAY_KEY, disc1Delay);
     	SmartDashboard.putNumber(TIME_2_DELAY_KEY, disc2Delay);
@@ -104,10 +104,10 @@ public class CommandBaseRobot extends IterativeRobot {
     	
     	//Input where we start on the field - for use by auto modes
     	initialPositionChooser = new SendableChooser();
-    	initialPositionChooser.addDefault("Center", new Integer(CENTER));
     	initialPositionChooser.addObject("Left", new Integer(LEFT));
+    	initialPositionChooser.addDefault("Center", new Integer(CENTER));
     	initialPositionChooser.addObject("Right", new Integer(RIGHT));
-    	SmartDashboard.putData("Auto mode starting Position", initialPositionChooser);
+    	SmartDashboard.putData("Start_Position", initialPositionChooser);
     	
         //Initialize relay ports for light strip states
         lightsRelay1 = new BitRelay(RobotMap.arduinoRelay1);
