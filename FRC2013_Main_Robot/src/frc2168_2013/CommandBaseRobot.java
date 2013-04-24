@@ -78,6 +78,7 @@ public class CommandBaseRobot extends IterativeRobot {
     
     private static int numberOfDiscs = 3;    //TODO: change this to actually use a sensor
     private static boolean shootInAuto = true;
+    private static boolean autoModeDataInitialized = false;
     
     
     /**
@@ -95,31 +96,9 @@ public class CommandBaseRobot extends IterativeRobot {
         //Initialize dashboard
         dashSelectInit();
         
-        SmartDashboard.putBoolean("Shoot in auto", shootInAuto);
+    	//Put auto. mode data & selections onto the dashboard
+        putAutoModeData();
         
-    	//Add a radio button list to the dashboard to allow the operator to
-    	//  choose what happens after our three discs are shot.
-    	afterShotChooser = new SendableChooser();
-    	afterShotChooser.addDefault("Sit Still", new Integer(SIT_STILL));
-    	afterShotChooser.addObject("Defend center discs", new Integer(DEFEND_CENTER));
-    	afterShotChooser.addObject("Move to protected loader", new Integer(TO_PROTECTED_LOADER));
-    	afterShotChooser.addObject("Move to un-protected loader", new Integer(TO_UNPROTECTED_LOADER));
-    	SmartDashboard.putData("Dest_Position", afterShotChooser);
-    	
-    	SmartDashboard.putNumber(TIME_1_DELAY_KEY, disc1Delay);
-    	SmartDashboard.putNumber(TIME_2_DELAY_KEY, disc2Delay);
-    	SmartDashboard.putNumber(TIME_3_DELAY_KEY, disc3Delay);
-    	
-    	SmartDashboard.putNumber("Auto. turn fast speed", DriveDrivetrainTurn_Simple.getFastSpeed());
-    	SmartDashboard.putNumber("Auto. turn slow speed", DriveDrivetrainTurn_Simple.getSlowSpeed());
-    	
-    	//Input where we start on the field - for use by auto modes
-    	initialPositionChooser = new SendableChooser();
-    	initialPositionChooser.addObject("Left", new Integer(LEFT));
-    	initialPositionChooser.addDefault("Center", new Integer(CENTER));
-    	initialPositionChooser.addObject("Right", new Integer(RIGHT));
-    	SmartDashboard.putData("Start_Position", initialPositionChooser);
-    	
         //Initialize relay ports for light strip states
         lightsRelay1 = new BitRelay(RobotMap.arduinoRelay1);
         lightsRelay2 = new BitRelay(RobotMap.arduinoRelay2);
@@ -133,7 +112,6 @@ public class CommandBaseRobot extends IterativeRobot {
     /**
      * This method is called once, when the robot first enters auto mode.
      */
-    
 	public void autonomousInit() {
     	Scheduler.getInstance().enable();
 
@@ -145,8 +123,10 @@ public class CommandBaseRobot extends IterativeRobot {
     	shootInAuto = SmartDashboard.getBoolean(SHOOT_IN_AUTO_KEY, shootInAuto);
     	
     	//Get parameters from dashboard for auto mode turning.
-    	DriveDrivetrainTurn_Simple.setFastSpeed(SmartDashboard.getNumber("Auto. turn fast speed", DriveDrivetrainTurn_Simple.getFastSpeed()));
-    	DriveDrivetrainTurn_Simple.setSlowSpeed(SmartDashboard.getNumber("Auto. turn slow speed", DriveDrivetrainTurn_Simple.getSlowSpeed()));
+    	DriveDrivetrainTurn_Simple.setFastSpeed(SmartDashboard.getNumber("Auto. turn fast speed",
+    			DriveDrivetrainTurn_Simple.getFastSpeed()));
+    	DriveDrivetrainTurn_Simple.setSlowSpeed(SmartDashboard.getNumber("Auto. turn slow speed",
+    			DriveDrivetrainTurn_Simple.getSlowSpeed()));
     	
     	// instantiate and schedule the command used for the autonomous period
         autonomousCommand = new AutoSequencer();
@@ -164,14 +144,10 @@ public class CommandBaseRobot extends IterativeRobot {
     /**
      * This method is called periodically during autonomous
      */
-    
 	public void autonomousPeriodic() {
         Scheduler.getInstance().run();
         
-        //Update drivetrain position fields on dashboard
-        SmartDashboard.putNumber(DRIVETRAIN_RIGHT_ENCODER_KEY, CommandBase.getDrivetrainInstance().getRightDistance());
-        SmartDashboard.putNumber(DRIVETRAIN_LEFT_ENCODER_KEY, CommandBase.getDrivetrainInstance().getLeftDistance());
-        SmartDashboard.putNumber(DRIVETRAIN_GYRO_ANGLE_KEY, CommandBase.getDrivetrainInstance().getAngle());
+        putAutoModeData();
         
         setArduinoStatus();
     }
@@ -229,11 +205,16 @@ public class CommandBaseRobot extends IterativeRobot {
      */
     
 	public void disabledInit() {
-    	//TODO: automatically deploy lifter if it isn't already? last minute hang
-
     	//Kill all active commands and make sure new ones don't run.
     	Scheduler.getInstance().removeAll();
     	Scheduler.getInstance().disable();
+    	
+    	//Automatically retract the hanger, buzzer beater.
+    	// Note: this is done after the schedule is killed (there will be no
+    	// active commands running) so it's ok in this case to access the
+    	// subsystem's methods directly.
+    	//TODO: verify this works as expected
+    	CommandBase.getHangerInstance().engage();
     	
     	//SerialCommunicator.free();
     }
@@ -242,13 +223,77 @@ public class CommandBaseRobot extends IterativeRobot {
      * This method gets called repeatedly while the robot is disabled.
      */
 	public void disabledPeriodic() {
+		//Update the dashboard selection options
+		putAutoModeData();
     }
     
+	/**
+	 * Add dashboard selection options to the smart dashboard.
+	 */
     private void dashSelectInit() {
         dashChooser = new SendableChooser();
         dashChooser.addDefault("Competition Dash", new CompetitionDashboard());
         //dashChooser.addObject("PID Debug Dash", new ShooterWheelPIDDashboard());
         SmartDashboard.putData("Dashboard Chooser", dashChooser);
+    }
+    
+    /**
+     * Initialize the auto mode selection/customization options.
+     */
+    private static void initAutoModeData() {
+    	//If we haven't already instantiated our variables, do so
+    	if(!autoModeDataInitialized) {
+    		//Create a chooser for our starting position
+        	initialPositionChooser = new SendableChooser();
+        	initialPositionChooser.addObject("Left", new Integer(LEFT));
+        	initialPositionChooser.addDefault("Center", new Integer(CENTER));
+        	initialPositionChooser.addObject("Right", new Integer(RIGHT));
+    		
+    		//Create a chooser for our destination position
+    		afterShotChooser = new SendableChooser();
+        	afterShotChooser.addDefault("Sit Still", new Integer(SIT_STILL));
+        	afterShotChooser.addObject("Defend center discs", new Integer(DEFEND_CENTER));
+        	afterShotChooser.addObject("Move to protected loader", new Integer(TO_PROTECTED_LOADER));
+        	afterShotChooser.addObject("Move to un-protected loader", new Integer(TO_UNPROTECTED_LOADER));
+    		
+    		//Mark auto select variables as initialized (only do once)
+    		autoModeDataInitialized = true;
+    	}
+    }
+    
+    /**
+     * Put the auto. mode selection/customization options onto the dashboard
+     * 
+     * This can be called periodically.
+     */
+    private static void putAutoModeData() {
+    	//If variables haven't been instantiated yet, do so.
+    	if(!autoModeDataInitialized) {
+    		initAutoModeData();
+    	}
+    	
+    	//Add a radfio button lsit to the dashboard to choose our initial position
+    	SmartDashboard.putData("Start_Position", initialPositionChooser);
+    	
+    	//Add a radio button list to the dashboard to choose our destination position
+    	SmartDashboard.putData("Dest_Position", afterShotChooser);
+    	
+    	//TODO: verify if we can still change fields if we're periodically updating them through this method
+    	//TODO: Will probably need to call the get method periodically as well so we don't overwrite it.
+    	//Put our timing data for shots 
+    	SmartDashboard.putNumber(TIME_1_DELAY_KEY, disc1Delay);
+    	SmartDashboard.putNumber(TIME_2_DELAY_KEY, disc2Delay);
+    	SmartDashboard.putNumber(TIME_3_DELAY_KEY, disc3Delay);
+    	
+    	SmartDashboard.putNumber("Auto. turn fast speed", DriveDrivetrainTurn_Simple.getFastSpeed());
+    	SmartDashboard.putNumber("Auto. turn slow speed", DriveDrivetrainTurn_Simple.getSlowSpeed());
+    	
+    	//Update drivetrain position fields on dashboard
+        SmartDashboard.putNumber(DRIVETRAIN_RIGHT_ENCODER_KEY, CommandBase.getDrivetrainInstance().getRightDistance());
+        SmartDashboard.putNumber(DRIVETRAIN_LEFT_ENCODER_KEY, CommandBase.getDrivetrainInstance().getLeftDistance());
+        SmartDashboard.putNumber(DRIVETRAIN_GYRO_ANGLE_KEY, CommandBase.getDrivetrainInstance().getAngle());
+        
+        SmartDashboard.putBoolean("Shoot in auto", shootInAuto);
     }
     
     /**
@@ -269,28 +314,36 @@ public class CommandBaseRobot extends IterativeRobot {
     
     /**
      * The time to delay before shooting the first disc in auto
+     * @param disc the disc  to get the delay for (1 - 3)
      * @return time in seconds
      */
-    public static double getDisc1Delay() {
-    	return disc1Delay;
+    public static double getDiscDelay(int disc) {
+    	double retVal = 0.0;
+    	
+    	switch(disc) {
+	    	case 1:
+	    		retVal = disc1Delay;
+	    		break;
+	    	case 2:
+	    		retVal = disc2Delay;
+	    		break;
+	    	case 3:
+	    		retVal = disc3Delay;
+	    		break;
+	    	default:
+	    		//Delay returned will be the default value defined above
+	    		break;
+    	}
+    	
+    	return retVal;
     }
     
     /**
-     * The time to delay before shooting the second disc in auto
-     * @return time in seconds
+     * Get, from the dashboard option, whether or not we should shoot our discs in auto.
+     * This is in an effort to defend the center line quicker if necessary.
+     * 
+     * @return true if we should shoot discs in auto.
      */
-    public static double getDisc2Delay() {
-    	return disc2Delay;
-    }
-    
-    /**
-     * Time to delay before shooting the third disc in auto
-     * @return time in seconds
-     */
-    public static double getDisc3Delay() {
-    	return disc3Delay;
-    }
-    
     public static boolean getShootInAuto() {
     	return shootInAuto;
     }
