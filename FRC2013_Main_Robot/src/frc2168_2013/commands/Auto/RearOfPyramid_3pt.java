@@ -44,6 +44,7 @@ public class RearOfPyramid_3pt extends CommandGroup {
 		//addSequential(new ShootSingleDisc());
 		
 		//Stop the shooter
+		//TODO: Should these be sequential? Shooter doesn't seem to stop so something isn't working right here
 		addParallel(new DriveShooterWithConstant(0, 0));
 		addParallel(new PID_ShooterPause());
 	}

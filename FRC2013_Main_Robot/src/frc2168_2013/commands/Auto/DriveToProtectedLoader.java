@@ -58,17 +58,25 @@ public class DriveToProtectedLoader extends CommandGroup {
 				//TODO: set all to zero
 				break;
 		}
-		//drive backwards
-		addSequential(new DriveDrivetrainStraight(convertDistance(driveDistance1)));
-		//rotate the chassis
-		addSequential(new DriveDrivetrainTurn_Simple(rotateAngle1));
-		//drive backwards
-		addSequential(new DriveDrivetrainStraight(convertDistance(driveDistance2)));
-		//rotate the chassis
-		addSequential(new DriveDrivetrainTurn_Simple(rotateAngle2));
-		
-		addSequential(new DriveDrivetrainStraight(convertDistance(driveDistance3)));
-		addSequential(new DriveDrivetrainTurn_Simple(rotateAngle3));
+
+		if(driveDistance1 != 0.0) {
+			addSequential(new DriveDrivetrainStraight(convertDistance(driveDistance1)));
+		}
+		if(rotateAngle1 != 0.0) {
+			addSequential(new DriveDrivetrainTurn_Simple(rotateAngle1));
+		}
+		if(driveDistance2 != 0.0) {
+			addSequential(new DriveDrivetrainStraight(convertDistance(driveDistance2)));
+		}
+		if(rotateAngle2 != 0.0) {
+			addSequential(new DriveDrivetrainTurn_Simple(rotateAngle2));
+		}
+		if(driveDistance3 != 0.0) {
+			addSequential(new DriveDrivetrainStraight(convertDistance(driveDistance3)));
+		}
+		if(rotateAngle3 != 0.0) {
+			addSequential(new DriveDrivetrainTurn_Simple(rotateAngle3));
+		}
 	}
 	
 	/**

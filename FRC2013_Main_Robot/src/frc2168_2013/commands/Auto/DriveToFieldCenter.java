@@ -48,19 +48,16 @@ public class DriveToFieldCenter extends CommandGroup {
 			default: //just in case
 				break;
 		}
-		//drive backwards
+		
 		if(driveDistance1 != 0.0) {
 			addSequential(new DriveDrivetrainStraight(convertDistance(driveDistance1)));
 		}
-		//rotate the chassis
 		if(rotateAngle1 != 0.0) {
 			addSequential(new DriveDrivetrainTurn_Simple(rotateAngle1));
 		}
-		//drive backwards
 		if(driveDistance2 != 0.0) {
 			addSequential(new DriveDrivetrainStraight(convertDistance(driveDistance2)));
 		}
-		//rotate the chassis
 		if(rotateAngle2 != 0.0) {
 			addSequential(new DriveDrivetrainTurn_Simple(rotateAngle2));	
 		}

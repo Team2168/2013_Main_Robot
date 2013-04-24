@@ -44,8 +44,8 @@ public class CommandBaseRobot extends IterativeRobot {
 	
 	//Delays (seconds) for shots in auto. These get set by the dashboard.
 	private static double disc1Delay = 3.5,
-                          disc2Delay = 0.7,
-                          disc3Delay = 0.7;
+                          disc2Delay = 0.5,
+                          disc3Delay = 0.5;
 	private static final String TIME_1_DELAY_KEY = "Delay before shot 1",
                                 TIME_2_DELAY_KEY = "Delay before shot 2",
                                 TIME_3_DELAY_KEY = "Delay before shot 3",
@@ -54,20 +54,31 @@ public class CommandBaseRobot extends IterativeRobot {
                                 DRIVETRAIN_GYRO_ANGLE_KEY    = "Gyro angle",
                                 SHOOT_IN_AUTO_KEY            = "Shoot in auto";
 	
-    
+	//Auto. starting position constants
+    public static final int LEFT   = 1,
+                            CENTER = 2,
+                            RIGHT  = 3;
+	
+	//What to do in auto. after the discs are shot
+	public static final int SIT_STILL             = 1, //Don't move after shooting
+	                        DEFEND_CENTER         = 2, //Move to the center of the field and defend discs
+	                        TO_PROTECTED_LOADER   = 3, //Move to the protected human load station
+	                        TO_UNPROTECTED_LOADER = 4; //Move to the unprotected human load station
+	
     //These variables are for the serial communication with the arduino.
     private static boolean shooterAtSpeed = false,
-                   discFired = false,
-                   againstBar = false,
-                   endGame = false,
-                   autoMode = false;
+                           discFired      = false,
+                           againstBar     = false,
+                           endGame        = false,
+                           autoMode       = false;
+    BitRelay lightsRelay1,
+             lightsRelay2,
+             lightsRelay3,
+             lightsRelay4;
     
     private static int numberOfDiscs = 3;    //TODO: change this to actually use a sensor
     private static boolean shootInAuto = true;
-    BitRelay lightsRelay1,
-          lightsRelay2,
-          lightsRelay3,
-          lightsRelay4;
+    
     
     /**
      * This method is run when the robot is first started up and should be
@@ -373,16 +384,4 @@ public class CommandBaseRobot extends IterativeRobot {
 	public static void setNumberOfDiscs(int discs) {
 		numberOfDiscs = discs;
 	}
-	
-
-    public static final int LEFT   = 1;
-    public static final int CENTER = 2;
-    public static final int RIGHT  = 3;
-	
-	//What to do in auto after the discs are shot
-	public static final int SIT_STILL             = 1; //Don't move after shooting
-	public static final int DEFEND_CENTER         = 2; //Move to the center of the field and defend discs
-	public static final int TO_PROTECTED_LOADER   = 3; //Move to the protected human load station
-	public static final int TO_UNPROTECTED_LOADER = 4; //Move to the unprotected human load station
-
 }
