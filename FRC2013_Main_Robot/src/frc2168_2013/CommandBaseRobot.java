@@ -10,6 +10,7 @@ package frc2168_2013;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -21,7 +22,6 @@ import frc2168_2013.commands.Auto.*;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainTurn_Simple;
 import frc2168_2013.dashboard.CompetitionDashboard;
 import frc2168_2013.utils.BitRelay;
-import frc2168_2013.utils.Enum;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -107,6 +107,8 @@ public class CommandBaseRobot extends IterativeRobot {
         
         //End of Robot Init
     	System.out.println("ROBOT FINISHED LOADING!");
+    	
+    	Preferences.getInstance();
     }
 
     /**
