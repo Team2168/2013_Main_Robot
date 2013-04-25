@@ -15,12 +15,12 @@ public abstract class CommandBase extends Command {
 
     public static OI oi;
     // Create a single static instance of all of your subsystems
-    public static Drivetrain drivetrain = new Drivetrain();
-    public static Intake         intake = new Intake();
-    public static ShooterWheel       shooterWheel = new ShooterWheel();
-    public static ShooterAngle       shooterAngle = new ShooterAngle();
-    public static Hopper         hopper = new Hopper();
-    public static Hanger         hanger = new Hanger();
+    public static Drivetrain     drivetrain = new Drivetrain();
+    public static Intake             intake = new Intake();
+    public static ShooterWheel shooterWheel = new ShooterWheel();
+    public static ShooterAngle shooterAngle = new ShooterAngle();
+    public static Hopper             hopper = new Hopper();
+    public static Hanger             hanger = new Hanger();
     public static LightSaber     lightSaber = new LightSaber();
 
     public static void init() {
@@ -36,6 +36,7 @@ public abstract class CommandBase extends Command {
         SmartDashboard.putData(intake);
         SmartDashboard.putData(shooterWheel);
         SmartDashboard.putData(hopper);
+        SmartDashboard.putData(hanger);
         SmartDashboard.putData(shooterAngle);
         SmartDashboard.putData(lightSaber);
     }
@@ -50,5 +51,9 @@ public abstract class CommandBase extends Command {
     
     public static Drivetrain getDrivetrainInstance() {
     	return drivetrain;
+    }
+    
+    public static Hanger getHangerInstance() {
+    	return hanger;
     }
 }
