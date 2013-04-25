@@ -10,7 +10,6 @@ package frc2168_2013;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -107,8 +106,6 @@ public class CommandBaseRobot extends IterativeRobot {
         
         //End of Robot Init
     	System.out.println("ROBOT FINISHED LOADING!");
-    	
-    	Preferences.getInstance();
     }
 
     /**
@@ -149,7 +146,7 @@ public class CommandBaseRobot extends IterativeRobot {
 	public void autonomousPeriodic() {
         Scheduler.getInstance().run();
         
-        putAutoModeData();
+        //putAutoModeData();
         
         setArduinoStatus();
     }
@@ -226,7 +223,7 @@ public class CommandBaseRobot extends IterativeRobot {
      */
 	public void disabledPeriodic() {
 		//Update the dashboard selection options
-		putAutoModeData();
+		//putAutoModeData();
     }
     
 	/**
@@ -268,12 +265,12 @@ public class CommandBaseRobot extends IterativeRobot {
      * 
      * This can be called periodically.
      */
-    private static void putAutoModeData() {
+	private static void putAutoModeData() {
     	//If variables haven't been instantiated yet, do so.
     	if(!autoModeDataInitialized) {
     		initAutoModeData();
     	}
-    	
+    	 
     	//Add a radfio button lsit to the dashboard to choose our initial position
     	SmartDashboard.putData("Start_Position", initialPositionChooser);
     	
