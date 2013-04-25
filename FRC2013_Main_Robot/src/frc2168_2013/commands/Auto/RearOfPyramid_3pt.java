@@ -17,9 +17,9 @@ import frc2168_2013.commands.subSystems.ShooterWheel.PID_ShooterPause;
 public class RearOfPyramid_3pt extends CommandGroup {
 	
 	public RearOfPyramid_3pt() {
-		this(CommandBaseRobot.getDisc1Delay(),
-				CommandBaseRobot.getDisc2Delay(),
-				CommandBaseRobot.getDisc3Delay());
+		this(CommandBaseRobot.getDiscDelay(1),
+             CommandBaseRobot.getDiscDelay(2),
+             CommandBaseRobot.getDiscDelay(3));
 	}
 	
 	public RearOfPyramid_3pt(double firstDiscTime, double secondDiscTime, double thirdDiscTime) {
