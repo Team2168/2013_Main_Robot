@@ -30,21 +30,22 @@ public class DriveToProtectedLoader extends CommandGroup {
 		//Do different things depending on where we started from
 		switch(position) {
 			case CommandBaseRobot.RIGHT:
-				driveDistance1 =  -5.0; //Drive straight backwards to line (ft)
-				rotateAngle1   =-145.0; //Rotate counter clockwise to face loading station(deg.)
-				driveDistance2 =   2.0; //done
+//TODO: Test
+				driveDistance1 =0.0;//  -5.0; //Drive straight backwards to line (ft)
+				rotateAngle1   =0.0;//-145.0; //Rotate counter clockwise to face loading station(deg.)
+				driveDistance2 =0.0;//   2.0; //done
 				rotateAngle2   =   0.0; //done
 				driveDistance3 =   0.0;
-				rotateAngle3    =   0.0;
+				rotateAngle3   =   0.0;
 				break;
-			//TODO: this looked like it wasn't working, doublecheck, could be the motors on practice chassis.
+//TODO: Test
 			case CommandBaseRobot.CENTER:
-				driveDistance1 =  -5.0; //Drive backwards (ft)
-				rotateAngle1   =  60.0; //Rotate clockwise to face loader wall
-				driveDistance2 =   7.0; //Drive forwards across field (ft)
-				rotateAngle2   =  70.0; //rotate to face human loader
-				driveDistance3 =   2.0;
-				rotateAngle3    =  0.0;
+				driveDistance1 =0.0;//  -5.0; //Drive backwards (ft)
+				rotateAngle1   =0.0;//  60.0; //Rotate clockwise to face loader wall
+				driveDistance2 =0.0;//   7.0; //Drive forwards across field (ft)
+				rotateAngle2   =0.0;//  70.0; //rotate to face human loader
+				driveDistance3 =0.0;//   2.0;
+				rotateAngle3   =   0.0;
 				break;
 			case CommandBaseRobot.LEFT:
 				driveDistance1 =  -3.5; //Drive backwards (ft)
