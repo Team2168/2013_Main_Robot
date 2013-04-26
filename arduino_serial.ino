@@ -30,10 +30,11 @@ int R_OUT = 0,
     G_OUT = 0,
     B_OUT = 0;
 
-int numDiscs = 0;
+//int numDiscs = 0;
 boolean shooterToSpeed = false,
         discFired = false,
         lastDiscFired = false,
+        shooterRaised = false,
         againstBar = false,
         endgame = false,
         autonomousMode = false;
@@ -80,9 +81,6 @@ void setup() {
   pinMode(4, INPUT);
   pinMode(5, INPUT);
   pinMode(6, INPUT);
-  pinMode(7, INPUT);
-  pinMode(8, INPUT);
-  pinMode(9, INPUT);
 //  pinMode(10, INPUT); //why pin 10 no work?!@?@!?
 
   Serial.begin(57600);
@@ -95,16 +93,14 @@ void loop() {
   // COMMUNICATION PROTOCOL - BITMAP
   // BIT(S)     Meaning
   // ------------------------------
-  // 0 - 2      # discs (0 - 4)
-  //   3        Shooter up to speed
-  //   4        Disc fired
-  //   5        Against bar
-  //   6        Endgame (last 30 sec)
-  //   7        Autonomous mode
+  //   0        Shooter raised when true
+  //   1        Shooter up to speed
+  //   3        Disc fired
+  //   4        Endgame (end of match notification)
   
   lastInputValue = inputValue;
   inputValue = 0;
-  //calculate number of discs
+  //Read signals for cRIO
   if(digitalRead(3) == HIGH) {
     inputValue += 1;
   }
@@ -114,79 +110,37 @@ void loop() {
   if(digitalRead(5) == HIGH) {
     inputValue += 4;
   }
-  
-  //check the remaining fields in the message
   if(digitalRead(6) == HIGH) {
     inputValue += 8;
   }
-  if(digitalRead(7) == HIGH) {
-    inputValue += 16;
-  }
-  if(digitalRead(8) == HIGH) {
-    inputValue += 32;
-  }
-  if(digitalRead(9) == HIGH) {
-    inputValue += 64;
-  }
-  if(digitalRead(10) == HIGH) {
-    inputValue += 128;
-  }
-  
-  //Serial.println(inputValue);
   
   if (inputValue != lastInputValue) {
     i = 0;//If new data, restart the loop
 
     // Check the status of the bits in from the message:
-    shooterToSpeed = inputValue & 0x0008;
-    discFired      = inputValue & 0x0010;
-    againstBar     = inputValue & 0x0020;
-    endgame        = inputValue & 0x0040;
-    autonomousMode = inputValue & 0x0080;
-
-    numDiscs = inputValue & 0x0007; //set target strip color based on number of discs
-    numDiscs %= 5; //don't let more than 4 discs come through
+    shooterRaised  = inputValue & 0x0001;
+    shooterToSpeed = inputValue & 0x0002;
+    discFired      = inputValue & 0x0004;
+    endgame        = inputValue & 0x0008;
 
     if(discFired && !lastDiscFired) {
       //Reset the count the first time we see a shot fired
       shotFiredCount = 0;
     }
     lastDiscFired = discFired;
-    
-    switch (numDiscs) {
-      case 2:
-        //yellow
-        targetR = 127;
-        targetG = 60;
-        targetB = 0;
-        break;
-      case 3:
-        //yellow green
-        targetR = 80;
-        targetG = 80;
-        targetB = 0;
-        break;
-      case 4:
-        //green
-        targetR = 0;
-        targetG = 127;
-        targetB = 0;
-        break;
-      case 1:
-        //light orange
-        targetR = 120;
-        targetG = 20;
-        targetB = 0;
-        break;
-      case 0:
-      default:
-        //red
-        targetR = 127;
-        targetG = 0;
-        targetB = 0;
-        break;
+
+    if(shooterRaised) {
+      //green
+      targetR = 0;
+      targetG = 127;
+      targetB = 0;
+    } else {
+      //red
+      targetR = 127;
+      targetG = 0;
+      targetB = 0;
     }
-    
+
     //Determine drivetrain color
     if(againstBar) {
       //hot pink
@@ -225,11 +179,11 @@ void loop() {
     for(j = 0; j < hangerLength; j++) {
       strip.setPixelColor(j + hangerPxZero, strip.Color(min(targetR + intensity, 127), min(targetG + intensity, 127), min(targetB + intensity, 127)));
     }
-  } else if(numDiscs == 0) {
-    //if we have no discs, throb on/off
-    R_OUT = (int) targetR / intensity;
-    G_OUT = (int) targetG / intensity;
-    B_OUT = (int) targetB / intensity;
+  //} else if(numDiscs == 0) {
+  //  //if we have no discs, throb on/off
+  //  R_OUT = (int) targetR / intensity;
+  //  G_OUT = (int) targetG / intensity;
+  //  B_OUT = (int) targetB / intensity;
   } else {
     //otherwise just output the targeted color values
     R_OUT = targetR;
@@ -309,3 +263,4 @@ int fibonacci(int pos) {
   pos %= sizeof(seeds)/sizeof(int);
   return seeds[pos];
 }
+
