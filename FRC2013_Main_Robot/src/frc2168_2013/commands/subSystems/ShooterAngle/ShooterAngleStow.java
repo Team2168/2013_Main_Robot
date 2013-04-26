@@ -23,7 +23,7 @@ public class ShooterAngleStow extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     
 	protected void execute() {
-		CommandBaseRobot.setNumberOfDiscs(1);
+		CommandBaseRobot.setShooterRaised(false);
 		shooterAngle.stow();
     	//sets the shooter angle to stow position
     }
