@@ -6,6 +6,7 @@ import frc2168_2013.commands.Sleep;
 import frc2168_2013.commands.subSystems.Hopper.ShootSingleDisc;
 import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleStow;
 import frc2168_2013.commands.subSystems.ShooterWheel.DriveShooterWithConstant;
+import frc2168_2013.commands.subSystems.ShooterWheel.PID_ShooterAtSpeed;
 import frc2168_2013.commands.subSystems.ShooterWheel.PID_ShooterPause;
 
 /**
@@ -37,6 +38,14 @@ public class RearOfPyramid_3pt extends CommandGroup {
 		addSequential(new Sleep(), thirdDiscTime);
 		addSequential(new ShootSingleDisc());
 		
+//		//using at speed
+//		addSequential(new PID_ShooterAtSpeed());
+//		addSequential(new ShootSingleDisc());
+//		addSequential(new PID_ShooterAtSpeed());
+//		addSequential(new ShootSingleDisc());
+//		addSequential(new PID_ShooterAtSpeed());
+//		addSequential(new ShootSingleDisc());
+		
 		//Shoot a few more times in case the disc wasn't shot
 		addSequential(new Sleep(), 0.1);
 		addSequential(new ShootSingleDisc());
@@ -45,7 +54,7 @@ public class RearOfPyramid_3pt extends CommandGroup {
 		
 		//Stop the shooter
 		//TODO: Should these be sequential? Shooter doesn't seem to stop so something isn't working right here
-		addParallel(new DriveShooterWithConstant(0, 0));
-		addParallel(new PID_ShooterPause());
+		addSequential(new Sleep(), 0.2);
+		addSequential(new PID_ShooterPause());
 	}
 }

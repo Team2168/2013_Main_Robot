@@ -417,7 +417,7 @@ public class PIDSpeed implements TCPMessageInterface
 	 */
 	public  double getSensorRate()
 	{
-		return cp;
+		return encoder.getRate();
 	}
 
 	/**

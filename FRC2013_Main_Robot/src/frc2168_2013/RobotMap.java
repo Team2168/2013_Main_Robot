@@ -93,7 +93,7 @@ public class RobotMap {
 	public static final double shooterEncoderDistPerTick = (Math.PI*2*shooterWheelRadius)/shooterEncoderPulsePerRot;
 	public static final CounterBase.EncodingType shooterEncodingType = CounterBase.EncodingType.k1X; //count rising and falling edges on both channels
 	public static final AverageEncoder.PositionReturnType shooterPosReturnType = AverageEncoder.PositionReturnType.DEGREE;
-	public static final AverageEncoder.SpeedReturnType shooterSpeedReturnType = AverageEncoder.SpeedReturnType.RPM;
+	public static final AverageEncoder.SpeedReturnType shooterSpeedReturnType = AverageEncoder.SpeedReturnType.FPS;
 	public static final int shooterEncoderMinRate = 10; 
 	public static final int shooterEncoderMinPeriod = 10;
 	public static final boolean shooterEncoderReverse = true;

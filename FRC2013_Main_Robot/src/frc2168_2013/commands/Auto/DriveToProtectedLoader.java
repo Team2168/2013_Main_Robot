@@ -40,18 +40,18 @@ public class DriveToProtectedLoader extends CommandGroup {
 			//TODO: this looked like it wasn't working, doublecheck, could be the motors on practice chassis.
 			case CommandBaseRobot.CENTER:
 				driveDistance1 =  -5.0; //Drive backwards (ft)
-				rotateAngle1   =  75.0; //Rotate clockwise to face loader wall
+				rotateAngle1   =  60.0; //Rotate clockwise to face loader wall
 				driveDistance2 =   7.0; //Drive forwards across field (ft)
-				rotateAngle2   =  80.0; //rotate to face human loader
+				rotateAngle2   =  70.0; //rotate to face human loader
 				driveDistance3 =   2.0;
 				rotateAngle3    =  0.0;
 				break;
 			case CommandBaseRobot.LEFT:
 				driveDistance1 =  -3.5; //Drive backwards (ft)
-				rotateAngle1   =  50.0; //Rotate to face wall on loader side
+				rotateAngle1   =  35.0; //Rotate to face wall on loader side
 				driveDistance2 =  14.0; //Drive forwards across field
-				rotateAngle2   =  99.0; //rotate clockwise to face loader(deg.)
-				driveDistance3 =   2.0;
+				rotateAngle2   =  65.0; //rotate clockwise to face loader(deg.)
+				driveDistance3 =   0.0;
 				rotateAngle3   =   0.0;
 				break;
 			default: //just in case

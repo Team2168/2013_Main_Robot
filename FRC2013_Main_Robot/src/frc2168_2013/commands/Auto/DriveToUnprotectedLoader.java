@@ -38,16 +38,16 @@ public class DriveToUnprotectedLoader extends CommandGroup {
 				rotateAngle3   =   0.0;
 				break;
 			case CommandBaseRobot.CENTER:
-				driveDistance1 =  -5.0; //Drive backwards (ft)
-				rotateAngle1   = -60.0; //Rotate to face loader wall 
+				driveDistance1 =  -4.0; //Drive backwards (ft)
+				rotateAngle1   = -40.0; //Rotate to face 1loader wall 
 				driveDistance2 =   7.0; //Drive forwards across field (ft)
-				rotateAngle2   = -55.0; //rotate to face human loader station
-				driveDistance3 =   2.0;
+				rotateAngle2   = -35.0; //rotate to face human loader station
+				driveDistance3 =   0.0;
 				rotateAngle3   =   0.0;
 				break;
 			case CommandBaseRobot.LEFT:
 				driveDistance1 =  -6.0; //Drive straight backwards to line (ft)
-				rotateAngle1   = 180.0; //Rotate clockwise to face loading station(deg.)
+				rotateAngle1   = 175.0; //Rotate clockwise to face loading station(deg.)
 				driveDistance2 =   0.0; //done
 				rotateAngle2   =   0.0; //done
 				driveDistance3 =   0.0;

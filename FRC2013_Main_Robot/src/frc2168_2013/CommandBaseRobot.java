@@ -42,9 +42,9 @@ public class CommandBaseRobot extends IterativeRobot {
 	static SendableChooser afterShotChooser;
 	
 	//Delays (seconds) for shots in auto. These get set by the dashboard.
-	private static double disc1Delay = 3.5,
-                          disc2Delay = 0.5,
-                          disc3Delay = 0.5;
+	private static double disc1Delay = 5,
+                          disc2Delay = 0.6,
+                          disc3Delay = 0.6;
 	private static final String TIME_1_DELAY_KEY = "Delay before shot 1",
                                 TIME_2_DELAY_KEY = "Delay before shot 2",
                                 TIME_3_DELAY_KEY = "Delay before shot 3",
@@ -391,7 +391,6 @@ public class CommandBaseRobot extends IterativeRobot {
     	lightsRelay4.setForward(endGame);
     	lightsRelay4.setReverse(autoMode);
     	
-    	System.out.println(numberOfDiscs);
     }
 
 	/**

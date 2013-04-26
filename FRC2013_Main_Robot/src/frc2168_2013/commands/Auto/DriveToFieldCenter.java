@@ -34,14 +34,14 @@ public class DriveToFieldCenter extends CommandGroup {
 				rotateAngle2   =   0.0; //rotate clockwise (deg.)
 				break;
 			case CommandBaseRobot.CENTER:
-				driveDistance1 =  -8.0; //Drive backwards (ft)
+				driveDistance1 =  -7.0; //Drive backwards (ft)
 				rotateAngle1   =   0.0; //Rotate clockwise (deg.)
 				driveDistance2 =   0.0; //Drive backwards (ft)
 				rotateAngle2   =   0.0; //rotate clockwise (deg.)
 				break;
 			case CommandBaseRobot.LEFT:
 				driveDistance1 =  -2.0; //Drive backwards (ft)
-				rotateAngle1   = -45.0; //Rotate counter-clockwise (deg.)
+				rotateAngle1   = -36.0; //Rotate counter-clockwise (deg.)
 				driveDistance2 =  -8.0; //Drive backwards (ft)
 				rotateAngle2   =   0.0; //rotate counter-clockwise (deg.)
 				break;
