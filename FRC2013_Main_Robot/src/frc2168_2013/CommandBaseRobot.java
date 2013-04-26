@@ -67,13 +67,14 @@ public class CommandBaseRobot extends IterativeRobot {
     //These variables are for the serial communication with the arduino.
     private static boolean shooterAtSpeed = false,
                            discFired      = false,
+                           shooterRaised  = false,
                            againstBar     = false,
                            endGame        = false,
                            autoMode       = false;
     BitRelay lightsRelay1,
-             lightsRelay2,
-             lightsRelay3,
-             lightsRelay4;
+             lightsRelay2;
+             //lightsRelay3,
+             //lightsRelay4;
     
     private static int numberOfDiscs = 3;    //TODO: change this to actually use a sensor
     private static boolean shootInAuto = true;
@@ -100,9 +101,9 @@ public class CommandBaseRobot extends IterativeRobot {
         
         //Initialize relay ports for light strip states
         lightsRelay1 = new BitRelay(RobotMap.arduinoRelay1);
-        lightsRelay2 = new BitRelay(RobotMap.arduinoRelay2);
-        lightsRelay3 = new BitRelay(RobotMap.arduinoRelay3);
-        lightsRelay4 = new BitRelay(RobotMap.arduinoRelay4);
+        lightsRelay2 = new BitRelay(RobotMap.arduinoRelay3);
+        //lightsRelay3 = new BitRelay(RobotMap.arduinoRelay3);
+        //lightsRelay4 = new BitRelay(RobotMap.arduinoRelay4);
         
         //End of Robot Init
     	System.out.println("ROBOT FINISHED LOADING!");
@@ -354,6 +355,17 @@ public class CommandBaseRobot extends IterativeRobot {
     	// COMMUNICATION PROTOCOL - BITMAP
     	// BIT(S)     Meaning
     	// ------------------------------
+    	//   0        Shooter raised when true
+    	//   1        Shooter up to speed
+    	//   3        Disc fired
+    	//   4        Endgame (end of match notification)
+    	lightsRelay1.setForward(shooterRaised);
+    	lightsRelay1.setReverse(shooterAtSpeed);
+    	lightsRelay2.setForward(discFired);
+    	lightsRelay2.setReverse(endGame);
+
+    	// BIT(S)     Meaning
+    	// ------------------------------
     	// 0 - 2      # discs (0 - 4)
     	//   3        Shooter up to speed
     	//   4        Disc fired
@@ -362,77 +374,77 @@ public class CommandBaseRobot extends IterativeRobot {
     	//   7        Autonomous mode
     	
     	//Set the number of discs
-    	switch(numberOfDiscs) {
-    		case 0:
-    			lightsRelay1.set(Relay.Value.kOff);
-    			lightsRelay2.setForward(false);
-    			break;
-    		case 1:
-    			lightsRelay1.set(Relay.Value.kForward);
-    			lightsRelay2.setForward(false);
-    			break;
-    		case 2:
-    			lightsRelay1.set(Relay.Value.kReverse);
-    			lightsRelay2.setForward(false);
-    			break;
-    		case 3:
-    			lightsRelay1.set(Relay.Value.kOn);
-    			lightsRelay2.setForward(false);
-    			break;
-    		default:
-    			lightsRelay1.set(Relay.Value.kOff);
-    			lightsRelay2.setForward(true);
-    	}
-    	
-    	//Set remaining flag for lights
-    	lightsRelay2.setReverse(shooterAtSpeed);
-    	lightsRelay3.setForward(discFired);
-    	lightsRelay3.setReverse(againstBar);
-    	lightsRelay4.setForward(endGame);
-    	lightsRelay4.setReverse(autoMode);
-    	
+//    	switch(numberOfDiscs) {
+//    		case 0:
+//    			lightsRelay1.set(Relay.Value.kOff);
+//    			lightsRelay2.setForward(false);
+//    			break;
+//    		case 1:
+//    			lightsRelay1.set(Relay.Value.kForward);
+//    			lightsRelay2.setForward(false);
+//    			break;
+//    		case 2:
+//    			lightsRelay1.set(Relay.Value.kReverse);
+//    			lightsRelay2.setForward(false);
+//    			break;
+//    		case 3:
+//    			lightsRelay1.set(Relay.Value.kOn);
+//    			lightsRelay2.setForward(false);
+//    			break;
+//    		default:
+//    			lightsRelay1.set(Relay.Value.kOff);
+//    			lightsRelay2.setForward(true);
+//    	}
+//    	
+//    	//Set remaining flag for lights
+//    	lightsRelay2.setReverse(shooterAtSpeed);
+//    	lightsRelay3.setForward(discFired);
+//    	lightsRelay3.setReverse(againstBar);
+//    	lightsRelay4.setForward(endGame);
+//    	lightsRelay4.setReverse(autoMode);
+//    	
+//    	System.out.println(numberOfDiscs);
     }
 
 	/**
-	 * @param shooterAtSpeed the shooterAtSpeed to set
+	 * @param shooterAtSpeed true if at speed
 	 */
 	public static void setShooterAtSpeed(boolean value) {
 		shooterAtSpeed = value;
 	}
 
 	/**
-	 * @param discFired the discFired to set
+	 * @param discFired true if disc fired
 	 */
 	public static void setDiscFired(boolean value) {
 		discFired = value;
-		System.out.println(discFired);
 	}
 
 	/**
-	 * @param againstBar the againstBar to set
+	 * @param againstBar true if against bar
 	 */
 	public static void setAgainstBar(boolean value) {
 		againstBar = value;
 	}
 
 	/**
-	 * @param endGame the endGame to set
+	 * @param endGame true if in the end of the game
 	 */
 	public static void setEndGame(boolean value) {
 		endGame = value;
 	}
 
 	/**
-	 * @param autoMode the autoMode to set
+	 * @param autoMode true if in auto mode
 	 */
 	public static void setAutoMode(boolean value) {
 		autoMode = value;
 	}
 
 	/**
-	 * @param numberOfDiscs the numberOfDiscs to set
+	 * @param value true if the shooter is raised
 	 */
-	public static void setNumberOfDiscs(int discs) {
-		numberOfDiscs = discs;
+	public static void setShooterRaised(boolean value) {
+		shooterRaised = value;
 	}
 }
