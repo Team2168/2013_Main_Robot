@@ -29,7 +29,7 @@ public class ShooterAngleExtend extends CommandBase {
      */
     
 	protected void execute() {
-		CommandBaseRobot.setNumberOfDiscs(4);
+		CommandBaseRobot.setShooterRaised(true);
     	shooterAngle.extend();
     	//extends the shooter solenoid 
     }
