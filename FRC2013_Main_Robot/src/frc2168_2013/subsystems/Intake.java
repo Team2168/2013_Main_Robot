@@ -2,7 +2,6 @@ package frc2168_2013.subsystems;
 
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc2168_2013.RobotMap;
 
 public class Intake extends Subsystem {		
 	

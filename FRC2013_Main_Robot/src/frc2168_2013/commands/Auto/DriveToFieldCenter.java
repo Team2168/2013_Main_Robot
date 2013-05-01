@@ -29,10 +29,10 @@ public class DriveToFieldCenter extends CommandGroup {
 		switch(position) {
 //TODO: TEST
 			case CommandBaseRobot.RIGHT:
-				driveDistance1 =  0.0;//-2.0; //Drive backwards (ft)
-				rotateAngle1   =  0.0;//50.0; //Rotate clockwise (deg.)
-				driveDistance2 =  0.0;//-6.5; //Drive backwards (ft)
-				rotateAngle2   =  0.0;// 0.0; //rotate clockwise (deg.)
+				driveDistance1 =  -2.0; //Drive backwards (ft)
+				rotateAngle1   =  30.0; //Rotate clockwise (deg.)
+				driveDistance2 =  -6.5; //Drive backwards (ft)
+				rotateAngle2   =   0.0; //rotate clockwise (deg.)
 				break;
 			case CommandBaseRobot.CENTER:
 				driveDistance1 =  -7.0; //Drive backwards (ft)

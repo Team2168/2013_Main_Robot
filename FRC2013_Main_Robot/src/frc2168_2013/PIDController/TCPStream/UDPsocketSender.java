@@ -2,7 +2,6 @@ package frc2168_2013.PIDController.TCPStream;
 
 import java.io.IOException;
 
-
 import javax.microedition.io.Connector;
 import javax.microedition.io.Datagram;
 import javax.microedition.io.DatagramConnection;

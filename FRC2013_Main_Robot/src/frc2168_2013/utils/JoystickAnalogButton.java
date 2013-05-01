@@ -1,7 +1,7 @@
 package frc2168_2013.utils;
 
-import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.buttons.Button;
 
 /**
  * Trigger commands from an analog input on the joystick

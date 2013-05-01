@@ -1,9 +1,8 @@
 package frc2168_2013.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import frc2168_2013.RobotMap;
 
 

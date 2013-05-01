@@ -3,12 +3,11 @@ package frc2168_2013.PIDController.Controller;
 
 import java.util.TimerTask;
 
-import frc2168_2013.PIDController.Controller.PIDSpeed;
 import frc2168_2013.PIDController.Sensors.PIDSensorInterface;
 import frc2168_2013.PIDController.TCPStream.TCPMessageInterface;
 import frc2168_2013.PIDController.TCPStream.TCPsocketSender;
-import frc2168_2013.commands.subSystems.ShooterWheel.PID_ShooterPause;
 import frc2168_2013.commands.subSystems.ShooterWheel.PID_SetAftWheelSpeed;
+import frc2168_2013.commands.subSystems.ShooterWheel.PID_ShooterPause;
 
 
 /**

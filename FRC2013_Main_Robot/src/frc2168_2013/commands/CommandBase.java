@@ -3,7 +3,13 @@ package frc2168_2013.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc2168_2013.OI;
-import frc2168_2013.subsystems.*;
+import frc2168_2013.subsystems.Drivetrain;
+import frc2168_2013.subsystems.Hanger;
+import frc2168_2013.subsystems.Hopper;
+import frc2168_2013.subsystems.Intake;
+import frc2168_2013.subsystems.LightSaber;
+import frc2168_2013.subsystems.ShooterAngle;
+import frc2168_2013.subsystems.ShooterWheel;
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.

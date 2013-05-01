@@ -1,7 +1,6 @@
 package frc2168_2013.PIDController.Sensors;
 
 import edu.wpi.first.wpilibj.Encoder;
-import frc2168_2013.PIDController.Sensors.PIDSensorInterface;
 
 /**
  * This class extends the basic WPI encoder class. Its purpose is to provide

@@ -1,17 +1,16 @@
 package frc2168_2013;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button; 
+import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc2168_2013.utils.JoystickAnalogButton;
 import frc2168_2013.commands.Presets.Preset_FrontOfPyramid_3pt;
 import frc2168_2013.commands.Presets.Preset_RearOfPyramid_3pt;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainStraight;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainTurn;
 import frc2168_2013.commands.subSystems.Hanger.HangerDisengage;
 import frc2168_2013.commands.subSystems.Hanger.HangerEngage;
-import frc2168_2013.commands.subSystems.Hopper.HopperReload;
 import frc2168_2013.commands.subSystems.Hopper.HopperFire;
+import frc2168_2013.commands.subSystems.Hopper.HopperReload;
 import frc2168_2013.commands.subSystems.Hopper.ShootSingleDisc;
 import frc2168_2013.commands.subSystems.Hopper.TeamDiscLightOff;
 import frc2168_2013.commands.subSystems.Hopper.TeamDiscLightOn;
@@ -20,6 +19,7 @@ import frc2168_2013.commands.subSystems.LightSaber.LightSaberStow;
 import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleExtend;
 import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleStow;
 import frc2168_2013.commands.subSystems.ShooterWheel.PID_ShooterPause;
+import frc2168_2013.utils.JoystickAnalogButton;
 
 
 /**

@@ -1,8 +1,8 @@
 
 package frc2168_2013.commands.subSystems.Hopper;
 
-import frc2168_2013.commands.CommandBase;
 import frc2168_2013.CommandBaseRobot;
+import frc2168_2013.commands.CommandBase;
 
 /**
  *

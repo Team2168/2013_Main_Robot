@@ -1,5 +1,6 @@
 package frc2168_2013.commands.subSystems.ShooterWheel;
 
+import frc2168_2013.CommandBaseRobot;
 import frc2168_2013.commands.CommandBase;
 
 public class PID_ShooterAtSpeed extends CommandBase
@@ -12,7 +13,7 @@ public class PID_ShooterAtSpeed extends CommandBase
 		//no need to require the subsystem
 		//the PID controller owns the subsystem
 		
-		this.atSpeed = new double[50];
+		this.atSpeed = new double[10]; //timing should be size * 20ms
 		
 		this.sp = 110;
 		
@@ -42,23 +43,30 @@ public class PID_ShooterAtSpeed extends CommandBase
 			atSpeed[count]=shooterWheel.shooterWheelSpeedControllerFwd.getSensorRate();
 			count++;
 			
-			int inRange=0;
+			
 			for(int j=1; j<atSpeed.length; j++)
 			{
 				if ((atSpeed[j]>= this.sp-10) )
-					inRange++;
+					continue; //great check next value;
 				else
-					inRange=0;
+				{
+					//came across a value in the array that was not in range
+					CommandBaseRobot.setShooterAtSpeed(false);
+					return false; //terminate because we know the array is not filled
+				}
 			}
-			if (inRange==atSpeed.length-1)
-				return true;
-			return false;
+			
+			//if we get here then the array was filled with atSpeed.lenght-1 values that were
+			//in range so set the atSpeed boolean and return true.
+			CommandBaseRobot.setShooterAtSpeed(true);
+			return true;
 
 	}
 
 
 	protected void end() {
 		// TODO Auto-generated method stub
+		
 
 	}
 
