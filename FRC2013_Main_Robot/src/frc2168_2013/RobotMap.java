@@ -22,6 +22,8 @@ public class RobotMap {
 	public static final int rightDriveMotor = 2;
 	public static final int shooterMotorAft = 3;
 	public static final int shooterMotorFwd = 4;
+	public static final int intakeMotorR	= 5;
+	public static final int intakeMotorL	= 6;
 	
 
 	//DIO Channels////////////////////////////////////////////////////
@@ -50,10 +52,14 @@ public class RobotMap {
 	public static final int shooterLower               = 2;
 	public static final int hangerEngage               = 3;
 	public static final int hangerDisengage            = 4;
-	public static final int hopperFire  			   = 5;
-	public static final int hopperReload  			   = 6;
-	public static final int lightSaberRaise            = 7;
-	public static final int lightSaberLower            = 8;
+	public static final int hopperFire  			   = 9;
+	public static final int hopperReload  			   = 10;
+	public static final int lightSaberRaise            = 11;
+	public static final int lightSaberLower            = 12;
+	public static final int intakeHopperExtend		= 5;
+	public static final int intakeHopperRetract 	=6;
+	public static final int intakeFloorloadExtend	=7;
+	public static final int intakeFloorloadRetract	=8;
 
 	//Analog Input Channels///////////////////////////////////////////
 	public static final int gyroChannel = 2;
