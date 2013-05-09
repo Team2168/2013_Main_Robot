@@ -35,35 +35,35 @@ public class RobotMap {
 	public static final int shooterEncoderFwdChannelB = 6;
 	public static final int shooterEncoderAftChannelA = 7;
 	public static final int shooterEncoderAftChannelB = 8;
-	public static final int intakeLimitSensorR		  = 9;
-	public static final int intakeLimitSensorL		  = 10;
+	public static final int intakeLimitSensorR        = 9;
+	public static final int intakeLimitSensorL        = 10;
 	
 	public static final int compressorPressureSwitch = 14;
 
 	//Relay Output Channels///////////////////////////////////////////
 	public static final int compressorPower = 1;
 	public static final int teamDiscLight   = 2;
-	public static final int intake		    = 3;
+	//public static final int intake          = 3;
 	public static final int arduinoRelay1   = 5;
 	public static final int arduinoRelay2   = 6;
 	public static final int arduinoRelay3   = 7;
 	public static final int arduinoRelay4   = 8;
 	
-	//Solenoid Channels(third slot on cRio)///////////////////////////////////////////////
-	public static final int shooterRaise		       = 1;
-	public static final int shooterLower               = 2;
-	public static final int hangerEngage               = 3;
-	public static final int hangerDisengage            = 4;
-	public static final int hopperFire  			   = 9;
-	public static final int hopperReload  			   = 10;
-	public static final int lightSaberRaise            = 11;
-	public static final int lightSaberLower            = 12;
+	//Solenoid Channels (Card 1 - third slot on cRio)////////////////
+	public static final int shooterRaise            = 1;
+	public static final int shooterLower            = 2;
+	public static final int hangerEngage            = 3;
+	public static final int hangerDisengage         = 4;
+	public static final int hopperFire              = 5;
+	public static final int hopperReload            = 6;
+	public static final int lightSaberRaise         = 7;
+	public static final int lightSaberLower         = 8;
 	
-	//Solenoid Channels(fourth slot on cRio)/////////////////////////////////////////////////
-	public static final int intakeHopperExtend		= 1;
-	public static final int intakeHopperRetract 	= 2;
-	public static final int intakeFloorloadExtend	= 3;
-	public static final int intakeFloorloadRetract	= 4;
+	//Solenoid Channels (Card 2 - fourth slot on cRio)///////////////
+	public static final int intakeHopperExtend      = 1;
+	public static final int intakeHopperRetract     = 2;
+	public static final int intakeFloorloadExtend   = 3;
+	public static final int intakeFloorloadRetract  = 4;
 
 	//Analog Input Channels///////////////////////////////////////////
 	public static final int gyroChannel = 2;
