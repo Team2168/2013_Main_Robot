@@ -208,7 +208,7 @@ public class OI {
 		
 		driveButtonA.whenPressed(new IntakeLoadPosition());    //engage the hanger//stow
 		driveButtonX.whenPressed(new IntakeHopperPosition());	//
-		driveButtonY.whileHeld(new DriveIntakeConstant());
+		driveButtonY.whileHeld(new DriveIntakeConstant(0.5, 0.5));
 //		driveButtonB.whenPressed(new HangerDisengage()); //disengage the hanger
 //		driveButtonA.whenPressed(new HangerEngage());    //engage the hanger
 //		driveButtonX.whenPressed(new TeamDiscLightOn());
