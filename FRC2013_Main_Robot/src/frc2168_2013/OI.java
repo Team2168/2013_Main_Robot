@@ -14,6 +14,10 @@ import frc2168_2013.commands.subSystems.Hopper.HopperReload;
 import frc2168_2013.commands.subSystems.Hopper.ShootSingleDisc;
 import frc2168_2013.commands.subSystems.Hopper.TeamDiscLightOff;
 import frc2168_2013.commands.subSystems.Hopper.TeamDiscLightOn;
+import frc2168_2013.commands.subSystems.Intake.DriveIntakeConstant;
+import frc2168_2013.commands.subSystems.Intake.IntakeHopperPosition;
+import frc2168_2013.commands.subSystems.Intake.IntakeLoadPosition;
+import frc2168_2013.commands.subSystems.Intake.IntakeStowPosition;
 import frc2168_2013.commands.subSystems.LightSaber.LightSaberExtend;
 import frc2168_2013.commands.subSystems.LightSaber.LightSaberStow;
 import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleExtend;
@@ -33,6 +37,7 @@ public class OI {
 	public static final boolean sFwdInvert = false; //for shooter
 	public static final boolean sAftInvert = false; //for shooter
 	public static final boolean hInvert =    true;  //for hopper
+	
 	
 	public static final int     rightJoyAxis = 5;
 	public static final int     leftJoyAxis  = 2;
@@ -199,10 +204,15 @@ public class OI {
 	
 	public OI() {
 		//DRIVER BUTTON MAP//
-		driveButtonB.whenPressed(new HangerDisengage()); //disengage the hanger
-		driveButtonA.whenPressed(new HangerEngage());    //engage the hanger
-		driveButtonX.whenPressed(new TeamDiscLightOn());
-		driveButtonX.whenReleased(new TeamDiscLightOff());
+		driveButtonB.whenPressed(new IntakeStowPosition()); //disengage the hanger//floor
+		
+		driveButtonA.whenPressed(new IntakeLoadPosition());    //engage the hanger//stow
+		driveButtonX.whenPressed(new IntakeHopperPosition());	//
+		driveButtonY.whileHeld(new DriveIntakeConstant(0.5, 0.5));
+//		driveButtonB.whenPressed(new HangerDisengage()); //disengage the hanger
+//		driveButtonA.whenPressed(new HangerEngage());    //engage the hanger
+//		driveButtonX.whenPressed(new TeamDiscLightOn());
+//		driveButtonX.whenReleased(new TeamDiscLightOff());
 		driveButtonRightBumper.whenPressed(new LightSaberExtend());
 		driveButtonLeftBumper.whenPressed(new LightSaberStow());
 		
