@@ -5,12 +5,12 @@ import frc2168_2013.commands.CommandBase;
 /**
  * A command to actuate the intake to stow position.
  * 
- * @author ICW
+ * @author Shriji
  *
  */
-public class IntakeRaise extends CommandBase {
+public class IntakeLoadPosition extends CommandBase {
 
-	public IntakeRaise() {
+	public IntakeLoadPosition() {
 		requires (intake);
 	}
 
@@ -23,7 +23,7 @@ public class IntakeRaise extends CommandBase {
 	 * Sets the intake to the stow position
 	 */
 	protected void execute() {
-		intake.raise();
+		intake.Stow();
 	}
 
 	
