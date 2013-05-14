@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc2168_2013.RobotMap;
+import frc2168_2013.commands.subSystems.Intake.DriveIntakeConstant;
 
 public class Intake extends Subsystem {		
 	
