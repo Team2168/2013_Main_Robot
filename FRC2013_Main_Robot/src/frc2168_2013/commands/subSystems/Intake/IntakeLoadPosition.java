@@ -11,7 +11,7 @@ import frc2168_2013.commands.CommandBase;
 public class IntakeLoadPosition extends CommandBase {
 
 	public IntakeLoadPosition() {
-		requires (intake);
+		requires (intakePos);
 	}
 
 	
@@ -23,7 +23,7 @@ public class IntakeLoadPosition extends CommandBase {
 	 * Sets the intake to the stow position
 	 */
 	protected void execute() {
-		intake.Stow();
+		intakePos.Stow();
 	}
 
 	
