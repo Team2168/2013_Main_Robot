@@ -14,7 +14,7 @@ public class DriveIntakeConstant extends CommandBase {
 	 * Method allows you to drive intake with constant speed
 	 */
 	public DriveIntakeConstant(double leftRollerSpeed, double rightRollerSpeed){
-		requires(intake);
+		requires(intakeSpeed);
 		
 		this.leftRollerSpeed = leftRollerSpeed;
 		this.rightRollerSpeed = rightRollerSpeed;
@@ -28,7 +28,7 @@ public class DriveIntakeConstant extends CommandBase {
 
 	
 	protected void execute() {
-		intake.driveIntake(leftRollerSpeed, rightRollerSpeed);
+		intakeSpeed.driveIntakeHopper(leftRollerSpeed, rightRollerSpeed);
 		
 	}
 

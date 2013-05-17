@@ -10,10 +10,10 @@ import frc2168_2013.commands.CommandBase;
  */
 public class DriveIntakeTillFull extends CommandBase {
 
-	boolean frisbee;
+	boolean disc;
 	
 	public DriveIntakeTillFull() {
-		requires (intake);
+		requires (intakeSpeed);
 		
 	}
 	
@@ -23,22 +23,24 @@ public class DriveIntakeTillFull extends CommandBase {
 	
 
 	/**
-	 * Sets the intake to the stow position
+	 * if discs are present, stop motors and end command. 
+	 * if discs aren't present run motors till present.
 	 */
 	protected void execute() {
 		
-//    	if(intake.getNumberOfDiscs() = 2){
-//			intake.driveIntake(0.0, 0.0);
-//			frisbee = true;
-//		} else{												//if a frisbee isn't present
-//			intake.driveIntake(0.5, 0.5);				//catchfrisbeenow
-//			frisbee = false;
-//		}		
+    	if(intakeSpeed.intakeFull()){
+			intakeSpeed.driveIntake(0.0, 0.0);
+			disc = true;
+		} else{												
+			intakeSpeed.driveIntake(0.5, 0.5);				
+			disc = false;
+		}		
 	}
 
 	
 	protected void interrupted() {
-		//Nothing to do here
+		intakeSpeed.driveIntake(0.0, 0.0);
+		//stop intake motors
 	}
 
 	
@@ -48,6 +50,6 @@ public class DriveIntakeTillFull extends CommandBase {
 
 	
 	protected boolean isFinished() {
-		return false;
+		return disc = true;
 	}
 }
