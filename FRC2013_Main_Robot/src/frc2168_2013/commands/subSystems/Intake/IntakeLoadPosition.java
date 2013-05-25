@@ -3,7 +3,7 @@ package frc2168_2013.commands.subSystems.Intake;
 import frc2168_2013.commands.CommandBase;
 
 /**
- * A command to actuate the intake to stow position.
+ * A command to actuate the intake to floorload position.
  * 
  * @author Shriji
  *
@@ -38,6 +38,6 @@ public class IntakeLoadPosition extends CommandBase {
 
 	
 	protected boolean isFinished() {
-		return false;
+		return true;
 	}
 }

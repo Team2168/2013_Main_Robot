@@ -3,6 +3,7 @@ package frc2168_2013;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc2168_2013.commands.Auto.FiveDisc_3pt;
 import frc2168_2013.commands.Presets.Preset_FrontOfPyramid_3pt;
 import frc2168_2013.commands.Presets.Preset_RearOfPyramid_3pt;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainStraight;
@@ -255,20 +256,23 @@ public class OI {
 		// set the shooter speed and angle for "front" of the pyramid shots (farther from the wall)
 		operatorDPadL.whenPressed(new Preset_FrontOfPyramid_3pt());
 		
+		
 		//Test Button Map//
-		testButtonLeftBumper.whenPressed(new DriveIntakeConstant(1.0,0.5));
+		testButtonLeftBumper.whenPressed(new DriveIntakeConstant(0.0,0.0));
 		testButtonRightBumper.whenPressed(new DriveIntakeTillFull());		
 		testButtonX.whenPressed(new IntakeStowPosition());
 		testButtonB.whenPressed(new IntakeHopperPosition());
 		testButtonA.whenPressed(new IntakeLoadPosition());
+		testButtonY.whenPressed(new DriveIntakeConstant(1.0, 0.4));
 //		testButtonLeftStick.whenPressed(new PID_ShooterPause());
-		testDPadR.whenPressed(new DriveDrivetrainStraight(48.0));
+		testDPadR.whenPressed(new FiveDisc_3pt());
 		testDPadL.whenPressed(new DriveDrivetrainStraight(-48.0));
 	}
 	
 	
 	
     /**
+     * 
      * A minimum threshold function. The command to the moto
      * r has to exceed a
      * certain value for it to be sent.

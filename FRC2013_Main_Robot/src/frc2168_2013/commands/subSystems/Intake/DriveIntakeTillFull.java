@@ -12,6 +12,7 @@ public class DriveIntakeTillFull extends CommandBase {
 
 	boolean disc;
 	
+	
 	public DriveIntakeTillFull() {
 		requires (intakeSpeed);
 		
@@ -23,33 +24,35 @@ public class DriveIntakeTillFull extends CommandBase {
 	
 
 	/**
-	 * if discs are present, stop motors and end command. 
+	 * if one disc is present, stop motors and end command. 
 	 * if discs aren't present run motors till present.
+	 * @return 
 	 */
 	protected void execute() {
 		
-    	if(intakeSpeed.intakeFull()){
-			intakeSpeed.driveIntake(0.0, 0.0);
+//		System.out.println("discs present = " + intakeSpeed.getNumberOfDiscs());
+		
+    	if(intakeSpeed.intakeLFull() || intakeSpeed.intakeRFull()){
+    		intakeSpeed.driveIntake(0.0,0.0);
 			disc = true;
 		} else{												
-			intakeSpeed.driveIntake(0.5, 0.5);				
+		    intakeSpeed.driveIntake(.8,.8);			
 			disc = false;
 		}		
 	}
 
+	protected boolean isFinished() {
+		return disc;
+	}
 	
 	protected void interrupted() {
-		intakeSpeed.driveIntake(0.0, 0.0);
-		//stop intake motors
+		end();
 	}
 
 	
 	protected void end() {
-		//Nothing to do here
+		intakeSpeed.driveIntakeHopper(0.0, 0.0);
+		//Stop Intake Motors
 	}
 
-	
-	protected boolean isFinished() {
-		return disc = true;
-	}
 }

@@ -51,19 +51,19 @@ public class IntakeSpeed extends Subsystem {
 	 * @param right speed
 	 */
 	public void driveIntake(double left, double right){
-		driveIntakeRight(right);
-		driveIntakeLeft(left);
+		driveRight(right);
+		driveLeft(left);
 	}
 
 	/**
 	 * drive the left side of the intake unless left switch is pressed, invert left
 	 * @param left side speed
 	 */
-	public void driveIntakeLeft(double left) {
+	public void driveLeft(double left) {
 
 		if(intakeLFull()){
 			motorL.set(0.0);
-		} else {		
+		} else {
 			left = -left;
 			this.left = left; 	
 			motorL.set(left);
@@ -74,7 +74,7 @@ public class IntakeSpeed extends Subsystem {
 	 * drive the right side of the intake unless right switch is pressed
 	 * @param right side speed
 	 */
-	public void driveIntakeRight(double right) {
+	public void driveRight(double right) {
 
 		if(intakeRFull()){
 			motorR.set(0.0);
@@ -140,10 +140,12 @@ public class IntakeSpeed extends Subsystem {
 	 * @return true
 	 */
 	public boolean intakeFull() {
-		if(disc != 2){
-			return false;
-		} else {
+		
+		if(getNumberOfDiscs() == 2){
 			return true;
+		} else {
+			return false;
 		}
+		
 	}
 }
