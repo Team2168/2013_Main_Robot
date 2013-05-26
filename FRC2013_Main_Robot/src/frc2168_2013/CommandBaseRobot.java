@@ -42,8 +42,8 @@ public class CommandBaseRobot extends IterativeRobot {
 	
 	//Delays (seconds) for shots in auto. These get set by the dashboard.
 	private static double disc1Delay = 5,
-                          disc2Delay = 0.6,
-                          disc3Delay = 0.6;
+                          disc2Delay = 1.0,
+                          disc3Delay = 1.5 ;
 	private static final String TIME_1_DELAY_KEY = "Delay before shot 1",
                                 TIME_2_DELAY_KEY = "Delay before shot 2",
                                 TIME_3_DELAY_KEY = "Delay before shot 3",
@@ -59,17 +59,16 @@ public class CommandBaseRobot extends IterativeRobot {
 	
 	//What to do in auto. after the discs are shot
 	public static final int SIT_STILL             = 1, //Don't move after shooting
-	                        DEFEND_CENTER         = 2, //Move to the center of the field and defend discs
-	                        TO_PROTECTED_LOADER   = 3, //Move to the protected human load station
-	                        TO_UNPROTECTED_LOADER = 4; //Move to the unprotected human load station
+			                FIVE_DISC_AUTO        = 2, //From center, shoot three & two under pyramid
+	                        DEFEND_CENTER         = 3, //Move to the center of the field and defend discs
+	                        TO_PROTECTED_LOADER   = 4, //Move to the protected human load station
+	                        TO_UNPROTECTED_LOADER = 5; //Move to the unprotected human load station
 	
     //These variables are for the serial communication with the arduino.
     private static boolean shooterAtSpeed = false,
                            discFired      = false,
                            shooterRaised  = false,
-                           againstBar     = false,
-                           endGame        = false,
-                           autoMode       = false;
+                           endGame        = false;
     BitRelay lightsRelay1,
              lightsRelay2;
              //lightsRelay3,
@@ -135,8 +134,6 @@ public class CommandBaseRobot extends IterativeRobot {
         dashboard = (Command) dashChooser.getSelected();
         dashboard.start();
         
-        //send auto mode bit for arduino
-        setAutoMode(true);
         setArduinoStatus();
     }
 
@@ -168,7 +165,6 @@ public class CommandBaseRobot extends IterativeRobot {
         dashboard = (Command) dashChooser.getSelected();
         dashboard.start();
         
-        setAutoMode(false);
         setArduinoStatus();
     }
 
@@ -251,6 +247,7 @@ public class CommandBaseRobot extends IterativeRobot {
     		//Create a chooser for our destination position
     		afterShotChooser = new SendableChooser();
         	afterShotChooser.addDefault("Sit Still", new Integer(SIT_STILL));
+        	afterShotChooser.addObject("5 disc auto", new Integer(FIVE_DISC_AUTO));
         	afterShotChooser.addObject("Defend center discs", new Integer(DEFEND_CENTER));
         	afterShotChooser.addObject("Move to protected loader", new Integer(TO_PROTECTED_LOADER));
         	afterShotChooser.addObject("Move to un-protected loader", new Integer(TO_UNPROTECTED_LOADER));
@@ -343,7 +340,7 @@ public class CommandBaseRobot extends IterativeRobot {
      * 
      * @return true if we should shoot discs in auto.
      */
-    public static boolean getShootInAuto() {
+    public static boolean shootInAuto() {
     	return shootInAuto;
     }
     
@@ -420,24 +417,10 @@ public class CommandBaseRobot extends IterativeRobot {
 	}
 
 	/**
-	 * @param againstBar true if against bar
-	 */
-	public static void setAgainstBar(boolean value) {
-		againstBar = value;
-	}
-
-	/**
 	 * @param endGame true if in the end of the game
 	 */
 	public static void setEndGame(boolean value) {
 		endGame = value;
-	}
-
-	/**
-	 * @param autoMode true if in auto mode
-	 */
-	public static void setAutoMode(boolean value) {
-		autoMode = value;
 	}
 
 	/**

@@ -47,7 +47,7 @@ public class Drivetrain extends Subsystem {
 	 * The default constructor for the Drivetrain subsystem.
 	 */
     public Drivetrain(){
-    	System.out.println("drive train encoder stuff:" + RobotMap.driveEncoderPulsePerRot);
+    	//System.out.println("drive train encoder stuff:" + RobotMap.driveEncoderPulsePerRot);
     
     	//declare drivetrain motor controllers
     	//intializing motor controller using PWM. Refer to RobotMap
@@ -203,9 +203,9 @@ public class Drivetrain extends Subsystem {
      * @return distance in inches
      */
     public double getDistance(){
-    	System.out.println("RightEncoder = " + rightEncoder.getPos());
-    	System.out.println("LeftEncoder = " + leftEncoder.getPos());
-    	System.out.println("Gyro = " + getAngle());
+//    	System.out.println("RightEncoder = " + rightEncoder.getPos());
+//    	System.out.println("LeftEncoder = " + leftEncoder.getPos());
+//    	System.out.println("Gyro = " + getAngle());
     	
     	//TODO: change back to use both encoders
     	//The practice chassis only has the right encoder wired

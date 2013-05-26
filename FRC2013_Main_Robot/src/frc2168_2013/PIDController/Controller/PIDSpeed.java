@@ -990,7 +990,7 @@ public class PIDSpeed implements TCPMessageInterface
 					if (co < maxNegOutput)
 					{
 						integ = maxNegOutput - prop - deriv;
-						System.out.println("one.two");
+//						System.out.println("one.two");
 					}
 					
 					// prevent integral windup
@@ -1003,14 +1003,14 @@ public class PIDSpeed implements TCPMessageInterface
 					if (co < maxNegOutput)
 					{
 						errsum = integ / i;
-						System.out.println("one.four");
+//						System.out.println("one.four");
 					}
 					// generate new control output based on min and max and
 					// integral windup.
 					co = prop + integ + deriv;
 					olderrsum=errsum;
 					
-					System.out.println("one");
+//					System.out.println("one");
 				} else
 				{
 					// no integral term so dont need to prevent windup
@@ -1021,7 +1021,7 @@ public class PIDSpeed implements TCPMessageInterface
 					if (co < maxNegOutput)
 						co = maxNegOutput;
 					
-					System.out.println("two");
+//					System.out.println("two");
 				}
 
 				// check to see if we met our setpoint
@@ -1039,7 +1039,7 @@ public class PIDSpeed implements TCPMessageInterface
 					olderrsum = olderrsum; //stop accumulating error
 					
 
-					System.out.println("three");
+//					System.out.println("three");
 
 				}
 				

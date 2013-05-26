@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc2168_2013.CommandBaseRobot;
 import frc2168_2013.commands.Sleep;
 import frc2168_2013.commands.subSystems.Hopper.ShootSingleDisc;
-import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleStow;
+import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleExtend;
 import frc2168_2013.commands.subSystems.ShooterWheel.DriveShooterWithConstant;
 import frc2168_2013.commands.subSystems.ShooterWheel.PID_ShooterPause;
 
@@ -14,17 +14,16 @@ import frc2168_2013.commands.subSystems.ShooterWheel.PID_ShooterPause;
  * @author James
  *
  */
-public class RearOfPyramid_3pt extends CommandGroup {
+public class FrontOfPyramid_3pt extends CommandGroup {
 
-	public RearOfPyramid_3pt() {
+	public FrontOfPyramid_3pt() {
 		this(CommandBaseRobot.getDiscDelay(1),
-             CommandBaseRobot.getDiscDelay(2),
-             CommandBaseRobot.getDiscDelay(3));
+             CommandBaseRobot.getDiscDelay(2));
 	}
 
-	public RearOfPyramid_3pt(double firstDiscTime, double secondDiscTime, double thirdDiscTime) {
-		//set shooter angle to stow position
-		addParallel(new ShooterAngleStow());
+	public FrontOfPyramid_3pt(double firstDiscTime, double secondDiscTime) {
+		//set shooter angle to extend position
+		addParallel(new ShooterAngleExtend());
 
 		//driver both shooterwheels at full speed
 		addParallel(new DriveShooterWithConstant(1, 1));
@@ -33,8 +32,6 @@ public class RearOfPyramid_3pt extends CommandGroup {
 		addSequential(new Sleep(), firstDiscTime);
 		addSequential(new ShootSingleDisc());
 		addSequential(new Sleep(), secondDiscTime);
-		addSequential(new ShootSingleDisc());
-		addSequential(new Sleep(), thirdDiscTime);
 		addSequential(new ShootSingleDisc());
 
 //		//using at speed
@@ -48,6 +45,8 @@ public class RearOfPyramid_3pt extends CommandGroup {
 		//Shoot a few more times in case the disc wasn't shot
 		addSequential(new Sleep(), 0.1);
 		addSequential(new ShootSingleDisc());
+		//addSequential(new Sleep(), 0.1);
+		//addSequential(new ShootSingleDisc());
 
 		//Stop the shooter
 		addSequential(new Sleep(), 0.2);

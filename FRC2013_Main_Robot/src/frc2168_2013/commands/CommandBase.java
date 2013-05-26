@@ -6,7 +6,8 @@ import frc2168_2013.OI;
 import frc2168_2013.subsystems.Drivetrain;
 import frc2168_2013.subsystems.Hanger;
 import frc2168_2013.subsystems.Hopper;
-import frc2168_2013.subsystems.Intake;
+import frc2168_2013.subsystems.IntakePosition;
+import frc2168_2013.subsystems.IntakeSpeed;
 import frc2168_2013.subsystems.LightSaber;
 import frc2168_2013.subsystems.ShooterAngle;
 import frc2168_2013.subsystems.ShooterWheel;
@@ -22,7 +23,8 @@ public abstract class CommandBase extends Command {
     public static OI oi;
     // Create a single static instance of all of your subsystems
     public static Drivetrain     drivetrain = new Drivetrain();
-    public static Intake             intake = new Intake();
+    public static IntakePosition  intakePos = new IntakePosition();
+    public static IntakeSpeed   intakeSpeed = new IntakeSpeed();
     public static ShooterWheel shooterWheel = new ShooterWheel();
     public static ShooterAngle shooterAngle = new ShooterAngle();
     public static Hopper             hopper = new Hopper();
@@ -39,7 +41,6 @@ public abstract class CommandBase extends Command {
 
         // Show what command your subsystem is running on the SmartDashboard
         SmartDashboard.putData(drivetrain);
-        SmartDashboard.putData(intake);
         SmartDashboard.putData(shooterWheel);
         SmartDashboard.putData(hopper);
         SmartDashboard.putData(hanger);
