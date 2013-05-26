@@ -13,7 +13,6 @@ public class IntakePosition extends Subsystem {
 	DigitalInput intakeLimitSensorR, intakeLimitSensorL;
 
 	public IntakePosition() {
-		//TODO: If an intake is added, flesh this stuff out.
 		actuatorHopper = new DoubleSolenoid(2, RobotMap.intakeHopperExtend,
 				RobotMap.intakeHopperRetract);
 		actuatorFloorload = new DoubleSolenoid(2, RobotMap.intakeFloorloadExtend,
@@ -27,7 +26,7 @@ public class IntakePosition extends Subsystem {
 	/**
 	 * Lower intake to load position
 	 */
-	public void Load(){
+	public void load(){
 		actuatorHopper.set(DoubleSolenoid.Value.kReverse);
 		actuatorFloorload.set(DoubleSolenoid.Value.kReverse);
 	}
@@ -36,7 +35,7 @@ public class IntakePosition extends Subsystem {
 	/**
 	 * Raise the intake mechanism to hopper position
 	 */
-	public void Hopper() {
+	public void hopper() {
 		actuatorHopper.set(DoubleSolenoid.Value.kReverse);
 		actuatorFloorload.set(DoubleSolenoid.Value.kForward);
 	}
@@ -44,7 +43,7 @@ public class IntakePosition extends Subsystem {
 	/**
 	 * Raise the intake mechanism to stow position
 	 */
-	public void Stow(){
+	public void stow(){
 		actuatorHopper.set(DoubleSolenoid.Value.kForward);
 		actuatorFloorload.set(DoubleSolenoid.Value.kForward);
 	}

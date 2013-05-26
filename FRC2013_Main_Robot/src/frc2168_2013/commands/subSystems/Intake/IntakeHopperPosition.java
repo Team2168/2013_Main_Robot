@@ -23,7 +23,7 @@ public class IntakeHopperPosition extends CommandBase {
 	 * Sets the intake to the hopper position
 	 */
 	protected void execute() {
-		intakePos.Hopper();
+		intakePos.hopper();
 	}
 
 	

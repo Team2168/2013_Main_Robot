@@ -12,29 +12,48 @@ import frc2168_2013.CommandBaseRobot;
  *
  */
 public class AutoSequencer extends CommandGroup {
-	
+
 	public AutoSequencer() {
-		
-		//Fast defend
-		if(CommandBaseRobot.getShootInAuto()){
-			//Sit still and shoot the discs we started with
-			addSequential(new RearOfPyramid_3pt());
-		}
-		
-		System.out.println("Auto mode after shots:" + CommandBaseRobot.getAutoModeAfterShots());
-		//Then drive to the selected destination position
+		//System.out.println("Auto mode after shots:" + CommandBaseRobot.getAutoModeAfterShots());
 		switch (CommandBaseRobot.getAutoModeAfterShots()) {
+			/*
+			 * The five disc auto command ignores the starting position selected on the dashboard.
+			 * It only works from the center position.
+			 */
+			case CommandBaseRobot.FIVE_DISC_AUTO:
+				addSequential(new FiveDisc_3pt());
+				break;
+
+			/*
+			 * All the following commands use the two sendable choosers on the dashboard.
+			 * They will start by sitting still and shooting the three discs loaded.
+			 * Then move to the selected destination position.
+			 */
 			case CommandBaseRobot.DEFEND_CENTER:
+				//Fast defend
+				if(CommandBaseRobot.shootInAuto()) {
+					//Sit still and shoot the discs we started with
+					addSequential(new RearOfPyramid_3pt());
+				}
 				addSequential(new DriveToFieldCenter());
 				break;
 			case CommandBaseRobot.TO_PROTECTED_LOADER:
+				if(CommandBaseRobot.shootInAuto()) {
+					addSequential(new RearOfPyramid_3pt());
+				}
 				addSequential(new DriveToProtectedLoader());
 				break;
 			case CommandBaseRobot.TO_UNPROTECTED_LOADER:
+				if(CommandBaseRobot.shootInAuto()) {
+					addSequential(new RearOfPyramid_3pt());
+				}
 				addSequential(new DriveToUnprotectedLoader());
 				break;
 			default:
-				//Sit Still, do nothing
+				if(CommandBaseRobot.shootInAuto()) {
+					addSequential(new RearOfPyramid_3pt());
+				}
+				//Then sit still, do nothing
 				break;
 		}
 	}

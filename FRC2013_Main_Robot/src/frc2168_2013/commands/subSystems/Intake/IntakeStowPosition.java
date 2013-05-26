@@ -23,7 +23,7 @@ public class IntakeStowPosition extends CommandBase {
 	 * sets intake to stow position
 	 */
 	protected void execute() {
-		intakePos.Stow();
+		intakePos.stow();
 	}
 
 	

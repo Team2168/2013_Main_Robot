@@ -23,7 +23,7 @@ public class IntakeLoadPosition extends CommandBase {
 	 * Sets the intake to the load position
 	 */
 	protected void execute() {
-		intakePos.Load();
+		intakePos.load();
 	}
 
 	

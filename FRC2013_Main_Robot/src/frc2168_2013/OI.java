@@ -32,12 +32,14 @@ import frc2168_2013.utils.JoystickAnalogButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	public static final boolean rInvert =    true;  //for R driveTrain
-	public static final boolean lInvert =    false; //for L driveTrain
-	public static final boolean ainvert =    true;  //for arm left motor
-	public static final boolean sFwdInvert = false; //for shooter
-	public static final boolean sAftInvert = false; //for shooter
-	public static final boolean hInvert =    true;  //for hopper
+	public static final boolean rInvert       = true;  //for R driveTrain
+	public static final boolean lInvert       = false; //for L driveTrain
+	public static final boolean ainvert       = true;  //for arm left motor
+	public static final boolean sFwdInvert    = false; //for shooter
+	public static final boolean sAftInvert    = false; //for shooter
+	public static final boolean hInvert       = true;  //for hopper
+	public static final boolean lIntakeInvert = true;  //for left intake motor
+	public static final boolean rIntakeInvert = false;  //for right intake motor
 	
 	public static final int     rightJoyAxis = 5;
 	public static final int     leftJoyAxis  = 2;

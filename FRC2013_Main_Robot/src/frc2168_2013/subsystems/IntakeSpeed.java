@@ -3,6 +3,7 @@ package frc2168_2013.subsystems;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc2168_2013.OI;
 import frc2168_2013.RobotMap;
 import frc2168_2013.commands.subSystems.Intake.DriveIntakeConstant;
 
@@ -11,14 +12,10 @@ public class IntakeSpeed extends Subsystem {
 	Talon motorR, motorL;
 	DigitalInput limitSensorR, limitSensorL;
 
-	double left = 0.0;
-	double right = 0.0;
 	double leftHopper = 0.0;
 	double rightHopper = 0.0;
-	int disc;
 
 	public IntakeSpeed() {
-		//TODO: If an intake is added, flesh this stuff out.
 		motorR = new Talon(RobotMap.intakeMotorR);
 		motorL = new Talon(RobotMap.intakeMotorL);
 		limitSensorR = new DigitalInput(RobotMap.intakeLimitSensorR);
@@ -30,122 +27,118 @@ public class IntakeSpeed extends Subsystem {
 	}
 
 	/**
-	 * if right switch is pressed
-	 * @return true
+	 * Check if a disc is present on the right side of the intake.
+	 * @return true if present
 	 */
-	public boolean intakeRFull(){
+	public boolean rightFull(){
 		return !limitSensorR.get();
 	}
 
 	/**
-	 * if left switch is pressed
-	 * @return true
+	 * Check if a disc is present on the left side of the intake.
+	 * 
+	 * @return true if present
 	 */
-	public boolean intakeLFull(){
+	public boolean leftFull(){
 		return !limitSensorL.get();
 	}
 
 	/**
-	 * Drive both sides, will stop if intake is full
+	 * Drive both sides, will stop each respective motor if a disc is present
+	 * 
 	 * @param left speed
 	 * @param right speed
 	 */
-	public void driveIntake(double left, double right){
-		driveRight(right);
-		driveLeft(left);
+	public void driveIntakeTillFull(double left, double right){
+		driveRightTillFull(right);
+		driveLeftTillFull(left);
 	}
 
 	/**
-	 * drive the left side of the intake unless left switch is pressed, invert left
+	 * Drive the left side of the intake unless left switch is pressed
+	 * 
 	 * @param left side speed
 	 */
-	public void driveLeft(double left) {
-
-		if(intakeLFull()){
-			motorL.set(0.0);
+	public void driveLeftTillFull(double left) {
+		if(leftFull()){
+			driveLeft(0.0);
 		} else {
-			left = -left;
-			this.left = left; 	
-			motorL.set(left);
+			driveLeft(left);
 		}
 	}
 
 	/**
-	 * drive the right side of the intake unless right switch is pressed
+	 * Drive the right side of the intake unless right switch is pressed
 	 * @param right side speed
 	 */
-	public void driveRight(double right) {
-
-		if(intakeRFull()){
-			motorR.set(0.0);
+	public void driveRightTillFull(double right) {
+		if(rightFull()){
+			driveRight(0.0);
 		} else {
-			motorR.set(right);
+			driveRight(right);
 		}
 	}
 
 	/**
 	 * drive both sides of intake at constant speed, written to unload intake into hopper
+	 * 
 	 * @param leftHopper speed
 	 * @param rightHopper speed
 	 */
-	public void driveIntakeHopper(double leftHopper, double rightHopper){
-		driveRightHopper(rightHopper);
-		driveLeftHopper(leftHopper);
+	public void driveIntake(double leftHopper, double rightHopper){
+		driveRight(rightHopper);
+		driveLeft(leftHopper);
 	}
 
 	/**
-	 * drive the left side of the intake, invert left
+	 * drive the left side of the intake
 	 * @param leftHopper speed
 	 */
-	public void driveLeftHopper(double leftHopper) {		
-
-		leftHopper = -leftHopper; 
-		this.leftHopper = leftHopper; 	
-		motorL.set(leftHopper);
-
+	public void driveLeft(double leftHopper) {
+		if (OI.lIntakeInvert) {
+			motorL.set(-leftHopper);
+		} else {
+			motorL.set(leftHopper);
+		}
 	}
 
 
 	/**
-	 * drive the right side of the intake
+	 * Drive the right side of the intake
+	 * 
 	 * @param rightHopper speed
 	 */
-	public void driveRightHopper(double rightHopper) {
-
-		motorR.set(rightHopper);
-
+	public void driveRight(double rightHopper) {
+		if (OI.rIntakeInvert) {
+			motorR.set(-rightHopper);
+		} else {
+			motorR.set(rightHopper);
+		}
 	}
 
 	/**
-	 * Acquire number of discs in the intake
-	 * @return disc count
+	 * Determine the number of discs in the intake
+	 * 
+	 * @return the number of discs in the intake
 	 */
 	public int getNumberOfDiscs() {
+		int discs = 0;
 
-		disc = 0;
-
-		if (intakeRFull()) {
-			disc++;
+		if (rightFull()) {
+			discs++;
 		}
-		if (intakeLFull()) {
-			disc++;
+		if (leftFull()) {
+			discs++;
 		}
 
-		return disc;
-
+		return discs;
 	}
 
 	/**
-	 * If disc count is two, intake full
-	 * @return true
+	 * Check if the intake if full
+	 * @return true if the intake has two discs presesnt
 	 */
 	public boolean intakeFull() {
-		
-		if(getNumberOfDiscs() == 2){
-			return true;
-		} else {
-			return false;
-		}
-		
+		return rightFull() && leftFull();
 	}
 }

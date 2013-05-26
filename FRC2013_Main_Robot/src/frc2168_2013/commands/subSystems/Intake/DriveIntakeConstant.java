@@ -18,7 +18,6 @@ public class DriveIntakeConstant extends CommandBase {
 		
 		this.leftRollerSpeed = leftRollerSpeed;
 		this.rightRollerSpeed = rightRollerSpeed;
-	
 	}
 
 	
@@ -28,8 +27,7 @@ public class DriveIntakeConstant extends CommandBase {
 
 	
 	protected void execute() {
-		intakeSpeed.driveIntakeHopper(leftRollerSpeed, rightRollerSpeed);
-		
+		intakeSpeed.driveIntake(leftRollerSpeed, rightRollerSpeed);
 	}
 
 	

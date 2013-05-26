@@ -12,10 +12,8 @@ public class DriveIntakeTillFull extends CommandBase {
 
 	boolean disc;
 	
-	
 	public DriveIntakeTillFull() {
-		requires (intakeSpeed);
-		
+		requires (intakeSpeed);	
 	}
 	
 	protected void initialize() {
@@ -32,11 +30,11 @@ public class DriveIntakeTillFull extends CommandBase {
 		
 //		System.out.println("discs present = " + intakeSpeed.getNumberOfDiscs());
 		
-    	if(intakeSpeed.intakeLFull() || intakeSpeed.intakeRFull()){
-    		intakeSpeed.driveIntake(0.0,0.0);
+    	if(intakeSpeed.leftFull() || intakeSpeed.rightFull()){
+    		intakeSpeed.driveIntakeTillFull(0.0,0.0);
 			disc = true;
 		} else{												
-		    intakeSpeed.driveIntake(.8,.8);			
+		    intakeSpeed.driveIntakeTillFull(.8,.8);			
 			disc = false;
 		}		
 	}
@@ -51,8 +49,8 @@ public class DriveIntakeTillFull extends CommandBase {
 
 	
 	protected void end() {
-		intakeSpeed.driveIntakeHopper(0.0, 0.0);
 		//Stop Intake Motors
+		intakeSpeed.driveIntake(0.0, 0.0);
 	}
 
 }
