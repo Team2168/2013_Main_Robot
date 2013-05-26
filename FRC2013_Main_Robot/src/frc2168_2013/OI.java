@@ -3,10 +3,10 @@ package frc2168_2013;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc2168_2013.commands.Auto.FiveDisc_3pt;
 import frc2168_2013.commands.Presets.Preset_FrontOfPyramid_3pt;
 import frc2168_2013.commands.Presets.Preset_RearOfPyramid_3pt;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainStraight;
-import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainTurn;
 import frc2168_2013.commands.subSystems.Hanger.HangerDisengage;
 import frc2168_2013.commands.subSystems.Hanger.HangerEngage;
 import frc2168_2013.commands.subSystems.Hopper.HopperFire;
@@ -14,6 +14,11 @@ import frc2168_2013.commands.subSystems.Hopper.HopperReload;
 import frc2168_2013.commands.subSystems.Hopper.ShootSingleDisc;
 import frc2168_2013.commands.subSystems.Hopper.TeamDiscLightOff;
 import frc2168_2013.commands.subSystems.Hopper.TeamDiscLightOn;
+import frc2168_2013.commands.subSystems.Intake.DriveIntakeConstant;
+import frc2168_2013.commands.subSystems.Intake.DriveIntakeTillFull;
+import frc2168_2013.commands.subSystems.Intake.IntakeHopperPosition;
+import frc2168_2013.commands.subSystems.Intake.IntakeLoadPosition;
+import frc2168_2013.commands.subSystems.Intake.IntakeStowPosition;
 import frc2168_2013.commands.subSystems.LightSaber.LightSaberExtend;
 import frc2168_2013.commands.subSystems.LightSaber.LightSaberStow;
 import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleExtend;
@@ -192,10 +197,43 @@ public class OI {
 		return -operatorDrive.getRawAxis(rightJoyAxis); 
 	}
 	
+	
 	public double getoperatorTrigger(){
 		return operatorDrive.getRawAxis(3);
 	}
 	
+	///////////////////////////////////////////////////////////////////////////
+	//  Test Joystick (Added to simply test command, easier to debug         //
+	///////////////////////////////////////////////////////////////////////////
+	public static final int testDriveJoystick = 3; 
+	public Joystick testDrive = new Joystick(testDriveJoystick);
+
+	public Button testButtonA = new JoystickButton(testDrive, 1),
+			testButtonB = new JoystickButton(testDrive, 2),
+			testButtonX = new JoystickButton(testDrive, 3),
+			testButtonY = new JoystickButton(testDrive, 4),
+			testButtonLeftBumper = new JoystickButton(testDrive, 5),
+			testButtonRightBumper = new JoystickButton(testDrive, 6),
+			testButtonReset = new JoystickButton(testDrive, 7),
+			testButtonStart = new JoystickButton(testDrive, 8),
+			testButtonLeftStick = new JoystickButton(testDrive, 9),
+			testButtonRightStick = new JoystickButton(testDrive, 10);
+	public JoystickAnalogButton testTriggerR = new JoystickAnalogButton(testDrive, 3, -0.5),
+			testTriggerL = new JoystickAnalogButton(testDrive, 3, 0.5),
+			testDPadL = new JoystickAnalogButton(testDrive, 6, -0.5),	
+			testDPadR = new JoystickAnalogButton(testDrive, 6, 0.5);
+
+	public double gettestDriveLeftStick() {
+		return -testDrive.getRawAxis(leftJoyAxis);
+	}
+
+	public double gettestDriveRightStick() {
+		return -testDrive.getRawAxis(rightJoyAxis); 
+	}
+	
+	public double gettestTrigger(){
+		return testDrive.getRawAxis(3);
+	}
 	
 	public OI() {
 		//DRIVER BUTTON MAP//
@@ -218,22 +256,25 @@ public class OI {
 		// set the shooter speed and angle for "front" of the pyramid shots (farther from the wall)
 		operatorDPadL.whenPressed(new Preset_FrontOfPyramid_3pt());
 		
-		//Test Joystick Commands
-		//TODO: Remove this for competition!
-		testButton5.whenPressed(new DriveDrivetrainTurn(90));		//rotate clockwise
-		testButton4.whenPressed(new DriveDrivetrainTurn(-90));		//rotate counter-clockwise
 		
-		testButton3.whenPressed(new DriveDrivetrainStraight(88));	//drive forward (need to subtract 8 inches to actuallyget to the destination)
-		testButton2.whenPressed(new DriveDrivetrainStraight(-84));	//drive reverse
-		//Kill turn and drive commands
-		testButtonTrigger.whenPressed(new DriveDrivetrainTurn(0));
-		testButtonTrigger.whenReleased(new DriveDrivetrainStraight(0));
-		
-		testButton6.whileHeld(new DriveDrivetrainStraight(true));
+		//Test Button Map//
+		testButtonLeftBumper.whenPressed(new DriveIntakeConstant(0.0,0.0));
+		testButtonRightBumper.whenPressed(new DriveIntakeTillFull());		
+		testButtonX.whenPressed(new IntakeStowPosition());
+		testButtonB.whenPressed(new IntakeHopperPosition());
+		testButtonA.whenPressed(new IntakeLoadPosition());
+		testButtonY.whenPressed(new DriveIntakeConstant(1.0, 0.4));
+//		testButtonLeftStick.whenPressed(new PID_ShooterPause());
+		testDPadR.whenPressed(new FiveDisc_3pt());
+		testDPadL.whenPressed(new DriveDrivetrainStraight(-48.0));
 	}
 	
+	
+	
     /**
-     * A minimum threshold function. The command to the motor has to exceed a
+     * 
+     * A minimum threshold function. The command to the moto
+     * r has to exceed a
      * certain value for it to be sent.
      * 
      * @param speed The input value
@@ -285,20 +326,20 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 	
-	//Joystick for testing.
-	Joystick testStick = new Joystick(3);
-	
-	public double getTestAxis(int axis){
-		return testStick.getRawAxis(3);
-	}
-	
-	public Button testButtonTrigger = new JoystickButton(testStick, 1),
-			  testButton2 = new JoystickButton(testStick, 2),
-			  testButton3 = new JoystickButton(testStick, 3),
-			  testButton4 = new JoystickButton(testStick, 4),
-			  testButton5 = new JoystickButton(testStick, 5),
-			  testButton6 = new JoystickButton(testStick, 6),
-			  testButton7 = new JoystickButton(testStick, 7),
-			  testButton8 = new JoystickButton(testStick, 8);
+//	//Joystick for testing.
+//	Joystick testStick = new Joystick(3);
+//	
+//	public double getTestAxis(int axis){
+//		return testStick.getRawAxis(3);
+//	}
+//	
+//	public Button testButtonTrigger = new JoystickButton(testStick, 1),
+//			  testButton2 = new JoystickButton(testStick, 2),
+//			  testButton3 = new JoystickButton(testStick, 3),
+//			  testButton4 = new JoystickButton(testStick, 4),
+//			  testButton5 = new JoystickButton(testStick, 5),
+//			  testButton6 = new JoystickButton(testStick, 6),
+//			  testButton7 = new JoystickButton(testStick, 7),
+//			  testButton8 = new JoystickButton(testStick, 8);
 }
 
