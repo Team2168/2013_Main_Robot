@@ -15,29 +15,33 @@ After cloning the repo and importing the project in eclipse, create an environme
 
 
 ## Functionality
-[robot name] has the following major subsystems. For more information on this robot, visit http://team2168.org/index.php/about-us/robots
+Phoenix has the following major subsystems. For more information on this robot, visit http://team2168.org/index.php/about-us/robots
 
 #### Drivetrain
-Single speed tank drive. Three motors per gear box (2x CIMs, 1x BAG?). Gear ratio?
-X" diameter wheels, 4 per side.
+Single speed tank drive. Three motors per gear box (3x CIMs). Gear ratio?
+4" diameter wheels, 4 per side, drop center.
 
 #### Shooter
-Single wheel linear shooter driven by a single CIM? motor.
-
-#### Arm
-2x BAG? motor driven linkage to raise and lower the arm.
+Two wheel linear shooter.
+Two pneumaticly controlled positions for shooting from front and back of pyramid.
 
 #### Hopper
-Single belt driven linear hopper. Front or rear loading. Can hold four discs.
-Pneumatic actuators at muzzle act as mechanical stop for disks while filling from human player.
-Digital sensors along hopper detect absence/presence of discs.
+Bucket hopper. Pnumatic actuator to pull disc into shooter wheels.
+No sensors for number of discs.
 
 #### Intake
-[TBD]
+3 position, pneumatically raised/lowered.
+1. Stow - raised to its highest position, out of the way forhuman load, this is where it starts at the beginning of a match.
+2. Hopper - this is the position where discs can be dumped into the hopper
+3. Load - The lowered position where discs can be collected from the floor.
+
+Can hold two discs side by side. AM entraption stars on two independent rollers driven by motors. Once stopped, the compression of the stars on the disc keep them captive until driven again.
+Limit switches on each side can detect the presence of a disc.
 
 #### Hanger
 Pnumatically operated two position linear lift for 10pt hang only.
 
-
-
+#### Light sabers / Blocker
+Pnumaticaally operated fiberglass rods to raise and lower to aid in lineup to the pyramid. When raised they engage the 30" bar of the pyramid slightly. When lowered they retract well below the 30" bar.
+An optional blocker mechanism can be added and plumbed to the solenoid valves for the light sabers. No code changes necessary.
 
