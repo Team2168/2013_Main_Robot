@@ -6,6 +6,8 @@ import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainStraight;
 import frc2168_2013.commands.subSystems.Hopper.ShootSingleDisc;
 import frc2168_2013.commands.subSystems.Intake.DriveIntakeConstant;
 import frc2168_2013.commands.subSystems.Intake.DriveIntakeTillFull;
+import frc2168_2013.commands.subSystems.Intake.DriveLeftTillEmpty;
+import frc2168_2013.commands.subSystems.Intake.DriveRightTillEmpty;
 import frc2168_2013.commands.subSystems.Intake.IntakeHopperPosition;
 import frc2168_2013.commands.subSystems.Intake.IntakeLoadPosition;
 import frc2168_2013.commands.subSystems.Intake.IntakeStowPosition;
@@ -49,9 +51,9 @@ public class FiveDisc_3pt extends CommandGroup {
 
 		addSequential(new Sleep(),2.5);
 
-		addSequential(new DriveIntakeConstant(1.0,0.0), .4);
+		addSequential(new DriveLeftTillEmpty());
 		
-		addSequential(new DriveIntakeConstant(0.0,1.0), .4);
+		addSequential(new DriveRightTillEmpty());
 		
 		addParallel(new DriveIntakeConstant(-1.0,-1.0), .5);
 

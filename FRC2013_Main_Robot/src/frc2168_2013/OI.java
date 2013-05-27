@@ -14,6 +14,7 @@ import frc2168_2013.commands.subSystems.Hopper.HopperReload;
 import frc2168_2013.commands.subSystems.Hopper.ShootSingleDisc;
 import frc2168_2013.commands.subSystems.Hopper.TeamDiscLightOff;
 import frc2168_2013.commands.subSystems.Hopper.TeamDiscLightOn;
+import frc2168_2013.commands.subSystems.Intake.AccelerometerReading;
 import frc2168_2013.commands.subSystems.Intake.DriveIntakeConstant;
 import frc2168_2013.commands.subSystems.Intake.DriveIntakeTillFull;
 import frc2168_2013.commands.subSystems.Intake.IntakeHopperPosition;
@@ -268,7 +269,7 @@ public class OI {
 		testButtonY.whenPressed(new DriveIntakeConstant(1.0, 0.4));
 //		testButtonLeftStick.whenPressed(new PID_ShooterPause());
 		testDPadR.whenPressed(new FiveDisc_3pt());
-		testDPadL.whenPressed(new DriveDrivetrainStraight(-48.0));
+		testDPadL.whileHeld(new AccelerometerReading());
 	}
 	
 	

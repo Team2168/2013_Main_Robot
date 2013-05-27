@@ -66,7 +66,8 @@ public class RobotMap {
 	public static final int intakeFloorloadRetract  = 4;
 
 	//Analog Input Channels///////////////////////////////////////////
-	public static final int gyroChannel = 2;
+	public static final int accelerometer = 1;
+	public static final int gyroChannel   = 2;
 
 	/****************************************************************
 	 *                       Shooter Parameters                     *

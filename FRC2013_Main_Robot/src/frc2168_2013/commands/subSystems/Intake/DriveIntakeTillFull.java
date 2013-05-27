@@ -30,7 +30,7 @@ public class DriveIntakeTillFull extends CommandBase {
 		
 //		System.out.println("discs present = " + intakeSpeed.getNumberOfDiscs());
 		
-    	if(intakeSpeed.leftFull() || intakeSpeed.rightFull()){
+    	if(intakeSpeed.leftFull() && intakeSpeed.rightFull()){
     		intakeSpeed.driveIntakeTillFull(0.0,0.0);
 			disc = true;
 		} else{												
