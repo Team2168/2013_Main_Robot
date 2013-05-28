@@ -24,48 +24,49 @@ import frc2168_2013.commands.subSystems.ShooterWheel.DriveShooterWithConstant;
 public class FiveDisc_3pt extends CommandGroup {
 
 	public FiveDisc_3pt() {
-
-		addParallel(new DriveShooterWithConstant(1, 1));
-
-		addSequential(new DriveDrivetrainStraight(-24.0));
-
-		addSequential(new IntakeLoadPosition());
-
-		addSequential(new Sleep(),.5);
-
-		addSequential(new DriveDrivetrainStraight(24.0));
-
-		//Shoot three discs
-		addSequential(new Sleep(), 1);
-		addSequential(new ShootSingleDisc());
-		addSequential(new Sleep(), 1);
-		addSequential(new ShootSingleDisc());
-		addSequential(new Sleep(), 1);
-		addSequential(new ShootSingleDisc());
-		
-		addParallel(new DriveIntakeTillFull());
-
-		addSequential(new DriveDrivetrainStraight(48.0));
-
-		addSequential(new IntakeHopperPosition());
-
-		addSequential(new Sleep(),2.5);
+				
+//		addParallel(new DriveShooterWithConstant(1, 1));
+//
+//		addSequential(new DriveDrivetrainStraight(-24.0));
+//
+//		addSequential(new IntakeLoadPosition());
+//
+//		addSequential(new Sleep(),.5);
+//
+//		addSequential(new DriveDrivetrainStraight(24.0));
+//
+//		//Shoot three discs
+//		addSequential(new Sleep(), 1);
+//		addSequential(new ShootSingleDisc());
+//		addSequential(new Sleep(), 1);
+//		addSequential(new ShootSingleDisc());
+//		addSequential(new Sleep(), 1);
+//		addSequential(new ShootSingleDisc());
+//		
+//		addParallel(new DriveIntakeTillFull());
+//
+//		addSequential(new DriveDrivetrainStraight(48.0));
+//
+//		addSequential(new IntakeHopperPosition());
+//
+//		addSequential(new Sleep(),2.5);
 
 		addSequential(new DriveLeftTillEmpty());
 		
 		addSequential(new DriveRightTillEmpty());
 		
-		addParallel(new DriveIntakeConstant(-1.0,-1.0), .5);
-
-		addSequential(new IntakeLoadPosition());
-
-		addSequential(new DriveDrivetrainStraight(-48.0));
-
-		//Shoot two more discs
-		addSequential(new Sleep(), 2);
-		addSequential(new ShootSingleDisc());
-		addSequential(new Sleep(), 1);
-		addSequential(new ShootSingleDisc());
-				
+//		addParallel(new DriveIntakeConstant(-1.0,-1.0), .5);
+//
+//		addSequential(new IntakeLoadPosition());
+//
+//		addSequential(new DriveDrivetrainStraight(-48.0));
+//
+//
+//		//Shoot two more discs
+//		addSequential(new Sleep(), 2);
+//		addSequential(new ShootSingleDisc());
+//		addSequential(new Sleep(), 1);
+//		addSequential(new ShootSingleDisc());
+						
 	}	
 }

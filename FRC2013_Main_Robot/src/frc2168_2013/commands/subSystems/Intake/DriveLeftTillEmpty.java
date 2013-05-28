@@ -27,10 +27,9 @@ public class DriveLeftTillEmpty extends CommandBase {
 	protected void execute() {
 		
     	if(intakeSpeed.leftFull()){
-    		intakeSpeed.driveIntakeTillFull(1.0,0.0);
+    		intakeSpeed.driveIntake(1.0,0.0);
 			noDisc = false;
-		} else{												
-		    intakeSpeed.driveIntakeTillFull(0.0,0.0);			
+		} else{								
 			noDisc = true;
 		}		
 	}

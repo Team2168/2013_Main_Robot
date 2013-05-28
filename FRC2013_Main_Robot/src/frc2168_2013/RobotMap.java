@@ -35,8 +35,8 @@ public class RobotMap {
 	public static final int shooterEncoderFwdChannelB = 6;
 	public static final int shooterEncoderAftChannelA = 7;
 	public static final int shooterEncoderAftChannelB = 8;
-	public static final int intakeLimitSensorR        = 9;
-	public static final int intakeLimitSensorL        = 10;
+	public static final int intakeLimitSensorL        = 9;
+	public static final int intakeLimitSensorR        = 10;
 	
 	public static final int compressorPressureSwitch = 14;
 
@@ -66,7 +66,7 @@ public class RobotMap {
 	public static final int intakeFloorloadRetract  = 4;
 
 	//Analog Input Channels///////////////////////////////////////////
-	public static final int accelerometer = 1;
+//	public static final int accelerometer = 1;
 	public static final int gyroChannel   = 2;
 
 	/****************************************************************
