@@ -267,10 +267,10 @@ public class OI {
 		testButtonX.whenPressed(new IntakeStowPosition());
 		testButtonB.whenPressed(new IntakeHopperPosition());
 		testButtonA.whenPressed(new IntakeLoadPosition());
-		testButtonY.whenPressed(new DriveIntakeConstant(1.0, 0.4));
-		testButtonLeftStick.whenPressed(new DriveLeftTillEmpty());
+		testButtonY.whenPressed(new DriveIntakeConstant(0.0, 1.0));
+//		testButtonLeftStick.whenPressed(new DriveLeftTillEmpty());
 		testDPadR.whenPressed(new FiveDisc_3pt());
-		testDPadL.whenPressed(new DriveRightTillEmpty());
+//		testDPadL.whenPressed();
 	}
 	
 	
