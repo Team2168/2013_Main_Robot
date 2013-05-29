@@ -58,11 +58,12 @@ public class CommandBaseRobot extends IterativeRobot {
                             RIGHT  = 3;
 	
 	//What to do in auto. after the discs are shot
-	public static final int SIT_STILL             = 1, //Don't move after shooting
-			                FIVE_DISC_AUTO        = 2, //From center, shoot three & two under pyramid
-	                        DEFEND_CENTER         = 3, //Move to the center of the field and defend discs
-	                        TO_PROTECTED_LOADER   = 4, //Move to the protected human load station
-	                        TO_UNPROTECTED_LOADER = 5; //Move to the unprotected human load station
+	public static final int SIT_STILL                       = 1, //Don't move after shooting
+			                FIVE_DISC_AUTO_FRONT_PYRAMID    = 2, //From center, shoot two & two under pyramid
+			                FIVE_DISC_AUTO_BACK_PYRAMID     = 3, //From center, shoot three & two under pyramid
+	                        DEFEND_CENTER                   = 4, //Move to the center of the field and defend discs
+	                        TO_PROTECTED_LOADER             = 5, //Move to the protected human load station
+	                        TO_UNPROTECTED_LOADER           = 6; //Move to the unprotected human load station
 	
     //These variables are for the serial communication with the arduino.
     private static boolean shooterAtSpeed = false,
@@ -89,7 +90,7 @@ public class CommandBaseRobot extends IterativeRobot {
         
         //Start the compressor
         compressor = new Compressor(RobotMap.compressorPressureSwitch, RobotMap.compressorPower);
-        compressor.start();
+//        compressor.start();
         
         //Initialize dashboard
         dashSelectInit();
@@ -164,6 +165,8 @@ public class CommandBaseRobot extends IterativeRobot {
         //start dashboard
         dashboard = (Command) dashChooser.getSelected();
         dashboard.start();
+        
+        compressor.start();
         
         setArduinoStatus();
     }
@@ -247,7 +250,8 @@ public class CommandBaseRobot extends IterativeRobot {
     		//Create a chooser for our destination position
     		afterShotChooser = new SendableChooser();
         	afterShotChooser.addDefault("Sit Still", new Integer(SIT_STILL));
-        	afterShotChooser.addObject("5 disc auto", new Integer(FIVE_DISC_AUTO));
+        	afterShotChooser.addObject("5 disc auto from the front (closer to the wall)", new Integer(FIVE_DISC_AUTO_FRONT_PYRAMID));
+        	afterShotChooser.addObject("5 disc auto from the back (farther from the wall)", new Integer(FIVE_DISC_AUTO_BACK_PYRAMID));
         	afterShotChooser.addObject("Defend center discs", new Integer(DEFEND_CENTER));
         	afterShotChooser.addObject("Move to protected loader", new Integer(TO_PROTECTED_LOADER));
         	afterShotChooser.addObject("Move to un-protected loader", new Integer(TO_UNPROTECTED_LOADER));
