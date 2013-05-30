@@ -59,7 +59,7 @@ public class CommandBaseRobot extends IterativeRobot {
 	
 	//What to do in auto. after the discs are shot
 	public static final int SIT_STILL                       = 1, //Don't move after shooting
-			                FIVE_DISC_AUTO_FRONT_PYRAMID    = 2, //From center, shoot two & two under pyramid
+			                FOUR_DISC_AUTO_FRONT_PYRAMID    = 2, //From center, shoot two & two under pyramid
 			                FIVE_DISC_AUTO_BACK_PYRAMID     = 3, //From center, shoot three & two under pyramid
 	                        DEFEND_CENTER                   = 4, //Move to the center of the field and defend discs
 	                        TO_PROTECTED_LOADER             = 5, //Move to the protected human load station
@@ -250,7 +250,7 @@ public class CommandBaseRobot extends IterativeRobot {
     		//Create a chooser for our destination position
     		afterShotChooser = new SendableChooser();
         	afterShotChooser.addDefault("Sit Still", new Integer(SIT_STILL));
-        	afterShotChooser.addObject("5 disc auto from the front (closer to the wall)", new Integer(FIVE_DISC_AUTO_FRONT_PYRAMID));
+        	afterShotChooser.addObject("4 disc auto from the front (closer to the wall)", new Integer(FOUR_DISC_AUTO_FRONT_PYRAMID));
         	afterShotChooser.addObject("5 disc auto from the back (farther from the wall)", new Integer(FIVE_DISC_AUTO_BACK_PYRAMID));
         	afterShotChooser.addObject("Defend center discs", new Integer(DEFEND_CENTER));
         	afterShotChooser.addObject("Move to protected loader", new Integer(TO_PROTECTED_LOADER));

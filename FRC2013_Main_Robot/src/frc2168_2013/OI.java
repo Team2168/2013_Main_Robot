@@ -3,6 +3,7 @@ package frc2168_2013;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc2168_2013.commands.Presets.Preset_10pt_Hang;
 import frc2168_2013.commands.Presets.Preset_AutoLoadIn;
 import frc2168_2013.commands.Presets.Preset_DriveUnderPyramid;
 import frc2168_2013.commands.Presets.Preset_FrontOfPyramid_3pt;
@@ -252,7 +253,7 @@ public class OI {
 		
 		//OPERATOR BUTTON MAP//
 		operatorButtonLeftBumper.whenPressed(new ShooterAngleStow());
-		operatorButtonRightBumper.whenPressed(new ShooterAngleExtend());
+		operatorButtonRightBumper.whenPressed(new Preset_10pt_Hang());
 		operatorButtonY.whenPressed(new IntakeStowPosition());		
 		operatorButtonX.whenPressed(new Preset_PreLoadPosition());
 		operatorButtonB.whenPressed(new Preset_DriveUnderPyramid());

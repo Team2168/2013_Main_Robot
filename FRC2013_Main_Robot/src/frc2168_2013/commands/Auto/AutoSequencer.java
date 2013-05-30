@@ -20,8 +20,8 @@ public class AutoSequencer extends CommandGroup {
 			 * The five disc auto command ignores the starting position selected on the dashboard.
 			 * It only works from the center position.
 			 */
-			case CommandBaseRobot.FIVE_DISC_AUTO_FRONT_PYRAMID:
-				addSequential(new FiveDisc_3pt_FrontPyramid());
+			case CommandBaseRobot.FOUR_DISC_AUTO_FRONT_PYRAMID:
+				addSequential(new FourDisc_3pt_FrontPyramid());
 				break;
 				
 			case CommandBaseRobot.FIVE_DISC_AUTO_BACK_PYRAMID:

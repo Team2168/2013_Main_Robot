@@ -15,9 +15,11 @@ import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleStow;
 import frc2168_2013.commands.subSystems.ShooterWheel.DriveShooterWithConstant;
 
 /**
- * Auto command. Drives back to lower intake then drives forward; shoots three discs; 
- * drives forward to pick up disks. Drives back and shoots.
- * 
+ * Autonomous loading into the hopper.
+ * put the intake down, 
+ * runs rollers till there are two disks, 
+ * raises the intake and dumps them into the hopper, 
+ * lowers the intake after.
  * @author Shriji
  *
  */

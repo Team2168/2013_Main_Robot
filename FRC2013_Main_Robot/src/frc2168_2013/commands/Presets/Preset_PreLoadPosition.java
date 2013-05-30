@@ -5,7 +5,8 @@ import frc2168_2013.commands.subSystems.Intake.IntakeHopperPosition;
 import frc2168_2013.commands.subSystems.Intake.IntakeStowPosition;
 import frc2168_2013.commands.subSystems.ShooterAngle.ShooterAngleExtend;
 /**
- * Shots from against the pyramid, further from the goal
+ * Sets the intake to load hopper position
+ * its easier to drive robot around when in this position than in stow.
  */
 public class Preset_PreLoadPosition extends CommandGroup {
 	

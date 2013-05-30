@@ -22,9 +22,9 @@ import frc2168_2013.commands.subSystems.ShooterWheel.DriveShooterWithConstant;
  * @author Shriji
  *
  */
-public class FiveDisc_3pt_FrontPyramid extends CommandGroup {
+public class FourDisc_3pt_FrontPyramid extends CommandGroup {
 
-	public FiveDisc_3pt_FrontPyramid() {
+	public FourDisc_3pt_FrontPyramid() {
 		
 		addParallel(new ShooterAngleStow());
 				
