@@ -3,8 +3,11 @@ package frc2168_2013;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc2168_2013.commands.Auto.FiveDisc_3pt;
+import frc2168_2013.commands.Presets.Preset_10pt_Hang;
+import frc2168_2013.commands.Presets.Preset_AutoLoadIn;
+import frc2168_2013.commands.Presets.Preset_DriveUnderPyramid;
 import frc2168_2013.commands.Presets.Preset_FrontOfPyramid_3pt;
+import frc2168_2013.commands.Presets.Preset_PreLoadPosition;
 import frc2168_2013.commands.Presets.Preset_RearOfPyramid_3pt;
 import frc2168_2013.commands.subSystems.DriveTrain.DriveDrivetrainStraight;
 import frc2168_2013.commands.subSystems.Hanger.HangerDisengage;
@@ -16,6 +19,8 @@ import frc2168_2013.commands.subSystems.Hopper.TeamDiscLightOff;
 import frc2168_2013.commands.subSystems.Hopper.TeamDiscLightOn;
 import frc2168_2013.commands.subSystems.Intake.DriveIntakeConstant;
 import frc2168_2013.commands.subSystems.Intake.DriveIntakeTillFull;
+import frc2168_2013.commands.subSystems.Intake.DriveLeftTillEmpty;
+import frc2168_2013.commands.subSystems.Intake.DriveRightTillEmpty;
 import frc2168_2013.commands.subSystems.Intake.IntakeHopperPosition;
 import frc2168_2013.commands.subSystems.Intake.IntakeLoadPosition;
 import frc2168_2013.commands.subSystems.Intake.IntakeStowPosition;
@@ -248,11 +253,12 @@ public class OI {
 		
 		//OPERATOR BUTTON MAP//
 		operatorButtonLeftBumper.whenPressed(new ShooterAngleStow());
-		operatorButtonRightBumper.whenPressed(new ShooterAngleExtend());		
-		operatorButtonX.whenPressed(new HopperReload());
-		operatorButtonB.whenPressed(new HopperFire());
+		operatorButtonRightBumper.whenPressed(new Preset_10pt_Hang());
+		operatorButtonY.whenPressed(new IntakeStowPosition());		
+		operatorButtonX.whenPressed(new Preset_PreLoadPosition());
+		operatorButtonB.whenPressed(new Preset_DriveUnderPyramid());
 		operatorButtonA.whenPressed(new ShootSingleDisc()); //shoot one frisbee at a time
-		operatorButtonLeftStick.whenPressed(new PID_ShooterPause());
+		operatorButtonLeftStick.whenPressed(new Preset_AutoLoadIn());
 		// set the shooter speed and angle for "back" of the pyramid shots (closer to the wall)
 		operatorDPadR.whenPressed(new Preset_RearOfPyramid_3pt());
 		// set the shooter speed and angle for "front" of the pyramid shots (farther from the wall)
@@ -265,10 +271,10 @@ public class OI {
 		testButtonX.whenPressed(new IntakeStowPosition());
 		testButtonB.whenPressed(new IntakeHopperPosition());
 		testButtonA.whenPressed(new IntakeLoadPosition());
-		testButtonY.whenPressed(new DriveIntakeConstant(1.0, 0.4));
-//		testButtonLeftStick.whenPressed(new PID_ShooterPause());
-		testDPadR.whenPressed(new FiveDisc_3pt());
-		testDPadL.whenPressed(new DriveDrivetrainStraight(-48.0));
+		testButtonY.whenPressed(new DriveIntakeConstant(0.0, 1.0));
+//		testButtonLeftStick.whenPressed(new DriveLeftTillEmpty());
+//		testDPadR.whenPressed(new FiveDisc_3pt());
+//		testDPadL.whenPressed();
 	}
 	
 	

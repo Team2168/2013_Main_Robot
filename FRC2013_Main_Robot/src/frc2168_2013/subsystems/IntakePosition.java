@@ -1,5 +1,7 @@
 package frc2168_2013.subsystems;
 
+import edu.wpi.first.wpilibj.ADXL345_I2C;
+import edu.wpi.first.wpilibj.Accelerometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Talon;
@@ -10,13 +12,20 @@ public class IntakePosition extends Subsystem {
 
 	DoubleSolenoid actuatorHopper, actuatorFloorload;
 	Talon intakeMotorR, intakeMotorL;
-	DigitalInput intakeLimitSensorR, intakeLimitSensorL;
-
+//	ADXL345_I2C accelerometer;
+//	
+//	double xAccel = accelerometer.getAcceleration(ADXL345_I2C.Axes.kX);
+//	double yAccel = accelerometer.getAcceleration(ADXL345_I2C.Axes.kY);
+//	double zAccel = accelerometer.getAcceleration(ADXL345_I2C.Axes.kZ);
+	
+	
 	public IntakePosition() {
 		actuatorHopper = new DoubleSolenoid(2, RobotMap.intakeHopperExtend,
 				RobotMap.intakeHopperRetract);
 		actuatorFloorload = new DoubleSolenoid(2, RobotMap.intakeFloorloadExtend,
 				RobotMap.intakeFloorloadRetract);
+		
+//		accelerometer = new ADXL345_I2C(RobotMap.accelerometer, ADXL345_I2C.DataFormat_Range.k2G);
 	}
 
 	public void initDefaultCommand() {
@@ -48,4 +57,27 @@ public class IntakePosition extends Subsystem {
 		actuatorFloorload.set(DoubleSolenoid.Value.kForward);
 	}
 	
+//	public void printAccReadings(){
+//		System.out.println("X = " + xAccel + "     Y = " + yAccel + "     Z = " + zAccel);
+//		//System.out.println("X = " + Math.asin(xAccel) + "     Y = " + Math.asin(yAccel) + "     Z = " + Math.asin(zAccel));
+//		
+//	}
+	
+//	public boolean intakeUp(){
+//		
+//		if(){
+//			return true;
+//		} else {
+//			return false;
+//		}		
+//	}
+	
+//public boolean intakeDown(){
+//		
+//		if(){
+//			return true;
+//		} else {
+//			return false;
+//		}		
+//	}
 }
