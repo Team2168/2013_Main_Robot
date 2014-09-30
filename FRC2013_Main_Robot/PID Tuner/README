@@ -1,9 +1,10 @@
 To run the UI:
 
-- Install Node.js (from nodejs.org)
-- Install socket.io (open cmd and type 'npm install socket.io@0.9.11' without quotes)
-- Install express (open cmd and type 'npm install express@2.5.1' without quotes)
-- Install carrier (open cmd and type 'npm install carrier@0.1.8' without quotes)
+- Install Node.js version 0.8.2 (from nodejs.org)
+- Set the NPM certs `with npm config set ca=""`
+- Install socket.io (open cmd and type `npm install socket.io@0.9.11` without quotes)
+- Install express (open cmd and type `npm install express@2.5.1` without quotes)
+- Install carrier (open cmd and type `npm install carrier@0.1.8` without quotes)
 - Run the server:
   - navigate to the PID Tuner folder in the CMD terminal
   - type 'node TCPClient 1180 8090' without quotes. Where the first paramter is the port the robot is listening on using TCPsocketSender class, and the second argument is the webserver port.
